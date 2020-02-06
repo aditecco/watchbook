@@ -1,0 +1,56 @@
+/* ---------------------------------
+Navbar
+--------------------------------- */
+
+.Navbar {
+  position: fixed;
+  bottom: 0;
+  background-color: $accent;
+  width: 100%;
+  z-index: 1;
+
+  .linkList {
+    @include box(0 0.5rem, 0, true);
+    @include flex(row nowrap, space-evenly, stretch);
+    box-shadow: 0 -2px 40px rgba(black, 0.45);
+
+    .linkContainer {
+      flex-basis: 33.3%;
+
+      >* {
+        @extend %resetAnchors;
+        height: 100%;
+        display: block;
+        padding: 10px 1rem (10px + 6px);
+        text-align: center;
+        color: $flat-clouds;
+        text-shadow: 0 1px 1px rgba(black, 0.2);
+        border-top: 6px solid transparent;
+        border-top: 6px solid transparent;
+
+        @media(max-width: 375px) {
+          i.material-icons {
+            display: block;
+          }
+
+          .navLabel {
+            font-size: .9rem;
+          }
+
+        }
+
+        i.material-icons {
+          vertical-align: text-bottom;
+        }
+
+        &.selected {
+          border-top: 6px solid $accentDark;
+        }
+
+        &:hover {
+          background-color: $accentDark;
+        }
+      }
+    }
+  }
+}

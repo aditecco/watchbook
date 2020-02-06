@@ -1,0 +1,39 @@
+
+/* ========================
+.BaseButton
+======================== */
+
+.BaseButton {
+  display: inline-block;
+  min-width: 100px;
+  padding: $padding / 2;
+  border-radius: $radius;
+  text-decoration: none;
+  // TODO
+  // replace other instances
+  // of flat-blue-1 w/ accent var
+  background-color: $accent;
+  font-size: $small;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+  transition: all 500ms ease;
+
+  &:hover {
+    background-color: mix($accent, black, 70%);
+    // box-shadow: 0 2px 20px rgba(black, .25);
+  }
+
+  &.button--naked {
+    background-color: $transparent;
+    color: $accent;
+    // …hover
+  }
+
+  &.button--outline {
+    @extend .button--naked;
+    border: 2px solid $accent;
+    // …hover
+  }
+}

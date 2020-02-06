@@ -1,0 +1,55 @@
+/* ---------------------------------
+.FilterAndSort
+--------------------------------- */
+
+
+.FilterAndSort {
+  .FilterAndSortForm {
+    @include flex(row wrap, flex-start, center);
+    padding: 1.6rem;
+
+    .formGroup {
+      flex-grow: 1;
+      padding: 10px 12px;
+      border: 2px solid rgba(#ddd, .6);
+      border-radius: 4px;
+
+      +.formGroup {
+        margin-left: 1rem;
+      }
+
+      @media(max-width: 375px) {
+        +.formGroup {
+          margin: 1rem 0 0 0;
+        }
+      }
+
+
+    }
+
+    label {
+      @include smallHeading;
+      display: block;
+      margin-bottom: 18px;
+    }
+  }
+
+  .watchedFilter {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 4px 16px;
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, .09);
+    font-size: .9rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .watchedSort {
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: inset 0px 2px 1px rgba(0, 0, 0, .1);
+  }
+}

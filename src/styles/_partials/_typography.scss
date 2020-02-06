@@ -1,0 +1,45 @@
+/* ========================
+typography.scss
+======================== */
+
+// font definitions (tmp)
+// TODO
+// - convert remote > local
+// - reduce to 2 (max 3) font families
+// - create shorthand font declaration
+
+
+@import url('https://fonts.googleapis.com/css?family=Archivo:400,700|Fira+Sans:400|Work+Sans:500|Montserrat:400');
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+// typography vars
+
+// families
+$archivo: 'Archivo',
+sans-serif;
+$firaSans: 'Fira Sans',
+sans-serif; // no title
+$workSans: 'Work Sans',
+sans-serif;
+$material: 'Material Icons';
+
+// styles
+$fontPrimary: null;
+$fontSecondary: null;
+$bodyFont: $firaSans;
+$titleFont: $archivo;
+$body: 16px;
+$small: $body * 0.9;
+$xSmall: $small - 2;
+$title: $body * 1.2;
+
+
+// templates
+@mixin smallHeading {
+  font-family: $titleFont;
+  font-weight: 700;
+  font-size: $xSmall;
+  color: $flat-gray-4;
+  text-transform: uppercase;
+  margin: 0 0 $margin / 3;
+}
