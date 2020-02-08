@@ -10,7 +10,7 @@
   margin-bottom: $margin;
   background-color: white;
 
-  > * {
+  >* {
     padding: ($padding / 2) $padding;
     // border-bottom: 1px solid $flat-gray-1;
   }
@@ -26,6 +26,20 @@
     height: 260px;
     position: relative;
     max-height: 420px;
+
+    .CardPosterCurtain {
+      height: 300px;
+      width: 300px;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      background:
+        linear-gradient(to bottom,
+          transparent 50%,
+          black);
+
+    }
 
     .CardPoster {
       display: block;

@@ -20,6 +20,8 @@ export default function Card({
     <a href={null} className="CardAnchor">
       <article className="Card">
         <section className="CardMedia" style={{ padding: 0 }}>
+          <div className="CardPosterCurtain" />
+
           <img src={image} alt={title} className="CardPoster" />
         </section>
 
