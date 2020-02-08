@@ -10,6 +10,7 @@ import WatchedList from "../../components/WatchedList/WatchedList";
 import Layout from "../../components/Layout/Layout";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
 import Modal from "../../components/Modal/Modal";
+import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
 import { Global } from "../../App";
@@ -144,7 +145,7 @@ function Home() {
    * the search result list
    */
 
-  const handleAutoCompleteClick = id => {
+  const handleAutoSuggestClick = id => {
     const which = state.searchResults.Search.find(item => item.imdbID === id);
 
     setState({
@@ -214,7 +215,7 @@ function Home() {
               </header>
 
               <form className="itemSearch">
-                <div className="inputContainer">
+                <>
                   <input
                     className="mainSearchField"
                     type="text"
@@ -223,38 +224,13 @@ function Home() {
                   />
 
                   {state.showSearchResults && (
-                    <div className="autoComplete">
-                      {/* <span>{`${state.searchResults.totalResults} results found.`}</span> */}
-                      <ul className="autoCompleteContent">
-                        {state.searchResults.Search.slice(0, 5).map(
-                          (searchItem, i) => (
-                            <li className="autoCompleteItem" key={i}>
-                              <a
-                                className="autoCompleteItemLinkTarget"
-                                href={"#"}
-                                onClick={e =>
-                                  handleAutoCompleteClick(searchItem.imdbID)
-                                }
-                              >
-                                <h4 className="autoCompleteItemTitle">
-                                  {searchItem.Title}
-                                </h4>
-                                <p className="autoCompleteItemDesc">
-                                  {searchItem.Type}
-                                  {", "}
-                                  {searchItem.Year}
-                                </p>
-                              </a>
-                            </li>
-                          )
-                        )}
-                        <button type="button" onClick={e => null}>
-                          Show more…
-                        </button>
-                      </ul>
-                    </div>
+                    <AutoSuggest
+                      content={state.searchResults.Search}
+                      onItemClick={handleAutoSuggestClick}
+                      limit={5}
+                    />
                   )}
-                </div>
+                </>
               </form>
             </section>
 
