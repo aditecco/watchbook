@@ -14,6 +14,10 @@ export const storage = (() => {
 
   return {
     pull(item) {
+      // TODO
+      // if no item is passed, return
+      // all the content as an array
+
       try {
         const data = bound(window.localStorage.getItem)(item);
         return data && JSON.parse(data);
@@ -28,6 +32,9 @@ export const storage = (() => {
       } catch (err) {
         console.error(err);
       }
+    },
+    destroy() {
+      bound(window.localStorage.clear)()
     }
   };
 })();

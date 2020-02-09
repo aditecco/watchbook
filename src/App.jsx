@@ -9,7 +9,7 @@ import * as firebase from "firebase/app";
 import "firebase/database";
 import firebaseConfig from "./config/firebaseConfig";
 
-import store from "./store";
+import initialState from "./initialState";
 import reducer from "./reducer";
 import Watched from "./pages/Watched/Watched";
 import ToWatch from "./pages/ToWatch/ToWatch";
@@ -22,22 +22,15 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+export const db = firebase.database();
 
-(async () => {
-  const watched = await db.ref("/watched/").once("value");
-  const first = await watched.val()["0"];
-
-  console.log(first);
-})();
-
-export const Global = React.createContext(null);
+export const Store = React.createContext(null);
 window.storage = storage;
 
 function App() {
   return (
     <div className="App">
-      <Global.Provider value={useReducer(reducer, store)}>
+      <Store.Provider value={useReducer(reducer, initialState)}>
         <Router>
           <Switch>
             <Route exact path="/">
@@ -69,7 +62,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </Global.Provider>
+      </Store.Provider>
     </div>
   );
 }

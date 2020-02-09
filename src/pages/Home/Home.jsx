@@ -13,8 +13,8 @@ import Modal from "../../components/Modal/Modal";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
-import { Global } from "../../App";
-import store from "../../store";
+import { Store, db } from "../../App";
+import initialState from "../../initialState";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -33,21 +33,70 @@ function Home() {
     }
   );
 
-  const [{ watched }, dispatch] = useContext(Global);
+  const [{ watched }, dispatch] = useContext(Store);
+
+  /**
+   * Checks if any initial data exists in the remote DB
+   * and, if so, feeds it to the app's state
+   */
 
   useEffect(() => {
-    /**
-     * Checks if any initial data exists and,
-     * if so, feeds it to the main app's state
-     */
-    const initialData = storage.pull(LOCAL_STORAGE_KEY);
+    (async function fetchDBdata() {
+      const initialData = await db.ref().once("value");
+      const value = await initialData.val();
 
-    if (!initialData) {
-      storage.push(LOCAL_STORAGE_KEY, store);
-    }
+      if (!value) {
+        // write initialData to DB
+        const test = {
+          watched: [
+            {
+              id: "0a777869-b9ec-48ab-ac28-ea05f4042255",
+              timestamp: "2020-02-08T17:39:56.520Z",
+              image:
+                "https://m.media-amazon.com/images/M/MV5BYjIzNTYxMTctZjAwNS00YzI3LWExMGMtMGQxNGM5ZTc1NzhlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+              title: "Fitzcarraldo",
+              type: "movie",
+              year: "1982"
+            }
+          ],
+          toWatch: []
+        };
 
-    dispatch({ type: "SET_INITIAL_DATA", payload: initialData });
+        db.ref().set(test, err => {
+          if (err) {
+            console.error(err);
+          } else {
+            log(
+              "Successfully initialized DB. Now syncing data to app state..."
+            );
+
+            fetchDBdata();
+          }
+        });
+      } else {
+        dispatch({ type: "SET_INITIAL_DATA", payload: value });
+      }
+    })();
   }, []);
+
+  /**
+   * Checks if any initial data exists and,
+   * if so, feeds it to the main app's state
+   */
+
+  // useEffect(() => {
+  //   const initialData = storage.pull(LOCAL_STORAGE_KEY);
+
+  //   if (!initialData) {
+  //     storage.push(LOCAL_STORAGE_KEY, initialState);
+  //   }
+
+  //   dispatch({ type: "SET_INITIAL_DATA", payload: initialData });
+  // }, []);
+
+  /**
+   * desc
+   */
 
   function syncStorage({ watched, toWatch }) {
     const localData = storage.pull(LOCAL_STORAGE_KEY);
@@ -165,7 +214,7 @@ function Home() {
   }
 
   return (
-    <Global.Consumer>
+    <Store.Consumer>
       {([store, dispatch]) => (
         <Layout rootClass="Home" selected={1}>
           <div className="wrapper">
@@ -243,7 +292,7 @@ function Home() {
           </div>
         </Layout>
       )}
-    </Global.Consumer>
+    </Store.Consumer>
   );
 }
 
