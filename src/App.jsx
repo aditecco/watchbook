@@ -2,9 +2,13 @@
 App
 --------------------------------- */
 
-import React, { useEffect, useState, useReducer } from "react";
-import { LOCAL_STORAGE_KEY } from "./constants";
-import { log, storage } from "./utils";
+import React, { useReducer } from "react";
+import { storage } from "./utils";
+
+import * as firebase from "firebase/app";
+import "firebase/database";
+import firebaseConfig from "./config/firebaseConfig";
+
 import store from "./store";
 import reducer from "./reducer";
 import Watched from "./pages/Watched/Watched";
@@ -14,9 +18,18 @@ import Profile from "./pages/Profile/Profile";
 import Start from "./pages/Start/Start";
 import Home from "./pages/Home/Home";
 import TestPage from "./pages/TestPage";
-import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+(async () => {
+  const watched = await db.ref("/watched/").once("value");
+  const first = await watched.val()["0"];
+
+  console.log(first);
+})();
 
 export const Global = React.createContext(null);
 window.storage = storage;
