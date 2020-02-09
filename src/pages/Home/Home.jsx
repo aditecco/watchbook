@@ -159,7 +159,14 @@ function Home() {
     };
 
     dispatch({ type: "CREATE_WATCHED", payload });
-    syncStorage({ watched: payload });
+
+    // syncStorage({ watched: payload });
+    db.ref().update({ watched: [payload, ...watched] }, err => {
+      if (err) console.error(err);
+      // TODO
+      // make this a notification in the UI
+      else log(`Successfully saved: ${payload.title}`);
+    });
 
     setState({
       showModal: false,
