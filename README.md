@@ -1,5 +1,5 @@
 # WatchBook
 
-![](./assets/scrn0.png)
-![](./assets/scrn1.png)
-![](./assets/scrn2.png)
+![](./assets/scrn-0.png)
+![](./assets/scrn-1.png)
+![](./assets/scrn-2.png)
