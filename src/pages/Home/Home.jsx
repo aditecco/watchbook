@@ -15,6 +15,7 @@ import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
 import { Store, db } from "../../App";
 import initialState from "../../initialState";
+import TEST_DATA from "../../testData";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -23,7 +24,7 @@ function Home() {
       ...newState
     }),
     {
-      isLoading: false,
+      loading: false,
       searchResults: {},
       searchQuery: "",
       showModal: false,
@@ -42,39 +43,36 @@ function Home() {
 
   useEffect(() => {
     (async function fetchDBdata() {
-      const initialData = await db.ref().once("value");
-      const value = await initialData.val();
+      setState({ loading: true });
 
-      if (!value) {
-        // write initialData to DB
-        const test = {
-          watched: [
-            {
-              id: "0a777869-b9ec-48ab-ac28-ea05f4042255",
-              timestamp: "2020-02-08T17:39:56.520Z",
-              image:
-                "https://m.media-amazon.com/images/M/MV5BYjIzNTYxMTctZjAwNS00YzI3LWExMGMtMGQxNGM5ZTc1NzhlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-              title: "Fitzcarraldo",
-              type: "movie",
-              year: "1982"
+      try {
+        const initialData = await db.ref().once("value");
+        const value = await initialData.val();
+
+        // prettier-ignore
+        if (!value)
+        {
+          // write initialData to DB
+          db.ref().set(TEST_DATA, err => {
+            if (err) {
+              throw err;
+            } else {
+              log(
+                "Successfully initialized DB. Now syncing data to app state..."
+              );
+
+              fetchDBdata();
             }
-          ],
-          toWatch: []
-        };
-
-        db.ref().set(test, err => {
-          if (err) {
-            console.error(err);
-          } else {
-            log(
-              "Successfully initialized DB. Now syncing data to app state..."
-            );
-
-            fetchDBdata();
-          }
-        });
-      } else {
-        dispatch({ type: "SET_INITIAL_DATA", payload: value });
+          });
+        }
+        
+        else
+        {
+          dispatch({ type: "SET_INITIAL_DATA", payload: value });
+          setState({ loading: false });
+        }
+      } catch (err) {
+        console.error("@fetchDBData", err);
       }
     })();
   }, []);
@@ -119,9 +117,7 @@ function Home() {
     const endpoint = (key, query) =>
       `https://www.omdbapi.com/?apiKey=${key}&s=${query}`;
 
-    setState({
-      isLoading: true
-    });
+    setState({ loading: true });
 
     try {
       const request = await fetch(
@@ -132,12 +128,13 @@ function Home() {
       const response = await request.json();
 
       if ("Error" in response) {
-        return;
+        throw new Error(response.Error);
       }
 
       setState({
         searchResults: response,
-        showSearchResults: true
+        showSearchResults: true,
+        loading: false
       });
     } catch (err) {
       console.error("@fetchData: ", err);
@@ -188,7 +185,7 @@ function Home() {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
-      setTimeout(() => fetchData(searchQuery), 0);
+      setTimeout(() => fetchData(searchQuery), 500);
     }
 
     setState({
@@ -291,10 +288,12 @@ function Home() {
             </section>
 
             {/* watched */}
+
             <WatchedList
               watched={store.watched}
               title="Latest watched"
               limit={6}
+              loading={state.loading}
             />
           </div>
         </Layout>
