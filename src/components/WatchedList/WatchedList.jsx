@@ -10,7 +10,8 @@ export default function WatchedList({
   watched = [],
   limit = undefined,
   title,
-  compact
+  compact,
+  loading
 }) {
   return (
     <section className="watched">
@@ -55,6 +56,8 @@ export default function WatchedList({
               })}
           </ul>
         </>
+      ) : loading ? (
+        <span className="loadingMessage">loading...</span>
       ) : (
         <div className="blankSlate">
           <span>No watched items.</span>

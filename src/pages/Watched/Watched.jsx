@@ -8,14 +8,14 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import WatchedList from "../../components/WatchedList/WatchedList";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
 import ViewOptions from "../../components/ViewOptions/ViewOptions";
-import { Global } from "../../App";
+import { Store } from "../../App";
 import { log } from "../../utils";
 
 export default function Watched() {
   const [compactView, setCompactView] = useState(null);
 
   return (
-    <Global.Consumer>
+    <Store.Consumer>
       {([store, dispatch]) => {
         const titleWithCount = `Watched (${store.watched.length})`;
         const getType = type =>
@@ -72,6 +72,6 @@ export default function Watched() {
           </Layout>
         );
       }}
-    </Global.Consumer>
+    </Store.Consumer>
   );
 }

@@ -13,8 +13,9 @@ import Modal from "../../components/Modal/Modal";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
-import { Global } from "../../App";
-import store from "../../store";
+import { Store, db } from "../../App";
+import initialState from "../../initialState";
+import TEST_DATA from "../../testData";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -23,7 +24,7 @@ function Home() {
       ...newState
     }),
     {
-      isLoading: false,
+      loading: false,
       searchResults: {},
       searchQuery: "",
       showModal: false,
@@ -33,21 +34,67 @@ function Home() {
     }
   );
 
-  const [{ watched }, dispatch] = useContext(Global);
+  const [{ watched }, dispatch] = useContext(Store);
+
+  /**
+   * Checks if any initial data exists in the remote DB
+   * and, if so, feeds it to the app's state
+   */
 
   useEffect(() => {
-    /**
-     * Checks if any initial data exists and,
-     * if so, feeds it to the main app's state
-     */
-    const initialData = storage.pull(LOCAL_STORAGE_KEY);
+    (async function fetchDBdata() {
+      setState({ loading: true });
 
-    if (!initialData) {
-      storage.push(LOCAL_STORAGE_KEY, store);
-    }
+      try {
+        const initialData = await db.ref().once("value");
+        const value = await initialData.val();
 
-    dispatch({ type: "SET_INITIAL_DATA", payload: initialData });
+        // prettier-ignore
+        if (!value)
+        {
+          // write initialData to DB
+          db.ref().set(TEST_DATA, err => {
+            if (err) {
+              throw err;
+            } else {
+              log(
+                "Successfully initialized DB. Now syncing data to app state..."
+              );
+
+              fetchDBdata();
+            }
+          });
+        }
+        
+        else
+        {
+          dispatch({ type: "SET_INITIAL_DATA", payload: value });
+          setState({ loading: false });
+        }
+      } catch (err) {
+        console.error("@fetchDBData", err);
+      }
+    })();
   }, []);
+
+  /**
+   * Checks if any initial data exists and,
+   * if so, feeds it to the main app's state
+   */
+
+  // useEffect(() => {
+  //   const initialData = storage.pull(LOCAL_STORAGE_KEY);
+
+  //   if (!initialData) {
+  //     storage.push(LOCAL_STORAGE_KEY, initialState);
+  //   }
+
+  //   dispatch({ type: "SET_INITIAL_DATA", payload: initialData });
+  // }, []);
+
+  /**
+   * desc
+   */
 
   function syncStorage({ watched, toWatch }) {
     const localData = storage.pull(LOCAL_STORAGE_KEY);
@@ -70,9 +117,7 @@ function Home() {
     const endpoint = (key, query) =>
       `https://www.omdbapi.com/?apiKey=${key}&s=${query}`;
 
-    setState({
-      isLoading: true
-    });
+    setState({ loading: true });
 
     try {
       const request = await fetch(
@@ -83,12 +128,13 @@ function Home() {
       const response = await request.json();
 
       if ("Error" in response) {
-        return;
+        throw new Error(response.Error);
       }
 
       setState({
         searchResults: response,
-        showSearchResults: true
+        showSearchResults: true,
+        loading: false
       });
     } catch (err) {
       console.error("@fetchData: ", err);
@@ -110,7 +156,14 @@ function Home() {
     };
 
     dispatch({ type: "CREATE_WATCHED", payload });
-    syncStorage({ watched: payload });
+
+    // syncStorage({ watched: payload });
+    db.ref().update({ watched: [payload, ...watched] }, err => {
+      if (err) console.error(err);
+      // TODO
+      // make this a notification in the UI
+      else log(`Successfully saved: ${payload.title}`);
+    });
 
     setState({
       showModal: false,
@@ -132,7 +185,7 @@ function Home() {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
-      setTimeout(() => fetchData(searchQuery), 0);
+      setTimeout(() => fetchData(searchQuery), 500);
     }
 
     setState({
@@ -165,7 +218,7 @@ function Home() {
   }
 
   return (
-    <Global.Consumer>
+    <Store.Consumer>
       {([store, dispatch]) => (
         <Layout rootClass="Home" selected={1}>
           <div className="wrapper">
@@ -235,15 +288,17 @@ function Home() {
             </section>
 
             {/* watched */}
+
             <WatchedList
               watched={store.watched}
               title="Latest watched"
               limit={6}
+              loading={state.loading}
             />
           </div>
         </Layout>
       )}
-    </Global.Consumer>
+    </Store.Consumer>
   );
 }
 

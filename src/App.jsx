@@ -2,10 +2,14 @@
 App
 --------------------------------- */
 
-import React, { useEffect, useState, useReducer } from "react";
-import { LOCAL_STORAGE_KEY } from "./constants";
-import { log, storage } from "./utils";
-import store from "./store";
+import React, { useReducer } from "react";
+import { storage } from "./utils";
+
+import * as firebase from "firebase/app";
+import "firebase/database";
+import firebaseConfig from "./config/firebaseConfig";
+
+import initialState from "./initialState";
 import reducer from "./reducer";
 import Watched from "./pages/Watched/Watched";
 import ToWatch from "./pages/ToWatch/ToWatch";
@@ -14,17 +18,19 @@ import Profile from "./pages/Profile/Profile";
 import Start from "./pages/Start/Start";
 import Home from "./pages/Home/Home";
 import TestPage from "./pages/TestPage";
-import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
 
-export const Global = React.createContext(null);
+firebase.initializeApp(firebaseConfig);
+export const db = firebase.database();
+
+export const Store = React.createContext(null);
 window.storage = storage;
 
 function App() {
   return (
     <div className="App">
-      <Global.Provider value={useReducer(reducer, store)}>
+      <Store.Provider value={useReducer(reducer, initialState)}>
         <Router>
           <Switch>
             <Route exact path="/">
@@ -56,7 +62,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </Global.Provider>
+      </Store.Provider>
     </div>
   );
 }
