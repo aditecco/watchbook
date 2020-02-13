@@ -20,6 +20,7 @@ import Home from "./pages/Home/Home";
 import TestPage from "./pages/TestPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
+import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();

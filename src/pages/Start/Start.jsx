@@ -10,7 +10,7 @@ import Modal from "../../components/Modal/Modal";
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "../../config/firebaseConfig";
+import NotificationMessage from "../../components/NotificationMessage/NotificationMessage";
 
 export default function Start() {
   const [state, setState] = useReducer(
@@ -22,6 +22,8 @@ export default function Start() {
       keyIsPresent: false,
       showModal: false,
       hasError: { error: false, errorMeta: {} },
+      notifMessage: "",
+      notifIsVisible: false,
       email: "",
       password: ""
     }
@@ -34,7 +36,9 @@ export default function Start() {
     email,
     password,
     signingUp,
-    loggingIn
+    loggingIn,
+    notifMessage,
+    notifIsVisible
   } = state;
 
   // const [isAuthorized, setIsAuthorized] = useState(false);
@@ -67,6 +71,7 @@ export default function Start() {
 
         log("new signup!");
 
+        showNotif("New signup!", 2000);
         setState({ email: "", password: "" });
       })
       .catch(error => {
@@ -88,12 +93,21 @@ export default function Start() {
       .then(response => {
         log("new login");
 
+        showNotif("Welcome", 2000);
         setState({ isAuthorized: true, showModal: false, loggingIn: false });
       })
       .catch(error => {
         const { code, message } = error;
         setState({ hasError: { error: true, errorMeta: { code, message } } });
       });
+  }
+
+  function showNotif(notifMessage, timeOut) {
+    setState({ notifIsVisible: true, notifMessage });
+
+    setTimeout(() => {
+      setState({ notifIsVisible: false, notifMessage: "" });
+    }, timeOut);
   }
 
   /**
@@ -119,7 +133,9 @@ export default function Start() {
   }
 
   return (
-    <>
+    <main className="StartPage">
+      <NotificationMessage message={notifMessage} isVisible={notifIsVisible} />
+
       <Modal
         open={showModal}
         closeAction={() =>
@@ -204,6 +220,6 @@ export default function Start() {
 
         {isAuthorized && keyIsPresent && <Link to="/home">Home</Link>}
       </div>
-    </>
+    </main>
   );
 }
