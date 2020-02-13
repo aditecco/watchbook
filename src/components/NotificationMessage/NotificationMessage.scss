@@ -1,0 +1,24 @@
+/* ---------------------------------
+NotificationMessage
+--------------------------------- */
+
+.NotificationMessage {
+  position: fixed;
+  right: 20px;
+  top: -999px;
+  background-color: rgba(black, .8);
+  border-radius: 4px;
+  box-shadow: 0 2px 20px 10px rgba(black, .24);
+  transition: top .3s ease-in-out;
+  color: whitesmoke;
+
+  &.isVisible {
+    top: 20px;
+  }
+
+  &Visual {}
+
+  &Content {
+    padding: 16px 20px;
+  }
+}
