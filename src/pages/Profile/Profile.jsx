@@ -14,12 +14,8 @@ export default function Profile() {
     firebase
       .auth()
       .signOut()
-      .then(function() {
-        // Sign-out successful.
-      })
-      .catch(function(error) {
-        // An error happened.
-      });
+      .then(() => log("signed out!"))
+      .catch(err => console.error("@Profile", err));
   }
 
   return (
