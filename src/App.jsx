@@ -4,11 +4,9 @@ App
 
 import React, { useReducer } from "react";
 import { storage } from "./utils";
-
 import * as firebase from "firebase/app";
 import "firebase/database";
 import firebaseConfig from "./config/firebaseConfig";
-
 import initialState from "./initialState";
 import reducer from "./reducer";
 import Watched from "./pages/Watched/Watched";
@@ -21,49 +19,91 @@ import TestPage from "./pages/TestPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
+// firebase
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
+// store context
 export const Store = React.createContext(null);
+export const Auth = React.createContext(null);
+
+// global utils
 window.storage = storage;
+
+export const initialAuthState = {
+  user: null,
+  authenticated: false
+};
 
 function App() {
   return (
     <div className="App">
-      <Store.Provider value={useReducer(reducer, initialState)}>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Start />
-            </Route>
+      <Auth.Provider
+        value={useReducer(
+          (state, newState) => ({ ...state, ...newState }),
+          initialAuthState
+        )}
+      >
+        <Store.Provider value={useReducer(reducer, initialState)}>
+          <Auth.Consumer>
+            {([authState, getOrSetAuthState]) => (
+              <Router>
+                <Switch>
+                  <Route exact path="/">
+                    <Start />
+                  </Route>
 
-            <Route exact path="/home">
-              <Home />
-            </Route>
+                  <PrivateRoute
+                    exact
+                    path="/home"
+                    isAuthenticated={authState.authenticated}
+                  >
+                    <Home />
+                  </PrivateRoute>
 
-            <Route exact path="/watched">
-              <Watched />
-            </Route>
+                  <PrivateRoute
+                    exact
+                    path="/watched"
+                    isAuthenticated={authState.authenticated}
+                  >
+                    <Watched />
+                  </PrivateRoute>
 
-            <Route exact path="/to-watch">
-              <ToWatch />
-            </Route>
+                  <PrivateRoute
+                    exact
+                    path="/to-watch"
+                    isAuthenticated={authState.authenticated}
+                  >
+                    <ToWatch />
+                  </PrivateRoute>
 
-            <Route exact path="/settings">
-              <Settings />
-            </Route>
+                  <PrivateRoute
+                    exact
+                    path="/settings"
+                    isAuthenticated={authState.authenticated}
+                  >
+                    <Settings />
+                  </PrivateRoute>
 
-            <Route exact path="/profile">
-              <Profile />
-            </Route>
+                  <PrivateRoute
+                    exact
+                    path="/profile"
+                    isAuthenticated={authState.authenticated}
+                  >
+                    <Profile />
+                  </PrivateRoute>
 
-            <Route exact path="/test">
-              <TestPage />
-            </Route>
-          </Switch>
-        </Router>
-      </Store.Provider>
+                  {/* <Route exact path="/test">
+                      <TestPage />
+                    </Route> */}
+                </Switch>
+              </Router>
+            )}
+          </Auth.Consumer>
+        </Store.Provider>
+      </Auth.Provider>
     </div>
   );
 }

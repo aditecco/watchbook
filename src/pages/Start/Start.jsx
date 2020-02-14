@@ -2,7 +2,7 @@
 Start
 --------------------------------- */
 
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useContext } from "react";
 import { Link } from "react-router-dom";
 import { log, storage } from "../../utils";
 import { API_KEY } from "../../constants";
@@ -11,6 +11,7 @@ import Modal from "../../components/Modal/Modal";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import NotificationMessage from "../../components/NotificationMessage/NotificationMessage";
+import { Auth, initialAuthState } from "../../App";
 
 export default function Start() {
   const [state, setState] = useReducer(
@@ -28,6 +29,8 @@ export default function Start() {
       password: ""
     }
   );
+
+  const [authState, getOrSetAuthState] = useContext(Auth);
 
   const {
     isAuthorized,
@@ -47,6 +50,7 @@ export default function Start() {
 
   useEffect(() => {
     // checkApiKey()
+    log("@@@", getOrSetAuthState, initialAuthState);
   }, []);
 
   /**
@@ -73,6 +77,7 @@ export default function Start() {
 
         showNotif("New signup!", 2000);
         setState({ email: "", password: "" });
+        getOrSetAuthState(initialAuthState, { authenticated: true });
       })
       .catch(error => {
         const { code, message } = error;
@@ -90,11 +95,24 @@ export default function Start() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(response => {
+      .then(({ displayName: user, email }) => {
         log("new login");
 
         showNotif("Welcome", 2000);
+
         setState({ isAuthorized: true, showModal: false, loggingIn: false });
+
+        getOrSetAuthState(initialAuthState, {
+          authenticated: true,
+          user,
+          userInfo: { email }
+        });
+
+        log("@@@", {
+          authenticated: true,
+          user,
+          userInfo: { email }
+        });
       })
       .catch(error => {
         const { code, message } = error;
