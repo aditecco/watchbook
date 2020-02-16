@@ -8,6 +8,14 @@ export default function reducer(state, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case "AUTH": {
+      log("auth!");
+      return {
+        ...state,
+        ...action.payload
+      };
+    }
+
     case "CREATE_WATCHED": {
       return {
         ...state,

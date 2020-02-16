@@ -7,13 +7,15 @@ import { Link } from "react-router-dom";
 import { log, storage } from "../../utils";
 import { API_KEY } from "../../constants";
 import Modal from "../../components/Modal/Modal";
-
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import NotificationMessage from "../../components/NotificationMessage/NotificationMessage";
-import { Auth, initialAuthState } from "../../App";
+import { Store } from "../../App";
+import { AuthContext } from "../../App";
 
 export default function Start() {
+  const [{ authenticated }, setIsAuthenticated] = useContext(AuthContext);
+
   const [state, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -30,8 +32,6 @@ export default function Start() {
     }
   );
 
-  const [authState, getOrSetAuthState] = useContext(Auth);
-
   const {
     isAuthorized,
     keyIsPresent,
@@ -44,14 +44,11 @@ export default function Start() {
     notifIsVisible
   } = state;
 
-  // const [isAuthorized, setIsAuthorized] = useState(false);
-  // const [keyIsPresent, setKeyIsPresent] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
+  useEffect(() => console.log("@Start", authenticated), [authenticated]);
 
-  useEffect(() => {
-    // checkApiKey()
-    log("@@@", getOrSetAuthState, initialAuthState);
-  }, []);
+  function validate(input) {
+    return Object.values(input).every(val => val !== "");
+  }
 
   /**
    * xyz
@@ -60,12 +57,11 @@ export default function Start() {
   function handleSignup(credentials) {
     const { email, password } = credentials;
 
-    if (!email || !password) {
+    if (!validate(credentials)) {
+      setState({ email: "", password: "" });
       window.alert("nope!");
       return;
     }
-
-    // provide some form of validation
 
     firebase
       .auth()
@@ -77,7 +73,7 @@ export default function Start() {
 
         showNotif("New signup!", 2000);
         setState({ email: "", password: "" });
-        getOrSetAuthState(initialAuthState, { authenticated: true });
+        // getOrSetAuthState(authState, { authenticated: true });
       })
       .catch(error => {
         const { code, message } = error;
@@ -92,27 +88,27 @@ export default function Start() {
   function handleLogin(credentials) {
     const { email, password } = credentials;
 
+    if (!validate(credentials)) {
+      setState({ email: "", password: "" });
+      window.alert("nope!");
+      return;
+    }
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(({ displayName: user, email }) => {
+      .then(r => {
+        log(r);
+        return r;
+      })
+      .then(({ user }) => {
         log("new login");
 
         showNotif("Welcome", 2000);
 
         setState({ isAuthorized: true, showModal: false, loggingIn: false });
 
-        getOrSetAuthState(initialAuthState, {
-          authenticated: true,
-          user,
-          userInfo: { email }
-        });
-
-        log("@@@", {
-          authenticated: true,
-          user,
-          userInfo: { email }
-        });
+        setIsAuthenticated({ user: user.email, authenticated: true });
       })
       .catch(error => {
         const { code, message } = error;
@@ -184,7 +180,6 @@ export default function Start() {
                 type="button"
                 className="signupButton"
                 onClick={() => handleSignup({ email, password })}
-                style={{ color: "white" }} // remove
               >
                 Signup
               </button>
@@ -210,7 +205,6 @@ export default function Start() {
                 type="button"
                 className="loginButton"
                 onClick={() => handleLogin({ email, password })}
-                style={{ color: "white" }} // remove
               >
                 Login
               </button>
@@ -235,8 +229,6 @@ export default function Start() {
         >
           Login
         </button>
-
-        {isAuthorized && keyIsPresent && <Link to="/home">Home</Link>}
       </div>
     </main>
   );

@@ -5,7 +5,7 @@ CompactCardAnchor
 import React from "react";
 import { log } from "../../utils";
 
-export default function CompactCompactCard({
+export default function CompactCard({
   image,
   title,
   type,

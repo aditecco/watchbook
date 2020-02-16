@@ -2,15 +2,18 @@
 PrivateRoute
 --------------------------------- */
 
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect, useHistory, useLocation } from "react-router-dom";
+import { AuthContext } from "../../App";
 
-export default function PrivateRoute({ isAuthenticated, children, ...rest }) {
+export default function PrivateRoute({ children, ...rest }) {
+  const [{ authenticated }] = useContext(AuthContext);
+
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        isAuthenticated ? (
+        authenticated ? (
           children
         ) : (
           <Redirect

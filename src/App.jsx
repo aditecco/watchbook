@@ -13,97 +13,74 @@ import Watched from "./pages/Watched/Watched";
 import ToWatch from "./pages/ToWatch/ToWatch";
 import Settings from "./pages/Settings/Settings";
 import Profile from "./pages/Profile/Profile";
-import Start from "./pages/Start/Start";
 import Home from "./pages/Home/Home";
-import TestPage from "./pages/TestPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
-import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Auth from "./components/Auth/Auth";
+import { initialAuthState } from "./initialAuthState";
 
 // firebase
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
 // store context
-export const Store = React.createContext(null);
-export const Auth = React.createContext(null);
+export const Store = React.createContext();
+export const AuthContext = React.createContext();
 
 // global utils
 window.storage = storage;
 
-export const initialAuthState = {
-  user: null,
-  authenticated: false
-};
+function authReducer(state, newState) {
+  return { ...state, ...newState };
+}
 
 function App() {
   return (
     <div className="App">
-      <Auth.Provider
-        value={useReducer(
-          (state, newState) => ({ ...state, ...newState }),
-          initialAuthState
-        )}
-      >
+      <AuthContext.Provider value={useReducer(authReducer, initialAuthState)}>
         <Store.Provider value={useReducer(reducer, initialState)}>
-          <Auth.Consumer>
-            {([authState, getOrSetAuthState]) => (
-              <Router>
-                <Switch>
-                  <Route exact path="/">
-                    <Start />
-                  </Route>
+          <AuthContext.Consumer>
+            {([authState]) => {
+              console.log("@App", authState);
 
-                  <PrivateRoute
-                    exact
-                    path="/home"
-                    isAuthenticated={authState.authenticated}
-                  >
-                    <Home />
-                  </PrivateRoute>
+              return (
+                <Router>
+                  <Switch>
+                    <Route exact path="/">
+                      <Auth />
+                    </Route>
 
-                  <PrivateRoute
-                    exact
-                    path="/watched"
-                    isAuthenticated={authState.authenticated}
-                  >
-                    <Watched />
-                  </PrivateRoute>
+                    <PrivateRoute exact path="/home">
+                      <Home />
+                    </PrivateRoute>
 
-                  <PrivateRoute
-                    exact
-                    path="/to-watch"
-                    isAuthenticated={authState.authenticated}
-                  >
-                    <ToWatch />
-                  </PrivateRoute>
+                    <PrivateRoute exact path="/watched">
+                      <Watched />
+                    </PrivateRoute>
 
-                  <PrivateRoute
-                    exact
-                    path="/settings"
-                    isAuthenticated={authState.authenticated}
-                  >
-                    <Settings />
-                  </PrivateRoute>
+                    <PrivateRoute exact path="/to-watch">
+                      <ToWatch />
+                    </PrivateRoute>
 
-                  <PrivateRoute
-                    exact
-                    path="/profile"
-                    isAuthenticated={authState.authenticated}
-                  >
-                    <Profile />
-                  </PrivateRoute>
+                    <PrivateRoute exact path="/settings">
+                      <Settings />
+                    </PrivateRoute>
 
-                  {/* <Route exact path="/test">
+                    <PrivateRoute exact path="/profile">
+                      <Profile />
+                    </PrivateRoute>
+
+                    {/* <Route exact path="/test">
                       <TestPage />
                     </Route> */}
-                </Switch>
-              </Router>
-            )}
-          </Auth.Consumer>
+                  </Switch>
+                </Router>
+              );
+            }}
+          </AuthContext.Consumer>
         </Store.Provider>
-      </Auth.Provider>
+      </AuthContext.Provider>
     </div>
   );
 }
