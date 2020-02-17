@@ -2,19 +2,17 @@
 Start
 --------------------------------- */
 
-import React, { useEffect, useState, useReducer, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useReducer, useContext } from "react";
 import { log, storage } from "../../utils";
 import { API_KEY } from "../../constants";
 import Modal from "../../components/Modal/Modal";
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import NotificationMessage from "../../components/NotificationMessage/NotificationMessage";
-import { Store } from "../../App";
-import { AuthContext } from "../../App";
+import { AuthContext, StoreContext } from "../../App";
 
 export default function Start() {
   const [{ authenticated }, setIsAuthenticated] = useContext(AuthContext);
+  const [store, dispatch] = useContext(StoreContext);
 
   const [state, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -25,8 +23,8 @@ export default function Start() {
       keyIsPresent: false,
       showModal: false,
       hasError: { error: false, errorMeta: {} },
-      notifMessage: "",
-      notifIsVisible: false,
+      // notifMessage: "",
+      // notifIsVisible: false,
       email: "",
       password: ""
     }
@@ -39,9 +37,9 @@ export default function Start() {
     email,
     password,
     signingUp,
-    loggingIn,
-    notifMessage,
-    notifIsVisible
+    loggingIn
+    // notifMessage,
+    // notifIsVisible
   } = state;
 
   useEffect(() => console.log("@Start", authenticated), [authenticated]);
@@ -71,7 +69,7 @@ export default function Start() {
 
         log("new signup!");
 
-        showNotif("New signup!", 2000);
+        // showNotif("New signup!", 2000);
         setState({ email: "", password: "" });
         // getOrSetAuthState(authState, { authenticated: true });
       })
@@ -102,13 +100,14 @@ export default function Start() {
         return r;
       })
       .then(({ user }) => {
+        const { email, uid } = user;
         log("new login");
 
-        showNotif("Welcome", 2000);
+        // showNotif("Welcome", 2000);
 
         setState({ isAuthorized: true, showModal: false, loggingIn: false });
-
-        setIsAuthenticated({ user: user.email, authenticated: true });
+        dispatch({ type: "INIT_USER", payload: uid });
+        setIsAuthenticated({ user: { email, uid }, authenticated: true });
       })
       .catch(error => {
         const { code, message } = error;
@@ -116,13 +115,13 @@ export default function Start() {
       });
   }
 
-  function showNotif(notifMessage, timeOut) {
-    setState({ notifIsVisible: true, notifMessage });
+  // function showNotif(notifMessage, timeOut) {
+  //   setState({ notifIsVisible: true, notifMessage });
 
-    setTimeout(() => {
-      setState({ notifIsVisible: false, notifMessage: "" });
-    }, timeOut);
-  }
+  //   setTimeout(() => {
+  //     setState({ notifIsVisible: false, notifMessage: "" });
+  //   }, timeOut);
+  // }
 
   /**
    * Checks for the required API key
@@ -148,8 +147,6 @@ export default function Start() {
 
   return (
     <main className="StartPage">
-      <NotificationMessage message={notifMessage} isVisible={notifIsVisible} />
-
       <Modal
         open={showModal}
         closeAction={() =>

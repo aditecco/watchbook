@@ -2,21 +2,48 @@
 reducer
 --------------------------------- */
 
-import { log } from "./utils";
+import { log, storage } from "./utils";
 
 export default function reducer(state, action) {
-  const { type, payload } = action;
+  switch (action.type) {
+    case "INIT_USER": {
+      const { payload } = action;
 
-  switch (type) {
-    case "AUTH": {
-      log("auth!");
+      log("INIT_USER");
+      storage.push("WatchBookUserUID", payload);
+
       return {
         ...state,
-        ...action.payload
+        users: {
+          ...state.users,
+          [payload]: {
+            watched: [],
+            toWatch: []
+          }
+        }
+      };
+    }
+
+    case "SET_INITIAL_DATA": {
+      const { payload } = action;
+
+      log("SET_INITIAL_DATA");
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [payload.uid]: {
+            ...state.users[payload.uid],
+            watched: payload.value
+          }
+        }
       };
     }
 
     case "CREATE_WATCHED": {
+      const { payload } = action;
+
       return {
         ...state,
         watched: [payload, ...state.watched]
@@ -24,14 +51,18 @@ export default function reducer(state, action) {
     }
 
     case "UPDATE_WATCHED": {
+      const { payload } = action;
       return state;
     }
 
     case "DELETE_WATCHED": {
+      const { payload } = action;
       return state;
     }
 
     case "FILTER_WATCHED": {
+      const { payload } = action;
+
       const lc = item => item.toLowerCase();
       const query = lc(payload);
       const result = state.watched.filter(
@@ -41,18 +72,6 @@ export default function reducer(state, action) {
       log(query);
 
       return { ...state, filter: result };
-    }
-
-    case "SET_INITIAL_DATA": {
-      log("SET_INITIAL_DATA", {
-        ...state,
-        ...payload
-      });
-
-      return {
-        ...state,
-        ...payload
-      };
     }
 
     default:

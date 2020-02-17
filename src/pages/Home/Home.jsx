@@ -13,7 +13,7 @@ import Modal from "../../components/Modal/Modal";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
-import { Store, db } from "../../App";
+import { AuthContext, StoreContext, db } from "../../App";
 import initialState from "../../initialState";
 import TEST_DATA from "../../testData";
 
@@ -34,7 +34,8 @@ function Home() {
     }
   );
 
-  const [{ watched }, dispatch] = useContext(Store);
+  const [{ watched }, dispatch] = useContext(StoreContext);
+  const [{ user }] = useContext(AuthContext);
 
   /**
    * Checks if any initial data exists in the remote DB
@@ -43,17 +44,19 @@ function Home() {
 
   useEffect(() => {
     (async function fetchDBdata() {
+      const { uid } = user;
       setState({ loading: true });
 
       try {
-        const initialData = await db.ref().once("value");
+        const dbLoc = db.ref(`users/${uid}/watched`);
+        const initialData = await dbLoc.once("value");
         const value = await initialData.val();
 
         // prettier-ignore
         if (!value)
         {
           // write initialData to DB
-          db.ref().set(TEST_DATA, err => {
+          db.ref(`users/${uid}`).set(TEST_DATA, err => {
             if (err) {
               throw err;
             } else {
@@ -68,7 +71,7 @@ function Home() {
         
         else
         {
-          dispatch({ type: "SET_INITIAL_DATA", payload: value });
+          dispatch({ type: "SET_INITIAL_DATA", payload: {uid, value} });
           setState({ loading: false });
         }
       } catch (err) {
@@ -218,8 +221,8 @@ function Home() {
   }
 
   return (
-    <Store.Consumer>
-      {([store, dispatch]) => (
+    <StoreContext.Consumer>
+      {([store]) => (
         <Layout rootClass="Home" selected={1}>
           <div className="wrapper">
             {/* Selected card modal */}
@@ -290,7 +293,7 @@ function Home() {
             {/* watched */}
 
             <WatchedList
-              watched={store.watched}
+              watched={store.users[user.uid]["watched"]}
               title="Latest watched"
               limit={6}
               loading={state.loading}
@@ -298,7 +301,7 @@ function Home() {
           </div>
         </Layout>
       )}
-    </Store.Consumer>
+    </StoreContext.Consumer>
   );
 }
 

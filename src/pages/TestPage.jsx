@@ -5,7 +5,7 @@ Profile
 import React from "react";
 import Layout from "../components/Layout/Layout";
 import PageHeader from "../components/PageHeader/PageHeader";
-import { Store } from "../App";
+import { StoreContext } from "../App";
 import { log } from "../utils";
 
 export default function TestPage() {
