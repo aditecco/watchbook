@@ -19,7 +19,9 @@ export default function Profile() {
       .auth()
       .signOut()
       .then(() => log("signed out!"))
-      .then(() => setIsAuthenticated({ authenticated: false }))
+      .then(() =>
+        setIsAuthenticated({ user: null, uid: null, authenticated: false })
+      )
       .catch(err => console.error("@Profile", err));
   }
 
@@ -27,7 +29,7 @@ export default function Profile() {
     <Layout rootClass="Profile">
       <PageHeader title="profile" icon="account_circle" />
 
-      <span>Hello, {user}</span>
+      <span>Hello, {user.email}</span>
 
       <button type="button" className="logoutButton" onClick={handleSignout}>
         Logout

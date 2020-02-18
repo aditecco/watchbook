@@ -8,18 +8,20 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import WatchedList from "../../components/WatchedList/WatchedList";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
 import ViewOptions from "../../components/ViewOptions/ViewOptions";
-import { StoreContext } from "../../App";
+import { AuthContext, StoreContext } from "../../App";
 import { log } from "../../utils";
 
 export default function Watched() {
   const [compactView, setCompactView] = useState(null);
+  const [{ user }] = useContext(AuthContext);
+  const { uid } = user;
 
   return (
     <StoreContext.Consumer>
       {([store, dispatch]) => {
-        const titleWithCount = `Watched (${store.watched.length})`;
+        const titleWithCount = `Watched (${store.users[uid]["watched"].length})`;
         const getType = type =>
-          store.watched.filter(item => item.type === type).length;
+          store.users[uid]["watched"].filter(item => item.type === type).length;
 
         return (
           <Layout rootClass="Watched" selected={2}>
@@ -64,7 +66,7 @@ export default function Watched() {
               />
             ) : (
               <WatchedList
-                watched={store.watched}
+                watched={store.users[uid]["watched"]}
                 title={titleWithCount}
                 compact={compactView}
               />
