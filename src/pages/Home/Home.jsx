@@ -38,22 +38,22 @@ function Home() {
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
 
+  // useEffect(
+  //   () =>
+  //     user &&
+  //     dispatch({
+  //       type: "SHOW_NOTIF",
+  //       message: `Welcome, ${user.email}!`,
+  //       icon: null,
+  //       timeOut: 2000
+  //     }),
+  //   []
+  // );
+
   /**
    * Checks if any initial data exists in the remote DB
    * and, if so, feeds it to the app's state
    */
-
-  useEffect(
-    () =>
-      user &&
-      dispatch({
-        type: "SHOW_NOTIF",
-        message: `Welcome, ${user.email}!`,
-        icon: null,
-        timeOut: 2000
-      }),
-    []
-  );
 
   useEffect(() => {
     (async function fetchDBdata() {
@@ -292,6 +292,9 @@ function Home() {
                     className="mainSearchField"
                     type="text"
                     onChange={handleSearch}
+                    // TODO detect the API key here?
+                    // onFocus={() => log("focus")}
+                    // onClick={() => log("click")}
                     placeholder="Search for a movie or TV show…"
                   />
 

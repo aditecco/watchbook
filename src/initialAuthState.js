@@ -3,6 +3,6 @@ initialAuthState
 --------------------------------- */
 
 export const initialAuthState = {
-  user: {},
-  authenticated: false
+  authenticated: false,
+  user: {}
 };

@@ -46,6 +46,17 @@ export default function Start() {
     authenticated
   ]);
 
+  // TODO
+  // get user info & auth state & currentUser via proper API methods:
+  // https://firebase.google.com/docs/auth/web/manage-users?authuser=0#get_the_currently_signed-in_user
+  // useEffect(
+  //   () =>
+  //     firebase.auth().onAuthStateChanged(user => {
+  //       user && log("@@@", user);
+  //     }),
+  //   [authenticated]
+  // );
+
   /**
    * handleSignup
    */
@@ -82,6 +93,13 @@ export default function Start() {
         });
 
         dispatch({ type: "INIT_USER", uid });
+
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `Welcome, ${user.email}!`,
+          icon: null,
+          timeOut: 2000
+        });
 
         setIsAuthenticated({ user: { email, uid }, authenticated: true });
 
@@ -126,6 +144,13 @@ export default function Start() {
         });
 
         dispatch({ type: "INIT_USER", uid });
+
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `Welcome, ${user.email}!`,
+          icon: null,
+          timeOut: 2000
+        });
 
         setIsAuthenticated({ user: { email, uid }, authenticated: true });
 
