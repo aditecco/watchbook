@@ -44,12 +44,8 @@ export default function Start() {
 
   useEffect(() => console.log("@Start", authenticated), [authenticated]);
 
-  function validate(input) {
-    return Object.values(input).every(val => val !== "");
-  }
-
   /**
-   * xyz
+   * handleSignup
    */
 
   function handleSignup(credentials) {
@@ -64,23 +60,36 @@ export default function Start() {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(({ users }) => {
-        const [newUser] = users;
+      .then(r => {
+        log(r);
+        return r;
+      })
+      .then(({ user }) => {
+        const { email, uid } = user;
 
         log("new signup!");
 
         // showNotif("New signup!", 2000);
-        setState({ email: "", password: "" });
-        // getOrSetAuthState(authState, { authenticated: true });
+
+        setState({
+          isAuthorized: true,
+          showModal: false,
+          loggingIn: false,
+          email: "",
+          password: ""
+        });
+
+        dispatch({ type: "INIT_USER", uid });
+
+        setIsAuthenticated({ user: { email, uid }, authenticated: true });
+
+        sessionStorage.setItem("WatchBookUserUID", uid);
       })
-      .catch(error => {
-        const { code, message } = error;
-        setState({ hasError: { error: true, errorMeta: { code, message } } });
-      });
+      .catch(handleError);
   }
 
   /**
-   * xyz
+   * handleLogin
    */
 
   function handleLogin(credentials) {
@@ -101,18 +110,53 @@ export default function Start() {
       })
       .then(({ user }) => {
         const { email, uid } = user;
+
         log("new login");
 
         // showNotif("Welcome", 2000);
 
-        setState({ isAuthorized: true, showModal: false, loggingIn: false });
-        dispatch({ type: "INIT_USER", payload: uid });
+        setState({
+          isAuthorized: true,
+          showModal: false,
+          loggingIn: false,
+          email: "",
+          password: ""
+        });
+
+        dispatch({ type: "INIT_USER", uid });
+
         setIsAuthenticated({ user: { email, uid }, authenticated: true });
+
+        sessionStorage.setItem("WatchBookUserUID", uid);
       })
-      .catch(error => {
-        const { code, message } = error;
-        setState({ hasError: { error: true, errorMeta: { code, message } } });
-      });
+      .catch(handleError);
+  }
+
+  /**
+   * validate
+   */
+
+  function validate(input) {
+    return Object.values(input).every(val => val !== "");
+  }
+
+  /**
+   * handleError
+   */
+
+  function handleError(error) {
+    const { code, message } = error;
+
+    setState({ hasError: { error: true, errorMeta: { code, message } } });
+
+    switch (code) {
+      case "400":
+        // …
+        break;
+
+      default:
+        break;
+    }
   }
 
   // function showNotif(notifMessage, timeOut) {
@@ -125,6 +169,10 @@ export default function Start() {
 
   /**
    * Checks for the required API key
+   */
+
+  /**
+   * CheckApiKey
    */
 
   function checkApiKey() {

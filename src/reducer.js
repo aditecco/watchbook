@@ -4,41 +4,49 @@ reducer
 
 import { log, storage } from "./utils";
 
+export const userState = {
+  watched: [],
+  toWatch: [],
+  settings: {
+    apiKey: ""
+  }
+};
+
 export default function reducer(state, action) {
+  log(action.type);
+
   switch (action.type) {
     case "INIT_USER": {
-      const { payload } = action;
-
-      log("INIT_USER");
-      storage.push("WatchBookUserUID", payload);
+      const { uid } = action;
 
       return {
         ...state,
         users: {
-          ...state.users,
-          [payload]: {
-            watched: [],
-            toWatch: []
+          [uid]: {
+            ...userState
           }
         }
       };
     }
 
     case "SET_INITIAL_DATA": {
-      const { payload } = action;
-
-      log("SET_INITIAL_DATA");
+      const { uid, value } = action;
 
       return {
         ...state,
         users: {
-          ...state.users,
-          [payload.uid]: {
-            ...state.users[payload.uid],
-            watched: payload.value
+          [uid]: {
+            ...state.users[uid],
+            watched: value
           }
         }
       };
+    }
+
+    case "GET_USER": {
+      const { uid } = action;
+
+      return state;
     }
 
     case "CREATE_WATCHED": {
@@ -52,17 +60,20 @@ export default function reducer(state, action) {
 
     case "UPDATE_WATCHED": {
       const { payload } = action;
+
       return state;
     }
 
     case "DELETE_WATCHED": {
       const { payload } = action;
+
+      log("DELETE_WATCHED");
+
       return state;
     }
 
     case "FILTER_WATCHED": {
       const { payload } = action;
-
       const lc = item => item.toLowerCase();
       const query = lc(payload);
       const result = state.watched.filter(

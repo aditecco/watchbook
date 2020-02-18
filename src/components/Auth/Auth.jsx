@@ -10,7 +10,10 @@ import { AuthContext } from "../../App";
 export default function Auth() {
   const [{ authenticated }] = useContext(AuthContext);
 
-  useEffect(() => console.log("@Auth", authenticated), [authenticated]);
+  useEffect(() => {
+    console.log("@Auth", authenticated);
+    return () => console.log("@Auth", authenticated);
+  }, [authenticated]);
 
   return !authenticated ? <Start /> : <Redirect to="/home" />;
 }

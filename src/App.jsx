@@ -21,26 +21,27 @@ import Auth from "./components/Auth/Auth";
 import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 
+// global utils
+window.storage = storage;
+
 // firebase
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
-// store context
+// context
 export const StoreContext = React.createContext();
 export const AuthContext = React.createContext();
-
-// global utils
-window.storage = storage;
-
-function authReducer(state, newState) {
-  return { ...state, ...newState };
-}
 
 function App() {
   return (
     <div className="App">
       <NotificationMessage message={null} isVisible={false} />
-      <AuthContext.Provider value={useReducer(authReducer, initialAuthState)}>
+      <AuthContext.Provider
+        value={useReducer(
+          (state, newState) => ({ ...state, ...newState }),
+          initialAuthState
+        )}
+      >
         <StoreContext.Provider value={useReducer(reducer, initialState)}>
           <Router>
             <Switch>

@@ -1,5 +1,5 @@
 /* ---------------------------------
-App
+Home
 --------------------------------- */
 
 import React, { useEffect, useReducer, useContext, useState } from "react";
@@ -71,7 +71,7 @@ function Home() {
         
         else
         {
-          dispatch({ type: "SET_INITIAL_DATA", payload: {uid, value} });
+          dispatch({ type: "SET_INITIAL_DATA", uid, value });
           setState({ loading: false });
         }
       } catch (err) {
