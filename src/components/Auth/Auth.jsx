@@ -11,7 +11,7 @@ export default function Auth() {
   const [{ authenticated }] = useContext(AuthContext);
 
   useEffect(() => {
-    console.log("@Auth", authenticated);
+    console.log("@Auth, authenticated: ", authenticated);
     return () => console.log("@Auth", authenticated);
   }, [authenticated]);
 

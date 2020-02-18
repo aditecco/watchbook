@@ -35,13 +35,25 @@ function Home() {
   );
 
   // TODO where is 'watched' used?
-  const [{ watched }, dispatch] = useContext(StoreContext);
+  const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
 
   /**
    * Checks if any initial data exists in the remote DB
    * and, if so, feeds it to the app's state
    */
+
+  useEffect(
+    () =>
+      user &&
+      dispatch({
+        type: "SHOW_NOTIF",
+        message: `Welcome, ${user.email}!`,
+        icon: null,
+        timeOut: 2000
+      }),
+    []
+  );
 
   useEffect(() => {
     (async function fetchDBdata() {
@@ -162,12 +174,15 @@ function Home() {
     dispatch({ type: "CREATE_WATCHED", payload });
 
     // syncStorage({ watched: payload });
-    db.ref().update({ watched: [payload, ...watched] }, err => {
-      if (err) console.error(err);
-      // TODO
-      // make this a notification in the UI
-      else log(`Successfully saved: ${payload.title}`);
-    });
+    db.ref().update(
+      { watched: [payload, ...store.users[user.uid]["watched"]] },
+      err => {
+        if (err) console.error(err);
+        // TODO
+        // make this a notification in the UI
+        else log(`Successfully saved: ${payload.title}`);
+      }
+    );
 
     setState({
       showModal: false,

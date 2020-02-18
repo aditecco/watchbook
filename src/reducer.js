@@ -3,6 +3,7 @@ reducer
 --------------------------------- */
 
 import { log, storage } from "./utils";
+import initialState from "./initialState";
 
 export const userState = {
   watched: [],
@@ -83,6 +84,29 @@ export default function reducer(state, action) {
       log(query);
 
       return { ...state, filter: result };
+    }
+
+    case "SHOW_NOTIF": {
+      const { message, icon, timeOut } = action;
+
+      return {
+        ...state,
+        notificationMessage: {
+          isVisible: true,
+          message,
+          icon,
+          timeOut
+        }
+      };
+    }
+
+    case "HIDE_NOTIF": {
+      return {
+        ...state,
+        notificationMessage: {
+          ...initialState.notificationMessage
+        }
+      };
     }
 
     default:

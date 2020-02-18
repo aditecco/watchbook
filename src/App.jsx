@@ -35,7 +35,6 @@ export const AuthContext = React.createContext();
 function App() {
   return (
     <div className="App">
-      <NotificationMessage message={null} isVisible={false} />
       <AuthContext.Provider
         value={useReducer(
           (state, newState) => ({ ...state, ...newState }),
@@ -43,6 +42,8 @@ function App() {
         )}
       >
         <StoreContext.Provider value={useReducer(reducer, initialState)}>
+          <NotificationMessage />
+
           <Router>
             <Switch>
               <Route exact path="/">

@@ -42,7 +42,9 @@ export default function Start() {
     // notifIsVisible
   } = state;
 
-  useEffect(() => console.log("@Start", authenticated), [authenticated]);
+  useEffect(() => console.log("@Start, authenticated: ", authenticated), [
+    authenticated
+  ]);
 
   /**
    * handleSignup

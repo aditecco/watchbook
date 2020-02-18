@@ -7,5 +7,11 @@ export default {
     app: "WatchBook",
     version: "v0.0.0"
   },
-  users: {}
+  users: {},
+  notificationMessage: {
+    message: "",
+    icon: "",
+    isVisible: false,
+    timeOut: 0
+  }
 };
