@@ -2,10 +2,11 @@
 App
 --------------------------------- */
 
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { storage } from "./utils";
 import * as firebase from "firebase/app";
 import "firebase/database";
+import "firebase/auth";
 import firebaseConfig from "./config/firebaseConfig";
 import initialState from "./initialState";
 import reducer from "./reducer";
@@ -21,6 +22,7 @@ import Auth from "./components/Auth/Auth";
 import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 import TestPage from "./pages/TestPage";
+import { log } from "./utils";
 
 // global utils
 window.storage = storage;
@@ -34,6 +36,20 @@ export const StoreContext = React.createContext();
 export const AuthContext = React.createContext();
 
 function App() {
+  useEffect(() => {
+    const observer = firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var email = user.email;
+        var uid = user.uid;
+        log("@@@@@@@@", email, uid);
+      } else {
+        log("@@@@@@@@, no user", user);
+      }
+    });
+
+    return () => observer(); // this will unsubscribe from the obs.
+  }, []);
+
   return (
     <div className="App">
       <AuthContext.Provider

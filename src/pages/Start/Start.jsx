@@ -46,19 +46,19 @@ export default function Start() {
     authenticated
   ]);
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        var email = user.email;
-        var uid = user.uid;
-        log("@@@@@@@@", email, uid);
-      } else {
-        log("@@@@@@@@, no user", user);
-      }
-    });
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged(function(user) {
+  //     if (user) {
+  //       var email = user.email;
+  //       var uid = user.uid;
+  //       log("@@@@@@@@", email, uid);
+  //     } else {
+  //       log("@@@@@@@@, no user", user);
+  //     }
+  //   });
 
-    return () => log("bye");
-  }, []);
+  //   return () => log("bye");
+  // }, []);
 
   // TODO
   // get user info & auth state & currentUser via proper API methods:
