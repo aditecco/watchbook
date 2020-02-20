@@ -20,6 +20,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Auth from "./components/Auth/Auth";
 import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
+import TestPage from "./pages/TestPage";
 
 // global utils
 window.storage = storage;
@@ -70,9 +71,9 @@ function App() {
                 <Profile />
               </PrivateRoute>
 
-              {/* <Route exact path="/test">
-                      <TestPage />
-                    </Route> */}
+              <Route exact path="/test">
+                <TestPage />
+              </Route>
             </Switch>
           </Router>
         </StoreContext.Provider>

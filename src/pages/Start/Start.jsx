@@ -46,6 +46,20 @@ export default function Start() {
     authenticated
   ]);
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var email = user.email;
+        var uid = user.uid;
+        log("@@@@@@@@", email, uid);
+      } else {
+        log("@@@@@@@@, no user", user);
+      }
+    });
+
+    return () => log("bye");
+  }, []);
+
   // TODO
   // get user info & auth state & currentUser via proper API methods:
   // https://firebase.google.com/docs/auth/web/manage-users?authuser=0#get_the_currently_signed-in_user
@@ -112,7 +126,7 @@ export default function Start() {
    * handleLogin
    */
 
-  function handleLogin(credentials) {
+  async function handleLogin(credentials) {
     const { email, password } = credentials;
 
     if (!validate(credentials)) {
@@ -121,42 +135,84 @@ export default function Start() {
       return;
     }
 
+    try {
+      await firebase
+        .auth()
+        .setPersistence(firebase.auth.Auth.Persistence.SESSION);
+
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+
+      setState({
+        isAuthorized: true,
+        showModal: false,
+        loggingIn: false,
+        email: "",
+        password: ""
+      });
+
+      // dispatch({ type: "INIT_USER", uid });
+
+      dispatch({
+        type: "SHOW_NOTIF",
+        // message: `Welcome, ${user.email}!`,
+        message: `Welcome!`,
+        icon: null,
+        timeOut: 2000
+      });
+    } catch (err) {
+      handleError(err);
+    }
+
+    //   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    // .then(() => firebase.auth().signInWithEmailAndPassword(email, password))
+    // .catch(handleError);
+
+    // firebase
+    //   .auth()
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then(r => {
+    //     log(r);
+    //     return r;
+    //   })
+    //   .then(({ user }) => {
+    //     const { email, uid } = user;
+
+    //     log("new login");
+
+    //     setState({
+    //       isAuthorized: true,
+    //       showModal: false,
+    //       loggingIn: false,
+    //       email: "",
+    //       password: ""
+    //     });
+
+    //     dispatch({ type: "INIT_USER", uid });
+
+    //     dispatch({
+    //       type: "SHOW_NOTIF",
+    //       message: `Welcome, ${user.email}!`,
+    //       icon: null,
+    //       timeOut: 2000
+    //     });
+
+    //     setIsAuthenticated({ user: { email, uid }, authenticated: true });
+
+    //     sessionStorage.setItem("WatchBookUserUID", uid);
+    //   })
+    //   .catch(handleError);
+  }
+
+  function handleSignout(e) {
+    e.preventDefault();
+
     firebase
       .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(r => {
-        log(r);
-        return r;
-      })
-      .then(({ user }) => {
-        const { email, uid } = user;
-
-        log("new login");
-
-        // showNotif("Welcome", 2000);
-
-        setState({
-          isAuthorized: true,
-          showModal: false,
-          loggingIn: false,
-          email: "",
-          password: ""
-        });
-
-        dispatch({ type: "INIT_USER", uid });
-
-        dispatch({
-          type: "SHOW_NOTIF",
-          message: `Welcome, ${user.email}!`,
-          icon: null,
-          timeOut: 2000
-        });
-
-        setIsAuthenticated({ user: { email, uid }, authenticated: true });
-
-        sessionStorage.setItem("WatchBookUserUID", uid);
-      })
+      .signOut()
+      .then(() => log("signed out!"))
       .catch(handleError);
+
+    setState({ isAuthorized: false });
   }
 
   /**
@@ -302,6 +358,10 @@ export default function Start() {
           Login
         </button>
       </div>
+
+      <button type="button" onClick={handleSignout}>
+        signout
+      </button>
     </main>
   );
 }

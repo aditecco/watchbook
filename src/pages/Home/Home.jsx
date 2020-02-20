@@ -34,7 +34,6 @@ function Home() {
     }
   );
 
-  // TODO where is 'watched' used?
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
 
