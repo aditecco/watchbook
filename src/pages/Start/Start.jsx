@@ -42,35 +42,6 @@ export default function Start() {
     // notifIsVisible
   } = state;
 
-  useEffect(() => console.log("@Start, authenticated: ", authenticated), [
-    authenticated
-  ]);
-
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       var email = user.email;
-  //       var uid = user.uid;
-  //       log("@@@@@@@@", email, uid);
-  //     } else {
-  //       log("@@@@@@@@, no user", user);
-  //     }
-  //   });
-
-  //   return () => log("bye");
-  // }, []);
-
-  // TODO
-  // get user info & auth state & currentUser via proper API methods:
-  // https://firebase.google.com/docs/auth/web/manage-users?authuser=0#get_the_currently_signed-in_user
-  // useEffect(
-  //   () =>
-  //     firebase.auth().onAuthStateChanged(user => {
-  //       user && log("@@@", user);
-  //     }),
-  //   [authenticated]
-  // );
-
   /**
    * handleSignup
    */
@@ -138,7 +109,7 @@ export default function Start() {
     try {
       await firebase
         .auth()
-        .setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
       await firebase.auth().signInWithEmailAndPassword(email, password);
 
@@ -162,45 +133,6 @@ export default function Start() {
     } catch (err) {
       handleError(err);
     }
-
-    //   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-    // .then(() => firebase.auth().signInWithEmailAndPassword(email, password))
-    // .catch(handleError);
-
-    // firebase
-    //   .auth()
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then(r => {
-    //     log(r);
-    //     return r;
-    //   })
-    //   .then(({ user }) => {
-    //     const { email, uid } = user;
-
-    //     log("new login");
-
-    //     setState({
-    //       isAuthorized: true,
-    //       showModal: false,
-    //       loggingIn: false,
-    //       email: "",
-    //       password: ""
-    //     });
-
-    //     dispatch({ type: "INIT_USER", uid });
-
-    //     dispatch({
-    //       type: "SHOW_NOTIF",
-    //       message: `Welcome, ${user.email}!`,
-    //       icon: null,
-    //       timeOut: 2000
-    //     });
-
-    //     setIsAuthenticated({ user: { email, uid }, authenticated: true });
-
-    //     sessionStorage.setItem("WatchBookUserUID", uid);
-    //   })
-    //   .catch(handleError);
   }
 
   function handleSignout(e) {
@@ -242,20 +174,8 @@ export default function Start() {
     }
   }
 
-  // function showNotif(notifMessage, timeOut) {
-  //   setState({ notifIsVisible: true, notifMessage });
-
-  //   setTimeout(() => {
-  //     setState({ notifIsVisible: false, notifMessage: "" });
-  //   }, timeOut);
-  // }
-
   /**
    * Checks for the required API key
-   */
-
-  /**
-   * CheckApiKey
    */
 
   function checkApiKey() {

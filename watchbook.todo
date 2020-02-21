@@ -1,0 +1,30 @@
+
+WatchBook.todo
+==============
+
+
+It should:
+  open app
+    user obs
+    redirect to Auth
+      user is present
+        init user in state  
+        set authenticated  
+        redirect to home
+      no user
+        redirect to start
+          signup
+            user is present
+              init user in state  
+              set authenticated  
+              redirect to home
+          login
+            user is present
+              init user in state  
+              set authenticated  
+              redirect to home
+- …
+
+Inbox:
+
+Fixes:

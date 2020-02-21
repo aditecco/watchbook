@@ -12,7 +12,7 @@ export default function Auth() {
 
   useEffect(() => {
     console.log("@Auth, authenticated: ", authenticated);
-    return () => console.log("@Auth", authenticated);
+    return () => console.log("@Auth unmount, authenticated", authenticated);
   }, [authenticated]);
 
   return !authenticated ? <Start /> : <Redirect to="/home" />;

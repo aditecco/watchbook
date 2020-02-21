@@ -36,14 +36,60 @@ export const StoreContext = React.createContext();
 export const AuthContext = React.createContext();
 
 function App() {
+  /**
+   * auth reducer
+   */
+  const [authState, setAuthState] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    initialAuthState
+  );
+
+  /**
+   * store reducer
+   */
+
+  const [store, dispatch] = useReducer(reducer, initialState);
+
+  /**
+   * Auth observer
+   */
+
   useEffect(() => {
-    const observer = firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        var email = user.email;
-        var uid = user.uid;
-        log("@@@@@@@@", email, uid);
-      } else {
-        log("@@@@@@@@, no user", user);
+    const observer = firebase.auth().onAuthStateChanged(user => {
+      // prettier-ignore
+
+      /**
+       * user should be present in case of
+       *  signup, login or persistent session
+       */
+
+      if (user)
+      {
+        log("@@@@@@@@ user is present");
+        
+        const {
+          uid, name, email, photoUrl, emailVerified,
+        } = user;
+        
+        // TODO use just the store context
+        dispatch({type: 'INIT_USER', uid})
+
+        setAuthState({
+          authenticated: true,
+          user: {
+            uid, name, email, photoUrl, emailVerified,
+          }
+        })
+      }
+      
+      else
+      {
+        log("@@@@@@@@, no user is present", user);
+
+        setAuthState({
+          authenticated: false,
+          user // user is null
+        })
       }
     });
 
@@ -52,13 +98,8 @@ function App() {
 
   return (
     <div className="App">
-      <AuthContext.Provider
-        value={useReducer(
-          (state, newState) => ({ ...state, ...newState }),
-          initialAuthState
-        )}
-      >
-        <StoreContext.Provider value={useReducer(reducer, initialState)}>
+      <AuthContext.Provider value={[authState, setAuthState]}>
+        <StoreContext.Provider value={[store, dispatch]}>
           <NotificationMessage />
 
           <Router>
