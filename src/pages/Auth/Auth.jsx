@@ -4,7 +4,6 @@ Start
 
 import React, { useReducer, useContext } from "react";
 import { log, storage } from "../../utils";
-import { API_KEY } from "../../constants";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import { AuthContext, StoreContext } from "../../App";
@@ -19,10 +18,9 @@ export default function Auth() {
   const initialComponentState = {
     loggingIn: true,
     signingUp: false,
-    hasKey: false,
-    hasError: { error: false, errorMeta: {} },
     email: "",
-    password: ""
+    password: "",
+    hasError: { error: false, errorMeta: {} }
   };
 
   const [state, setState] = useReducer(
@@ -95,28 +93,6 @@ export default function Auth() {
       default:
         break;
     }
-  }
-
-  /**
-   * Checks for the required API key
-   */
-
-  function checkApiKey() {
-    const storageID = API_KEY;
-    const key = storage.pull(storageID);
-
-    if (!key) {
-      const requestKey = window.prompt("Please enter your API key.");
-
-      if (!requestKey) {
-        window.alert("No valid key was provided.");
-        return;
-      }
-
-      storage.push(storageID, requestKey);
-    }
-
-    setState({ keyIsPresent: true });
   }
 
   return !authenticated ? (

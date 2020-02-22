@@ -16,6 +16,7 @@ import { log, storage } from "../../utils";
 import { AuthContext, StoreContext, db } from "../../App";
 import initialState from "../../initialState";
 import TEST_DATA from "../../testData";
+import { API_KEY } from "../../constants";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -84,6 +85,28 @@ function Home() {
   }, []);
 
   /**
+   * Checks for the required API key
+   */
+
+  function checkApiKey() {
+    const storageID = API_KEY;
+    const key = storage.pull(storageID);
+
+    if (!key) {
+      const requestKey = window.prompt("Please enter your API key.");
+
+      if (!requestKey) {
+        window.alert("No valid key was provided.");
+        return;
+      }
+
+      storage.push(storageID, requestKey);
+    }
+
+    setState({ keyIsPresent: true });
+  }
+
+  /**
    * Checks if any initial data exists and,
    * if so, feeds it to the main app's state
    */
@@ -99,7 +122,7 @@ function Home() {
   // }, []);
 
   /**
-   * desc
+   * syncStorage
    */
 
   function syncStorage({ watched, toWatch }) {
@@ -219,8 +242,6 @@ function Home() {
   /**
    * Placeholders
    */
-
-  const handleClick = e => fetchData(state.searchQuery);
 
   function logTarget(e) {
     log(e.currentTarget);
