@@ -5,15 +5,15 @@ WatchBook.todo
 - …
 
 Inbox:
+  - Add error boundary to app
+  - handle auth errors
   - Add signout notif
-  - Ad error boundary to app
-  - Add modal to app, initialState
+  - Add modal to App, initialState
   - remove/disable testPage
   - add catchAll page
   - expose interface for config objects
-  - destroy user data when user il logged out
+  ✔ destroy user data when user is logged out @done(20-02-22 18:46)
   - move INIT_USER to auth?
-  - handle auth errors
   - remove signup test data
     firebase won't accept empty values
 
