@@ -1,5 +1,5 @@
 /* ---------------------------------
-App
+Home
 --------------------------------- */
 
 import React, { useEffect, useReducer, useContext, useState } from "react";
@@ -13,7 +13,7 @@ import Modal from "../../components/Modal/Modal";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
-import { Store, db } from "../../App";
+import { AuthContext, StoreContext, db } from "../../App";
 import initialState from "../../initialState";
 import TEST_DATA from "../../testData";
 
@@ -34,7 +34,8 @@ function Home() {
     }
   );
 
-  const [{ watched }, dispatch] = useContext(Store);
+  const [store, dispatch] = useContext(StoreContext);
+  const [{ user }] = useContext(AuthContext);
 
   /**
    * Checks if any initial data exists in the remote DB
@@ -43,17 +44,22 @@ function Home() {
 
   useEffect(() => {
     (async function fetchDBdata() {
+      const { uid } = user;
       setState({ loading: true });
 
       try {
-        const initialData = await db.ref().once("value");
-        const value = await initialData.val();
+        const dbLoc = db.ref(`users/${uid}/watched`);
+        const value = await dbLoc.once("value");
+        const remoteData = await value.val();
 
         // prettier-ignore
-        if (!value)
+        if (!remoteData)
         {
           // write initialData to DB
-          db.ref().set(TEST_DATA, err => {
+          db.ref(`users/${uid}`).set(TEST_DATA, err => {
+            // firebase won't accept empty values
+            // should be: { watched: [], toWatch: [] }
+
             if (err) {
               throw err;
             } else {
@@ -68,7 +74,7 @@ function Home() {
         
         else
         {
-          dispatch({ type: "SET_INITIAL_DATA", payload: value });
+          dispatch({ type: "SET_INITIAL_DATA", uid, remoteData });
           setState({ loading: false });
         }
       } catch (err) {
@@ -158,12 +164,15 @@ function Home() {
     dispatch({ type: "CREATE_WATCHED", payload });
 
     // syncStorage({ watched: payload });
-    db.ref().update({ watched: [payload, ...watched] }, err => {
-      if (err) console.error(err);
-      // TODO
-      // make this a notification in the UI
-      else log(`Successfully saved: ${payload.title}`);
-    });
+    db.ref().update(
+      { watched: [payload, ...store.userData[user.uid]["watched"]] },
+      err => {
+        if (err) console.error(err);
+        // TODO
+        // make this a notification in the UI
+        else log(`Successfully saved: ${payload.title}`);
+      }
+    );
 
     setState({
       showModal: false,
@@ -218,8 +227,8 @@ function Home() {
   }
 
   return (
-    <Store.Consumer>
-      {([store, dispatch]) => (
+    <StoreContext.Consumer>
+      {([store]) => (
         <Layout rootClass="Home" selected={1}>
           <div className="wrapper">
             {/* Selected card modal */}
@@ -273,6 +282,9 @@ function Home() {
                     className="mainSearchField"
                     type="text"
                     onChange={handleSearch}
+                    // TODO detect the API key here?
+                    // onFocus={() => log("focus")}
+                    // onClick={() => log("click")}
                     placeholder="Search for a movie or TV show…"
                   />
 
@@ -290,7 +302,7 @@ function Home() {
             {/* watched */}
 
             <WatchedList
-              watched={store.watched}
+              watched={store.userData[user.uid]["watched"]}
               title="Latest watched"
               limit={6}
               loading={state.loading}
@@ -298,7 +310,7 @@ function Home() {
           </div>
         </Layout>
       )}
-    </Store.Consumer>
+    </StoreContext.Consumer>
   );
 }
 

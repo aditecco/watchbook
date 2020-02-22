@@ -5,12 +5,16 @@ Layout
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 
-export default function Layout({ children, rootClass, selected = null }) {
+export default function Layout({
+  children,
+  rootClass,
+  selected = null,
+  hasNav = true
+}) {
   return (
     <main className={rootClass}>
       {children}
-
-      <Navbar selected={selected} />
+      {hasNav && <Navbar selected={selected} />}
     </main>
   );
 }

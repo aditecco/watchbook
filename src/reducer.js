@@ -2,13 +2,76 @@
 reducer
 --------------------------------- */
 
-import { log } from "./utils";
+import {
+  log,
+  storage
+} from "./utils";
+import initialState from "./initialState";
+
+export const userDataTemplate = {
+  watched: [],
+  toWatch: [],
+  settings: {
+    apiKey: ""
+  }
+};
 
 export default function reducer(state, action) {
-  const { type, payload } = action;
+  log(action.type);
 
-  switch (type) {
+  switch (action.type) {
+    case "INIT_USER": {
+      const {
+        uid
+      } = action;
+
+      return {
+        ...state,
+        userData: {
+          [uid]: {
+            ...userDataTemplate
+          }
+        }
+      };
+    }
+
+    case "DESTROY_USER": {
+      return {
+        ...state,
+        userData: {}
+      };
+    }
+
+    case "SET_INITIAL_DATA": {
+      const {
+        uid,
+        remoteData
+      } = action;
+
+      return {
+        ...state,
+        userData: {
+          [uid]: {
+            ...state.userData[uid],
+            watched: remoteData
+          }
+        }
+      };
+    }
+
+    case "GET_USER": {
+      const {
+        uid
+      } = action;
+
+      return state;
+    }
+
     case "CREATE_WATCHED": {
+      const {
+        payload
+      } = action;
+
       return {
         ...state,
         watched: [payload, ...state.watched]
@@ -24,6 +87,9 @@ export default function reducer(state, action) {
     }
 
     case "FILTER_WATCHED": {
+      const {
+        payload
+      } = action;
       const lc = item => item.toLowerCase();
       const query = lc(payload);
       const result = state.watched.filter(
@@ -32,18 +98,36 @@ export default function reducer(state, action) {
 
       log(query);
 
-      return { ...state, filter: result };
+      return {
+        ...state,
+        filter: result
+      };
     }
 
-    case "SET_INITIAL_DATA": {
-      log("SET_INITIAL_DATA", {
-        ...state,
-        ...payload
-      });
+    case "SHOW_NOTIF": {
+      const {
+        message,
+        icon,
+        timeOut
+      } = action;
 
       return {
         ...state,
-        ...payload
+        notificationMessage: {
+          isVisible: true,
+          message,
+          icon,
+          timeOut
+        }
+      };
+    }
+
+    case "HIDE_NOTIF": {
+      return {
+        ...state,
+        notificationMessage: {
+          ...initialState.notificationMessage
+        }
       };
     }
 
