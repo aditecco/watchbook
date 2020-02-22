@@ -2,10 +2,13 @@
 reducer
 --------------------------------- */
 
-import { log, storage } from "./utils";
+import {
+  log,
+  storage
+} from "./utils";
 import initialState from "./initialState";
 
-export const userState = {
+export const userDataTemplate = {
   watched: [],
   toWatch: [],
   settings: {
@@ -18,26 +21,31 @@ export default function reducer(state, action) {
 
   switch (action.type) {
     case "INIT_USER": {
-      const { uid } = action;
+      const {
+        uid
+      } = action;
 
       return {
         ...state,
-        users: {
+        userData: {
           [uid]: {
-            ...userState
+            ...userDataTemplate
           }
         }
       };
     }
 
     case "SET_INITIAL_DATA": {
-      const { uid, value } = action;
+      const {
+        uid,
+        value
+      } = action;
 
       return {
         ...state,
-        users: {
+        userData: {
           [uid]: {
-            ...state.users[uid],
+            ...state.userData[uid],
             watched: value
           }
         }
@@ -45,13 +53,17 @@ export default function reducer(state, action) {
     }
 
     case "GET_USER": {
-      const { uid } = action;
+      const {
+        uid
+      } = action;
 
       return state;
     }
 
     case "CREATE_WATCHED": {
-      const { payload } = action;
+      const {
+        payload
+      } = action;
 
       return {
         ...state,
@@ -60,21 +72,17 @@ export default function reducer(state, action) {
     }
 
     case "UPDATE_WATCHED": {
-      const { payload } = action;
-
       return state;
     }
 
     case "DELETE_WATCHED": {
-      const { payload } = action;
-
-      log("DELETE_WATCHED");
-
       return state;
     }
 
     case "FILTER_WATCHED": {
-      const { payload } = action;
+      const {
+        payload
+      } = action;
       const lc = item => item.toLowerCase();
       const query = lc(payload);
       const result = state.watched.filter(
@@ -83,11 +91,18 @@ export default function reducer(state, action) {
 
       log(query);
 
-      return { ...state, filter: result };
+      return {
+        ...state,
+        filter: result
+      };
     }
 
     case "SHOW_NOTIF": {
-      const { message, icon, timeOut } = action;
+      const {
+        message,
+        icon,
+        timeOut
+      } = action;
 
       return {
         ...state,

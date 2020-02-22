@@ -10,18 +10,17 @@ import "firebase/auth";
 import { log } from "../../utils";
 import { AuthContext } from "../../App";
 import { Redirect } from "react-router-dom";
+import { initialAuthState } from "../../initialAuthState";
 
 export default function Profile() {
-  const [{ authenticated, user }, setIsAuthenticated] = useContext(AuthContext);
+  const [{ authenticated, user }, setAuthState] = useContext(AuthContext);
 
   function handleSignout() {
     firebase
       .auth()
       .signOut()
       .then(() => log("signed out!"))
-      .then(() =>
-        setIsAuthenticated({ user: null, uid: null, authenticated: false })
-      )
+      .then(() => setAuthState(initialAuthState))
       .catch(err => console.error("@Profile", err));
   }
 

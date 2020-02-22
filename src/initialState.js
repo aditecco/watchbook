@@ -7,7 +7,7 @@ export default {
     app: "WatchBook",
     version: "v0.0.0"
   },
-  users: {},
+  userData: {},
   notificationMessage: {
     message: "",
     icon: "",

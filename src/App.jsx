@@ -18,7 +18,7 @@ import Home from "./pages/Home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import Auth from "./components/Auth/Auth";
+import Auth from "./pages/Auth/Auth";
 import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 import TestPage from "./pages/TestPage";
@@ -27,18 +27,20 @@ import { log } from "./utils";
 // global utils
 window.storage = storage;
 
-// firebase
+// firebase initializers
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
-// context
+// context initializers
 export const StoreContext = React.createContext();
 export const AuthContext = React.createContext();
 
+// app
 function App() {
   /**
    * auth reducer
    */
+
   const [authState, setAuthState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     initialAuthState
@@ -56,16 +58,15 @@ function App() {
 
   useEffect(() => {
     const observer = firebase.auth().onAuthStateChanged(user => {
-      // prettier-ignore
-
       /**
        * user should be present in case of
        *  signup, login or persistent session
        */
 
+      // prettier-ignore
       if (user)
       {
-        log("@@@@@@@@ user is present");
+        log("@@@ user is present");
         
         const {
           uid, name, email, photoUrl, emailVerified,
@@ -84,12 +85,7 @@ function App() {
       
       else
       {
-        log("@@@@@@@@, no user is present", user);
-
-        setAuthState({
-          authenticated: false,
-          user // user is null
-        })
+        log("@@@, no user is present", user);
       }
     });
 
@@ -128,6 +124,7 @@ function App() {
                 <Profile />
               </PrivateRoute>
 
+              {/* TestPage */}
               <Route exact path="/test">
                 <TestPage />
               </Route>

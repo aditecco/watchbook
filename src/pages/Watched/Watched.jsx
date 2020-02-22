@@ -19,9 +19,10 @@ export default function Watched() {
   return (
     <StoreContext.Consumer>
       {([store, dispatch]) => {
-        const titleWithCount = `Watched (${store.users[uid]["watched"].length})`;
+        const titleWithCount = `Watched (${store.userData[uid]["watched"].length})`;
         const getType = type =>
-          store.users[uid]["watched"].filter(item => item.type === type).length;
+          store.userData[uid]["watched"].filter(item => item.type === type)
+            .length;
 
         return (
           <Layout rootClass="Watched" selected={2}>
@@ -66,7 +67,7 @@ export default function Watched() {
               />
             ) : (
               <WatchedList
-                watched={store.users[uid]["watched"]}
+                watched={store.userData[uid]["watched"]}
                 title={titleWithCount}
                 compact={compactView}
               />

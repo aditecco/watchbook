@@ -174,7 +174,7 @@ function Home() {
 
     // syncStorage({ watched: payload });
     db.ref().update(
-      { watched: [payload, ...store.users[user.uid]["watched"]] },
+      { watched: [payload, ...store.userData[user.uid]["watched"]] },
       err => {
         if (err) console.error(err);
         // TODO
@@ -311,7 +311,7 @@ function Home() {
             {/* watched */}
 
             <WatchedList
-              watched={store.users[user.uid]["watched"]}
+              watched={store.userData[user.uid]["watched"]}
               title="Latest watched"
               limit={6}
               loading={state.loading}

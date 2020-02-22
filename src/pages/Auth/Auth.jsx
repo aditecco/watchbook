@@ -9,9 +9,10 @@ import Modal from "../../components/Modal/Modal";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import { AuthContext, StoreContext } from "../../App";
+import { Redirect } from "react-router-dom";
 
-export default function Start() {
-  const [{ authenticated }, setIsAuthenticated] = useContext(AuthContext);
+export default function Auth() {
+  const [{ authenticated }, setAuthState] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
 
   const [state, setState] = useReducer(
@@ -30,68 +31,58 @@ export default function Start() {
     }
   );
 
-  const {
-    isAuthorized,
-    keyIsPresent,
-    showModal,
-    email,
-    password,
-    signingUp,
-    loggingIn
-    // notifMessage,
-    // notifIsVisible
-  } = state;
+  const { showModal, email, password, loggingIn, signingUp } = state;
 
   /**
    * handleSignup
    */
 
-  function handleSignup(credentials) {
-    const { email, password } = credentials;
+  // function handleSignup(credentials) {
+  //   const { email, password } = credentials;
 
-    if (!validate(credentials)) {
-      setState({ email: "", password: "" });
-      window.alert("nope!");
-      return;
-    }
+  //   if (!validate(credentials)) {
+  //     setState({ email: "", password: "" });
+  //     window.alert("nope!");
+  //     return;
+  //   }
 
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(r => {
-        log(r);
-        return r;
-      })
-      .then(({ user }) => {
-        const { email, uid } = user;
+  //   firebase
+  //     .auth()
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then(r => {
+  //       log(r);
+  //       return r;
+  //     })
+  //     .then(({ user }) => {
+  //       const { email, uid } = user;
 
-        log("new signup!");
+  //       log("new signup!");
 
-        // showNotif("New signup!", 2000);
+  //       // showNotif("New signup!", 2000);
 
-        setState({
-          isAuthorized: true,
-          showModal: false,
-          loggingIn: false,
-          email: "",
-          password: ""
-        });
+  //       setState({
+  //         isAuthorized: true,
+  //         showModal: false,
+  //         loggingIn: false,
+  //         email: "",
+  //         password: ""
+  //       });
 
-        dispatch({ type: "INIT_USER", uid });
+  //       dispatch({ type: "INIT_USER", uid });
 
-        dispatch({
-          type: "SHOW_NOTIF",
-          message: `Welcome, ${user.email}!`,
-          icon: null,
-          timeOut: 2000
-        });
+  //       dispatch({
+  //         type: "SHOW_NOTIF",
+  //         message: `Welcome, ${user.email}!`,
+  //         icon: null,
+  //         timeOut: 2000
+  //       });
 
-        setIsAuthenticated({ user: { email, uid }, authenticated: true });
+  //       setAuthState({ user: { email, uid }, authenticated: true });
 
-        sessionStorage.setItem("WatchBookUserUID", uid);
-      })
-      .catch(handleError);
-  }
+  //       sessionStorage.setItem("WatchBookUserUID", uid);
+  //     })
+  //     .catch(handleError);
+  // }
 
   /**
    * handleLogin
@@ -111,7 +102,11 @@ export default function Start() {
         .auth()
         .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      if (loggingIn) {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+      } else if (signingUp) {
+        await firebase.auth().createUserWithEmailAndPassword(email, password);
+      }
 
       setState({
         isAuthorized: true,
@@ -133,18 +128,6 @@ export default function Start() {
     } catch (err) {
       handleError(err);
     }
-  }
-
-  function handleSignout(e) {
-    e.preventDefault();
-
-    firebase
-      .auth()
-      .signOut()
-      .then(() => log("signed out!"))
-      .catch(handleError);
-
-    setState({ isAuthorized: false });
   }
 
   /**
@@ -196,8 +179,9 @@ export default function Start() {
     setState({ keyIsPresent: true });
   }
 
-  return (
+  return !authenticated ? (
     <main className="StartPage">
+      {/* modal */}
       <Modal
         open={showModal}
         closeAction={() =>
@@ -224,11 +208,7 @@ export default function Start() {
                 onChange={e => setState({ password: e.currentTarget.value })}
               />
 
-              <button
-                type="button"
-                className="signupButton"
-                onClick={() => handleSignup({ email, password })}
-              >
+              <button type="button" className="signupButton" onClick={() => {}}>
                 Signup
               </button>
             </>
@@ -261,6 +241,7 @@ export default function Start() {
         </form>
       </Modal>
 
+      {/* start page */}
       <div className="Start">
         <h3>Signup or login</h3>
         <button
@@ -278,10 +259,8 @@ export default function Start() {
           Login
         </button>
       </div>
-
-      <button type="button" onClick={handleSignout}>
-        signout
-      </button>
     </main>
+  ) : (
+    <Redirect to="/home" />
   );
 }

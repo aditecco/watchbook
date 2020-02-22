@@ -26,5 +26,21 @@ It should:
 - …
 
 Inbox:
+  - Add signout notif
+  - Ad error boundary to app
+  - Add modal to app, initialState
+  - remove/disable testPage
+  - add catchAll page
+  - expose interface for config objects
+  - remove redundant Auth comp, convert Start page to Auth page
+  - complete transition of Start page to actual page
+  - remove redundant modal from auth page
+  - destroy user data when user il logged out
+
+Tests:
+  ✔ It correctly handles login @done(20-02-22 16:52)
+  - It correctly handles signup
+  ✔ It correctly handles signout @done(20-02-22 16:52)
+  - It correctly handles auth after reload (user persistence)
 
 Fixes:

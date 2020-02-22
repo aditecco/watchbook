@@ -3,7 +3,7 @@ PrivateRoute
 --------------------------------- */
 
 import React, { useContext } from "react";
-import { Route, Redirect, useHistory, useLocation } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../../App";
 
 export default function PrivateRoute({ children, ...rest }) {
@@ -12,14 +12,14 @@ export default function PrivateRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
+      render={routeProps =>
         authenticated ? (
           children
         ) : (
           <Redirect
             to={{
               pathname: "/",
-              state: { from: location }
+              state: { from: routeProps.location }
             }}
           />
         )
