@@ -37,18 +37,6 @@ function Home() {
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
 
-  // useEffect(
-  //   () =>
-  //     user &&
-  //     dispatch({
-  //       type: "SHOW_NOTIF",
-  //       message: `Welcome, ${user.email}!`,
-  //       icon: null,
-  //       timeOut: 2000
-  //     }),
-  //   []
-  // );
-
   /**
    * Checks if any initial data exists in the remote DB
    * and, if so, feeds it to the app's state
@@ -61,14 +49,17 @@ function Home() {
 
       try {
         const dbLoc = db.ref(`users/${uid}/watched`);
-        const initialData = await dbLoc.once("value");
-        const value = await initialData.val();
+        const value = await dbLoc.once("value");
+        const remoteData = await value.val();
 
         // prettier-ignore
-        if (!value)
+        if (!remoteData)
         {
           // write initialData to DB
           db.ref(`users/${uid}`).set(TEST_DATA, err => {
+            // firebase won't accept empty values
+            // should be: { watched: [], toWatch: [] }
+
             if (err) {
               throw err;
             } else {
@@ -83,7 +74,7 @@ function Home() {
         
         else
         {
-          dispatch({ type: "SET_INITIAL_DATA", uid, value });
+          dispatch({ type: "SET_INITIAL_DATA", uid, remoteData });
           setState({ loading: false });
         }
       } catch (err) {

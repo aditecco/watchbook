@@ -35,10 +35,17 @@ export default function reducer(state, action) {
       };
     }
 
+    case "DESTROY_USER": {
+      return {
+        ...state,
+        userData: {}
+      };
+    }
+
     case "SET_INITIAL_DATA": {
       const {
         uid,
-        value
+        remoteData
       } = action;
 
       return {
@@ -46,7 +53,7 @@ export default function reducer(state, action) {
         userData: {
           [uid]: {
             ...state.userData[uid],
-            watched: value
+            watched: remoteData
           }
         }
       };

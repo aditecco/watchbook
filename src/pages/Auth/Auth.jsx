@@ -10,88 +10,35 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import { AuthContext, StoreContext } from "../../App";
 import { Redirect } from "react-router-dom";
+import Layout from "../../components/Layout/Layout";
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 export default function Auth() {
   const [{ authenticated }, setAuthState] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
 
+  const initialComponentState = {
+    loggingIn: true,
+    signingUp: false,
+    hasKey: false,
+    hasError: { error: false, errorMeta: {} },
+    email: "",
+    password: ""
+  };
+
   const [state, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
-    {
-      signingUp: false,
-      loggingIn: false,
-      isAuthorized: false,
-      keyIsPresent: false,
-      showModal: false,
-      hasError: { error: false, errorMeta: {} },
-      // notifMessage: "",
-      // notifIsVisible: false,
-      email: "",
-      password: ""
-    }
+    initialComponentState
   );
 
-  const { showModal, email, password, loggingIn, signingUp } = state;
+  const { email, password, loggingIn, signingUp } = state;
 
   /**
-   * handleSignup
+   * handleAuth
    */
 
-  // function handleSignup(credentials) {
-  //   const { email, password } = credentials;
-
-  //   if (!validate(credentials)) {
-  //     setState({ email: "", password: "" });
-  //     window.alert("nope!");
-  //     return;
-  //   }
-
-  //   firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then(r => {
-  //       log(r);
-  //       return r;
-  //     })
-  //     .then(({ user }) => {
-  //       const { email, uid } = user;
-
-  //       log("new signup!");
-
-  //       // showNotif("New signup!", 2000);
-
-  //       setState({
-  //         isAuthorized: true,
-  //         showModal: false,
-  //         loggingIn: false,
-  //         email: "",
-  //         password: ""
-  //       });
-
-  //       dispatch({ type: "INIT_USER", uid });
-
-  //       dispatch({
-  //         type: "SHOW_NOTIF",
-  //         message: `Welcome, ${user.email}!`,
-  //         icon: null,
-  //         timeOut: 2000
-  //       });
-
-  //       setAuthState({ user: { email, uid }, authenticated: true });
-
-  //       sessionStorage.setItem("WatchBookUserUID", uid);
-  //     })
-  //     .catch(handleError);
-  // }
-
-  /**
-   * handleLogin
-   */
-
-  async function handleLogin(credentials) {
-    const { email, password } = credentials;
-
-    if (!validate(credentials)) {
+  async function handleAuth() {
+    if (!validate({ email, password })) {
       setState({ email: "", password: "" });
       window.alert("nope!");
       return;
@@ -108,13 +55,7 @@ export default function Auth() {
         await firebase.auth().createUserWithEmailAndPassword(email, password);
       }
 
-      setState({
-        isAuthorized: true,
-        showModal: false,
-        loggingIn: false,
-        email: "",
-        password: ""
-      });
+      setState(initialComponentState);
 
       // dispatch({ type: "INIT_USER", uid });
 
@@ -180,86 +121,59 @@ export default function Auth() {
   }
 
   return !authenticated ? (
-    <main className="StartPage">
-      {/* modal */}
-      <Modal
-        open={showModal}
-        closeAction={() =>
-          setState({ showModal: false, signingUp: false, loggingIn: false })
-        }
-      >
-        <h3>{`${signingUp ? "Signup!" : "Login"}`}</h3>
+    <Layout rootClass="Auth" hasNav={false}>
+      <PageHeader title="Login/Signup" icon="account_circle" />
 
-        <form action="" className={`${signingUp ? "signupForm" : "loginForm"}`}>
-          {signingUp ? (
-            <>
-              {/* signup */}
-              <input
-                type="text"
-                className="signupEmail"
-                placeholder="email"
-                onChange={e => setState({ email: e.currentTarget.value })}
-              />
-
-              <input
-                type="password"
-                className="signupPassword"
-                placeholder="password"
-                onChange={e => setState({ password: e.currentTarget.value })}
-              />
-
-              <button type="button" className="signupButton" onClick={() => {}}>
-                Signup
-              </button>
-            </>
-          ) : (
-            <>
-              {/* login */}
-              <input
-                type="text"
-                className="loginEmail"
-                placeholder="email"
-                onChange={e => setState({ email: e.currentTarget.value })}
-              />
-
-              <input
-                type="password"
-                className="loginPassword"
-                placeholder="password"
-                onChange={e => setState({ password: e.currentTarget.value })}
-              />
-
-              <button
-                type="button"
-                className="loginButton"
-                onClick={() => handleLogin({ email, password })}
-              >
-                Login
-              </button>
-            </>
-          )}
-        </form>
-      </Modal>
-
-      {/* start page */}
-      <div className="Start">
-        <h3>Signup or login</h3>
+      {/* tabs */}
+      <div className="tabUI">
         <button
           type="button"
-          className="signupButton"
-          onClick={() => setState({ showModal: true, signingUp: true })}
-        >
-          Signup
-        </button>
-        <button
-          type="button"
-          className="loginButton"
-          onClick={() => setState({ showModal: true, loggingIn: true })}
+          className="loginTabButton"
+          onClick={() => setState({ loggingIn: true, signingUp: false })}
         >
           Login
         </button>
+
+        <span> or </span>
+
+        <button
+          type="button"
+          className="signupTabButton"
+          onClick={() => setState({ loggingIn: false, signingUp: true })}
+        >
+          Signup
+        </button>
       </div>
-    </main>
+
+      {/* form */}
+      <form className="authForm">
+        <h3 className="authFormHeader">{loggingIn ? "Login" : "Signup"}</h3>
+
+        {/* <label htmlFor="emailField">email</label> */}
+        <input
+          id="emailField"
+          type="text"
+          className="email"
+          placeholder="email@example.com"
+          value={email}
+          onChange={e => setState({ email: e.currentTarget.value })}
+        />
+
+        {/* <label htmlFor="passwordField">password</label> */}
+        <input
+          id="passwordField"
+          type="password"
+          className="password"
+          placeholder="xyz"
+          value={password}
+          onChange={e => setState({ password: e.currentTarget.value })}
+        />
+
+        <button type="button" className="Button" onClick={handleAuth}>
+          {loggingIn ? "Login" : "Signup"}
+        </button>
+      </form>
+    </Layout>
   ) : (
     <Redirect to="/home" />
   );
