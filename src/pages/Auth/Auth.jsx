@@ -2,10 +2,9 @@
 Start
 --------------------------------- */
 
-import React, { useEffect, useReducer, useContext } from "react";
+import React, { useReducer, useContext } from "react";
 import { log, storage } from "../../utils";
 import { API_KEY } from "../../constants";
-import Modal from "../../components/Modal/Modal";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import { AuthContext, StoreContext } from "../../App";
@@ -14,7 +13,7 @@ import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
 export default function Auth() {
-  const [{ authenticated }, setAuthState] = useContext(AuthContext);
+  const [{ authenticated }] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
 
   const initialComponentState = {

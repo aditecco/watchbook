@@ -123,11 +123,6 @@ function App() {
               <PrivateRoute exact path="/profile">
                 <Profile />
               </PrivateRoute>
-
-              {/* TestPage */}
-              <Route exact path="/test">
-                <TestPage />
-              </Route>
             </Switch>
           </Router>
         </StoreContext.Provider>
