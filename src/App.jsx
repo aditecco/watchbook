@@ -23,6 +23,7 @@ import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 import TestPage from "./pages/TestPage";
 import { log } from "./utils";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 // global utils
 window.storage = storage;
@@ -93,41 +94,43 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <AuthContext.Provider value={[authState, setAuthState]}>
-        <StoreContext.Provider value={[store, dispatch]}>
-          <NotificationMessage />
+    <ErrorBoundary>
+      <div className="App">
+        <AuthContext.Provider value={[authState, setAuthState]}>
+          <StoreContext.Provider value={[store, dispatch]}>
+            <NotificationMessage />
 
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Auth />
-              </Route>
+            <Router>
+              <Switch>
+                <Route exact path="/">
+                  <Auth />
+                </Route>
 
-              <PrivateRoute exact path="/home">
-                <Home />
-              </PrivateRoute>
+                <PrivateRoute exact path="/home">
+                  <Home />
+                </PrivateRoute>
 
-              <PrivateRoute exact path="/watched">
-                <Watched />
-              </PrivateRoute>
+                <PrivateRoute exact path="/watched">
+                  <Watched />
+                </PrivateRoute>
 
-              <PrivateRoute exact path="/to-watch">
-                <ToWatch />
-              </PrivateRoute>
+                <PrivateRoute exact path="/to-watch">
+                  <ToWatch />
+                </PrivateRoute>
 
-              <PrivateRoute exact path="/settings">
-                <Settings />
-              </PrivateRoute>
+                <PrivateRoute exact path="/settings">
+                  <Settings />
+                </PrivateRoute>
 
-              <PrivateRoute exact path="/profile">
-                <Profile />
-              </PrivateRoute>
-            </Switch>
-          </Router>
-        </StoreContext.Provider>
-      </AuthContext.Provider>
-    </div>
+                <PrivateRoute exact path="/profile">
+                  <Profile />
+                </PrivateRoute>
+              </Switch>
+            </Router>
+          </StoreContext.Provider>
+        </AuthContext.Provider>
+      </div>
+    </ErrorBoundary>
   );
 }
 

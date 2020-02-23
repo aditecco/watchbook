@@ -5,7 +5,6 @@ WatchBook.todo
 - …
 
 Inbox:
-  - Add error boundary to app
   - handle auth errors
   - add user name to login notif
   - add user config options to profile page 
@@ -19,6 +18,7 @@ Inbox:
   - handle deploy config
   - create DB rules
   - wrap layout comp in context consumer
+  - show loader when user is authenticating
   - remove signup test data
     firebase won't accept empty values
 
@@ -28,10 +28,11 @@ Fixes:
 
 Tests:
   - …
-  ✔ It correctly handles signup @done(20-02-22 18:55)
-  ✔ It correctly handles auth after reload (user persistence) @done(20-02-22 18:57)
 
 Archive:
+  ✔ Add error boundary to app @done(20-02-23 16:16) @project(Inbox)
+  ✔ It correctly handles signup @done(20-02-22 18:55) @project(Tests)
+  ✔ It correctly handles auth after reload (user persistence) @done(20-02-22 18:57) @project(Tests)
   ✔ remove/disable testPage @done(20-02-22 18:54) @project(Inbox)
   ✔ destroy user data when user is logged out @done(20-02-22 18:46) @project(Inbox)
   ✔ remove navbar from auth page @done(20-02-22 18:44) @project(Inbox)
