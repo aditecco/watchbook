@@ -2,35 +2,19 @@
 Settings
 --------------------------------- */
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { API_KEY } from "../../constants";
 import { log, storage } from "../../utils";
 import { AuthContext, StoreContext } from "../../App";
+import useApiKey from "../../hooks/useApiKey";
 
 export default function Settings() {
   const [input, setInput] = useState("");
   const [{ user }] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
   const key = useApiKey();
-
-  /**
-   * useApiKey
-   */
-
-  function useApiKey() {
-    const [key, setKey] = useState("");
-    const { apiKey } = store.userData[user.uid].settings;
-
-    useEffect(() => {
-      const key = storage.pull(API_KEY) || apiKey;
-
-      key && setKey(key);
-    }, []);
-
-    return key;
-  }
 
   /**
    * handleSaveKey
