@@ -5,10 +5,10 @@ WatchBook.todo
 - …
 
 Inbox:
+  - handle API key request at launch
   - handle auth errors
   - add user name to login notif
   - add user config options to profile page 
-  - handle API key request
   - Add signout notif
   - Add modal to App, initialState
   - add catchAll page
@@ -30,6 +30,8 @@ Tests:
   - …
 
 Archive:
+  ✔ handle API key request in settings @done(20-02-24 01:36) @project(Inbox)
+  ✔ Test error boundary @done(20-02-23 18:21) @project(Tests)
   ✔ Add error boundary to app @done(20-02-23 16:16) @project(Inbox)
   ✔ It correctly handles signup @done(20-02-22 18:55) @project(Tests)
   ✔ It correctly handles auth after reload (user persistence) @done(20-02-22 18:57) @project(Tests)

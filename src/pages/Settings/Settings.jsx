@@ -2,22 +2,51 @@
 Settings
 --------------------------------- */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { API_KEY } from "../../constants";
 import { log, storage } from "../../utils";
+import { AuthContext, StoreContext } from "../../App";
 
 export default function Settings() {
-  const [key, setKey] = useState("");
+  const [input, setInput] = useState("");
+  const [{ user }] = useContext(AuthContext);
+  const [store, dispatch] = useContext(StoreContext);
+  const key = useApiKey();
 
-  useEffect(() => {
-    const key = storage.pull(API_KEY);
+  /**
+   * useApiKey
+   */
 
-    key && setKey(key);
-  }, []);
+  function useApiKey() {
+    const [key, setKey] = useState("");
+    const { apiKey } = store.userData[user.uid].settings;
 
-  function handleSaveKey() {}
+    useEffect(() => {
+      const key = storage.pull(API_KEY) || apiKey;
+
+      key && setKey(key);
+    }, []);
+
+    return key;
+  }
+
+  /**
+   * handleSaveKey
+   */
+
+  function handleSaveKey() {
+    if (!input) {
+      log("nope!");
+
+      return;
+    }
+
+    dispatch({ type: "SET_API_KEY", key: input, uid: user.uid });
+
+    storage.push(API_KEY, input);
+  }
 
   return (
     <Layout rootClass="Settings">
@@ -31,7 +60,8 @@ export default function Settings() {
           <input
             type="text"
             placeholder="API key"
-            onChange={e => setKey(e.currentTarget.value)}
+            onChange={e => setInput(e.currentTarget.value)}
+            value={input}
           />
           <button type="button" onClick={handleSaveKey}>
             Save

@@ -2,10 +2,7 @@
 reducer
 --------------------------------- */
 
-import {
-  log,
-  storage
-} from "./utils";
+import { log, storage } from "./utils";
 import initialState from "./initialState";
 
 export const userDataTemplate = {
@@ -21,9 +18,7 @@ export default function reducer(state, action) {
 
   switch (action.type) {
     case "INIT_USER": {
-      const {
-        uid
-      } = action;
+      const { uid } = action;
 
       return {
         ...state,
@@ -43,10 +38,7 @@ export default function reducer(state, action) {
     }
 
     case "SET_INITIAL_DATA": {
-      const {
-        uid,
-        remoteData
-      } = action;
+      const { uid, remoteData } = action;
 
       return {
         ...state,
@@ -59,18 +51,39 @@ export default function reducer(state, action) {
       };
     }
 
-    case "GET_USER": {
-      const {
-        uid
-      } = action;
+    case "SET_API_KEY": {
+      const { key: apiKey, uid } = action;
 
+      // return Object.assign({}, state, {
+      //   userData: {
+      //     [uid]: {
+      //       settings: {
+      //         apiKey
+      //       }
+      //     }
+      //   }
+      // });
+
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          [uid]: {
+            ...state.userData[uid],
+            settings: {
+              apiKey
+            }
+          }
+        }
+      };
+    }
+
+    case "GET_USER": {
       return state;
     }
 
     case "CREATE_WATCHED": {
-      const {
-        payload
-      } = action;
+      const { payload } = action;
 
       return {
         ...state,
@@ -87,9 +100,9 @@ export default function reducer(state, action) {
     }
 
     case "FILTER_WATCHED": {
-      const {
-        payload
-      } = action;
+      // TODO not working due to
+      // changes in data structure
+      const { payload } = action;
       const lc = item => item.toLowerCase();
       const query = lc(payload);
       const result = state.watched.filter(
@@ -105,11 +118,7 @@ export default function reducer(state, action) {
     }
 
     case "SHOW_NOTIF": {
-      const {
-        message,
-        icon,
-        timeOut
-      } = action;
+      const { message, icon, timeOut } = action;
 
       return {
         ...state,
