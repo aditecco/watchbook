@@ -25,6 +25,7 @@ Inbox:
 Fixes:
   - fix watched filter
   - fix compact view toggle
+  - after setting an API key, change the UI to a <p>, not an <input>
 
 Tests:
   - …

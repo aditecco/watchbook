@@ -38,7 +38,7 @@ function Home() {
 
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
-  const isApiKeySet = useApiKey();
+  const hasApiKey = useApiKey();
 
   /**
    * Checks if any initial data exists in the remote DB
@@ -85,31 +85,6 @@ function Home() {
       }
     })();
   }, []);
-
-  /**
-   * Checks for the required API key
-   */
-
-  useEffect(() => {
-    // requestApiKey()...
-  }, []);
-
-  function requestApiKey() {
-    const requestKey = window.prompt("Please enter your API key.");
-
-    if (!requestKey) {
-      dispatch({
-        type: "SHOW_NOTIF",
-        message: "No valid key was provided.",
-        // icon: "error_outline",
-        timeOut: 2000
-      });
-
-      return;
-    }
-
-    storage.push(API_KEY, requestKey);
-  }
 
   /**
    * Checks if any initial data exists and,
@@ -231,6 +206,21 @@ function Home() {
   };
 
   /**
+   * triggers a request for an API key
+   * when the form is in focus
+   */
+
+  function handleFocus() {
+    !hasApiKey &&
+      dispatch({
+        type: "SHOW_NOTIF",
+        message: "Please set an API key in settings.",
+        // icon: "error_outline",
+        timeOut: 2000
+      });
+  }
+
+  /**
    * Handles item selection from
    * the search result list
    */
@@ -257,7 +247,9 @@ function Home() {
       {([store]) => (
         <Layout rootClass="Home" selected={1}>
           <div className="wrapper">
-            {/* Selected card modal */}
+            {/* ========================
+              SELECTED CARD MODAL
+              ======================== */}
             <Modal
               open={state.showModal}
               closeAction={() => setState({ showModal: false })}
@@ -272,7 +264,9 @@ function Home() {
               />
             </Modal>
 
-            {/* Item search */}
+            {/* ========================
+              ITEM SEARCH
+              ======================== */}
             <section className="search">
               <header className="appHeader">
                 <h1 className="appTitle">
@@ -308,9 +302,7 @@ function Home() {
                     className="mainSearchField"
                     type="text"
                     onChange={handleSearch}
-                    // TODO detect the API key here?
-                    // onFocus={() => log("focus")}
-                    // onClick={() => log("click")}
+                    onFocus={handleFocus}
                     placeholder="Search for a movie or TV show…"
                   />
 
@@ -325,7 +317,9 @@ function Home() {
               </form>
             </section>
 
-            {/* watched */}
+            {/* ========================
+              WATCHED
+              ======================== */}
 
             <WatchedList
               watched={store.userData[user.uid]["watched"]}
