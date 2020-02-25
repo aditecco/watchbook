@@ -8,7 +8,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import { API_KEY } from "../../constants";
 import { log, storage } from "../../utils";
 import { AuthContext, StoreContext } from "../../App";
-import useApiKey from "../../hooks/useApiKey";
+import { useApiKey } from "../../hooks";
 
 export default function Settings() {
   const [input, setInput] = useState("");

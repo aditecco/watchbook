@@ -17,6 +17,7 @@ import { AuthContext, StoreContext, db } from "../../App";
 import initialState from "../../initialState";
 import TEST_DATA from "../../testData";
 import { API_KEY } from "../../constants";
+import { useApiKey } from "../../hooks";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -37,6 +38,7 @@ function Home() {
 
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
+  const isApiKeySet = useApiKey();
 
   /**
    * Checks if any initial data exists in the remote DB
@@ -88,22 +90,25 @@ function Home() {
    * Checks for the required API key
    */
 
-  function checkApiKey() {
-    const storageID = API_KEY;
-    const key = storage.pull(storageID);
+  useEffect(() => {
+    // requestApiKey()...
+  }, []);
 
-    if (!key) {
-      const requestKey = window.prompt("Please enter your API key.");
+  function requestApiKey() {
+    const requestKey = window.prompt("Please enter your API key.");
 
-      if (!requestKey) {
-        window.alert("No valid key was provided.");
-        return;
-      }
+    if (!requestKey) {
+      dispatch({
+        type: "SHOW_NOTIF",
+        message: "No valid key was provided.",
+        // icon: "error_outline",
+        timeOut: 2000
+      });
 
-      storage.push(storageID, requestKey);
+      return;
     }
 
-    setState({ keyIsPresent: true });
+    storage.push(API_KEY, requestKey);
   }
 
   /**
