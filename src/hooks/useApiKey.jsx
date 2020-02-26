@@ -15,7 +15,8 @@ export default function useApiKey() {
   const persistedKey = storage.pull(API_KEY);
 
   useEffect(() => {
-    const key = persistedKey || apiKey;
+    const key = apiKey || persistedKey;
+    console.log("KEEEEEYYYYY", key);
 
     key && setKey(key);
   }, []);

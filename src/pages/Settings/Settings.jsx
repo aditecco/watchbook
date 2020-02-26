@@ -11,10 +11,11 @@ import { AuthContext, StoreContext } from "../../App";
 import { useApiKey } from "../../hooks";
 
 export default function Settings() {
+  const key = useApiKey();
   const [input, setInput] = useState("");
+  const [hasKey, setHasKey] = useState(!!key);
   const [{ user }] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
-  const key = useApiKey();
 
   /**
    * handleSaveKey
@@ -22,13 +23,15 @@ export default function Settings() {
 
   function handleSaveKey() {
     if (!input) {
-      log("nope!");
+      window.alert("nope!");
 
       return;
     }
 
-    dispatch({ type: "SET_API_KEY", key: input, uid: user.uid });
+    setHasKey(true);
+    setInput("");
 
+    dispatch({ type: "SET_API_KEY", key: input, uid: user.uid });
     storage.push(API_KEY, input);
   }
 
@@ -36,8 +39,11 @@ export default function Settings() {
     <Layout rootClass="Settings">
       <PageHeader title="settings" icon="settings" />
 
-      {key ? (
-        <div className="p">Your API key: {key}</div>
+      {hasKey ? (
+        <div className="p">
+          Your API key:{" "}
+          {store.userData[user.uid].settings.apiKey || storage.pull(API_KEY)}
+        </div>
       ) : (
         <form action="">
           <h4>Save your API Key</h4>
