@@ -8,15 +8,13 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import { API_KEY } from "../../constants";
 import { log, storage } from "../../utils";
 import { AuthContext, StoreContext } from "../../App";
-import { useApiKey } from "../../hooks";
 
 export default function Settings() {
   const [input, setInput] = useState("");
   const [hasKey, setHasKey] = useState(false); //
   const [{ user }] = useContext(AuthContext);
-  const [store, dispatch] = useContext(StoreContext);
-  // let key = useApiKey();
   const { apiKey } = store.userData[user.uid].settings;
+  const [store, dispatch] = useContext(StoreContext);
 
   useEffect(() => {
     if (apiKey) setHasKey(true);
@@ -34,9 +32,8 @@ export default function Settings() {
     }
 
     setInput("");
-    // setHasKey(true);
-
     dispatch({ type: "SET_API_KEY", key: input, uid: user.uid });
+
     storage.push(API_KEY, input);
   }
 
