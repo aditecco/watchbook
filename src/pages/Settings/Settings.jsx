@@ -13,8 +13,8 @@ export default function Settings() {
   const [input, setInput] = useState("");
   const [hasKey, setHasKey] = useState(false); //
   const [{ user }] = useContext(AuthContext);
-  const { apiKey } = store.userData[user.uid].settings;
   const [store, dispatch] = useContext(StoreContext);
+  const { apiKey } = store.userData[user.uid].settings;
 
   useEffect(() => {
     if (apiKey) setHasKey(true);
