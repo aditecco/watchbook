@@ -2,7 +2,7 @@
 Settings
 --------------------------------- */
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { API_KEY } from "../../constants";
@@ -11,11 +11,16 @@ import { AuthContext, StoreContext } from "../../App";
 import { useApiKey } from "../../hooks";
 
 export default function Settings() {
-  const key = useApiKey();
   const [input, setInput] = useState("");
-  const [hasKey, setHasKey] = useState(!!key);
+  const [hasKey, setHasKey] = useState(false); //
   const [{ user }] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
+  // let key = useApiKey();
+  const { apiKey } = store.userData[user.uid].settings;
+
+  useEffect(() => {
+    if (apiKey) setHasKey(true);
+  }, [apiKey]);
 
   /**
    * handleSaveKey
@@ -28,8 +33,8 @@ export default function Settings() {
       return;
     }
 
-    setHasKey(true);
     setInput("");
+    // setHasKey(true);
 
     dispatch({ type: "SET_API_KEY", key: input, uid: user.uid });
     storage.push(API_KEY, input);
@@ -40,10 +45,7 @@ export default function Settings() {
       <PageHeader title="settings" icon="settings" />
 
       {hasKey ? (
-        <div className="p">
-          Your API key:{" "}
-          {store.userData[user.uid].settings.apiKey || storage.pull(API_KEY)}
-        </div>
+        <div className="p">Your API key: {apiKey}</div>
       ) : (
         <form action="">
           <h4>Save your API Key</h4>

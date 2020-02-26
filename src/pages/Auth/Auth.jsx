@@ -97,7 +97,7 @@ export default function Auth() {
 
   return !authenticated ? (
     <Layout rootClass="Auth" hasNav={false}>
-      <PageHeader title="Login/Signup" icon="account_circle" />
+      <PageHeader title="Auth" icon="account_circle" />
 
       {/* tabs */}
       <div className="tabUI">

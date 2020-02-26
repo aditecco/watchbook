@@ -16,7 +16,6 @@ export default function useApiKey() {
 
   useEffect(() => {
     const key = apiKey || persistedKey;
-    console.log("KEEEEEYYYYY", key);
 
     key && setKey(key);
   }, []);
