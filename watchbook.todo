@@ -18,18 +18,33 @@ Inbox:
   - create DB rules
   - wrap layout comp in context consumer
   - show loader when user is authenticating
+  - create validators for input fields
+  - implement to-watch feature
+  - write all styles
+  - restyle cards
+  - decide what card controls should do when cards are in watched list
+  - save API key to DB
+  - sync local data to DB when performing CRUD operations
+    - update
+    - delete
+  - write e2e tests
+  - create flippable card w/ rich info on the back
   - remove signup test data
     firebase won't accept empty values
 
 Fixes:
   - fix watched filter
   - fix compact view toggle
-  - after setting an API key, change the UI to a <p>, not an <input>
 
 Tests:
   - …
 
 Archive:
+  ✔ create @done(20-02-28 01:12) @project(Inbox)
+  ✔ read @done @project(Inbox)
+  ✔ reset search field after a search @done(20-02-28 01:12) @project(Inbox)
+  ✔ fix broken local add watched @done(20-02-28 00:32) @project(Fixes)
+  ✔ after setting an API key, change the UI to a <p>, not an <input> @done(20-02-27 00:19) @project(Fixes)
   ✔ handle API key request at launch @done(20-02-25 22:36) @project(Inbox)
   ✔ handle API key request in settings @done(20-02-24 01:36) @project(Inbox)
   ✔ Test error boundary @done(20-02-23 18:21) @project(Tests)

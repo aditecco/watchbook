@@ -39,6 +39,8 @@ function Home() {
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
   const hasApiKey = useApiKey();
+  const { uid } = user;
+  const dbUser = db.ref(`users/${uid}`);
 
   /**
    * Checks if any initial data exists in the remote DB
@@ -47,19 +49,18 @@ function Home() {
 
   useEffect(() => {
     (async function fetchDBdata() {
-      const { uid } = user;
       setState({ loading: true });
 
       try {
-        const dbLoc = db.ref(`users/${uid}/watched`);
-        const value = await dbLoc.once("value");
+        const dbUserWatched = dbUser.child("watched");
+        const value = await dbUserWatched.once("value");
         const remoteData = await value.val();
 
         // prettier-ignore
         if (!remoteData)
         {
           // write initialData to DB
-          db.ref(`users/${uid}`).set(TEST_DATA, err => {
+          dbUser.set(TEST_DATA, err => {
             // firebase won't accept empty values
             // should be: { watched: [], toWatch: [] }
 
@@ -155,25 +156,31 @@ function Home() {
    */
 
   const handleAddWatched = data => {
-    const id = uuidv4(),
-      timestamp = new Date();
+    const id = uuidv4();
+    const timestamp = Date.now();
 
-    const payload = {
+    const watchedItem = {
       id,
       timestamp,
       ...data
     };
 
-    dispatch({ type: "CREATE_WATCHED", payload });
+    dispatch({ type: "CREATE_WATCHED", watchedItem, uid });
 
-    // syncStorage({ watched: payload });
-    db.ref().update(
-      { watched: [payload, ...store.userData[user.uid]["watched"]] },
+    dbUser.child("watched").update(
+      [watchedItem, ...store.userData[uid]["watched"]],
+      // TODO refactor to update just the new item
+      // ref: https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
+      // watchedItem,
       err => {
         if (err) console.error(err);
-        // TODO
-        // make this a notification in the UI
-        else log(`Successfully saved: ${payload.title}`);
+        else
+          dispatch({
+            type: "SHOW_NOTIF",
+            message: `Watched: ${watchedItem.title}`,
+            icon: null,
+            timeOut: 2000
+          });
       }
     );
 
@@ -182,10 +189,6 @@ function Home() {
       showSearchResults: false,
       searchQuery: ""
     });
-
-    // const localData = [payload, ...storage.Get(WATCHED_KEY)];
-
-    // storage.Set(WATCHED_KEY, localData);
   };
 
   /**
@@ -304,6 +307,7 @@ function Home() {
                     onChange={handleSearch}
                     onFocus={handleFocus}
                     placeholder="Search for a movie or TV show…"
+                    value={state.searchQuery}
                   />
 
                   {state.showSearchResults && (
@@ -322,7 +326,7 @@ function Home() {
               ======================== */}
 
             <WatchedList
-              watched={store.userData[user.uid]["watched"]}
+              watched={store.userData[uid]["watched"]}
               title="Latest watched"
               limit={6}
               loading={state.loading}

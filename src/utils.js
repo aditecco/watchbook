@@ -10,7 +10,7 @@ export const $ = window.document.querySelector.bind(window.document);
 
 // shorter localStorage, w/ JSON manipulation included
 export const storage = (() => {
-  const bound = fn => fn.bind(window.localStorage);
+  const boundFn = fn => fn.bind(window.localStorage);
 
   return {
     pull(item) {
@@ -19,7 +19,7 @@ export const storage = (() => {
       // all the content as an array
 
       try {
-        const data = bound(window.localStorage.getItem)(item);
+        const data = boundFn(window.localStorage.getItem)(item);
         return data && JSON.parse(data);
       } catch (err) {
         console.error(err);
@@ -28,13 +28,13 @@ export const storage = (() => {
     push(id, data) {
       try {
         data = JSON.stringify(data);
-        bound(window.localStorage.setItem)(id, data);
+        boundFn(window.localStorage.setItem)(id, data);
       } catch (err) {
         console.error(err);
       }
     },
     destroy() {
-      bound(window.localStorage.clear)()
+      boundFn(window.localStorage.clear)();
     }
   };
 })();

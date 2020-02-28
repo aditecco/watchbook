@@ -83,11 +83,16 @@ export default function reducer(state, action) {
     }
 
     case "CREATE_WATCHED": {
-      const { payload } = action;
+      const { watchedItem, uid } = action;
 
       return {
         ...state,
-        watched: [payload, ...state.watched]
+        userData: {
+          [uid]: {
+            ...state.userData[uid],
+            watched: [watchedItem, ...state.userData[uid]["watched"]]
+          }
+        }
       };
     }
 

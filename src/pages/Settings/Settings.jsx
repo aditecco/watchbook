@@ -11,10 +11,11 @@ import { AuthContext, StoreContext } from "../../App";
 
 export default function Settings() {
   const [input, setInput] = useState("");
-  const [hasKey, setHasKey] = useState(false); //
+  const [hasKey, setHasKey] = useState(false);
   const [{ user }] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
-  const { apiKey } = store.userData[user.uid].settings;
+  const apiKey =
+    store.userData[user.uid].settings.apiKey || storage.pull(API_KEY);
 
   useEffect(() => {
     if (apiKey) setHasKey(true);

@@ -12,14 +12,14 @@ export default function PrivateRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={routeProps =>
+      render={({ location }) =>
         authenticated ? (
           children
         ) : (
           <Redirect
             to={{
               pathname: "/",
-              state: { from: routeProps.location }
+              state: { from: location }
             }}
           />
         )
