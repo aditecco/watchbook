@@ -106,7 +106,7 @@ function App() {
                   <Auth />
                 </Route>
 
-                <PrivateRoute exact path="/home">
+                <PrivateRoute path="/home">
                   <Home />
                 </PrivateRoute>
 
@@ -125,6 +125,13 @@ function App() {
                 <PrivateRoute exact path="/profile">
                   <Profile />
                 </PrivateRoute>
+
+                {/* catch-all */}
+                <Route
+                  render={({ location }) => (
+                    <h4>Sorry, nothing to see at {location.pathname}</h4>
+                  )}
+                />
               </Switch>
             </Router>
           </StoreContext.Provider>

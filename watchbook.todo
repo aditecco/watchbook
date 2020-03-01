@@ -10,7 +10,7 @@ Inbox:
   - add user config options to profile page 
   - Add signout notif
   - Add modal to App, initialState
-  - add catchAll page
+  ✔ add catchAll page @done(20-03-02 00:23)
   - expose interface for config objects
   ☐ move INIT_USER to auth?
   - handle automatic deploy
