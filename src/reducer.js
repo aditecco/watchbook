@@ -107,18 +107,18 @@ export default function reducer(state, action) {
     case "FILTER_WATCHED": {
       // TODO not working due to
       // changes in data structure
-      const { payload } = action;
-      const lc = item => item.toLowerCase();
-      const query = lc(payload);
-      const result = state.watched.filter(
-        el => lc(el.title).indexOf(lc(query)) !== -1
+      const { query, uid } = action;
+      const lowercased = item => item.toLowerCase();
+      const _query = lowercased(query);
+      const result = state.userData[uid]["watched"].filter(item =>
+        lowercased(item.title).includes(_query)
       );
 
       log(query);
 
       return {
         ...state,
-        filter: result
+        filter: result // TODO should this be in local state?
       };
     }
 

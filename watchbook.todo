@@ -10,7 +10,6 @@ Inbox:
   - add user config options to profile page 
   - Add signout notif
   - Add modal to App, initialState
-  ✔ add catchAll page @done(20-03-02 00:23)
   - expose interface for config objects
   ☐ move INIT_USER to auth?
   - handle automatic deploy
@@ -33,13 +32,14 @@ Inbox:
     firebase won't accept empty values
 
 Fixes:
-  - fix watched filter
   - fix compact view toggle
 
 Tests:
   - …
 
 Archive:
+  ✔ fix watched filter @done(20-03-02 01:23) @project(Fixes)
+  ✔ add catchAll page @done(20-03-02 00:23) @project(Inbox)
   ✔ create @done(20-02-28 01:12) @project(Inbox)
   ✔ read @done @project(Inbox)
   ✔ reset search field after a search @done(20-02-28 01:12) @project(Inbox)

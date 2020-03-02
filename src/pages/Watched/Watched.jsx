@@ -43,7 +43,8 @@ export default function Watched() {
               filterHandler={e =>
                 dispatch({
                   type: "FILTER_WATCHED",
-                  payload: e.currentTarget.value
+                  query: e.currentTarget.value,
+                  uid
                 })
               }
             />
