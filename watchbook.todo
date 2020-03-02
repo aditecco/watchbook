@@ -28,11 +28,13 @@ Inbox:
     - delete
   - write e2e tests
   - create flippable card w/ rich info on the back
+  - keep profile & settings buttons visible in profile & settings pages
   - remove signup test data
     firebase won't accept empty values
 
 Fixes:
-  - fix compact view toggle
+  ✔ fix compact view toggle @done(20-03-03 00:34)
+  - …
 
 Tests:
   - …

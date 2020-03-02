@@ -12,7 +12,7 @@ import { AuthContext, StoreContext } from "../../App";
 import { log } from "../../utils";
 
 export default function Watched() {
-  const [compactView, setCompactView] = useState(null);
+  const [compactView, setCompactView] = useState(false);
   const [{ user }] = useContext(AuthContext);
   const { uid } = user;
 
@@ -51,7 +51,8 @@ export default function Watched() {
 
             <ViewOptions
               labels={{ off: "Compact view", on: "Card view" }}
-              toggleCallback={toggle => setCompactView(toggle)}
+              toggleCallback={() => setCompactView(!compactView)}
+              toggleStatus={compactView}
             />
 
             {store.filter && store.filter.length ? (

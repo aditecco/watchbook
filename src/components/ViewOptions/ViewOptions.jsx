@@ -5,20 +5,12 @@ ViewOptions
 import React, { useState } from "react";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
 
-export default function ViewOptions({ labels, toggleCallback }) {
-  const [toggleStatus, setToggleStatus] = useState(false);
+export default function ViewOptions({ labels, toggleCallback, toggleStatus }) {
+  // const [toggleStatus, setToggleStatus] = useState(false);
 
   return (
     <div className="viewOptions">
-      <button
-        className="viewToggle"
-        type="button"
-        onClick={() => {
-          setToggleStatus(prevState => !prevState);
-
-          toggleCallback(toggleStatus);
-        }}
-      >
+      <button className="viewToggle" type="button" onClick={toggleCallback}>
         {!toggleStatus ? (
           <>
             <MaterialIcon icon="view_stream" />
