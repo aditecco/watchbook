@@ -8,7 +8,7 @@ import PageHeader from "../components/PageHeader/PageHeader";
 
 export default function BlankPage({ title, icon, children }) {
   return (
-    <Layout rootClass={title}>
+    <Layout rootClass={title} hasNav={false}>
       <PageHeader title={title} icon={icon} />
       {children}
     </Layout>
