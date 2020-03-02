@@ -24,6 +24,7 @@ import NotificationMessage from "./components/NotificationMessage/NotificationMe
 import TestPage from "./pages/TestPage";
 import { log } from "./utils";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import BlankPage from "./pages/BlankPage";
 
 // global utils
 window.storage = storage;
@@ -106,7 +107,7 @@ function App() {
                   <Auth />
                 </Route>
 
-                <PrivateRoute path="/home">
+                <PrivateRoute exact path="/home">
                   <Home />
                 </PrivateRoute>
 
@@ -129,7 +130,9 @@ function App() {
                 {/* catch-all */}
                 <Route
                   render={({ location }) => (
-                    <h4>Sorry, nothing to see at {location.pathname}</h4>
+                    <BlankPage title="404" icon="wifi_off">
+                      <h4>Sorry, nothing to see at {location.pathname}</h4>
+                    </BlankPage>
                   )}
                 />
               </Switch>
