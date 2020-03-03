@@ -4,7 +4,11 @@ FilterAndSort
 
 import React from "react";
 
-export default function FilterAndSort({ filterHandler }) {
+export default function FilterAndSort({
+  filterHandler,
+  sortHandler,
+  sortOptions: options
+}) {
   return (
     <div className="FilterAndSort">
       <form action="" className="FilterAndSortForm">
@@ -22,15 +26,17 @@ export default function FilterAndSort({ filterHandler }) {
         <div className="formGroup formGroup__sort">
           <label htmlFor="watchedSearchSort">Sort by year</label>
           <select
-            onChange={e => null}
-            onSelect={e => null}
-            name=""
+            onChange={sortHandler}
+            // onSelect={sortHandler}
+            name="sortKeySelector"
             id="watchedSearchSort"
             className="watchedSort"
           >
-            <option value="">Year</option>
-            <option value="1958">1958</option>
-            <option value="1963">1963</option>
+            {options.map((option, i) => (
+              <option value={option} key={option + i}>
+                {option}
+              </option>
+            ))}
           </select>
         </div>
       </form>

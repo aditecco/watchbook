@@ -15,14 +15,25 @@ export default function Watched() {
   const [compactView, setCompactView] = useState(false);
   const [{ user }] = useContext(AuthContext);
   const { uid } = user;
+  const [sorted, setSorted] = useState([]);
 
   return (
     <StoreContext.Consumer>
       {([store, dispatch]) => {
-        const titleWithCount = `Watched (${store.userData[uid]["watched"].length})`;
+        const { watched } = store.userData[uid]; // watched items cache
+        const titleWithCount = `Watched (${watched.length})`;
         const getType = type =>
-          store.userData[uid]["watched"].filter(item => item.type === type)
-            .length;
+          watched.filter(item => item.type === type).length;
+        const watchedItemsYears = ["Select a year"].concat(
+          watched.map(item => item.year)
+        );
+
+        function handleSortByYear(e) {
+          const year = e.target.value;
+          log(year);
+
+          setSorted(watched.filter(item => item.year === year));
+        }
 
         return (
           <Layout rootClass="Watched" selected={2}>
@@ -47,6 +58,8 @@ export default function Watched() {
                   uid
                 })
               }
+              sortHandler={handleSortByYear}
+              sortOptions={watchedItemsYears}
             />
 
             <ViewOptions
@@ -61,9 +74,9 @@ export default function Watched() {
                 title={titleWithCount}
                 compact={compactView}
               />
-            ) : store.sorted && store.sorted.length ? (
+            ) : sorted && sorted.length ? (
               <WatchedList
-                watched={store.sorted}
+                watched={sorted}
                 title={titleWithCount}
                 compact={compactView}
               />

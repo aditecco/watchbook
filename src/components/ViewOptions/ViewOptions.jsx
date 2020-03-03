@@ -2,12 +2,10 @@
 ViewOptions
 --------------------------------- */
 
-import React, { useState } from "react";
+import React from "react";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
 
 export default function ViewOptions({ labels, toggleCallback, toggleStatus }) {
-  // const [toggleStatus, setToggleStatus] = useState(false);
-
   return (
     <div className="viewOptions">
       <button className="viewToggle" type="button" onClick={toggleCallback}>
