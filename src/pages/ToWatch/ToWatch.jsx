@@ -5,6 +5,7 @@ ToWatch
 import React from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import DataProvider from "../../components/DataProvider";
 
 export default function ToWatch() {
   return (
@@ -20,7 +21,17 @@ export default function ToWatch() {
         }
       />
 
-      {/* <WatchedList watched={watched} title={titleWithCount} /> */}
+      <DataProvider
+        filter={data => data.filter(d => d < 2)}
+        render={data => (
+          <div id="hey">
+            {data.map(d => (
+              // eslint-disable-next-line react/jsx-key
+              <span>{d}</span>
+            ))}
+          </div>
+        )}
+      />
     </Layout>
   );
 }
