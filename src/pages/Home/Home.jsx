@@ -14,10 +14,8 @@ import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
 import { AuthContext, StoreContext, db } from "../../App";
-import initialState from "../../initialState";
-import TEST_DATA from "../../testData";
-import { API_KEY } from "../../constants";
 import { useApiKey } from "../../hooks";
+import DataProvider from "../../components/DataProvider";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -41,66 +39,6 @@ function Home() {
   const hasApiKey = useApiKey();
   const { uid } = user;
   const dbUser = db.ref(`users/${uid}`);
-
-  /**
-   * Checks if any initial data exists in the remote DB
-   * and, if so, feeds it to the app's state
-   */
-
-  useEffect(() => {
-    (async function fetchDBdata() {
-      setState({ loading: true });
-
-      try {
-        const dbUserWatched = dbUser.child("watched");
-        const value = await dbUserWatched.once("value");
-        const remoteData = await value.val();
-
-        // prettier-ignore
-        if (!remoteData)
-        {
-          // write initialData to DB
-          dbUser.set(TEST_DATA, err => {
-            // firebase won't accept empty values
-            // should be: { watched: [], toWatch: [] }
-
-            if (err) {
-              throw err;
-            } else {
-              log(
-                "Successfully initialized DB. Now syncing data to app state..."
-              );
-
-              fetchDBdata();
-            }
-          });
-        }
-        
-        else
-        {
-          dispatch({ type: "SET_INITIAL_DATA", uid, remoteData });
-          setState({ loading: false });
-        }
-      } catch (err) {
-        console.error("@fetchDBData", err);
-      }
-    })();
-  }, []);
-
-  /**
-   * Checks if any initial data exists and,
-   * if so, feeds it to the main app's state
-   */
-
-  // useEffect(() => {
-  //   const initialData = storage.pull(LOCAL_STORAGE_KEY);
-
-  //   if (!initialData) {
-  //     storage.push(LOCAL_STORAGE_KEY, initialState);
-  //   }
-
-  //   dispatch({ type: "SET_INITIAL_DATA", payload: initialData });
-  // }, []);
 
   /**
    * syncStorage
@@ -325,11 +263,10 @@ function Home() {
               WATCHED
               ======================== */}
 
-            <WatchedList
-              watched={store.userData[uid]["watched"]}
-              title="Latest watched"
-              limit={6}
-              loading={state.loading}
+            <DataProvider
+              render={data => (
+                <WatchedList watched={data} title="Latest watched" limit={6} />
+              )}
             />
           </div>
         </Layout>

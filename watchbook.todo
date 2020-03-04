@@ -30,6 +30,10 @@ Inbox:
   - create flippable card w/ rich info on the back
   - keep profile & settings buttons visible in profile & settings pages
   - actually implement Typescript
+  - create DataProvider
+    - …
+    ✔ 1st draft @done(20-03-04 01:04)
+    ✔ implement basic data fetching in HP @done(20-03-04 01:04)
   - remove signup test data
     firebase won't accept empty values
 

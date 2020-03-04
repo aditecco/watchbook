@@ -24,40 +24,37 @@ export default function WatchedList({
             </h3>
           </header>
           <ul className="cardList watchedList">
-            {watched.length &&
-              watched.slice(0, limit).map((item, i) => {
-                const { image, title, type, year } = item;
+            {watched.slice(0, limit).map((item, i) => {
+              const { image, title, type, year } = item;
 
-                return !compact ? (
-                  <li key={i} className="CardContainer">
-                    <Card
-                      image={image}
-                      title={title}
-                      type={type}
-                      year={year}
-                      // TODO
-                      onWatchedClick={e => null}
-                      onToWatchClick={e => null}
-                    />
-                  </li>
-                ) : (
-                  <li key={i} className="CardContainer">
-                    <CompactCard
-                      image={image}
-                      title={title}
-                      type={type}
-                      year={year}
-                      // TODO
-                      onWatchedClick={e => null}
-                      onToWatchClick={e => null}
-                    />
-                  </li>
-                );
-              })}
+              return !compact ? (
+                <li key={i} className="CardContainer">
+                  <Card
+                    image={image}
+                    title={title}
+                    type={type}
+                    year={year}
+                    // TODO
+                    onWatchedClick={e => null}
+                    onToWatchClick={e => null}
+                  />
+                </li>
+              ) : (
+                <li key={i} className="CardContainer">
+                  <CompactCard
+                    image={image}
+                    title={title}
+                    type={type}
+                    year={year}
+                    // TODO
+                    onWatchedClick={e => null}
+                    onToWatchClick={e => null}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </>
-      ) : loading ? (
-        <span className="loadingMessage">loading...</span>
       ) : (
         <div className="blankSlate">
           <span>No watched items.</span>
