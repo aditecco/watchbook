@@ -37,15 +37,15 @@ export default function DataProvider({ render }) {
 
   const { loading, data } = state;
 
+  const [store, dispatch] = useContext(StoreContext);
+  const [{ user }] = useContext(AuthContext);
+  const { uid } = user;
+  const dbUser = db.ref(`users/${uid}`);
   const loader = (
     <div className="blankSlate">
       <span>Loading…</span>
     </div>
   );
-  const [store, dispatch] = useContext(StoreContext);
-  const [{ user }] = useContext(AuthContext);
-  const { uid } = user;
-  const dbUser = db.ref(`users/${uid}`);
 
   /**
    * Checks if any initial data exists in the remote DB

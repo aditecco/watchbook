@@ -248,6 +248,19 @@ function Home() {
                     value={state.searchQuery}
                   />
 
+                  <button
+                    type="button"
+                    className="searchCancel"
+                    style={{
+                      display: `${
+                        !state.searchQuery.length ? "none" : "inline-block"
+                      }`
+                    }}
+                    onClick={() => setState({ searchQuery: "" })}
+                  >
+                    <MaterialIcon icon="close" />
+                  </button>
+
                   {state.showSearchResults && (
                     <AutoSuggest
                       content={state.searchResults.Search}
