@@ -256,7 +256,9 @@ function Home() {
                         !state.searchQuery.length ? "none" : "inline-block"
                       }`
                     }}
-                    onClick={() => setState({ searchQuery: "" })}
+                    onClick={() =>
+                      setState({ searchQuery: "", showSearchResults: false })
+                    }
                   >
                     <MaterialIcon icon="close" />
                   </button>

@@ -30,6 +30,8 @@ Inbox:
   - create flippable card w/ rich info on the back
   - keep profile & settings buttons visible in profile & settings pages
   - actually implement Typescript
+  - add ESC key listener for search cancel button
+  ✔ create cancel button for HP search @done(20-03-05 01:11)
   - create DataProvider
     - …
     ✔ 1st draft @done(20-03-04 01:04)
