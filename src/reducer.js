@@ -145,6 +145,19 @@ export default function reducer(state, action) {
       };
     }
 
+    case "TOGGLE_MODAL": {
+      const { children = null, closeAction = null } = action;
+
+      return {
+        ...state,
+        modal: {
+          open: !state.modal.open,
+          children,
+          closeAction
+        }
+      };
+    }
+
     default:
       return state;
   }

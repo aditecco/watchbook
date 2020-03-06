@@ -25,6 +25,7 @@ import TestPage from "./pages/TestPage";
 import { log } from "./utils";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import BlankPage from "./pages/BlankPage";
+import Modal from "./components/Modal/Modal";
 
 // global utils
 window.storage = storage;
@@ -139,6 +140,10 @@ function App() {
             </Router>
           </StoreContext.Provider>
         </AuthContext.Provider>
+
+        <Modal open={store.modal.open} closeAction={store.modal.closeAction}>
+          {store.modal.children}
+        </Modal>
       </div>
     </ErrorBoundary>
   );

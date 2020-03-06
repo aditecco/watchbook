@@ -169,10 +169,25 @@ function Home() {
   const handleAutoSuggestClick = id => {
     const which = state.searchResults.Search.find(item => item.imdbID === id);
 
-    setState({
-      showModal: true,
-      selectedCard: which
+    dispatch({
+      type: "TOGGLE_MODAL",
+      children: (
+        <Card
+          image={which.Poster}
+          title={which.Title}
+          type={which.Type}
+          year={which.Year}
+          onWatchedClick={handleAddWatched}
+          onToWatchClick={logTarget}
+        />
+      ),
+      closeAction: () => dispatch({ type: "TOGGLE_MODAL" })
     });
+
+    // setState({
+    //   showModal: true,
+    //   selectedCard: which
+    // });
   };
 
   /**
@@ -191,7 +206,7 @@ function Home() {
             {/* ========================
               SELECTED CARD MODAL
               ======================== */}
-            <Modal
+            {/* <Modal
               open={state.showModal}
               closeAction={() => setState({ showModal: false })}
             >
@@ -203,7 +218,7 @@ function Home() {
                 onWatchedClick={handleAddWatched}
                 onToWatchClick={logTarget}
               />
-            </Modal>
+            </Modal> */}
 
             {/* ========================
               ITEM SEARCH

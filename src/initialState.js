@@ -13,5 +13,10 @@ export default {
     icon: "",
     isVisible: false,
     timeOut: 0
+  },
+  modal: {
+    open: false,
+    children: null,
+    closeAction: null
   }
 };
