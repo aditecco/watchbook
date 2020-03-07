@@ -9,7 +9,7 @@ import Card from "../../components/Card/Card";
 import WatchedList from "../../components/WatchedList/WatchedList";
 import Layout from "../../components/Layout/Layout";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
-import Modal from "../../components/Modal/Modal";
+import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { log, storage } from "../../utils";
@@ -147,6 +147,15 @@ function Home() {
   };
 
   /**
+   * Handles resetting
+   * the main search field
+   */
+
+  function handleSearchReset() {
+    setState({ searchQuery: "", showSearchResults: false });
+  }
+
+  /**
    * triggers a request for an API key
    * when the form is in focus
    */
@@ -204,23 +213,6 @@ function Home() {
         <Layout rootClass="Home" selected={1}>
           <div className="wrapper">
             {/* ========================
-              SELECTED CARD MODAL
-              ======================== */}
-            {/* <Modal
-              open={state.showModal}
-              closeAction={() => setState({ showModal: false })}
-            >
-              <Card
-                image={state.selectedCard.Poster}
-                title={state.selectedCard.Title}
-                type={state.selectedCard.Type}
-                year={state.selectedCard.Year}
-                onWatchedClick={handleAddWatched}
-                onToWatchClick={logTarget}
-              />
-            </Modal> */}
-
-            {/* ========================
               ITEM SEARCH
               ======================== */}
             <section className="search">
@@ -252,41 +244,20 @@ function Home() {
                 </nav>
               </header>
 
-              <form className="itemSearch">
-                <>
-                  <input
-                    className="mainSearchField"
-                    type="text"
-                    onChange={handleSearch}
-                    onFocus={handleFocus}
-                    placeholder="Search for a movie or TV show…"
-                    value={state.searchQuery}
+              <SearchField
+                searchQuery={state.searchQuery}
+                searchHandler={handleSearch}
+                focusHandler={handleFocus}
+                resetHandler={handleSearchReset}
+              >
+                {state.showSearchResults && (
+                  <AutoSuggest
+                    content={state.searchResults.Search}
+                    onItemClick={handleAutoSuggestClick}
+                    limit={5}
                   />
-
-                  <button
-                    type="button"
-                    className="searchCancel"
-                    style={{
-                      display: `${
-                        !state.searchQuery.length ? "none" : "inline-block"
-                      }`
-                    }}
-                    onClick={() =>
-                      setState({ searchQuery: "", showSearchResults: false })
-                    }
-                  >
-                    <MaterialIcon icon="close" />
-                  </button>
-
-                  {state.showSearchResults && (
-                    <AutoSuggest
-                      content={state.searchResults.Search}
-                      onItemClick={handleAutoSuggestClick}
-                      limit={5}
-                    />
-                  )}
-                </>
-              </form>
+                )}
+              </SearchField>
             </section>
 
             {/* ========================

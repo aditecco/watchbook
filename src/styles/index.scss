@@ -14,7 +14,6 @@ imports
 @import "./_partials/_anims";
 @import "./_partials/_fx";
 
-
 /* ---------------------------------
 common
 --------------------------------- */
@@ -34,7 +33,6 @@ body {
   font-weight: 400;
 }
 
-
 /* ---------------------------------
 components & pages
 --------------------------------- */
@@ -49,5 +47,6 @@ components & pages
 @import "../components/WatchedList/WatchedList";
 @import "../components/AutoSuggest/AutoSuggest";
 @import "../components/NotificationMessage/NotificationMessage";
+@import "../components/SearchField/SearchField";
 @import "../pages/Watched/Watched";
 @import "../pages/Home/Home";

@@ -30,7 +30,8 @@ Inbox:
   - keep profile & settings buttons visible in profile & settings pages
   - actually implement Typescript
   - add ESC key listener for search cancel button
-  - create component out of search field
+  - refactor to extract components where due
+    - …
   - create DataProvider
     - …
   - remove signup test data
@@ -44,6 +45,7 @@ Tests:
   - …
 
 Archive:
+  ✔ create component out of search field @done(20-03-07 19:21) @project(Inbox)
   ✔ Add modal to App, initialState @done(20-03-06 01:31) @project(Inbox)
   ✔ create cancel button for HP search @done(20-03-05 01:11) @project(Inbox)
   ✔ 1st draft @done(20-03-04 01:04) @project(Inbox)
