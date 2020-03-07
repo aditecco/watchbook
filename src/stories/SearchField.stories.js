@@ -10,9 +10,9 @@ export default {
 };
 
 const SearchFieldProps = {
-  onSearch: action("handleSearch"),
-  onFocus: action("handleFocus"),
-  onReset: action("handleSearchReset"),
+  searchHandler: action("handleSearch"),
+  focusHandler: action("handleFocus"),
+  resetHandler: action("handleSearchReset"),
   searchQuery: ""
 };
 
