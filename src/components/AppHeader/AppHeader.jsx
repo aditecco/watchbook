@@ -5,13 +5,16 @@ AppHeader
 import React from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { Link } from "react-router-dom";
+import { NONAME } from "dns";
 
 export default function AppHeader() {
   return (
     <header className="AppHeader">
-      <h1 className="appTitle">
-        Watch<span>Book</span>
-      </h1>
+      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <h1 className="appTitle">
+          Watch<span>Book</span>
+        </h1>
+      </Link>
 
       <nav className="appMenu">
         <ul className="appMenuContainer">
