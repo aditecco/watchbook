@@ -27,7 +27,6 @@ Optims/refactor:
 
 Features/stories:
   - …
-  - link to home in logo
   - write all styles
   - restyle cards
   - [WATCHED] sort years in sort by year
@@ -65,6 +64,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ link to home in logo @done(20-03-09 00:48) @project(Features/stories)
+  ✔ restyle cards -- part 1 @done(20-03-09 00:49) @project(Features/stories)
   ✔ [WATCHED] create hide filters button @done(20-03-08 03:57) @project(Features/stories)
   ✔ create component out of search field @done(20-03-07 19:21) @project(Inbox)
   ✔ Add modal to App, initialState @done(20-03-06 01:31) @project(Inbox)
