@@ -3,6 +3,7 @@ Home
 --------------------------------- */
 
 .Home {
+
   // Search secton
   .search {
     width: 100%;
@@ -53,7 +54,7 @@ Home
             }
           }
 
-          li + li {
+          li+li {
             margin-left: 1rem;
           }
         }
@@ -62,6 +63,6 @@ Home
   }
 
   .watched {
-    margin-top: 200px;
+    margin-top: 160px;
   }
 }

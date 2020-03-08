@@ -2,47 +2,74 @@
 WatchBook.todo
 ==============
 
-- …
 
 Inbox:
   - handle auth errors
-  - add user name to login notif
-  - add user config options to profile page 
-  - Add signout notif
   - expose interface for config objects
-  ☐ move INIT_USER to auth?
-  - handle automatic deploy
-  - handle deploy config
-  - create DB rules
-  - wrap layout comp in context consumer
-  - show loader when user is authenticating
-  - create validators for input fields
-  - implement to-watch feature
-  - write all styles
-  - restyle cards
-  - decide what card controls should do when cards are in watched list
-  - save API key to DB
-  - sync local data to DB when performing CRUD operations
-    - update
-    - delete
-  - write e2e tests
-  - create flippable card w/ rich info on the back
-  - keep profile & settings buttons visible in profile & settings pages
-  - actually implement Typescript
-  - add ESC key listener for search cancel button
-  - refactor to extract components where due
-    - …
-  - create DataProvider
-    - …
-  - remove signup test data
-    firebase won't accept empty values
+  - move INIT_USER to auth?
+  - wrap layout comp in context consumer (?)
+
 
 Fixes:
   - …
   - auth page flashes when logged-in & reloading
 
+
+Optims/refactor:
+  - …
+  - actually implement Typescript
+  - redesign DB
+  - refactor to extract components where due
+    - …
+    - Create navbar comp
+      keep profile & settings buttons visible in profile & settings pages
+  - create DataProvider
+    - …
+  - remove signup test data
+    firebase won't accept empty values
+
+
+Features/stories:
+  - …
+  - write all styles
+  - restyle cards
+  - [WATCHED] sort years in sort by year
+  - [WATCHED] add reset button to filter field
+  - add ESC key listener for search cancel button
+  - search field in HP hides on scroll
+  - create flippable card w/ rich info on the back
+  - save API key to DB
+  - show loader when user is authenticating
+  - create validators for input fields
+  - implement to-watch feature
+  - decide what card controls should do when cards are in watched list
+  - add user name to login notif
+  - add user config options to profile page
+  - Add signout notif
+  - sync local data to DB when performing CRUD operations
+    - update
+    - delete
+
+
+Platform:
+  - …
+  - try auto-deploy w/ Netlify
+  - handle automatic deploy
+  - handle deploy config
+  - create DB rules
+
+
 Tests:
   - …
+  - try Jest
+  - try visual testing w/ StoryBook
+  - write e2e tests
+
+
+Feature ideas:
+  - Gamification
+  - content collections
+
 
 Archive:
   ✔ create component out of search field @done(20-03-07 19:21) @project(Inbox)
