@@ -41,23 +41,24 @@ export default function Settings() {
   return (
     <Layout rootClass="Settings">
       <PageHeader title="settings" icon="settings" />
-
-      {hasKey ? (
-        <div className="p">Your API key: {apiKey}</div>
-      ) : (
-        <form action="">
-          <h4>Save your API Key</h4>
-          <input
-            type="text"
-            placeholder="API key"
-            onChange={e => setInput(e.currentTarget.value)}
-            value={input}
-          />
-          <button type="button" onClick={handleSaveKey}>
-            Save
-          </button>
-        </form>
-      )}
+      <div className="wrapper">
+        {hasKey ? (
+          <div className="p">Your API key: {apiKey}</div>
+        ) : (
+          <form>
+            <h4>Save your API Key</h4>
+            <input
+              type="text"
+              placeholder="API key"
+              onChange={e => setInput(e.currentTarget.value)}
+              value={input}
+            />
+            <button type="button" onClick={handleSaveKey}>
+              Save
+            </button>
+          </form>
+        )}
+      </div>
     </Layout>
   );
 }

@@ -12,10 +12,11 @@ export default function Layout({
   hasNav = true
 }) {
   return (
-    <main className={rootClass}>
-      {children}
+    <div className={"Layout" + " " + rootClass}>
+      <main className={rootClass + "Content"}>{children}</main>
+
       {hasNav && <Navbar selected={selected} />}
-    </main>
+    </div>
   );
 }
 

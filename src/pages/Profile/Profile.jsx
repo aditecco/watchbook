@@ -29,7 +29,17 @@ export default function Profile() {
     <Layout rootClass="Profile">
       <PageHeader title="profile" icon="account_circle" />
 
-      <span>Hello, {user.email}</span>
+      <div className="wrapper">
+        <p className="ProfileWelcome">Hello, {user.email}</p>
+
+        <form>
+          <label htmlFor="userEmail">Email</label>
+          <input id="userEmail" name="userEmail" type="email" />
+
+          <label htmlFor="userHandle">Screen name</label>
+          <input id="userHandle" name="userHandle" type="text" />
+        </form>
+      </div>
 
       <button type="button" className="logoutButton" onClick={handleSignout}>
         Logout
