@@ -28,16 +28,31 @@
     max-height: 420px;
 
     .CardPosterCurtain {
-      height: 300px;
-      width: 300px;
+      display: flex;
+      align-items: flex-end;
+      height: 260px;
+      width: 290px;
 
       position: absolute;
       top: 0;
       left: 0;
       background:
         linear-gradient(to bottom,
-          transparent 50%,
+          // transparent 50%,
+          transparent 30%,
           black);
+
+      &Title {
+        padding: 16px;
+        margin: 0;
+        font-family: $montserrat;
+        font-weight: normal;
+        color: white;
+        text-shadow: 0 2px 20px black;
+        text-transform: capitalize;
+        line-height: 1.4;
+        font-size: 1.25rem;
+      }
 
     }
 

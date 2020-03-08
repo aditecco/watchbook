@@ -20,15 +20,17 @@ export default function Card({
     <a href={null} className="CardAnchor">
       <article className="Card">
         <section className="CardMedia" style={{ padding: 0 }}>
-          <div className="CardPosterCurtain" />
+          <div className="CardPosterCurtain">
+            <h3 className="CardPosterCurtainTitle">{title}</h3>
+          </div>
 
           <img src={image} alt={title} className="CardPoster" />
         </section>
 
         <section className="CardBody">
-          <header className="CardHeader">
+          {/* <header className="CardHeader">
             <h4 className="CardHeading">{title}</h4>
-          </header>
+          </header> */}
           <span className="CardContent">{year + ", " + type}</span>
         </section>
         <footer className="CardFooter">
