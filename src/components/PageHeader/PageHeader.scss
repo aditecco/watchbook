@@ -3,22 +3,23 @@ PageHeader
 --------------------------------- */
 
 .PageHeader {
-  padding: 2rem 3rem;
-  // border-bottom: 1px solid #c2c2c2;
+  @include flex(column nowrap, space-between, center);
+  padding: 1rem 1.6rem;
+  border-top: 1px solid rgba(#c2c2c2, .4);
   background-color: $flat-gray-1;
   color: #f5f5f5;
+
 
   .container {
     position: relative;
   }
 
   i.material-icons {
-    font-size: 2.4rem;
+    font-size: 2.22rem;
     color: #c0392b;
     transition: transform .3s ease;
     position: absolute;
-    // top: 8px;
-    bottom: 11px;
+    bottom: 9px;
     left: 0;
 
     &:hover {
@@ -29,12 +30,11 @@ PageHeader
   .PageHeading {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
-    font-size: 2.6rem;
+    font-size: 2rem;
     margin: 0 0 10px;
     padding-left: 44px;
     letter-spacing: -1px;
     color: #c0392b;
-    display: inline-block;
   }
 
   .PageSubHeading {
@@ -53,7 +53,6 @@ PageHeader
     // WHY?!!!!
     // @include round(16px);
     margin-right: 6px;
-    ;
     display: inline-block;
     width: 10px;
     height: 10px;

@@ -3,12 +3,10 @@ Home
 --------------------------------- */
 
 import React, { useEffect, useReducer, useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import uuidv4 from "uuid";
 import Card from "../../components/Card/Card";
 import WatchedList from "../../components/WatchedList/WatchedList";
 import Layout from "../../components/Layout/Layout";
-import MaterialIcon from "../../components/Misc/MaterialIcon";
 import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { LOCAL_STORAGE_KEY } from "../../constants";
@@ -16,6 +14,7 @@ import { log, storage } from "../../utils";
 import { AuthContext, StoreContext, db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
+import AppHeader from "../../components/AppHeader/AppHeader";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -216,34 +215,6 @@ function Home() {
               ITEM SEARCH
               ======================== */}
             <section className="search">
-              <header className="appHeader">
-                <h1 className="appTitle">
-                  Watch<span>Book</span>
-                </h1>
-
-                <nav className="appMenu">
-                  <ul className="appMenuContainer">
-                    <li>
-                      <Link to="/profile">
-                        <MaterialIcon icon="account_circle" />
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link to="/settings">
-                        <MaterialIcon icon="settings" />
-                      </Link>
-                    </li>
-
-                    {/* <li>
-                      <Link to="/test">
-                        <MaterialIcon icon="build" />
-                      </Link>
-                    </li> */}
-                  </ul>
-                </nav>
-              </header>
-
               <SearchField
                 searchQuery={state.searchQuery}
                 searchHandler={handleSearch}

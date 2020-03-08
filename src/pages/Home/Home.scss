@@ -6,63 +6,8 @@ Home
 
   // Search secton
   .search {
-    width: 100%;
-    padding: 1.6rem 0 0;
     border-bottom: 1px solid #c2c2c2;
     box-shadow: 0 1px 20px rgba(black, 0.22);
-    position: fixed;
-    top: 0;
     background-color: $flat-gray-1;
-    z-index: 1;
-
-    // app header
-    .appHeader {
-      @include flex(row wrap, space-between, center);
-      padding: 0 1.6rem;
-
-      .appTitle {
-        font-family: $workSans;
-        font-weight: 300;
-        text-transform: uppercase;
-        font-size: 1rem;
-        letter-spacing: 4px;
-        color: $flat-blue-3;
-
-        span {
-          color: $accent;
-          // border-bottom: 2px solid orange;
-          position: relative;
-          bottom: 4px;
-          transition: bottom 0.3s ease;
-
-          &:hover {
-            bottom: 0.9px;
-          }
-        }
-      }
-
-      .appMenu {
-        &Container {
-          @include box(0, 0, true);
-
-          li {
-            display: inline-block;
-
-            a {
-              @extend %resetAnchors;
-              color: #444;
-            }
-          }
-
-          li+li {
-            margin-left: 1rem;
-          }
-        }
-      }
-    }
-  }
-
-  .watched {
-    margin-top: 160px;
   }
 }

@@ -4,19 +4,25 @@ Layout
 
 import React from "react";
 import Navbar from "../Navbar/Navbar";
+import AppHeader from "../AppHeader/AppHeader";
 
 export default function Layout({
   children,
   rootClass,
   selected = null,
-  hasNav = true
+  hasNav = true,
+  hasHeader = true
 }) {
   return (
-    <div className={"Layout" + " " + rootClass}>
-      <main className={rootClass + "Content"}>{children}</main>
+    <>
+      {hasHeader && <AppHeader />}
 
-      {hasNav && <Navbar selected={selected} />}
-    </div>
+      <div className={"Layout" + " " + rootClass}>
+        <main className={rootClass + "Content"}>{children}</main>
+
+        {hasNav && <Navbar selected={selected} />}
+      </div>
+    </>
   );
 }
 
