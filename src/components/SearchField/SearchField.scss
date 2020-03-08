@@ -28,9 +28,13 @@ $accent: #e74c3c;
 
   .searchCancel {
     position: absolute;
+    top: 25px;
     right: 32px;
-    top: 22px;
     padding: 0;
     color: #444;
+    // browser styles overrides
+    background-color: transparent;
+    border: none;
+    outline: none;
   }
 }
