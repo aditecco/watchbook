@@ -2,4 +2,9 @@
 Watched
 --------------------------------- */
 
-.Watched {}
+.Watched {
+  .viewOptionsContainer {
+    @include flex(row wrap, space-around, center);
+    padding: .9rem;
+  }
+}

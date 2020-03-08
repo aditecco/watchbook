@@ -12,6 +12,7 @@ import { AuthContext, StoreContext } from "../../App";
 import { log } from "../../utils";
 
 export default function Watched() {
+  const [showFilters, setShowFilters] = useState(false);
   const [compactView, setCompactView] = useState(false);
   const [{ user }] = useContext(AuthContext);
   const { uid } = user;
@@ -50,23 +51,35 @@ export default function Watched() {
               }
             />
 
-            <FilterAndSort
-              filterHandler={e =>
-                dispatch({
-                  type: "FILTER_WATCHED",
-                  query: e.currentTarget.value,
-                  uid
-                })
-              }
-              sortHandler={handleSortByYear}
-              sortOptions={watchedItemsYears}
-            />
+            <div className="viewOptionsContainer">
+              <ViewOptions
+                labels={{ off: "Show filters", on: "Hide filters" }}
+                icons={{ off: "filter_list", on: "" }}
+                toggleCallback={() => setShowFilters(!showFilters)}
+                toggleStatus={showFilters}
+              />
 
-            <ViewOptions
-              labels={{ off: "Compact view", on: "Card view" }}
-              toggleCallback={() => setCompactView(!compactView)}
-              toggleStatus={compactView}
-            />
+              <ViewOptions
+                labels={{ off: "Compact view", on: "Card view" }}
+                icons={{ off: "view_stream", on: "view_module" }}
+                toggleCallback={() => setCompactView(!compactView)}
+                toggleStatus={compactView}
+              />
+            </div>
+
+            {showFilters && (
+              <FilterAndSort
+                filterHandler={e =>
+                  dispatch({
+                    type: "FILTER_WATCHED",
+                    query: e.currentTarget.value,
+                    uid
+                  })
+                }
+                sortHandler={handleSortByYear}
+                sortOptions={watchedItemsYears}
+              />
+            )}
 
             {store.filter && store.filter.length ? (
               <WatchedList

@@ -5,18 +5,28 @@ ViewOptions
 import React from "react";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
 
-export default function ViewOptions({ labels, toggleCallback, toggleStatus }) {
+export default function ViewOptions({
+  labels,
+  icons,
+  toggleCallback,
+  toggleStatus
+}) {
   return (
     <div className="viewOptions">
       <button className="viewToggle" type="button" onClick={toggleCallback}>
         {!toggleStatus ? (
           <>
-            <MaterialIcon icon="view_stream" />
+            {/*
+          if the icon is missing,
+          it will use the one from
+          the other case
+          */}
+            <MaterialIcon icon={icons.off || icons.on} />
             <span className="viewToggleLabel">{labels.off}</span>
           </>
         ) : (
           <>
-            <MaterialIcon icon="view_module" />
+            <MaterialIcon icon={icons.on || icons.off} />
             <span className="viewToggleLabel">{labels.on}</span>
           </>
         )}
