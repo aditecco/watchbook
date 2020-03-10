@@ -39,27 +39,25 @@ PageHeader
 
   .PageSubHeading {
     display: inline-block;
-    font-size: 24px;
     color: #777;
     margin: 0;
     text-transform: uppercase;
-    font-family: "Archivo";
     font-size: 16px;
   }
 
   .highlight {}
 
-  .dot {
-    // WHY?!!!!
-    // @include round(16px);
-    margin-right: 6px;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    @import "~flat-ui-colors-sass/_flat-colors";
+  // .dot {
+  //   // WHY?!!!!
+  //   // @include round(16px);
+  //   margin-right: 6px;
+  //   display: inline-block;
+  //   width: 10px;
+  //   height: 10px;
+  //   border-radius: 100%;
+  //   @import "~flat-ui-colors-sass/_flat-colors";
 
-    background-color: $flat-red-1;
-    box-shadow: inset 0 1px 2px rgba(black, .1);
-  }
+  //   background-color: $flat-red-1;
+  //   box-shadow: inset 0 1px 2px rgba(black, .1);
+  // }
 }

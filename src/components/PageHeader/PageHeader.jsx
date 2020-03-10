@@ -15,7 +15,7 @@ export default function PageHeader({ title, icon, subHeading }) {
 
       {subHeading && (
         <div className="container">
-          <div className="dot"></div>
+          {/* <div className="dot"></div> */}
           <h4 className="PageSubHeading">{subHeading}</h4>
         </div>
       )}

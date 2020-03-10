@@ -62,6 +62,7 @@ Tests:
 Feature ideas:
   - Gamification
   - content collections
+  - detect duplicate items
 
 Archive:
   ✔ link to home in logo @done(20-03-09 00:48) @project(Features/stories)

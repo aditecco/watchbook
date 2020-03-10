@@ -15,6 +15,7 @@ export default function Card({
   ...other
 }) {
   // log(arguments);
+  const watchedStatus = false;
 
   return (
     <a href={null} className="CardAnchor">
@@ -22,31 +23,45 @@ export default function Card({
         <section className="CardMedia" style={{ padding: 0 }}>
           <div className="CardPosterCurtain">
             <h3 className="CardPosterCurtainTitle">{title}</h3>
+
+            <ul className="CardMeta">
+              <li className="CardMetaItem">
+                <h6 className="CardMetaItemTitle">Year</h6>
+
+                {year}
+              </li>
+              <li className="CardMetaItem">
+                <h6 className="CardMetaItemTitle">Type</h6>
+
+                {type}
+              </li>
+            </ul>
           </div>
 
           <img src={image} alt={title} className="CardPoster" />
         </section>
 
-        <section className="CardBody">
-          {/* <header className="CardHeader">
-            <h4 className="CardHeading">{title}</h4>
-          </header> */}
+        {/* <section className="CardBody">
           <span className="CardContent">{year + ", " + type}</span>
-        </section>
+        </section> */}
+
         <footer className="CardFooter">
-          {/* <div className="CardTimeStamp">
-            <time>{new Date().toLocaleDateString()}</time>
-          </div> */}
           <div className="CardControls">
-            <ul className="CardControlsContainer">
-              <li className="CardControlsItem CardControlsItem__to-watch">
-                <button className="CardControlsItemButton" type="button">
-                  To watch
+            {/* 
+            TODO
+
+            Define how CardControls will change
+            when the item is set as watched
+            */}
+
+            {!watchedStatus ? (
+              <>
+                <button className="CardControlsButton" type="button">
+                  To Watch
                 </button>
-              </li>
-              <li className="CardControlsItem CardControlsItem__watched">
+
                 <button
-                  className="CardControlsItemButton"
+                  className="CardControlsButton"
                   type="button"
                   onClick={e => {
                     e.preventDefault();
@@ -56,8 +71,8 @@ export default function Card({
                 >
                   Watched <i className="material-icons">check_circle</i>
                 </button>
-              </li>
-            </ul>
+              </>
+            ) : null}
           </div>
         </footer>
       </article>
