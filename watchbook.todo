@@ -28,7 +28,11 @@ Optims/refactor:
 Features/stories:
   - …
   - write all styles
-  - restyle cards
+    - …
+    - Auth page
+    - settings page
+    - Profile page
+  ✔ restyle cards @done(20-03-11 00:39)
   - [WATCHED] sort years in sort by year
   - [WATCHED] add reset button to filter field
   - add ESC key listener for search cancel button

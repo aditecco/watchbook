@@ -10,6 +10,7 @@ import { AuthContext, StoreContext } from "../../App";
 import { Redirect } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
 
 export default function Auth() {
   const [{ authenticated }] = useContext(AuthContext);
@@ -98,6 +99,8 @@ export default function Auth() {
   return !authenticated ? (
     <Layout rootClass="Auth" hasNav={false}>
       <PageHeader title="Auth" icon="account_circle" />
+
+      <TabSwitcher tabs={["Login", "Signup", "lorem", "ipsum", "dolor"]} />
 
       {/* tabs */}
       <div className="tabUI">
