@@ -3,18 +3,27 @@ TabSwitcher
 --------------------------------- */
 
 .TabSwitcher {
-  @include flex(row wrap, space-around, flex-end);
+  .TabHeader {
+    @include flex(row wrap, center, flex-end);
+  }
+
   .TabButton {
     border: 0;
     border-top: 1px solid $flat-gray-1;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
     background: linear-gradient(to bottom, white, #f3f3f3);
     padding: 6px 1rem;
+
+    + .TabButton {
+      margin-left: 0.25rem;
+    }
 
     &--selected {
       border-top: 2px solid $accent;
       outline: none;
     }
+  }
+
+  .TabContent {
+    display: block;
   }
 }

@@ -9,16 +9,22 @@ export default function TabSwitcher({ tabs, children }) {
 
   return (
     <div className="TabSwitcher">
-      {tabs.map((tab, k) => (
-        <button
-          key={k}
-          type="button"
-          className={`TabButton ${selected === k ? "TabButton--selected" : ""}`}
-          onClick={() => setSelected(k)}
-        >
-          {tab}
-        </button>
-      ))}
+      <div className="TabHeader">
+        {tabs.map((tab, k) => (
+          <button
+            key={k}
+            type="button"
+            className={`TabButton ${
+              selected === k ? "TabButton--selected" : ""
+            }`}
+            onClick={() => setSelected(k)}
+          >
+            {tab.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="TabContent">{tabs[selected]["content"]}</div>
     </div>
   );
 }

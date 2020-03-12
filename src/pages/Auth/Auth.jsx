@@ -100,7 +100,26 @@ export default function Auth() {
     <Layout rootClass="Auth" hasNav={false}>
       <PageHeader title="Auth" icon="account_circle" />
 
-      <TabSwitcher tabs={["Login", "Signup", "lorem", "ipsum", "dolor"]} />
+      <TabSwitcher
+        tabs={[
+          {
+            name: "Login",
+            content: <div>hey</div>
+          },
+          {
+            name: "Signup",
+            content: (
+              <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                Aliquam vitae dui. Nulla id libero nec eros pretium facilisis.
+                Donec nulla ipsum, elementum vitae, cursus vitae, accumsan sed,
+                ligula. Curabitur metus dolor, euismod sed, vehicula nec,
+                vestibulum sit amet, ipsum.
+              </p>
+            )
+          }
+        ]}
+      />
 
       {/* tabs */}
       <div className="tabUI">
