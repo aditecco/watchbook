@@ -2,8 +2,8 @@
 Auth
 --------------------------------- */
 
-import React, { useReducer, useContext } from "react";
-import { log, storage } from "../../utils";
+import React, { useReducer, useContext, useState } from "react";
+import { log, storage, capitalize } from "../../utils";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import { AuthContext, StoreContext } from "../../App";
@@ -12,15 +12,42 @@ import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
 
+export const AuthForm = ({ action, actionHandler }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <form className="authForm">
+      <input
+        id="emailField"
+        type="text"
+        className="email"
+        placeholder="email@example.com"
+        value={email}
+        onChange={e => setEmail(e.currentTarget.value)}
+      />
+
+      <input
+        id="passwordField"
+        type="password"
+        className="password"
+        placeholder="xyz"
+        value={password}
+        onChange={e => setPassword(e.currentTarget.value)}
+      />
+
+      <button type="button" className="Button" onClick={actionHandler}>
+        {capitalize(action)}
+      </button>
+    </form>
+  );
+};
+
 export default function Auth() {
   const [{ authenticated }] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
 
   const initialComponentState = {
-    loggingIn: true,
-    signingUp: false,
-    email: "",
-    password: "",
     hasError: { error: false, errorMeta: {} }
   };
 
@@ -30,32 +57,6 @@ export default function Auth() {
   );
 
   const { email, password, loggingIn, signingUp } = state;
-
-  const AuthForm = (
-    <form className="authForm">
-      <input
-        id="emailField"
-        type="text"
-        className="email"
-        placeholder="email@example.com"
-        value={email}
-        onChange={e => setState({ email: e.currentTarget.value })}
-      />
-
-      <input
-        id="passwordField"
-        type="password"
-        className="password"
-        placeholder="xyz"
-        value={password}
-        onChange={e => setState({ password: e.currentTarget.value })}
-      />
-
-      <button type="button" className="Button" onClick={handleAuth}>
-        {loggingIn ? "Login" : "Signup"}
-      </button>
-    </form>
-  );
 
   /**
    * handleAuth
@@ -130,11 +131,11 @@ export default function Auth() {
         tabs={[
           {
             name: "Login",
-            content: AuthForm
+            content: <AuthForm action="login" actionHandler={handleAuth} />
           },
           {
             name: "Signup",
-            content: AuthForm
+            content: <AuthForm action="signup" actionHandler={handleAuth} />
           }
         ]}
       />

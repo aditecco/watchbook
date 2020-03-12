@@ -49,3 +49,19 @@ export const rand = () => {
     return number;
   }
 };
+
+// capitalize
+export function capitalize(word) {
+  const capitalizer = w => w.charAt(0).toUpperCase() + w.slice(1);
+
+  if (!word) return undefined;
+
+  if (word.includes(" ")) {
+    return word
+      .split(" ")
+      .map(capitalizer)
+      .join(" ");
+  }
+
+  return capitalizer(word);
+}
