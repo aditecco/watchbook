@@ -9,6 +9,8 @@ TabSwitcher
 
   .TabButton {
     border: 0;
+
+    outline: 1px solid #dddddd3b;
     border-top: 1px solid $flat-gray-1;
     background: linear-gradient(to bottom, white, #f3f3f3);
     padding: 6px 1rem;
@@ -18,8 +20,7 @@ TabSwitcher
     }
 
     &--selected {
-      border-top: 2px solid $accent;
-      outline: none;
+      border-top: 3px solid $accent;
     }
   }
 

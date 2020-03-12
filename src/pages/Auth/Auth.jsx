@@ -31,6 +31,32 @@ export default function Auth() {
 
   const { email, password, loggingIn, signingUp } = state;
 
+  const AuthForm = (
+    <form className="authForm">
+      <input
+        id="emailField"
+        type="text"
+        className="email"
+        placeholder="email@example.com"
+        value={email}
+        onChange={e => setState({ email: e.currentTarget.value })}
+      />
+
+      <input
+        id="passwordField"
+        type="password"
+        className="password"
+        placeholder="xyz"
+        value={password}
+        onChange={e => setState({ password: e.currentTarget.value })}
+      />
+
+      <button type="button" className="Button" onClick={handleAuth}>
+        {loggingIn ? "Login" : "Signup"}
+      </button>
+    </form>
+  );
+
   /**
    * handleAuth
    */
@@ -104,72 +130,14 @@ export default function Auth() {
         tabs={[
           {
             name: "Login",
-            content: <div>hey</div>
+            content: AuthForm
           },
           {
             name: "Signup",
-            content: (
-              <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                Aliquam vitae dui. Nulla id libero nec eros pretium facilisis.
-                Donec nulla ipsum, elementum vitae, cursus vitae, accumsan sed,
-                ligula. Curabitur metus dolor, euismod sed, vehicula nec,
-                vestibulum sit amet, ipsum.
-              </p>
-            )
+            content: AuthForm
           }
         ]}
       />
-
-      {/* tabs */}
-      <div className="tabUI">
-        <button
-          type="button"
-          className="loginTabButton"
-          onClick={() => setState({ loggingIn: true, signingUp: false })}
-        >
-          Login
-        </button>
-
-        <span> or </span>
-
-        <button
-          type="button"
-          className="signupTabButton"
-          onClick={() => setState({ loggingIn: false, signingUp: true })}
-        >
-          Signup
-        </button>
-      </div>
-
-      {/* form */}
-      <form className="authForm">
-        <h3 className="authFormHeader">{loggingIn ? "Login" : "Signup"}</h3>
-
-        {/* <label htmlFor="emailField">email</label> */}
-        <input
-          id="emailField"
-          type="text"
-          className="email"
-          placeholder="email@example.com"
-          value={email}
-          onChange={e => setState({ email: e.currentTarget.value })}
-        />
-
-        {/* <label htmlFor="passwordField">password</label> */}
-        <input
-          id="passwordField"
-          type="password"
-          className="password"
-          placeholder="xyz"
-          value={password}
-          onChange={e => setState({ password: e.currentTarget.value })}
-        />
-
-        <button type="button" className="Button" onClick={handleAuth}>
-          {loggingIn ? "Login" : "Signup"}
-        </button>
-      </form>
     </Layout>
   ) : (
     <Redirect to="/home" />
