@@ -20,6 +20,7 @@ export const AuthForm = ({ action, actionHandler }) => {
     <form className="authForm">
       <input
         id="emailField"
+        name="emailField"
         type="text"
         className="email"
         placeholder="email@example.com"
@@ -29,6 +30,7 @@ export const AuthForm = ({ action, actionHandler }) => {
 
       <input
         id="passwordField"
+        name="passwordField"
         type="password"
         className="password"
         placeholder="xyz"
@@ -36,7 +38,11 @@ export const AuthForm = ({ action, actionHandler }) => {
         onChange={e => setPassword(e.currentTarget.value)}
       />
 
-      <button type="button" className="Button" onClick={actionHandler}>
+      <button
+        type="button"
+        className="Button"
+        onClick={() => actionHandler({ action, email, password })}
+      >
         {capitalize(action)}
       </button>
     </form>
@@ -56,15 +62,12 @@ export default function Auth() {
     initialComponentState
   );
 
-  const { email, password, loggingIn, signingUp } = state;
-
   /**
    * handleAuth
    */
 
-  async function handleAuth() {
+  async function handleAuth({ action, email, password }) {
     if (!validate({ email, password })) {
-      setState({ email: "", password: "" });
       window.alert("nope!");
       return;
     }
@@ -74,9 +77,9 @@ export default function Auth() {
         .auth()
         .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-      if (loggingIn) {
+      if (action === "login") {
         await firebase.auth().signInWithEmailAndPassword(email, password);
-      } else if (signingUp) {
+      } else if (action === "signup") {
         await firebase.auth().createUserWithEmailAndPassword(email, password);
       }
 
