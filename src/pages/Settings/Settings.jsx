@@ -41,6 +41,7 @@ export default function Settings() {
   return (
     <Layout rootClass="Settings">
       <PageHeader title="settings" icon="settings" />
+
       <div className="wrapper">
         {hasKey ? (
           <div className="p">Your API key: {apiKey}</div>
@@ -48,12 +49,17 @@ export default function Settings() {
           <form>
             <h4>Save your API Key</h4>
             <input
+              className="BaseInput"
               type="text"
               placeholder="API key"
               onChange={e => setInput(e.currentTarget.value)}
               value={input}
             />
-            <button type="button" onClick={handleSaveKey}>
+            <button
+              type="button"
+              className="BaseButton"
+              onClick={handleSaveKey}
+            >
               Save
             </button>
           </form>

@@ -37,6 +37,7 @@ body {
 components & pages
 --------------------------------- */
 
+@import "./_partials/common";
 @import "../components/Card/Card";
 @import "../components/Navbar/Navbar";
 @import "../components/PageHeader/PageHeader";
@@ -51,5 +52,8 @@ components & pages
 @import "../components/Layout/Layout";
 @import "../components/AppHeader/AppHeader";
 @import "../components/TabSwitcher/TabSwitcher";
-@import "../pages/Watched/Watched";
 @import "../pages/Home/Home";
+@import "../pages/Watched/Watched";
+@import "../pages/ToWatch/ToWatch";
+@import "../pages/Settings/Settings";
+@import "../pages/Profile/Profile";

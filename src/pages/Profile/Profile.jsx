@@ -34,16 +34,28 @@ export default function Profile() {
 
         <form>
           <label htmlFor="userEmail">Email</label>
-          <input id="userEmail" name="userEmail" type="email" />
+          {/* TODO controlled inputs */}
+          <input
+            id="userEmail"
+            name="userEmail"
+            type="email"
+            placeholder={user.email || "email@example.com"}
+            className="BaseInput"
+          />
 
           <label htmlFor="userHandle">Screen name</label>
-          <input id="userHandle" name="userHandle" type="text" />
+          <input
+            id="userHandle"
+            name="userHandle"
+            type="text"
+            className="BaseInput"
+          />
         </form>
-      </div>
 
-      <button type="button" className="logoutButton" onClick={handleSignout}>
-        Logout
-      </button>
+        <button type="button" className="BaseButton" onClick={handleSignout}>
+          Logout
+        </button>
+      </div>
     </Layout>
   ) : (
     <Redirect to="/" />

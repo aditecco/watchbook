@@ -18,21 +18,23 @@ export const AuthForm = ({ action, actionHandler }) => {
 
   return (
     <form className="authForm">
+      <label htmlFor="emailField">{`${capitalize(action)} email`}</label>
       <input
         id="emailField"
         name="emailField"
         type="text"
-        className="email"
-        placeholder="email@example.com"
+        className="BaseInput"
+        placeholder={`${action}.email@example.com`}
         value={email}
         onChange={e => setEmail(e.currentTarget.value)}
       />
 
+      <label htmlFor="passwordField">Password</label>
       <input
         id="passwordField"
         name="passwordField"
         type="password"
-        className="password"
+        className="BaseInput"
         placeholder="xyz"
         value={password}
         onChange={e => setPassword(e.currentTarget.value)}
@@ -40,7 +42,7 @@ export const AuthForm = ({ action, actionHandler }) => {
 
       <button
         type="button"
-        className="Button"
+        className="BaseButton"
         onClick={() => actionHandler({ action, email, password })}
       >
         {capitalize(action)}
@@ -130,18 +132,20 @@ export default function Auth() {
     <Layout rootClass="Auth" hasNav={false}>
       <PageHeader title="Auth" icon="account_circle" />
 
-      <TabSwitcher
-        tabs={[
-          {
-            name: "Login",
-            content: <AuthForm action="login" actionHandler={handleAuth} />
-          },
-          {
-            name: "Signup",
-            content: <AuthForm action="signup" actionHandler={handleAuth} />
-          }
-        ]}
-      />
+      <div className="wrapper">
+        <TabSwitcher
+          tabs={[
+            {
+              name: "Login",
+              content: <AuthForm action="login" actionHandler={handleAuth} />
+            },
+            {
+              name: "Signup",
+              content: <AuthForm action="signup" actionHandler={handleAuth} />
+            }
+          ]}
+        />
+      </div>
     </Layout>
   ) : (
     <Redirect to="/home" />

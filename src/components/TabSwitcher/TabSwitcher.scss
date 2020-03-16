@@ -5,14 +5,14 @@ TabSwitcher
 .TabSwitcher {
   .TabHeader {
     @include flex(row wrap, center, flex-end);
+    margin-bottom: 1rem;
   }
 
   .TabButton {
     border: 0;
-
     outline: 1px solid #dddddd3b;
     border-top: 1px solid $flat-gray-1;
-    background: linear-gradient(to bottom, white, #f3f3f3);
+    background: linear-gradient(to bottom, white, $background_main);
     padding: 6px 1rem;
 
     + .TabButton {
