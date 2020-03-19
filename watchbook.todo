@@ -29,10 +29,7 @@ Features/stories:
   - …
   - write all styles
     - …
-    - Auth page
-    - settings page
-    - Profile page
-  ✔ restyle cards @done(20-03-11 00:39)
+    ☐ Auth page
   - [WATCHED] sort years in sort by year
   - [WATCHED] add reset button to filter field
   - add ESC key listener for search cancel button
@@ -69,6 +66,9 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ settings page @done(20-03-19 00:40) @project(Features/stories)
+  ✔ Profile page @done(20-03-19 00:40) @project(Features/stories)
+  ✔ restyle cards @done(20-03-11 00:39) @project(Features/stories)
   ✔ link to home in logo @done(20-03-09 00:48) @project(Features/stories)
   ✔ restyle cards -- part 1 @done(20-03-09 00:49) @project(Features/stories)
   ✔ [WATCHED] create hide filters button @done(20-03-08 03:57) @project(Features/stories)

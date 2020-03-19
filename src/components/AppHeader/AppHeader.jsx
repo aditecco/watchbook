@@ -2,12 +2,14 @@
 AppHeader
 --------------------------------- */
 
-import React from "react";
+import React, { useContext } from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { Link } from "react-router-dom";
-import { NONAME } from "dns";
+import { AuthContext } from "../../App";
 
 export default function AppHeader() {
+  const [{ authenticated }] = useContext(AuthContext);
+
   return (
     <header className="AppHeader">
       <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
@@ -16,27 +18,29 @@ export default function AppHeader() {
         </h1>
       </Link>
 
-      <nav className="appMenu">
-        <ul className="appMenuContainer">
-          <li>
-            <Link to="/profile">
-              <MaterialIcon icon="account_circle" />
-            </Link>
-          </li>
+      {authenticated && (
+        <nav className="appMenu">
+          <ul className="appMenuContainer">
+            <li>
+              <Link to="/profile">
+                <MaterialIcon icon="account_circle" />
+              </Link>
+            </li>
 
-          <li>
-            <Link to="/settings">
-              <MaterialIcon icon="settings" />
-            </Link>
-          </li>
+            <li>
+              <Link to="/settings">
+                <MaterialIcon icon="settings" />
+              </Link>
+            </li>
 
-          {/* <li>
+            {/* <li>
             <Link to="/test">
               <MaterialIcon icon="build" />
             </Link>
           </li> */}
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
