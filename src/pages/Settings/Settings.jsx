@@ -46,8 +46,9 @@ export default function Settings() {
         {hasKey ? (
           <div className="p">Your API key: {apiKey}</div>
         ) : (
-          <form>
-            <h4>Save your API Key</h4>
+          <form className="SettingsForm">
+            <label className="SettingsFormLabel">Save your API Key</label>
+
             <input
               className="BaseInput"
               type="text"
@@ -55,6 +56,7 @@ export default function Settings() {
               onChange={e => setInput(e.currentTarget.value)}
               value={input}
             />
+
             <button
               type="button"
               className="BaseButton"

@@ -2,7 +2,7 @@
 Profile
 --------------------------------- */
 
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import * as firebase from "firebase/app";
@@ -11,10 +11,17 @@ import { log } from "../../utils";
 import { AuthContext, StoreContext } from "../../App";
 import { Redirect } from "react-router-dom";
 import { initialAuthState } from "../../initialAuthState";
+import MaterialIcon from "../../components/Misc/MaterialIcon";
 
 export default function Profile() {
   const [{ authenticated, user }, setAuthState] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
+  const [isInputEnabled, setIsInputEnabled] = useState(false);
+
+  // TODO should enable only the input we want to edit
+  function toggleInput() {
+    setIsInputEnabled(!isInputEnabled);
+  }
 
   function handleSignout() {
     firebase
@@ -32,24 +39,55 @@ export default function Profile() {
       <div className="wrapper">
         <p className="ProfileWelcome">Hello, {user.email}</p>
 
-        <form>
-          <label htmlFor="userEmail">Email</label>
-          {/* TODO controlled inputs */}
-          <input
-            id="userEmail"
-            name="userEmail"
-            type="email"
-            placeholder={user.email || "email@example.com"}
-            className="BaseInput"
-          />
+        <form className="UserDataForm">
+          <fieldset className="UserDataFormGroup">
+            <label className="UserDataFormLabel" htmlFor="userEmail">
+              Email
+            </label>
 
-          <label htmlFor="userHandle">Screen name</label>
-          <input
-            id="userHandle"
-            name="userHandle"
-            type="text"
-            className="BaseInput"
-          />
+            <div className="UserDataFormFieldContainer">
+              <input
+                disabled={!isInputEnabled}
+                id="userEmail"
+                name="userEmail"
+                type="email"
+                placeholder={user.email || "email@example.com"}
+                className="BaseInput UserDataFormInputField"
+              />
+
+              <button
+                type="button"
+                className="UserDataFormEditButton"
+                onClick={toggleInput}
+              >
+                <MaterialIcon icon="edit" />
+              </button>
+            </div>
+          </fieldset>
+
+          <fieldset className="UserDataFormGroup">
+            <label className="UserDataFormLabel" htmlFor="userHandle">
+              Screen name
+            </label>
+
+            <div className="UserDataFormFieldContainer">
+              <input
+                disabled={!isInputEnabled}
+                id="userHandle"
+                name="userHandle"
+                type="text"
+                className="BaseInput UserDataFormInputField"
+              />
+
+              <button
+                type="button"
+                className="UserDataFormEditButton"
+                onClick={toggleInput}
+              >
+                <MaterialIcon icon="edit" />
+              </button>
+            </div>
+          </fieldset>
         </form>
 
         <button type="button" className="BaseButton" onClick={handleSignout}>

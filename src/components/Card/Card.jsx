@@ -15,7 +15,7 @@ export default function Card({
   ...other
 }) {
   // log(arguments);
-  const watchedStatus = false;
+  const isWatched = false;
 
   return (
     <a href={null} className="CardAnchor">
@@ -54,7 +54,7 @@ export default function Card({
             when the item is set as watched
             */}
 
-            {!watchedStatus ? (
+            {!isWatched ? (
               <>
                 <button className="CardControlsButton" type="button">
                   To Watch

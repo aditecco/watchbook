@@ -30,6 +30,12 @@ Common
   color: white;
   cursor: pointer;
   transition: all 500ms ease;
+  // browser styles overrides
+  border: none;
+  &:focus {
+    // TODO find a better way for accessibility
+    outline: none;
+  }
 
   &:hover {
     background-color: mix($accent, black, 70%);

@@ -3,4 +3,9 @@ Settings
 --------------------------------- */
 
 .Settings {
+  .SettingsForm {
+    &Label {
+      @include smallHeading();
+    }
+  }
 }

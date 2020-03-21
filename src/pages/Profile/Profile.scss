@@ -3,4 +3,36 @@ Profile
 --------------------------------- */
 
 .Profile {
+  .UserDataForm {
+    &Label {
+      @include smallHeading();
+    }
+
+    &Group {
+      // overrides
+      border: none;
+      padding: 0;
+    }
+
+    &FieldContainer {
+      @include flex(row nowrap, space-between, center);
+    }
+
+    &InputField {
+      width: auto;
+      flex-grow: 1;
+    }
+
+    &EditButton {
+      margin-left: 0.5rem;
+      // overrides
+      border: none;
+      background-color: transparent;
+
+      .material-icons {
+        font-size: 1.25rem;
+        color: #444;
+      }
+    }
+  }
 }
