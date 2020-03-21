@@ -2,7 +2,7 @@
 Profile
 --------------------------------- */
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useReducer } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import * as firebase from "firebase/app";
@@ -16,11 +16,21 @@ import MaterialIcon from "../../components/Misc/MaterialIcon";
 export default function Profile() {
   const [{ authenticated, user }, setAuthState] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
-  const [isInputEnabled, setIsInputEnabled] = useState(false);
+  const [isInputEnabled, setIsInputEnabled] = useReducer(
+    (state, newState) => ({
+      ...state,
+      ...newState
+    }),
+    {
+      userEmail: false,
+      userHandle: false
+    }
+  );
 
-  // TODO should enable only the input we want to edit
-  function toggleInput() {
-    setIsInputEnabled(!isInputEnabled);
+  function toggleInput(e) {
+    const { binding } = e.currentTarget.dataset;
+
+    setIsInputEnabled({ [binding]: !isInputEnabled[binding] });
   }
 
   function handleSignout() {
@@ -47,7 +57,7 @@ export default function Profile() {
 
             <div className="UserDataFormFieldContainer">
               <input
-                disabled={!isInputEnabled}
+                disabled={!isInputEnabled["userEmail"]}
                 id="userEmail"
                 name="userEmail"
                 type="email"
@@ -56,6 +66,7 @@ export default function Profile() {
               />
 
               <button
+                data-binding="userEmail"
                 type="button"
                 className="UserDataFormEditButton"
                 onClick={toggleInput}
@@ -72,7 +83,7 @@ export default function Profile() {
 
             <div className="UserDataFormFieldContainer">
               <input
-                disabled={!isInputEnabled}
+                disabled={!isInputEnabled["userHandle"]}
                 id="userHandle"
                 name="userHandle"
                 type="text"
@@ -80,6 +91,7 @@ export default function Profile() {
               />
 
               <button
+                data-binding="userHandle"
                 type="button"
                 className="UserDataFormEditButton"
                 onClick={toggleInput}

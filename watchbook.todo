@@ -29,11 +29,8 @@ Features/stories:
   - …
   - write all styles
     - …
-    ✔ Auth page @done(20-03-21 19:41)
   - [WATCHED] sort years in sort by year
   - [WATCHED] add reset button to filter field
-  ✔ [PROFILE] make fields disabled, then editable @done(20-03-21 19:41)
-  - [PROFILE] control isInputEnabled at a field level
   - [PROFILE] make fields controlled inputs
   - implement card flip animations with https://www.react-spring.io/
   - add ESC key listener for search cancel button
@@ -70,6 +67,9 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ [PROFILE] control isInputEnabled at a field level @done(20-03-21 22:59) @project(Features/stories)
+  ✔ Auth page @done(20-03-21 19:41) @project(Features/stories)
+  ✔ [PROFILE] make fields disabled, then editable @done(20-03-21 19:41) @project(Features/stories)
   ✔ settings page @done(20-03-19 00:40) @project(Features/stories)
   ✔ Profile page @done(20-03-19 00:40) @project(Features/stories)
   ✔ restyle cards @done(20-03-11 00:39) @project(Features/stories)
