@@ -49,11 +49,11 @@
     }
   }
 
-  #{$root}Media {
+  .CardMedia {
     overflow: hidden;
     height: $mediaHeight;
     position: relative;
-    max-height: 420px;
+    border-radius: 6px;
 
     .CardPoster {
       display: block;
@@ -70,7 +70,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 80px;
     background: linear-gradient(
       to bottom,
       // transparent 50%,
@@ -111,47 +111,21 @@
     }
   }
 
-  // #{$root}Body {
-  //   position: relative;
-
-  //   #{$root}Header {
-  //     #{$root}Heading {
-  //       @include smallHeading;
-  //       font-size: $small;
-  //       margin-bottom: $margin / 2;
-  //     }
-  //   }
-
-  //   .CardContent {
-  //     font-size: $small;
-  //     text-transform: capitalize;
-  //   }
-  // }
-
-  #{$root}Footer {
+  .CardFooter {
     @include flex(row nowrap, space-evenly, center);
-    border-top: 1px solid $flat-gray-1;
-    height: 50px; // ?
-
-    // padding: $padding / 2 0;
-    // > * { padding: ($padding / 2) $padding; }
-    // #{$root}TimeStamp {
-    //   flex-grow: 1;
-    //   padding-right: 0;
-
-    //   time {
-    //     font-size: $xSmall;
-    //     color: $flat-gray-2;
-    //   }
-    // }
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border: {
+      bottom-right-radius: 6px;
+      bottom-left-radius: 6px;
+    }
   }
 
   .CardControls {
     width: 100%;
-    @include box(10px, 0, true);
+    @include box(20px 10px, 0, true);
     @include flex(row nowrap, space-around, center);
-    position: relative;
-    top: -25px;
 
     .CardControlsButton {
       font-size: $small;

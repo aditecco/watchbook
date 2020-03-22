@@ -11,10 +11,12 @@ Inbox:
 Fixes:
   - …
   - auth page flashes when logged-in & reloading
-  - Close modal after adding item
+  - new item notif is not centered
 
 Optims/refactor:
   - …
+  - use redux
+  - redesign card w/ background-image
   - actually implement Typescript
   - redesign DB
   - refactor to extract components where due
@@ -63,6 +65,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ Close modal after adding item @done(20-03-23 00:04) @project(Fixes)
+  ✔ fine-tune card front design @done(20-03-23 00:25) @project(Optims/refactor)
   ✔ [CARDS] implement card flip animations @done(20-03-22 20:13) @project(Features/stories)
     https://www.react-spring.io/
   ✔ [CARDS] create flippable card w/ rich info on the back @done(20-03-22 20:13) @project(Features/stories)

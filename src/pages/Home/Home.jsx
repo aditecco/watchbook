@@ -26,7 +26,6 @@ function Home() {
       loading: false,
       searchResults: {},
       searchQuery: "",
-      showModal: false,
       showError: false,
       showSearchResults: false,
       selectedCard: {}
@@ -89,6 +88,12 @@ function Home() {
   };
 
   /**
+   * Handles creation of new to-watch items
+   */
+
+  function handleAddToWatch(data) {}
+
+  /**
    * Handles creation of new watched items
    */
 
@@ -111,18 +116,20 @@ function Home() {
       // watchedItem,
       err => {
         if (err) console.error(err);
-        else
+        else {
+          dispatch({ type: "TOGGLE_MODAL" });
+
           dispatch({
             type: "SHOW_NOTIF",
             message: `Watched: ${watchedItem.title}`,
             icon: null,
             timeOut: 2000
           });
+        }
       }
     );
 
     setState({
-      showModal: false,
       showSearchResults: false,
       searchQuery: ""
     });
@@ -186,16 +193,11 @@ function Home() {
           type={which.Type}
           year={which.Year}
           onWatchedClick={handleAddWatched}
-          onToWatchClick={logTarget}
+          onToWatchClick={handleAddToWatch}
         />
       ),
       closeAction: () => dispatch({ type: "TOGGLE_MODAL" })
     });
-
-    // setState({
-    //   showModal: true,
-    //   selectedCard: which
-    // });
   };
 
   /**

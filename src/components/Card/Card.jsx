@@ -17,7 +17,7 @@ export default function Card({
   ...other
 }) {
   // log(arguments);
-  const isWatched = false;
+  const isWatched = false; // tmp
   const [flipped, toggleFlipped] = useState(false);
 
   const { transform, opacity } = useSpring({
@@ -79,7 +79,15 @@ export default function Card({
 
               {!isWatched ? (
                 <>
-                  <button className="CardControlsButton" type="button">
+                  <button
+                    className="CardControlsButton"
+                    type="button"
+                    onClick={e => {
+                      e.preventDefault();
+
+                      onToWatchClick({ image, title, type, year });
+                    }}
+                  >
                     To Watch
                   </button>
 
