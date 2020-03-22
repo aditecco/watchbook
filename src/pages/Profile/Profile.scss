@@ -21,6 +21,18 @@ Profile
     &InputField {
       width: auto;
       flex-grow: 1;
+      background-color: $paleYellow;
+      box-shadow: none;
+
+      &:disabled {
+        background-color: $transparent;
+        border: {
+          top: 1px solid $transparent;
+          left: 1px solid $transparent;
+          right: 1px solid $transparent;
+        }
+        border-bottom: 1px solid #ecf0f1;
+      }
     }
 
     &EditButton {

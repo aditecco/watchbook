@@ -27,9 +27,6 @@ Optims/refactor:
 
 Features/stories:
   - …
-  - write all styles
-    - …
-  - [WATCHED] sort years in sort by year
   - [WATCHED] add reset button to filter field
   - [PROFILE] make fields controlled inputs
   - implement card flip animations with https://www.react-spring.io/
@@ -67,6 +64,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ [WATCHED] sort years in sort by year @done(20-03-22 01:35) @project(Features/stories)
+  ✔ write all styles @done(20-03-22 01:24) @project(Features/stories)
   ✔ [PROFILE] control isInputEnabled at a field level @done(20-03-21 22:59) @project(Features/stories)
   ✔ Auth page @done(20-03-21 19:41) @project(Features/stories)
   ✔ [PROFILE] make fields disabled, then editable @done(20-03-21 19:41) @project(Features/stories)
