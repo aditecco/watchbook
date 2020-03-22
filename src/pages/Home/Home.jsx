@@ -91,7 +91,9 @@ function Home() {
    * Handles creation of new to-watch items
    */
 
-  function handleAddToWatch(data) {}
+  function handleAddToWatch(data) {
+    log(data);
+  }
 
   /**
    * Handles creation of new watched items

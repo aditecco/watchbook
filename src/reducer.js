@@ -105,8 +105,6 @@ export default function reducer(state, action) {
     }
 
     case "FILTER_WATCHED": {
-      // TODO not working due to
-      // changes in data structure
       const { query, uid } = action;
       const lowercased = item => item.toLowerCase();
       const _query = lowercased(query);

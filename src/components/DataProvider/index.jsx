@@ -96,5 +96,5 @@ export default function DataProvider({ render }) {
     })(); // IIFE;
   }, []);
 
-  return <>{!loading ? render(store.userData[uid]["watched"]) : loader}</>;
+  return !loading ? render(store.userData[uid]["watched"]) : loader;
 }
