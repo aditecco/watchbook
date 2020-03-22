@@ -16,21 +16,23 @@ import MaterialIcon from "../../components/Misc/MaterialIcon";
 export default function Profile() {
   const [{ authenticated, user }, setAuthState] = useContext(AuthContext);
   const [store, dispatch] = useContext(StoreContext);
-  const [isInputEnabled, setIsInputEnabled] = useReducer(
+  const [formFields, setFormFields] = useReducer(
     (state, newState) => ({
       ...state,
       ...newState
     }),
     {
-      userEmail: false,
-      userHandle: false
+      isUserEmailEnabled: false,
+      userEmailInput: "",
+      isUserHandleEnabled: false,
+      userHandleInput: ""
     }
   );
 
   function toggleInput(e) {
-    const { binding } = e.currentTarget.dataset;
+    const { toggletarget } = e.currentTarget.dataset;
 
-    setIsInputEnabled({ [binding]: !isInputEnabled[binding] });
+    setFormFields({ [toggletarget]: !formFields[toggletarget] });
   }
 
   function handleSignout() {
@@ -57,16 +59,20 @@ export default function Profile() {
 
             <div className="UserDataFormFieldContainer">
               <input
-                disabled={!isInputEnabled["userEmail"]}
+                disabled={!formFields.isUserEmailEnabled}
                 id="userEmail"
                 name="userEmail"
                 type="email"
                 placeholder={user.email || "email@example.com"}
                 className="BaseInput UserDataFormInputField"
+                value={formFields.userEmailInput}
+                onChange={e =>
+                  setFormFields({ userEmailInput: e.currentTarget.value })
+                }
               />
 
               <button
-                data-binding="userEmail"
+                data-toggleTarget="isUserEmailEnabled"
                 type="button"
                 className="UserDataFormEditButton"
                 onClick={toggleInput}
@@ -83,15 +89,19 @@ export default function Profile() {
 
             <div className="UserDataFormFieldContainer">
               <input
-                disabled={!isInputEnabled["userHandle"]}
+                disabled={!formFields.isUserHandleEnabled}
                 id="userHandle"
                 name="userHandle"
                 type="text"
                 className="BaseInput UserDataFormInputField"
+                value={formFields.userHandleInput}
+                onChange={e =>
+                  setFormFields({ userHandleInput: e.currentTarget.value })
+                }
               />
 
               <button
-                data-binding="userHandle"
+                data-toggleTarget="isUserHandleEnabled"
                 type="button"
                 className="UserDataFormEditButton"
                 onClick={toggleInput}

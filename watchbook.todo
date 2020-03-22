@@ -28,7 +28,6 @@ Optims/refactor:
 Features/stories:
   - …
   - [WATCHED] add reset button to filter field
-  - [PROFILE] make fields controlled inputs
   - implement card flip animations with https://www.react-spring.io/
   - add ESC key listener for search cancel button
   - search field in HP hides on scroll
@@ -64,6 +63,7 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ [PROFILE] make fields controlled inputs @done(20-03-22 15:37) @project(Features/stories)
   ✔ [WATCHED] sort years in sort by year @done(20-03-22 01:35) @project(Features/stories)
   ✔ write all styles @done(20-03-22 01:24) @project(Features/stories)
   ✔ [PROFILE] control isInputEnabled at a field level @done(20-03-21 22:59) @project(Features/stories)
