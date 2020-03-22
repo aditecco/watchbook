@@ -31,11 +31,12 @@ export default function Card({
       <animated.div
         style={{
           position: "absolute",
+          zIndex: !flipped ? 1 : "auto",
           opacity: opacity.interpolate(o => 1 - o),
           transform
         }}
       >
-        <article className="Card">
+        <article className="Card front">
           <div className="CardFlipControls">
             <button onClick={() => toggleFlipped(!flipped)}>
               <MaterialIcon icon="info" />
@@ -111,7 +112,7 @@ export default function Card({
         <article className="Card back">
           <div className="CardFlipControls">
             <button onClick={() => toggleFlipped(!flipped)}>
-              <MaterialIcon icon="info" />
+              <MaterialIcon icon="close" />
             </button>
           </div>
           back of the card

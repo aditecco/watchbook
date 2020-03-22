@@ -18,7 +18,7 @@ export default function Modal({ open, children, closeAction }) {
         </button>
       </div>
 
-      <div className="ModalContent">{children}</div>
+      {children}
     </section>
   ) : null;
 }

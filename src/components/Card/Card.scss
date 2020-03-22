@@ -2,15 +2,16 @@
 .Card
 --------------------------------- */
 
-
 .Card {
   $root: ".Card";
   width: $cardWidth;
   border-radius: 6px;
   box-shadow: $shadow;
-  margin-bottom: $margin;
   background-color: white;
   position: relative;
+
+  &.front {
+  }
 
   &.back {
     height: $cardHeight;

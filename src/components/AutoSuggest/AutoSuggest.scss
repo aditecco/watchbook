@@ -5,7 +5,7 @@ AutoSuggest
 // AutoSuggest
 .AutoSuggest {
   background-color: #f5f5f5e3;
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   width: 100%;
   left: 0;
@@ -26,7 +26,7 @@ AutoSuggest
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       transition: transform 0.3s ease;
 
-      +.AutoSuggestItem {
+      + .AutoSuggestItem {
         border-top: 1px solid #ddd;
         margin-top: 0.5rem;
       }
@@ -42,7 +42,7 @@ AutoSuggest
       color: inherit;
       text-decoration: none;
 
-      >* {
+      > * {
         margin: 0;
       }
     }
