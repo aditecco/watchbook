@@ -11,7 +11,7 @@ WatchedList
       color: $flat-blue-3;
       font-weight: normal;
       text-align: left;
-      font-size: .9rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       padding: 0 1.6rem;
       margin: 1.6rem 0;
@@ -35,6 +35,11 @@ WatchedList
       // .CardContainer+.CardContainer {
       //   margin-left: 1.2rem;
       // }
+    }
+
+    .CardContainer {
+      position: relative;
+      height: $cardHeight;
     }
   }
 }

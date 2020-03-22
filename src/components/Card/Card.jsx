@@ -29,7 +29,11 @@ export default function Card({
   return (
     <>
       <animated.div
-        style={{ opacity: opacity.interpolate(o => 1 - o), transform }}
+        style={{
+          position: "absolute",
+          opacity: opacity.interpolate(o => 1 - o),
+          transform
+        }}
       >
         <article className="Card">
           <div className="CardFlipControls">
@@ -99,6 +103,7 @@ export default function Card({
       {/* back of the card */}
       <animated.div
         style={{
+          position: "absolute",
           opacity,
           transform: transform.interpolate(t => `${t} rotateY(180deg)`)
         }}
