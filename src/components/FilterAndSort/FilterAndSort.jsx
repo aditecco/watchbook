@@ -32,7 +32,7 @@ export default function FilterAndSort({
             id="watchedSearchSort"
             className="watchedSort"
           >
-            {options
+            {[...options]
               .sort((a, b) => a - b)
               .map((option, i) => (
                 <option value={option} key={option + i}>
