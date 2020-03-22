@@ -4,6 +4,7 @@ Card
 
 import React from "react";
 import { log } from "../../utils";
+import MaterialIcon from "../Misc/MaterialIcon";
 
 export default function Card({
   image,
@@ -20,7 +21,13 @@ export default function Card({
   return (
     <a href={null} className="CardAnchor">
       <article className="Card">
-        <section className="CardMedia" style={{ padding: 0 }}>
+        <div className="CardFlipControls">
+          <button onClick={e => log("d")}>
+            <MaterialIcon icon="info" />
+          </button>
+        </div>
+
+        <section className="CardMedia">
           <div className="CardPosterCurtain">
             <h3 className="CardPosterCurtainTitle">{title}</h3>
 

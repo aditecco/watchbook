@@ -9,10 +9,40 @@
   box-shadow: $shadow;
   margin-bottom: $margin;
   background-color: white;
+  position: relative;
 
-  >* {
-    padding: ($padding / 2) $padding;
-    // border-bottom: 1px solid $flat-gray-1;
+  // > * {
+  //   padding: ($padding / 2) $padding;
+  // }
+
+  .CardFlipControls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.35) 40%,
+      transparent
+    );
+    border: {
+      top-left-radius: 6px;
+      top-right-radius: 6px;
+    }
+
+    button {
+      float: right;
+      width: 40px;
+      height: 40px;
+      padding-top: 0.6rem;
+
+      .material-icons {
+        font-size: 1.25rem;
+        color: white;
+        text-shadow: 0 2px 2px 4px rgba(0, 0, 0, 0.25);
+      }
+    }
   }
 
   #{$root}Media {
@@ -39,14 +69,15 @@
     height: 260px;
     width: 290px;
     padding-bottom: 30px;
-    background:
-      linear-gradient(to bottom,
-        // transparent 50%,
+    background: linear-gradient(
+      to bottom,
+      // transparent 50%,
         transparent 20%,
-        black);
+      black
+    );
 
     &Title {
-      padding: 1rem 1rem .25rem;
+      padding: 1rem 1rem 0.25rem;
       margin: 0;
       font-family: $montserrat;
       font-weight: normal;
@@ -63,7 +94,7 @@
     flex-flow: row wrap;
     color: white;
     list-style: none;
-    padding: .6rem 0;
+    padding: 0.6rem 0;
     justify-content: space-between;
     width: 89%;
     border-top: 1px solid white;
@@ -97,7 +128,6 @@
 
   #{$root}Footer {
     @include flex(row nowrap, space-evenly, center);
-    padding: 0;
     border-top: 1px solid $flat-gray-1;
     height: 50px; // ?
 
@@ -131,7 +161,7 @@
       border: transparent;
       border-radius: 30px;
       box-shadow: 0 2px 30px 3px rgba(0, 0, 0, 0.1);
-      transition: transform .3s ease-in-out;
+      transition: transform 0.3s ease-in-out;
       cursor: pointer;
 
       &:hover {
@@ -145,6 +175,5 @@
   i.material-icons {
     font-size: $body * 1.1;
     vertical-align: sub;
-    margin-right: 8px;
   }
 }

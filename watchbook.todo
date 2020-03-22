@@ -11,6 +11,7 @@ Inbox:
 Fixes:
   - …
   - auth page flashes when logged-in & reloading
+  - Close modal after adding item
 
 Optims/refactor:
   - …
@@ -28,15 +29,16 @@ Optims/refactor:
 Features/stories:
   - …
   - [WATCHED] add reset button to filter field
-  - implement card flip animations with https://www.react-spring.io/
+  - [CARDS] implement card flip animations
+    https://www.react-spring.io/
+  - [CARDS] create flippable card w/ rich info on the back
+  - [CARDS] decide what card controls should do when cards are in watched list
+  - [TO-WATCH] implement to-watch feature
   - add ESC key listener for search cancel button
   - search field in HP hides on scroll
-  - create flippable card w/ rich info on the back
   - save API key to DB
   - show loader when user is authenticating
   - create validators for input fields
-  - implement to-watch feature
-  - decide what card controls should do when cards are in watched list
   - add user name to login notif
   - add user config options to profile page
   - Add signout notif
