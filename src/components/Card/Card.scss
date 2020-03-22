@@ -2,14 +2,22 @@
 .Card
 --------------------------------- */
 
+$cardWidth: 290px;
+$cardHeight: 310px;
+$mediaHeight: 260px;
+
 .Card {
   $root: ".Card";
-  width: 290px;
+  width: $cardWidth;
   border-radius: 6px;
   box-shadow: $shadow;
   margin-bottom: $margin;
   background-color: white;
   position: relative;
+
+  &.back {
+    height: $cardHeight;
+  }
 
   // > * {
   //   padding: ($padding / 2) $padding;
@@ -47,7 +55,7 @@
 
   #{$root}Media {
     overflow: hidden;
-    height: 260px;
+    height: $mediaHeight;
     position: relative;
     max-height: 420px;
 
@@ -66,8 +74,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 260px;
-    width: 290px;
+    height: 100%;
+    width: 100%;
     padding-bottom: 30px;
     background: linear-gradient(
       to bottom,
