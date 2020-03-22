@@ -32,11 +32,13 @@ export default function FilterAndSort({
             id="watchedSearchSort"
             className="watchedSort"
           >
-            {options.map((option, i) => (
-              <option value={option} key={option + i}>
-                {option}
-              </option>
-            ))}
+            {options
+              .sort((a, b) => a - b)
+              .map((option, i) => (
+                <option value={option} key={option + i}>
+                  {option}
+                </option>
+              ))}
           </select>
         </div>
       </form>

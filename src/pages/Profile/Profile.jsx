@@ -47,7 +47,7 @@ export default function Profile() {
       <PageHeader title="profile" icon="account_circle" />
 
       <div className="wrapper">
-        <p className="ProfileWelcome">Hello, {user.email}</p>
+        <p className="ProfileWelcome">Hello, {user.email}!</p>
 
         <form className="UserDataForm">
           <fieldset className="UserDataFormGroup">
