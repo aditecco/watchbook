@@ -37,7 +37,7 @@ WatchedList
       // }
     }
 
-    .CardContainer {
+    .CardContainer:not(.compact) {
       position: relative;
       height: $cardHeight;
     }

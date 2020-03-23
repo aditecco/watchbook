@@ -40,7 +40,7 @@ export default function WatchedList({
                   />
                 </li>
               ) : (
-                <li key={i} className="CardContainer">
+                <li key={i} className="CardContainer compact">
                   <CompactCard
                     image={image}
                     title={title}
