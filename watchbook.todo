@@ -18,7 +18,27 @@ Optims/refactor:
   - use redux
   - redesign card w/ background-image
   - actually implement Typescript
-  - redesign DB
+  - implement new data structure
+  ✔ redesign DB @done(20-03-26 01:16)
+    // data structure
+    {
+      content: {
+        '0a777869-b9ec-48ab-ac28-ea05f4042255': {
+          (...data)
+        }
+      },
+      users: {
+        id_1: {
+          watched: {
+            '0a777869-b9ec-48ab-ac28-ea05f4042255': true,
+          },
+          toWatch: {},
+        }
+      },
+      settings: {
+        id_1: {apiKey: '',}
+      },
+    }
   - refactor to extract components where due
     - …
     - Create navbar comp
