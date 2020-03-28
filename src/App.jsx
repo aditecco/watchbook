@@ -2,7 +2,7 @@
 App
 --------------------------------- */
 
-import React, { useReducer, useEffect } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { storage } from "./utils";
 import * as firebase from "firebase/app";
 import "firebase/database";
@@ -15,16 +15,16 @@ import ToWatch from "./pages/ToWatch/ToWatch";
 import Settings from "./pages/Settings/Settings";
 import Profile from "./pages/Profile/Profile";
 import Home from "./pages/Home/Home";
+import BlankPage from "./pages/BlankPage";
+import TestPage from "./pages/TestPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Auth from "./pages/Auth/Auth";
 import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
-import TestPage from "./pages/TestPage";
 import { log } from "./utils";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import BlankPage from "./pages/BlankPage";
 import Modal from "./components/Modal/Modal";
 
 // global utils
@@ -56,46 +56,63 @@ function App() {
   const [store, dispatch] = useReducer(reducer, initialState);
 
   /**
+   * loading state
+   */
+
+  const [loading, setLoading] = useState(true);
+
+  /**
    * Auth observer
    */
 
   useEffect(() => {
-    const observer = firebase.auth().onAuthStateChanged(user => {
-      /**
-       * user should be present in case of
-       *  signup, login or persistent session
-       */
+    const observer = firebase.auth().onAuthStateChanged(
+      user => {
+        /**
+         * user should be present in case of
+         *  signup, login or persistent session
+         */
 
-      // prettier-ignore
-      if (user)
-      {
-        log("@@@ user is present");
-        
-        const {
-          uid, name, email, photoUrl, emailVerified,
-        } = user;
-        
-        // TODO use just the store context
-        dispatch({type: 'INIT_USER', uid})
-
-        setAuthState({
-          authenticated: true,
-          user: {
+        // prettier-ignore
+        if (user)
+        {
+          log("@@@ user is present");
+          
+          const {
             uid, name, email, photoUrl, emailVerified,
-          }
-        })
+          } = user;
+          
+          // TODO use just the store context
+          dispatch({type: 'INIT_USER', uid})
+
+          setAuthState({
+            authenticated: true,
+            user: {
+              uid, name, email, photoUrl, emailVerified,
+            }
+          })
+        }
+        
+        else
+        {
+          log("@@@, no user is present", user);
+        }
+
+        setLoading(false);
+      },
+      err => {
+        console.error("@onAuthStateChanged", err);
+
+        setLoading(false);
       }
-      
-      else
-      {
-        log("@@@, no user is present", user);
-      }
-    });
+    );
 
     return () => observer(); // this will unsubscribe from the obs.
   }, []);
 
-  return (
+  return loading ? (
+    "loading…"
+  ) : (
     <ErrorBoundary>
       <div className="App">
         <AuthContext.Provider value={[authState, setAuthState]}>
@@ -127,6 +144,10 @@ function App() {
                 <PrivateRoute exact path="/profile">
                   <Profile />
                 </PrivateRoute>
+
+                <Route exact path="/test">
+                  <TestPage />
+                </Route>
 
                 {/* catch-all */}
                 <Route

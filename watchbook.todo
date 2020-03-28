@@ -10,7 +10,9 @@ Inbox:
 
 Fixes:
   - …
-  - auth page flashes when logged-in & reloading
+  ✔ auth page flashes when logged-in & reloading @done(20-03-28 18:33)
+    when the logged-in user is not detected, every private page will redirect to /, so <Auth />; then, when the user is detected, the component will redirect to /home. This is also the reason why (see next task)…
+  ✔ Visiting any page via URL when logged-in will flash the auth page and redirect to home @done(20-03-28 18:33)
   - new item notif is not centered
 
 Optims/refactor:
@@ -65,6 +67,9 @@ Features/stories:
   - sync local data to DB when performing CRUD operations
     - update
     - delete
+
+UX:
+  - Add a spinner for loading states
 
 Platform:
   - …
