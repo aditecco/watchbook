@@ -45,8 +45,8 @@ export default function reducer(state, action) {
         userData: {
           [uid]: {
             ...state.userData[uid],
-            watched: mappedData.watched,
-            toWatch: mappedData.toWatch
+            watched: [...mappedData.watched].reverse(),
+            toWatch: [...mappedData.toWatch].reverse()
           }
         }
       };

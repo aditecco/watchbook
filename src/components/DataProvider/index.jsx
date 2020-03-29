@@ -70,7 +70,7 @@ export default function DataProvider({ render }) {
         // NEW USER INITIALIZER
         if (
           [watchedData, toWatchData].every(
-            result => result === null || result === undefined
+            value => value === null || value === undefined
           )
         ) {
           // write initialData to DB
@@ -83,12 +83,12 @@ export default function DataProvider({ render }) {
 
             // completion cb
             err => {
-              if (err) {
-                console.error(err);
-              } else {
-                log(
-                  "Successfully initialized DB. Now syncing data to app state..."
-                );
+
+              if (err) { console.error(err); }
+              
+              else
+              {
+                log("Successfully initialized DB. Now syncing data to app state...");
 
                 fetchDBdata();
               }

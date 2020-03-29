@@ -11,14 +11,18 @@ Inbox:
 
 Fixes:
   - …
+  ✔ order cards by most recent @done(20-03-30 01:15)
+  - show auth errors in the UI
   - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
   - new item notif is not centered
+  - DataProvider loader gets stuck sometimes
 
 Optims/refactor:
   - …
+  - rework styles for bigger mobile screens
   - use redux
   - redesign card w/ background-image
   - actually implement Typescript
@@ -34,6 +38,7 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - add most recent toWatch content to HP
   - [CARDS] decide what card controls should do when cards are in watched list
   - [CARDS] create card back
   - [WATCHED] add reset button to filter field
@@ -52,13 +57,15 @@ Features/stories:
 
 UX:
   - Add a spinner for loading states
+  - card in modal should take (almost) full viewport
+  - show number of results in search
 
 Platform:
   - …
   - try auto-deploy w/ Netlify
   - handle automatic deploy
   - handle deploy config
-  - create DB rules
+  - create DB rules @focus
 
 Tests:
   - …
