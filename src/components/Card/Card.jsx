@@ -14,10 +14,10 @@ export default function Card({
   year,
   onToWatchClick,
   onWatchedClick,
+  added,
   ...other
 }) {
   // log(arguments);
-  const isWatched = false; // tmp
   const [flipped, toggleFlipped] = useState(false);
 
   const { transform, opacity } = useSpring({
@@ -36,7 +36,7 @@ export default function Card({
           transform
         }}
       >
-        <article className="Card front">
+        <article className={`Card front${added ? " added" : ""}`}>
           <div className="CardFlipControls">
             <button onClick={() => toggleFlipped(!flipped)}>
               <MaterialIcon icon="info" />
@@ -70,14 +70,8 @@ export default function Card({
 
           <footer className="CardFooter">
             <div className="CardControls">
-              {/* 
-            TODO
-
-            Define how CardControls will change
-            when the item is set as watched
-            */}
-
-              {!isWatched ? (
+              {/* TODO maybe find a better prop name */}
+              {!added && (
                 <>
                   <button
                     className="CardControlsButton"
@@ -103,7 +97,7 @@ export default function Card({
                     Watched <i className="material-icons">check_circle</i>
                   </button>
                 </>
-              ) : null}
+              )}
             </div>
           </footer>
         </article>

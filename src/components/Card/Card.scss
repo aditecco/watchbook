@@ -17,6 +17,12 @@
     height: $cardHeight;
   }
 
+  &.added {
+    .CardPosterCurtain {
+      padding-bottom: 20px;
+    }
+  }
+
   // > * {
   //   padding: ($padding / 2) $padding;
   // }

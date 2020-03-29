@@ -11,7 +11,6 @@ Inbox:
 
 Fixes:
   - …
-  ✔ order cards by most recent @done(20-03-30 01:15)
   - show auth errors in the UI
   - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
@@ -39,7 +38,6 @@ Optims/refactor:
 Features/stories:
   - …
   - add most recent toWatch content to HP
-  - [CARDS] decide what card controls should do when cards are in watched list
   - [CARDS] create card back
   - [WATCHED] add reset button to filter field
   - add ESC key listener for search cancel button
@@ -79,6 +77,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ order cards by most recent @done(20-03-30 01:15) @project(Fixes)
+  ✔ [CARDS] decide what card controls should do when cards are in watched list @done(20-03-30 01:30) @project(Features/stories)
   ✔ [TO-WATCH] implement to-watch feature @done(20-03-29 17:14) @project(Features/stories)
   ✔ search field in HP hides on scroll @done(20-03-29 17:15) @project(Features/stories)
   ✔ auth page flashes when logged-in & reloading @done(20-03-28 18:33) @project(Fixes)

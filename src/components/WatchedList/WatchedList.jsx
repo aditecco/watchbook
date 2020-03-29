@@ -30,6 +30,7 @@ export default function WatchedList({
               return !compact ? (
                 <li key={i} className="CardContainer">
                   <Card
+                    added
                     image={image}
                     title={title}
                     type={type}
