@@ -94,7 +94,44 @@ function Home() {
    */
 
   function handleAddToWatch(data) {
-    log(data);
+    const id = uuidv4();
+    const timestamp = Date.now();
+
+    const newItem = {
+      id,
+      timestamp,
+      ...data
+    };
+
+    dispatch({ type: "CREATE_TO_WATCH", toWatchItem: newItem, uid });
+
+    const newItemRef = contentRef.push().key;
+
+    const updates = {
+      [`/content/${newItemRef}`]: newItem,
+      [`/users/${uid}/toWatch/${newItemRef}`]: true
+    };
+
+    dbRef.update(updates, err => {
+      if (err) {
+        // TODO handle error
+        console.error(err);
+      } else {
+        dispatch({ type: "TOGGLE_MODAL" });
+
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `To Watch: ${newItem.title}`,
+          icon: null,
+          timeOut: 2000
+        });
+      }
+    });
+
+    setState({
+      showSearchResults: false,
+      searchQuery: ""
+    });
   }
 
   /**
@@ -126,8 +163,6 @@ function Home() {
         // TODO handle error
         console.error(err);
       } else {
-        log(newItemRef.key, " saved!");
-
         dispatch({ type: "TOGGLE_MODAL" });
 
         dispatch({

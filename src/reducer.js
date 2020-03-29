@@ -97,6 +97,20 @@ export default function reducer(state, action) {
       };
     }
 
+    case "CREATE_TO_WATCH": {
+      const { toWatchItem, uid } = action;
+
+      return {
+        ...state,
+        userData: {
+          [uid]: {
+            ...state.userData[uid],
+            toWatch: [toWatchItem, ...state.userData[uid]["toWatch"]]
+          }
+        }
+      };
+    }
+
     case "UPDATE_WATCHED": {
       return state;
     }
