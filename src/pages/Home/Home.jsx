@@ -36,9 +36,9 @@ function Home() {
   const [{ user }] = useContext(AuthContext);
   const hasApiKey = useApiKey();
   const { uid } = user;
-  const dbContentRef = db.ref("content");
-  const dbUserRef = db.ref(`users/${uid}`);
-  dbUserRef.on("value", val => log(val, val.val()));
+  const dbRef = db.ref();
+  const contentRef = db.ref("content");
+  const userRef = db.ref(`users/${uid}`);
 
   /**
    * syncStorage
@@ -105,51 +105,39 @@ function Home() {
     const id = uuidv4();
     const timestamp = Date.now();
 
-    const contentItem = {
+    const newItem = {
       id,
       timestamp,
       ...data
     };
 
-    dispatch({ type: "CREATE_WATCHED", watchedItem: contentItem, uid });
+    dispatch({ type: "CREATE_WATCHED", watchedItem: newItem, uid });
 
-    const newItemRef = dbContentRef.push();
-    newItemRef
-      .set(contentItem)
-      .then(() => {
-        dbUserRef.child("watched").update({ [newItemRef.key]: true });
+    // const newItemRef = contentRef.push().key would return the ref key
+    const newItemRef = contentRef.push().key;
+
+    const updates = {
+      [`/content/${newItemRef}`]: newItem,
+      [`/users/${uid}/watched/${newItemRef}`]: true
+    };
+
+    dbRef.update(updates, err => {
+      if (err) {
+        // TODO handle error
+        console.error(err);
+      } else {
+        log(newItemRef.key, " saved!");
 
         dispatch({ type: "TOGGLE_MODAL" });
 
         dispatch({
           type: "SHOW_NOTIF",
-          message: `Watched: ${contentItem.title}`,
+          message: `Watched: ${newItem.title}`,
           icon: null,
           timeOut: 2000
         });
-      })
-      .catch(err => console.error(err)) // TODO handle error)
-      .finally();
-
-    // dbUserRef.child("watched").update(
-    //   [contentItem, ...store.userData[uid]["watched"]],
-    //   // TODO refactor to update just the new item
-    //   // ref: https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
-    //   // watchedItem,
-    //   err => {
-    //     if (err) console.error(err);  // TODO handle error
-    //     else {
-    //       dispatch({ type: "TOGGLE_MODAL" });
-
-    //       dispatch({
-    //         type: "SHOW_NOTIF",
-    //         message: `Watched: ${contentItem.title}`,
-    //         icon: null,
-    //         timeOut: 2000
-    //       });
-    //     }
-    //   }
-    // );
+      }
+    });
 
     setState({
       showSearchResults: false,

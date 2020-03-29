@@ -40,7 +40,12 @@ export default function DataProvider({ render }) {
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
   const { uid } = user;
-  const dbUser = db.ref(`users/${uid}`);
+
+  const contentRef = db.ref("content");
+  const watchedRef = db.ref(`users/${uid}/watched`);
+  const userRef = db.ref(`users/${uid}`);
+  const toWatchRef = db.ref(`users/${uid}/toWatch`);
+
   const loader = (
     <div className="blankSlate">
       <span>Loading…</span>
@@ -58,15 +63,21 @@ export default function DataProvider({ render }) {
       log("Running fetchDBdata…");
 
       try {
-        const dbUserWatched = dbUser.child("watched");
-        const value = await dbUserWatched.once("value");
-        const remoteData = await value.val();
+        const content = await contentRef.once("value");
+        const watched = await watchedRef.once("value");
+        const toWatch = await toWatchRef.once("value");
+        const contentData = await content.val();
+        const watchedData = await watched.val();
+        const toWatchData = await toWatch.val();
 
         // prettier-ignore
-        if (!remoteData)
+        // TODO how do we define this case?
+        if (
+          [contentData, watchedData, toWatchData]
+          .some(result => result === null || result === undefined))
         {
           // write initialData to DB
-          dbUser.set(TEST_DATA, err => {
+          userRef.set(TEST_DATA, err => {
             // firebase won't accept empty values
             // should be: { watched: [], toWatch: [] }
 
@@ -84,11 +95,14 @@ export default function DataProvider({ render }) {
         
         else
         {
-          dispatch({ type: "SET_INITIAL_DATA", uid, remoteData });
-          setState({
-            loading: false,
-            // data: store.userData[uid]["watched"]
-          });
+          const mappedData = {
+            watched: Object.keys(watchedData).map(key => contentData[key]),
+            // 0 => []
+            toWatch: Object.keys(toWatchData).map(key => content[key])
+          }
+
+          dispatch({ type: "SET_INITIAL_DATA", uid, mappedData });
+          setState({ loading: false, });
         }
       } catch (err) {
         console.error("@fetchDBData", err);

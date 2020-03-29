@@ -145,9 +145,9 @@ function App() {
                   <Profile />
                 </PrivateRoute>
 
-                <Route exact path="/test">
+                <PrivateRoute exact path="/test">
                   <TestPage />
-                </Route>
+                </PrivateRoute>
 
                 {/* catch-all */}
                 <Route

@@ -38,14 +38,15 @@ export default function reducer(state, action) {
     }
 
     case "SET_INITIAL_DATA": {
-      const { uid, remoteData } = action;
+      const { uid, mappedData } = action;
 
       return {
         ...state,
         userData: {
           [uid]: {
             ...state.userData[uid],
-            watched: remoteData
+            watched: mappedData.watched,
+            toWatch: mappedData.toWatch
           }
         }
       };

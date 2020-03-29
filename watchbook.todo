@@ -3,6 +3,7 @@ WatchBook.todo
 ==============
 
 Inbox:
+  https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
   - handle auth errors
   - expose interface for config objects
   - move INIT_USER to auth?
@@ -10,6 +11,8 @@ Inbox:
 
 Fixes:
   - …
+  - 'Can't perform a React state update on an unmounted component'
+    handleAuth	@	Auth.jsx:88
   ✔ auth page flashes when logged-in & reloading @done(20-03-28 18:33)
     when the logged-in user is not detected, every private page will redirect to /, so <Auth />; then, when the user is detected, the component will redirect to /home. This is also the reason why (see next task)…
   ✔ Visiting any page via URL when logged-in will flash the auth page and redirect to home @done(20-03-28 18:33)
