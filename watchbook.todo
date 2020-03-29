@@ -11,6 +11,7 @@ Inbox:
 
 Fixes:
   - …
+  - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
@@ -27,6 +28,7 @@ Optims/refactor:
       keep profile & settings buttons visible in profile & settings pages
   - create DataProvider
     - …
+    - init settings in new users
   - remove signup test data
     firebase won't accept empty values
 

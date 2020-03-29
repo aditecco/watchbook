@@ -3,7 +3,6 @@ DataProvider
 --------------------------------- */
 
 import React, { useReducer, useEffect, useContext } from "react";
-import TEST_DATA from "../../testData";
 import { AuthContext, StoreContext, db } from "../../App";
 import { log } from "../../utils";
 
@@ -36,14 +35,12 @@ export default function DataProvider({ render }) {
   );
 
   const { loading, data } = state;
-
   const [store, dispatch] = useContext(StoreContext);
   const [{ user }] = useContext(AuthContext);
   const { uid } = user;
-
   const contentRef = db.ref("content");
+  // const userRef = db.ref(`users/${uid}`);
   const watchedRef = db.ref(`users/${uid}/watched`);
-  const userRef = db.ref(`users/${uid}`);
   const toWatchRef = db.ref(`users/${uid}/toWatch`);
 
   const loader = (
@@ -59,8 +56,7 @@ export default function DataProvider({ render }) {
 
   useEffect(() => {
     (async function fetchDBdata() {
-      // setState({ loading: true });
-      log("Running fetchDBdata…");
+      log("DataProvider: running fetchDBdata…");
 
       try {
         const content = await contentRef.once("value");
@@ -71,38 +67,42 @@ export default function DataProvider({ render }) {
         const toWatchData = await toWatch.val();
 
         // prettier-ignore
-        // TODO how do we define this case?
+        // NEW USER INITIALIZER
         if (
-          [contentData, watchedData, toWatchData]
-          .some(result => result === null || result === undefined))
-        {
+          [watchedData, toWatchData].every(
+            result => result === null || result === undefined
+          )
+        ) {
           // write initialData to DB
-          userRef.set(TEST_DATA, err => {
-            // firebase won't accept empty values
-            // should be: { watched: [], toWatch: [] }
+          // firebase won't accept empty values, so we use 0
+          db.ref().update(
+            {
+              [`/users/${uid}`]: { watched: 0, toWatch: 0 },
+              [`/settings/${uid}`]: { apiKey: 0 } // TODO is this the right place?
+            },
 
-            if (err) {
-              throw err;
-            } else {
-              log(
-                "Successfully initialized DB. Now syncing data to app state..."
-              );
+            // completion cb
+            err => {
+              if (err) {
+                console.error(err);
+              } else {
+                log(
+                  "Successfully initialized DB. Now syncing data to app state..."
+                );
 
-              fetchDBdata();
+                fetchDBdata();
+              }
             }
-          });
-        }
-        
-        else
-        {
+          );
+        } else {
           const mappedData = {
             watched: Object.keys(watchedData).map(key => contentData[key]),
             // 0 => []
             toWatch: Object.keys(toWatchData).map(key => contentData[key])
-          }
+          };
 
           dispatch({ type: "SET_INITIAL_DATA", uid, mappedData });
-          setState({ loading: false, });
+          setState({ loading: false });
         }
       } catch (err) {
         console.error("@fetchDBData", err);

@@ -145,10 +145,6 @@ function App() {
                   <Profile />
                 </PrivateRoute>
 
-                <PrivateRoute exact path="/test">
-                  <TestPage />
-                </PrivateRoute>
-
                 {/* catch-all */}
                 <Route
                   render={({ location }) => (
