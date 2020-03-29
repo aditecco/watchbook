@@ -3,6 +3,7 @@ WatchBook.todo
 ==============
 
 Inbox:
+  https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
   - handle auth errors
   - expose interface for config objects
   - move INIT_USER to auth?
@@ -10,7 +11,9 @@ Inbox:
 
 Fixes:
   - …
-  - auth page flashes when logged-in & reloading
+  - React does not recognize the `data-toggleTarget` prop on a DOM element.
+  - 'Can't perform a React state update on an unmounted component'
+    handleAuth	@	Auth.jsx:88
   - new item notif is not centered
 
 Optims/refactor:
@@ -18,27 +21,6 @@ Optims/refactor:
   - use redux
   - redesign card w/ background-image
   - actually implement Typescript
-  - implement new data structure
-  ✔ redesign DB @done(20-03-26 01:16)
-    // data structure
-    {
-      content: {
-        '0a777869-b9ec-48ab-ac28-ea05f4042255': {
-          (...data)
-        }
-      },
-      users: {
-        id_1: {
-          watched: {
-            '0a777869-b9ec-48ab-ac28-ea05f4042255': true,
-          },
-          toWatch: {},
-        }
-      },
-      settings: {
-        id_1: {apiKey: '',}
-      },
-    }
   - refactor to extract components where due
     - …
     - Create navbar comp
@@ -50,21 +32,24 @@ Optims/refactor:
 
 Features/stories:
   - …
-  - [TO-WATCH] implement to-watch feature
   - [CARDS] decide what card controls should do when cards are in watched list
   - [CARDS] create card back
   - [WATCHED] add reset button to filter field
   - add ESC key listener for search cancel button
-  - search field in HP hides on scroll
   - save API key to DB
   - show loader when user is authenticating
   - create validators for input fields
   - add user name to login notif
   - add user config options to profile page
   - Add signout notif
+  - add skeleton loader for card backs
+  - add lazy loading for card posters
   - sync local data to DB when performing CRUD operations
     - update
     - delete
+
+UX:
+  - Add a spinner for loading states
 
 Platform:
   - …
@@ -85,6 +70,32 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ [TO-WATCH] implement to-watch feature @done(20-03-29 17:14) @project(Features/stories)
+  ✔ search field in HP hides on scroll @done(20-03-29 17:15) @project(Features/stories)
+  ✔ auth page flashes when logged-in & reloading @done(20-03-28 18:33) @project(Fixes)
+    when the logged-in user is not detected, every private page will redirect to /, so <Auth />; then, when the user is detected, the component will redirect to /home. This is also the reason why (see next task)…
+  ✔ Visiting any page via URL when logged-in will flash the auth page and redirect to home @done(20-03-28 18:33) @project(Fixes)
+  ✔ implement new data structure @done(20-03-29 17:24) @project(Optims/refactor)
+  ✔ redesign DB @done(20-03-26 01:16) @project(Optims/refactor)
+    // data structure
+    {
+    content: {
+    '0a777869-b9ec-48ab-ac28-ea05f4042255': {
+    (...data)
+    }
+    },
+    users: {
+    id_1: {
+    watched: {
+    '0a777869-b9ec-48ab-ac28-ea05f4042255': true,
+    },
+    toWatch: {},
+    }
+    },
+    settings: {
+    id_1: {apiKey: '',}
+    },
+    }
   ✔ Close modal after adding item @done(20-03-23 00:04) @project(Fixes)
   ✔ fine-tune card front design @done(20-03-23 00:25) @project(Optims/refactor)
   ✔ [CARDS] implement card flip animations @done(20-03-22 20:13) @project(Features/stories)

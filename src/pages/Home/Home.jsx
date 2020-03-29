@@ -36,7 +36,9 @@ function Home() {
   const [{ user }] = useContext(AuthContext);
   const hasApiKey = useApiKey();
   const { uid } = user;
-  const dbUser = db.ref(`users/${uid}`);
+  const dbRef = db.ref();
+  const contentRef = db.ref("content");
+  const userRef = db.ref(`users/${uid}`);
 
   /**
    * syncStorage
@@ -92,7 +94,44 @@ function Home() {
    */
 
   function handleAddToWatch(data) {
-    log(data);
+    const id = uuidv4();
+    const timestamp = Date.now();
+
+    const newItem = {
+      id,
+      timestamp,
+      ...data
+    };
+
+    dispatch({ type: "CREATE_TO_WATCH", toWatchItem: newItem, uid });
+
+    const newItemRef = contentRef.push().key;
+
+    const updates = {
+      [`/content/${newItemRef}`]: newItem,
+      [`/users/${uid}/toWatch/${newItemRef}`]: true
+    };
+
+    dbRef.update(updates, err => {
+      if (err) {
+        // TODO handle error
+        console.error(err);
+      } else {
+        dispatch({ type: "TOGGLE_MODAL" });
+
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `To Watch: ${newItem.title}`,
+          icon: null,
+          timeOut: 2000
+        });
+      }
+    });
+
+    setState({
+      showSearchResults: false,
+      searchQuery: ""
+    });
   }
 
   /**
@@ -103,33 +142,37 @@ function Home() {
     const id = uuidv4();
     const timestamp = Date.now();
 
-    const watchedItem = {
+    const newItem = {
       id,
       timestamp,
       ...data
     };
 
-    dispatch({ type: "CREATE_WATCHED", watchedItem, uid });
+    dispatch({ type: "CREATE_WATCHED", watchedItem: newItem, uid });
 
-    dbUser.child("watched").update(
-      [watchedItem, ...store.userData[uid]["watched"]],
-      // TODO refactor to update just the new item
-      // ref: https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
-      // watchedItem,
-      err => {
-        if (err) console.error(err);
-        else {
-          dispatch({ type: "TOGGLE_MODAL" });
+    // const newItemRef = contentRef.push().key would return the ref key
+    const newItemRef = contentRef.push().key;
 
-          dispatch({
-            type: "SHOW_NOTIF",
-            message: `Watched: ${watchedItem.title}`,
-            icon: null,
-            timeOut: 2000
-          });
-        }
+    const updates = {
+      [`/content/${newItemRef}`]: newItem,
+      [`/users/${uid}/watched/${newItemRef}`]: true
+    };
+
+    dbRef.update(updates, err => {
+      if (err) {
+        // TODO handle error
+        console.error(err);
+      } else {
+        dispatch({ type: "TOGGLE_MODAL" });
+
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `Watched: ${newItem.title}`,
+          icon: null,
+          timeOut: 2000
+        });
       }
-    );
+    });
 
     setState({
       showSearchResults: false,

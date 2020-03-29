@@ -148,6 +148,6 @@ export default function Auth() {
       </div>
     </Layout>
   ) : (
-    <Redirect to="/home" />
+    <Redirect to="/home" /> // TODO redirect to the page the user was visiting before being redirected here!
   );
 }

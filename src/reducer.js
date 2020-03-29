@@ -38,14 +38,15 @@ export default function reducer(state, action) {
     }
 
     case "SET_INITIAL_DATA": {
-      const { uid, remoteData } = action;
+      const { uid, mappedData } = action;
 
       return {
         ...state,
         userData: {
           [uid]: {
             ...state.userData[uid],
-            watched: remoteData
+            watched: mappedData.watched,
+            toWatch: mappedData.toWatch
           }
         }
       };
@@ -91,6 +92,20 @@ export default function reducer(state, action) {
           [uid]: {
             ...state.userData[uid],
             watched: [watchedItem, ...state.userData[uid]["watched"]]
+          }
+        }
+      };
+    }
+
+    case "CREATE_TO_WATCH": {
+      const { toWatchItem, uid } = action;
+
+      return {
+        ...state,
+        userData: {
+          [uid]: {
+            ...state.userData[uid],
+            toWatch: [toWatchItem, ...state.userData[uid]["toWatch"]]
           }
         }
       };
