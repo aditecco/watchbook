@@ -4,13 +4,12 @@ WatchBook.todo
 
 Inbox:
   https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
-  - handle auth errors
   - expose interface for config objects
   - move INIT_USER to auth?
-  - wrap layout comp in context consumer (?)
 
 Fixes:
   - …
+  ✔ font weight in page subheaders @done(20-03-31 00:31)
   - show auth errors in the UI
   - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
@@ -21,7 +20,7 @@ Fixes:
 
 Optims/refactor:
   - …
-  - rework styles for bigger mobile screens
+  - rework styles for bigger mobile screens @focus 
   - use redux
   - redesign card w/ background-image
   - actually implement Typescript
@@ -77,6 +76,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ remove default button styles for card info button (Chrome Android) @done(20-03-31 00:28) @project(Fixes)
+  ✔ font weight in autosuggest title @done(20-03-31 00:28) @project(Fixes)
   ✔ order cards by most recent @done(20-03-30 01:15) @project(Fixes)
   ✔ [CARDS] decide what card controls should do when cards are in watched list @done(20-03-30 01:30) @project(Features/stories)
   ✔ [TO-WATCH] implement to-watch feature @done(20-03-29 17:14) @project(Features/stories)

@@ -3,8 +3,6 @@ WatchedList
 --------------------------------- */
 
 .watched {
-  // margin-top: 260px;
-
   .watchedHeader {
     .watchedHeaderTitle {
       font-family: $workSans;
@@ -19,27 +17,29 @@ WatchedList
   }
 
   .cardList {
-    @include box(0, 0, true);
+    @include box(0 24px, 0, true);
 
     &.watchedList {
-      // display: flex;
-      // flex-flow: row wrap;
-      // justify-content: flex-start;
       display: grid;
-      grid-template-columns: repeat(auto-fill, 280px);
+      grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
       grid-gap: 28px;
-      // grid-column-gap: 28px;
-      // grid-row-gap: 28px;
       place-content: center;
-
-      // .CardContainer+.CardContainer {
-      //   margin-left: 1.2rem;
-      // }
     }
 
     .CardContainer:not(.compact) {
       position: relative;
       height: $cardHeight;
+
+      /*
+        targets the 2 anonymous divs
+        acting as the Card's front & back
+        containers, takes the full width
+        of the grid item
+      */
+
+      > div {
+        width: 100%;
+      }
     }
   }
 }

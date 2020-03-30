@@ -11,14 +11,14 @@ export default function Modal({ open, children, closeAction }) {
       <div className="ModalControls">
         <button
           type="button"
-          className="modalCloseButton"
+          className="ModalCloseButton"
           onClick={closeAction}
         >
           <MaterialIcon icon="close" />
         </button>
       </div>
 
-      {children}
+      <div className="ModalContainer">{children}</div>
     </section>
   ) : null;
 }
