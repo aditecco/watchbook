@@ -29,6 +29,7 @@ export default function Card({
   return (
     <>
       <animated.div
+        className="CardAnimatedFrame"
         style={{
           position: "absolute",
           zIndex: !flipped ? 1 : "auto",
@@ -105,6 +106,7 @@ export default function Card({
 
       {/* back of the card */}
       <animated.div
+        className="CardAnimatedFrame"
         style={{
           position: "absolute",
           opacity,

@@ -9,8 +9,12 @@ Inbox:
 
 Fixes:
   - …
-  ✔ font weight in page subheaders @done(20-03-31 00:31)
+  - add fix width wrapper to nav & header
+  - empty sort & filter fields
+  - fix card modal position
+    calculate centering with: left: (temp1.getBoundingClientRect().width - window.visualViewport.width) / 2
   - show auth errors in the UI
+  - show API errors in the UI
   - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
   - 'Can't perform a React state update on an unmounted component'
@@ -38,6 +42,8 @@ Features/stories:
   - …
   - add most recent toWatch content to HP
   - [CARDS] create card back
+    loads rich info about the content
+    displays a skeleton animation while loading
   - [WATCHED] add reset button to filter field
   - add ESC key listener for search cancel button
   - save API key to DB
@@ -56,6 +62,7 @@ UX:
   - Add a spinner for loading states
   - card in modal should take (almost) full viewport
   - show number of results in search
+  - create placeholder image for movie cards
 
 Platform:
   - …
@@ -76,6 +83,7 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ font weight in page subheaders @done(20-03-31 00:31) @project(Fixes)
   ✔ remove default button styles for card info button (Chrome Android) @done(20-03-31 00:28) @project(Fixes)
   ✔ font weight in autosuggest title @done(20-03-31 00:28) @project(Fixes)
   ✔ order cards by most recent @done(20-03-30 01:15) @project(Fixes)

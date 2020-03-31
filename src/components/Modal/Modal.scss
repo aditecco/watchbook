@@ -19,6 +19,12 @@ Modal
   .ModalContainer {
     width: 100%;
     height: 100%;
+    position: relative;
+
+    // targets
+    > .CardAnimatedFrame {
+      width: 90vw;
+    }
   }
 
   .ModalControls {
