@@ -119,12 +119,25 @@ export default function Auth() {
     setState({ hasError: { error: true, errorMeta: { code, message } } });
 
     switch (code) {
-      case "400":
-        // …
+      case "400": {
+        /**
+         * EMAIL_NOT_FOUND
+         * INVALID_PASSWORD
+         */
         break;
+      }
 
-      default:
+      default: {
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `${code}: ${message}`,
+          icon: null,
+          timeOut: 4000
+        });
+
+        log("@Auth", error);
         break;
+      }
     }
   }
 

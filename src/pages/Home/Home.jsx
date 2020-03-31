@@ -26,7 +26,7 @@ function Home() {
       loading: false,
       searchResults: {},
       searchQuery: "",
-      showError: false,
+      hasError: false,
       showSearchResults: false,
       selectedCard: {}
     }
@@ -76,6 +76,23 @@ function Home() {
       const response = await request.json();
 
       if ("Error" in response) {
+        /**
+         * TODO
+         *
+         * very WIP
+         * prevent multiple notifs to be fired
+         * could use hasError: false in state
+         * to lock searches until the error
+         * is resolved
+         */
+
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `${request.status} Error: ${response.Error}`,
+          icon: null,
+          timeOut: 4000
+        });
+
         throw new Error(response.Error);
       }
 
