@@ -26,6 +26,7 @@ import NotificationMessage from "./components/NotificationMessage/NotificationMe
 import { log } from "./utils";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Modal from "./components/Modal/Modal";
+import Spinner from "./components/Spinner/Spinner";
 
 // global utils
 window.storage = storage;
@@ -111,7 +112,7 @@ function App() {
   }, []);
 
   return loading ? (
-    "loading…"
+    <Spinner />
   ) : (
     <ErrorBoundary>
       <div className="App">

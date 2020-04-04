@@ -116,6 +116,7 @@ functions & mixins
 @mixin round($w) {
   display: inline-block;
   width: $w;
+  height: $w;
   border-radius: 100%;
 }
 

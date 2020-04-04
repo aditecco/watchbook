@@ -5,6 +5,7 @@ DataProvider
 import React, { useReducer, useEffect, useContext } from "react";
 import { AuthContext, StoreContext, db } from "../../App";
 import { log } from "../../utils";
+import Spinner from "../Spinner/Spinner";
 
 export default function DataProvider({ render }) {
   /**
@@ -42,12 +43,6 @@ export default function DataProvider({ render }) {
   // const userRef = db.ref(`users/${uid}`);
   const watchedRef = db.ref(`users/${uid}/watched`);
   const toWatchRef = db.ref(`users/${uid}/toWatch`);
-
-  const loader = (
-    <div className="blankSlate">
-      <span>Loading…</span>
-    </div>
-  );
 
   /**
    * Checks if any initial data exists in the remote DB
@@ -110,5 +105,9 @@ export default function DataProvider({ render }) {
     })(); // IIFE;
   }, []);
 
-  return !loading ? render(store.userData[uid]["watched"]) : loader;
+  return !loading ? (
+    render(store.userData[uid]["watched"])
+  ) : (
+    <Spinner shadow="none" />
+  );
 }
