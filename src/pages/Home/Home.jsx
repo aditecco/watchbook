@@ -59,8 +59,7 @@ function Home() {
    * the user's query
    */
 
-  const fetchData = async query => {
-    // const endpoint = `http://swapi.co/api/planets/${rand()}/`;
+  const fetchQueryData = async query => {
     const KEY = storage.pull("OMDbApiKey");
     const endpoint = (key, query) =>
       `https://www.omdbapi.com/?apiKey=${key}&s=${query}`;
@@ -206,7 +205,7 @@ function Home() {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
-      setTimeout(() => fetchData(searchQuery), 500);
+      setTimeout(() => fetchQueryData(searchQuery), 500);
     }
 
     setState({

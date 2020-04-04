@@ -9,12 +9,12 @@ Inbox:
 
 Fixes:
   - …
+  - throttle or debounce `fetchQueryData`
   - add fix width wrapper to nav & header
   - empty sort & filter fields
   - fix card modal position
     calculate centering with: left: (temp1.getBoundingClientRect().width - window.visualViewport.width) / 2
   - show auth errors in the UI
-  - show API errors in the UI
   - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
   - 'Can't perform a React state update on an unmounted component'
@@ -83,6 +83,7 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ show API errors in the UI @done(20-04-01 01:20) @project(Fixes)
   ✔ font weight in page subheaders @done(20-03-31 00:31) @project(Fixes)
   ✔ remove default button styles for card info button (Chrome Android) @done(20-03-31 00:28) @project(Fixes)
   ✔ font weight in autosuggest title @done(20-03-31 00:28) @project(Fixes)
