@@ -25,9 +25,11 @@ Modal
 
     // targets
     > .CardContainer {
-      min-width: $cardMinWidth;
-      max-width: $cardMaxWidth;
-      width: 100%;
+      width: $cardMinWidth;
+
+      @media screen and (min-width: 360px) {
+        width: $cardMaxWidth;
+      }
     }
   }
 
