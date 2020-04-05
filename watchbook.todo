@@ -13,8 +13,6 @@ Fixes:
   - throttle or debounce `fetchQueryData`
   - add fixed width wrapper to nav & header
   - empty sort & filter fields
-  - fix card modal position
-    calculate centering with: left: (temp1.getBoundingClientRect().width - window.visualViewport.width) / 2
   ☐ show auth errors in the UI
   - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
@@ -73,6 +71,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ fix card modal position @done(20-04-05 17:06) @project(Fixes)
+    calculate centering with: left: (temp1.getBoundingClientRect().width - window.visualViewport.width) / 2
   ✔ add most recent toWatch content to HP @done(20-04-05 03:04) @project(Features/stories)
   ✔ card in modal should take (almost) full viewport @done(20-04-05 02:32) @project(UX)
   ✔ try auto-deploy w/ Netlify @done(20-04-05 02:32) @project(Platform)
