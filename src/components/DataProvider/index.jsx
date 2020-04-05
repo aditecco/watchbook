@@ -7,7 +7,7 @@ import { AuthContext, StoreContext, db } from "../../App";
 import { log } from "../../utils";
 import Spinner from "../Spinner/Spinner";
 
-export default function DataProvider({ render }) {
+export default function DataProvider({ render, dataSet }) {
   /**
    * gets data from API
    * prepares data for use in the app
@@ -106,7 +106,7 @@ export default function DataProvider({ render }) {
   }, []);
 
   return !loading ? (
-    render(store.userData[uid]["watched"])
+    render(store.userData[uid][dataSet])
   ) : (
     <Spinner shadow="none" />
   );

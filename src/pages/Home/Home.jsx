@@ -14,7 +14,6 @@ import { log, storage } from "../../utils";
 import { AuthContext, StoreContext, db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
-import AppHeader from "../../components/AppHeader/AppHeader";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -261,52 +260,48 @@ function Home() {
     });
   };
 
-  /**
-   * Placeholders
-   */
-
-  function logTarget(e) {
-    log(e.currentTarget);
-  }
-
   return (
-    <StoreContext.Consumer>
-      {([store]) => (
-        <Layout rootClass="Home" selected={1}>
-          <div className="wrapper">
-            {/* ========================
-              ITEM SEARCH
-              ======================== */}
-            <section className="search">
-              <SearchField
-                searchQuery={state.searchQuery}
-                searchHandler={handleSearch}
-                focusHandler={handleFocus}
-                resetHandler={handleSearchReset}
-              >
-                {state.showSearchResults && (
-                  <AutoSuggest
-                    content={state.searchResults.Search}
-                    onItemClick={handleAutoSuggestClick}
-                    limit={5}
-                  />
-                )}
-              </SearchField>
-            </section>
+    <Layout rootClass="Home" selected={1}>
+      <div className="wrapper">
+        {/* ========================
+        ITEM SEARCH
+        ======================== */}
+        <section className="search">
+          <SearchField
+            searchQuery={state.searchQuery}
+            searchHandler={handleSearch}
+            focusHandler={handleFocus}
+            resetHandler={handleSearchReset}
+          >
+            {state.showSearchResults && (
+              <AutoSuggest
+                content={state.searchResults.Search}
+                onItemClick={handleAutoSuggestClick}
+                limit={5}
+              />
+            )}
+          </SearchField>
+        </section>
 
-            {/* ========================
-              WATCHED
-              ======================== */}
+        {/* ========================
+        WATCHED & TO WATCH
+        ======================== */}
 
-            <DataProvider
-              render={data => (
-                <WatchedList watched={data} title="Latest watched" limit={6} />
-              )}
-            />
-          </div>
-        </Layout>
-      )}
-    </StoreContext.Consumer>
+        <DataProvider
+          dataSet="watched"
+          render={data => (
+            <WatchedList watched={data} title="Latest watched" limit={6} />
+          )}
+        />
+
+        <DataProvider
+          dataSet="toWatch"
+          render={data => (
+            <WatchedList watched={data} title="Latest To Watch" limit={6} />
+          )}
+        />
+      </div>
+    </Layout>
   );
 }
 
