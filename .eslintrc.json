@@ -9,7 +9,15 @@
     ],
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
+        "process": "readonly",
+        "REACT_APP_FIREBASE_API_KEY": "readonly",
+        "REACT_APP_FIREBASE_AUTH_DOMAIN": "readonly",
+        "REACT_APP_FIREBASE_DATABASE_URL": "readonly",
+        "REACT_APP_FIREBASE_PROJECT_ID": "readonly",
+        "REACT_APP_FIREBASE_STORAGE_BUCKET": "readonly",
+        "REACT_APP_FIREBASE_MESSAGING_SENDER_ID": "readonly",
+        "REACT_APP_FIREBASE_APP_ID": "readonly"
     },
     "parserOptions": {
         "ecmaFeatures": {
@@ -21,6 +29,5 @@
     "plugins": [
         "react"
     ],
-    "rules": {
-    }
+    "rules": {}
 }
