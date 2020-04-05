@@ -5,16 +5,12 @@
 .CompactCard {
   $root: ".CompactCard";
   @include flex(row nowrap, center, center);
-  width: 290px;
   border-radius: 6px;
-  box-shadow: 0 2px 30px 4px rgba(black, .1);
-  // margin-bottom: $margin;
+  box-shadow: 0 2px 30px 4px rgba(black, 0.1);
   background-color: white;
 
-
-  >* {
+  > * {
     padding: ($padding / 2);
-    // border-bottom: 1px solid $flat-gray-1;
   }
 
   i.material-icons {
@@ -26,9 +22,7 @@
   #{$root}Media {
     overflow: hidden;
     height: 90px;
-    width: 80px;
-    position: relative;
-    // max-height: 420px;
+    flex: 30% 0 0;
 
     .CompactCardPoster {
       display: block;
@@ -41,119 +35,21 @@
   }
 
   #{$root}Body {
-    position: relative;
     flex-grow: 1;
 
     #{$root}Header {
       #{$root}Heading {
-        @include smallHeading;
+        @include smallHeading();
         font-size: $small;
         margin-bottom: $margin / 2;
+        color: $font;
       }
     }
 
     .CompactCardContent {
       font-size: $small;
       text-transform: capitalize;
-    }
-
-    // &Heading {
-    //   @include smallHeading;
-    // }
-  }
-
-  #{$root}Footer {
-    display: none;
-    @include flex(row nowrap, space-evenly, center);
-    // padding: ($padding / 2) $padding;
-    padding: 0;
-    border-top: 1px solid $flat-gray-1;
-
-    // padding: $padding / 2 0;
-    // > * { padding: ($padding / 2) $padding; }
-    // #{$root}TimeStamp {
-    //   flex-grow: 1;
-    //   padding-right: 0;
-
-    //   time {
-    //     font-size: $xSmall;
-    //     color: $flat-gray-2;
-    //   }
-    // }
-
-    #{$root}Controls {
-      display: none;
-      width: 100%;
-
-      &Heading {
-        @include smallHeading;
-      }
-
-      &Container {
-        @include box(0, 0, true);
-        @include flex(row nowrap, space-between, center);
-
-        #{$root}ControlsItem {
-          flex-basis: 50%;
-          // padding: $padding / 2;
-          // padding: 0;
-
-          &Button {
-            font-size: $small;
-            color: $flat-gray-4;
-            text-align: center;
-            // @extend %resetAnchors;
-            display: inline-block;
-            width: 100%;
-            padding: $padding / 2;
-            background-color: white;
-            // border: 0;
-            border: transparent;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
-
-            &:hover {
-              background-color: $accent;
-              color: white;
-            }
-          }
-
-          &:first-child {
-            border-right: 1px solid $flat-gray-1;
-
-            .CardControlsItemButton {
-              border-bottom-right-radius: 0;
-            }
-          }
-
-          &:last-child {
-            .CardControlsItemButton {
-              border-bottom-left-radius: 0;
-            }
-          }
-
-          // &::before {
-          //   display: inline-block;
-          //   width: 16px;
-          //   // height: ;
-          // }
-
-          // button {
-          //   // display: block;
-          //   padding: $padding / 4;
-          //   border-radius: $radius / 2;
-          //   border: 2px solid $transparent;
-          //   font-family: $titleFont;
-          //   font-size: $small - 2;
-          //   color: $flat-gray-2;
-          //   text-transform: uppercase;
-          //   text-decoration: none;
-
-          //   &:hover {
-          //     background-color: $flat-gray-1;
-          //   }
-        }
-      }
+      color: $flat-gray-4;
     }
   }
 }

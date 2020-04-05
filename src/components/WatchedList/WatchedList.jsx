@@ -11,7 +11,7 @@ export default function WatchedList({
   limit = undefined,
   title,
   compact,
-  loading
+  loading,
 }) {
   return (
     <section className="watched">
@@ -28,7 +28,7 @@ export default function WatchedList({
               const { image, title, type, year } = item;
 
               return !compact ? (
-                <li key={i} className="CardContainer">
+                <li key={i} className="cardListItem">
                   <Card
                     added
                     image={image}
@@ -36,20 +36,20 @@ export default function WatchedList({
                     type={type}
                     year={year}
                     // TODO
-                    onWatchedClick={e => null}
-                    onToWatchClick={e => null}
+                    // onWatchedClick={(e) => null}
+                    // onToWatchClick={(e) => null}
                   />
                 </li>
               ) : (
-                <li key={i} className="CardContainer compact">
+                <li key={i} className="cardListItem">
                   <CompactCard
                     image={image}
                     title={title}
                     type={type}
                     year={year}
                     // TODO
-                    onWatchedClick={e => null}
-                    onToWatchClick={e => null}
+                    // onWatchedClick={(e) => null}
+                    // onToWatchClick={(e) => null}
                   />
                 </li>
               );

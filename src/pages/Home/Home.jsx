@@ -3,6 +3,7 @@ Home
 --------------------------------- */
 
 import React, { useEffect, useReducer, useContext, useState } from "react";
+import _ from "lodash";
 import uuidv4 from "uuid";
 import Card from "../../components/Card/Card";
 import WatchedList from "../../components/WatchedList/WatchedList";
@@ -19,7 +20,7 @@ function Home() {
   const [state, setState] = useReducer(
     (state, newState) => ({
       ...state,
-      ...newState
+      ...newState,
     }),
     {
       loading: false,
@@ -27,7 +28,7 @@ function Home() {
       searchQuery: "",
       hasError: false,
       showSearchResults: false,
-      selectedCard: {}
+      selectedCard: {},
     }
   );
 
@@ -49,7 +50,7 @@ function Home() {
     storage.push(LOCAL_STORAGE_KEY, {
       ...localData,
       watched: watched ? [watched, ...localData.watched] : localData.watched,
-      toWatch: toWatch ? [toWatch, ...localData.toWatch] : localData.toWatch
+      toWatch: toWatch ? [toWatch, ...localData.toWatch] : localData.toWatch,
     });
   }
 
@@ -58,7 +59,7 @@ function Home() {
    * the user's query
    */
 
-  const fetchQueryData = async query => {
+  const fetchQueryData = async (query) => {
     const KEY = storage.pull("OMDbApiKey");
     const endpoint = (key, query) =>
       `https://www.omdbapi.com/?apiKey=${key}&s=${query}`;
@@ -88,7 +89,7 @@ function Home() {
           type: "SHOW_NOTIF",
           message: `${request.status} Error: ${response.Error}`,
           icon: null,
-          timeOut: 4000
+          timeOut: 4000,
         });
 
         throw new Error(response.Error);
@@ -97,7 +98,7 @@ function Home() {
       setState({
         searchResults: response,
         showSearchResults: true,
-        loading: false
+        loading: false,
       });
     } catch (err) {
       console.error("@fetchData: ", err);
@@ -115,7 +116,7 @@ function Home() {
     const newItem = {
       id,
       timestamp,
-      ...data
+      ...data,
     };
 
     dispatch({ type: "CREATE_TO_WATCH", toWatchItem: newItem, uid });
@@ -124,10 +125,10 @@ function Home() {
 
     const updates = {
       [`/content/${newItemRef}`]: newItem,
-      [`/users/${uid}/toWatch/${newItemRef}`]: true
+      [`/users/${uid}/toWatch/${newItemRef}`]: true,
     };
 
-    dbRef.update(updates, err => {
+    dbRef.update(updates, (err) => {
       if (err) {
         // TODO handle error
         console.error(err);
@@ -138,14 +139,14 @@ function Home() {
           type: "SHOW_NOTIF",
           message: `To Watch: ${newItem.title}`,
           icon: null,
-          timeOut: 2000
+          timeOut: 2000,
         });
       }
     });
 
     setState({
       showSearchResults: false,
-      searchQuery: ""
+      searchQuery: "",
     });
   }
 
@@ -153,14 +154,14 @@ function Home() {
    * Handles creation of new watched items
    */
 
-  const handleAddWatched = data => {
+  const handleAddWatched = (data) => {
     const id = uuidv4();
     const timestamp = Date.now();
 
     const newItem = {
       id,
       timestamp,
-      ...data
+      ...data,
     };
 
     dispatch({ type: "CREATE_WATCHED", watchedItem: newItem, uid });
@@ -170,10 +171,10 @@ function Home() {
 
     const updates = {
       [`/content/${newItemRef}`]: newItem,
-      [`/users/${uid}/watched/${newItemRef}`]: true
+      [`/users/${uid}/watched/${newItemRef}`]: true,
     };
 
-    dbRef.update(updates, err => {
+    dbRef.update(updates, (err) => {
       if (err) {
         // TODO handle error
         console.error(err);
@@ -184,14 +185,14 @@ function Home() {
           type: "SHOW_NOTIF",
           message: `Watched: ${newItem.title}`,
           icon: null,
-          timeOut: 2000
+          timeOut: 2000,
         });
       }
     });
 
     setState({
       showSearchResults: false,
-      searchQuery: ""
+      searchQuery: "",
     });
   };
 
@@ -200,15 +201,15 @@ function Home() {
    * main input field
    */
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
-      setTimeout(() => fetchQueryData(searchQuery), 500);
+      fetchQueryData(searchQuery);
     }
 
     setState({
-      searchQuery
+      searchQuery,
     });
   };
 
@@ -232,7 +233,7 @@ function Home() {
         type: "SHOW_NOTIF",
         message: "Please set an API key in settings.",
         // icon: "error_outline",
-        timeOut: 2000
+        timeOut: 2000,
       });
   }
 
@@ -241,8 +242,8 @@ function Home() {
    * the search result list
    */
 
-  const handleAutoSuggestClick = id => {
-    const which = state.searchResults.Search.find(item => item.imdbID === id);
+  const handleAutoSuggestClick = (id) => {
+    const which = state.searchResults.Search.find((item) => item.imdbID === id);
 
     dispatch({
       type: "TOGGLE_MODAL",
@@ -256,7 +257,7 @@ function Home() {
           onToWatchClick={handleAddToWatch}
         />
       ),
-      closeAction: () => dispatch({ type: "TOGGLE_MODAL" })
+      closeAction: () => dispatch({ type: "TOGGLE_MODAL" }),
     });
   };
 
@@ -269,7 +270,7 @@ function Home() {
         <section className="search">
           <SearchField
             searchQuery={state.searchQuery}
-            searchHandler={handleSearch}
+            searchHandler={_.throttle(handleSearch, 6000, { trailing: true })}
             focusHandler={handleFocus}
             resetHandler={handleSearchReset}
           >
@@ -289,14 +290,14 @@ function Home() {
 
         <DataProvider
           dataSet="watched"
-          render={data => (
+          render={(data) => (
             <WatchedList watched={data} title="Latest watched" limit={6} />
           )}
         />
 
         <DataProvider
           dataSet="toWatch"
-          render={data => (
+          render={(data) => (
             <WatchedList watched={data} title="Latest To Watch" limit={6} />
           )}
         />

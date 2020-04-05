@@ -2,6 +2,22 @@
 .Card
 --------------------------------- */
 
+.CardContainer {
+  position: relative;
+  height: $cardHeight;
+
+  /*
+    targets the 2 anonymous divs
+    acting as the Card's front & back
+    containers, takes the full width
+    of the grid item
+  */
+
+  > .CardAnimatedFrame {
+    width: 100%;
+  }
+}
+
 .Card {
   $root: ".Card";
   border-radius: 6px;

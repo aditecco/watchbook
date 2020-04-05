@@ -21,25 +21,12 @@ WatchedList
 
     &.watchedList {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax($cardMinWidth, $cardMaxWidth)
+      );
       grid-gap: 28px;
       place-content: center;
-    }
-
-    .CardContainer:not(.compact) {
-      position: relative;
-      height: $cardHeight;
-
-      /*
-        targets the 2 anonymous divs
-        acting as the Card's front & back
-        containers, takes the full width
-        of the grid item
-      */
-
-      > div {
-        width: 100%;
-      }
     }
   }
 }
