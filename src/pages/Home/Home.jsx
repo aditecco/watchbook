@@ -295,12 +295,13 @@ function Home() {
           )}
         />
 
-        <DataProvider
+        {/* TODO */}
+        {/* <DataProvider
           dataSet="toWatch"
           render={(data) => (
             <WatchedList watched={data} title="Latest To Watch" limit={6} />
           )}
-        />
+        /> */}
       </div>
     </Layout>
   );
