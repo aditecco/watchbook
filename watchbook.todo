@@ -4,17 +4,21 @@ WatchBook.todo
 
 Inbox:
   https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
-  - handle auth errors
-  - expose interface for config objects
   - move INIT_USER to auth?
-  - wrap layout comp in context consumer (?)
 
 Fixes:
   - …
+  - optimize Watched page performance
+    add lazy loading for card posters
+  - throttle or debounce `fetchQueryData`
+  - add fixed width wrapper to nav & header
+  - empty sort & filter fields
+  ☐ show auth errors in the UI
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
   - new item notif is not centered
+  - DataProvider loader can get stuck
 
 Optims/refactor:
   - …
@@ -27,36 +31,34 @@ Optims/refactor:
       keep profile & settings buttons visible in profile & settings pages
   - create DataProvider
     - …
-  - remove signup test data
-    firebase won't accept empty values
+    - move user init to other specialized component
+    - init settings in new users
 
 Features/stories:
   - …
-  - [CARDS] decide what card controls should do when cards are in watched list
+  - prevent duplicates in DB /content
   - [CARDS] create card back
+    loads rich info about the content
+    displays a skeleton animation while loading
+    - add skeleton loader for card backs
   - [WATCHED] add reset button to filter field
   - add ESC key listener for search cancel button
   - save API key to DB
-  - show loader when user is authenticating
   - create validators for input fields
   - add user name to login notif
   - add user config options to profile page
   - Add signout notif
-  - add skeleton loader for card backs
-  - add lazy loading for card posters
   - sync local data to DB when performing CRUD operations
     - update
     - delete
 
 UX:
-  - Add a spinner for loading states
+  - show number of results in search
+  - create placeholder image for movie cards
 
 Platform:
   - …
-  - try auto-deploy w/ Netlify
-  - handle automatic deploy
-  - handle deploy config
-  - create DB rules
+  - create DB rules @focus
 
 Tests:
   - …
@@ -70,6 +72,25 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ fix card modal position @done(20-04-05 17:06) @project(Fixes)
+    calculate centering with: left: (temp1.getBoundingClientRect().width - window.visualViewport.width) / 2
+  ✔ add most recent toWatch content to HP @done(20-04-05 03:04) @project(Features/stories)
+  ✔ card in modal should take (almost) full viewport @done(20-04-05 02:32) @project(UX)
+  ✔ try auto-deploy w/ Netlify @done(20-04-05 02:32) @project(Platform)
+  ✔ handle automatic deploy @done(20-04-05 02:32) @project(Platform)
+  ✔ handle deploy config @done(20-04-05 02:32) @project(Platform)
+  ✔ show loader when user is authenticating @done(20-04-05 02:31) @project(Features/stories)
+  ✔ Add/Create a spinner for loading states @done(20-04-05 02:32) @project(UX)
+  ✔ remove signup test data @done(20-04-05 02:30) @project(Optims/refactor)
+    firebase won't accept empty values
+  ✔ expose interface for config objects @done(20-04-05 02:28) @project(Inbox)
+  ✔ rework styles for bigger mobile screens @focus @done(20-04-05 02:29) @project(Optims/refactor)
+  ✔ show API errors in the UI @done(20-04-01 01:20) @project(Fixes)
+  ✔ font weight in page subheaders @done(20-03-31 00:31) @project(Fixes)
+  ✔ remove default button styles for card info button (Chrome Android) @done(20-03-31 00:28) @project(Fixes)
+  ✔ font weight in autosuggest title @done(20-03-31 00:28) @project(Fixes)
+  ✔ order cards by most recent @done(20-03-30 01:15) @project(Fixes)
+  ✔ [CARDS] decide what card controls should do when cards are in watched list @done(20-03-30 01:30) @project(Features/stories)
   ✔ [TO-WATCH] implement to-watch feature @done(20-03-29 17:14) @project(Features/stories)
   ✔ search field in HP hides on scroll @done(20-03-29 17:15) @project(Features/stories)
   ✔ auth page flashes when logged-in & reloading @done(20-03-28 18:33) @project(Fixes)

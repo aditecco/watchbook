@@ -7,7 +7,6 @@ import { storage } from "./utils";
 import * as firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
-import firebaseConfig from "./config/firebaseConfig";
 import initialState from "./initialState";
 import reducer from "./reducer";
 import Watched from "./pages/Watched/Watched";
@@ -26,11 +25,22 @@ import NotificationMessage from "./components/NotificationMessage/NotificationMe
 import { log } from "./utils";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Modal from "./components/Modal/Modal";
+import Spinner from "./components/Spinner/Spinner";
 
 // global utils
 window.storage = storage;
 
 // firebase initializers
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
+};
+
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
@@ -111,7 +121,7 @@ function App() {
   }, []);
 
   return loading ? (
-    "loading…"
+    <Spinner />
   ) : (
     <ErrorBoundary>
       <div className="App">
@@ -143,10 +153,6 @@ function App() {
 
                 <PrivateRoute exact path="/profile">
                   <Profile />
-                </PrivateRoute>
-
-                <PrivateRoute exact path="/test">
-                  <TestPage />
                 </PrivateRoute>
 
                 {/* catch-all */}

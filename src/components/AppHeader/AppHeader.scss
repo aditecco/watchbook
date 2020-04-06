@@ -12,7 +12,7 @@ AppHeader
   z-index: 2;
 
   + .Layout {
-    margin-top: 65px;
+    margin-top: $headerHeight;
   }
 
   .appTitle {

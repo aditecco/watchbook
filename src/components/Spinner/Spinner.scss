@@ -1,0 +1,44 @@
+/* ---------------------------------
+Spinner
+--------------------------------- */
+
+// inpired by: https://codepen.io/alexanderkaran/pen/BaNmmRV?editors=0100
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.SpinnerContainer {
+  @include flex(column nowrap, center, center);
+  // TODO refine
+  height: calc(100% - #{$headerHeight} * 2);
+}
+
+.Spinner {
+  @include round(60px);
+  border: 7px solid rgba($flat-gray-2, 0.6);
+  border-top-color: $accent;
+  box-shadow: 0 2px 40px #00000017;
+  background-color: $transparent;
+
+  /*
+  longhand:
+
+  animation-duration
+  animation-timing-function
+  animation-delay
+  animation-iteration-count
+  animation-direction
+  animation-fill-mode
+  animation-play-state
+  animation-name
+  */
+
+  animation: 900ms infinite spin;
+}

@@ -2,11 +2,27 @@
 .Card
 --------------------------------- */
 
+.CardContainer {
+  position: relative;
+  height: $cardHeight;
+  // width is set by the grid
+
+  /*
+    targets the 2 anonymous divs
+    acting as the Card's front & back
+    containers, takes the full width
+    of the grid item
+  */
+
+  > .CardAnimatedFrame {
+    width: 100%;
+  }
+}
+
 .Card {
   $root: ".Card";
-  width: $cardWidth;
   border-radius: 6px;
-  box-shadow: $shadow;
+  box-shadow: 0 10px 10px 2px rgba(0, 0, 0, 0.25);
   background-color: white;
   position: relative;
 
@@ -17,25 +33,24 @@
     height: $cardHeight;
   }
 
-  // > * {
-  //   padding: ($padding / 2) $padding;
-  // }
+  &.added {
+    .CardPosterCurtain {
+      padding-bottom: 20px;
+    }
+  }
 
   .CardFlipControls {
     position: absolute;
     z-index: 1;
     width: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.35) 40%,
-      transparent
-    );
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 10%, transparent);
     border: {
       top-left-radius: 6px;
       top-right-radius: 6px;
     }
 
     button {
+      @extend %resetButtons;
       float: right;
       width: 40px;
       height: 40px;
@@ -71,12 +86,7 @@
     height: 100%;
     width: 100%;
     padding-bottom: 80px;
-    background: linear-gradient(
-      to bottom,
-      // transparent 50%,
-        transparent 20%,
-      black
-    );
+    background: linear-gradient(to bottom, transparent 30%, black);
 
     &Title {
       padding: 1rem 1rem 0.25rem;

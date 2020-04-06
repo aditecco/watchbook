@@ -33,6 +33,10 @@ body {
   font-weight: 400;
 }
 
+#root {
+  height: 100vh;
+}
+
 /* ---------------------------------
 components & pages
 --------------------------------- */
@@ -52,6 +56,7 @@ components & pages
 @import "../components/Layout/Layout";
 @import "../components/AppHeader/AppHeader";
 @import "../components/TabSwitcher/TabSwitcher";
+@import "../components/Spinner/Spinner";
 @import "../pages/Home/Home";
 @import "../pages/Watched/Watched";
 @import "../pages/ToWatch/ToWatch";

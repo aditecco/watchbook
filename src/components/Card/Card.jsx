@@ -14,29 +14,30 @@ export default function Card({
   year,
   onToWatchClick,
   onWatchedClick,
+  added,
   ...other
 }) {
   // log(arguments);
-  const isWatched = false; // tmp
   const [flipped, toggleFlipped] = useState(false);
 
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
-    config: { mass: 5, tension: 500, friction: 80 }
+    config: { mass: 5, tension: 500, friction: 80 },
   });
 
   return (
-    <>
+    <div className="CardContainer">
       <animated.div
+        className="CardAnimatedFrame"
         style={{
           position: "absolute",
           zIndex: !flipped ? 1 : "auto",
-          opacity: opacity.interpolate(o => 1 - o),
-          transform
+          opacity: opacity.interpolate((o) => 1 - o),
+          transform,
         }}
       >
-        <article className="Card front">
+        <article className={`Card front${added ? " added" : ""}`}>
           <div className="CardFlipControls">
             <button onClick={() => toggleFlipped(!flipped)}>
               <MaterialIcon icon="info" />
@@ -70,19 +71,13 @@ export default function Card({
 
           <footer className="CardFooter">
             <div className="CardControls">
-              {/* 
-            TODO
-
-            Define how CardControls will change
-            when the item is set as watched
-            */}
-
-              {!isWatched ? (
+              {/* TODO maybe find a better prop name */}
+              {!added && (
                 <>
                   <button
                     className="CardControlsButton"
                     type="button"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault();
 
                       onToWatchClick({ image, title, type, year });
@@ -94,7 +89,7 @@ export default function Card({
                   <button
                     className="CardControlsButton"
                     type="button"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault();
 
                       onWatchedClick({ image, title, type, year });
@@ -103,7 +98,7 @@ export default function Card({
                     Watched <i className="material-icons">check_circle</i>
                   </button>
                 </>
-              ) : null}
+              )}
             </div>
           </footer>
         </article>
@@ -111,10 +106,11 @@ export default function Card({
 
       {/* back of the card */}
       <animated.div
+        className="CardAnimatedFrame"
         style={{
           position: "absolute",
           opacity,
-          transform: transform.interpolate(t => `${t} rotateY(180deg)`)
+          transform: transform.interpolate((t) => `${t} rotateY(180deg)`),
         }}
       >
         <article className="Card back">
@@ -126,6 +122,6 @@ export default function Card({
           back of the card
         </article>
       </animated.div>
-    </>
+    </div>
   );
 }

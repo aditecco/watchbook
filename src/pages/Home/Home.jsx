@@ -3,6 +3,7 @@ Home
 --------------------------------- */
 
 import React, { useEffect, useReducer, useContext, useState } from "react";
+import _ from "lodash";
 import uuidv4 from "uuid";
 import Card from "../../components/Card/Card";
 import WatchedList from "../../components/WatchedList/WatchedList";
@@ -14,21 +15,20 @@ import { log, storage } from "../../utils";
 import { AuthContext, StoreContext, db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
-import AppHeader from "../../components/AppHeader/AppHeader";
 
 function Home() {
   const [state, setState] = useReducer(
     (state, newState) => ({
       ...state,
-      ...newState
+      ...newState,
     }),
     {
       loading: false,
       searchResults: {},
       searchQuery: "",
-      showError: false,
+      hasError: false,
       showSearchResults: false,
-      selectedCard: {}
+      selectedCard: {},
     }
   );
 
@@ -50,7 +50,7 @@ function Home() {
     storage.push(LOCAL_STORAGE_KEY, {
       ...localData,
       watched: watched ? [watched, ...localData.watched] : localData.watched,
-      toWatch: toWatch ? [toWatch, ...localData.toWatch] : localData.toWatch
+      toWatch: toWatch ? [toWatch, ...localData.toWatch] : localData.toWatch,
     });
   }
 
@@ -59,8 +59,7 @@ function Home() {
    * the user's query
    */
 
-  const fetchData = async query => {
-    // const endpoint = `http://swapi.co/api/planets/${rand()}/`;
+  const fetchQueryData = async (query) => {
     const KEY = storage.pull("OMDbApiKey");
     const endpoint = (key, query) =>
       `https://www.omdbapi.com/?apiKey=${key}&s=${query}`;
@@ -76,13 +75,30 @@ function Home() {
       const response = await request.json();
 
       if ("Error" in response) {
+        /**
+         * TODO
+         *
+         * very WIP
+         * prevent multiple notifs to be fired
+         * could use hasError: false in state
+         * to lock searches until the error
+         * is resolved
+         */
+
+        dispatch({
+          type: "SHOW_NOTIF",
+          message: `${request.status} Error: ${response.Error}`,
+          icon: null,
+          timeOut: 4000,
+        });
+
         throw new Error(response.Error);
       }
 
       setState({
         searchResults: response,
         showSearchResults: true,
-        loading: false
+        loading: false,
       });
     } catch (err) {
       console.error("@fetchData: ", err);
@@ -100,7 +116,7 @@ function Home() {
     const newItem = {
       id,
       timestamp,
-      ...data
+      ...data,
     };
 
     dispatch({ type: "CREATE_TO_WATCH", toWatchItem: newItem, uid });
@@ -109,10 +125,10 @@ function Home() {
 
     const updates = {
       [`/content/${newItemRef}`]: newItem,
-      [`/users/${uid}/toWatch/${newItemRef}`]: true
+      [`/users/${uid}/toWatch/${newItemRef}`]: true,
     };
 
-    dbRef.update(updates, err => {
+    dbRef.update(updates, (err) => {
       if (err) {
         // TODO handle error
         console.error(err);
@@ -123,14 +139,14 @@ function Home() {
           type: "SHOW_NOTIF",
           message: `To Watch: ${newItem.title}`,
           icon: null,
-          timeOut: 2000
+          timeOut: 2000,
         });
       }
     });
 
     setState({
       showSearchResults: false,
-      searchQuery: ""
+      searchQuery: "",
     });
   }
 
@@ -138,14 +154,14 @@ function Home() {
    * Handles creation of new watched items
    */
 
-  const handleAddWatched = data => {
+  const handleAddWatched = (data) => {
     const id = uuidv4();
     const timestamp = Date.now();
 
     const newItem = {
       id,
       timestamp,
-      ...data
+      ...data,
     };
 
     dispatch({ type: "CREATE_WATCHED", watchedItem: newItem, uid });
@@ -155,10 +171,10 @@ function Home() {
 
     const updates = {
       [`/content/${newItemRef}`]: newItem,
-      [`/users/${uid}/watched/${newItemRef}`]: true
+      [`/users/${uid}/watched/${newItemRef}`]: true,
     };
 
-    dbRef.update(updates, err => {
+    dbRef.update(updates, (err) => {
       if (err) {
         // TODO handle error
         console.error(err);
@@ -169,14 +185,14 @@ function Home() {
           type: "SHOW_NOTIF",
           message: `Watched: ${newItem.title}`,
           icon: null,
-          timeOut: 2000
+          timeOut: 2000,
         });
       }
     });
 
     setState({
       showSearchResults: false,
-      searchQuery: ""
+      searchQuery: "",
     });
   };
 
@@ -185,15 +201,15 @@ function Home() {
    * main input field
    */
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
-      setTimeout(() => fetchData(searchQuery), 500);
+      fetchQueryData(searchQuery);
     }
 
     setState({
-      searchQuery
+      searchQuery,
     });
   };
 
@@ -217,7 +233,7 @@ function Home() {
         type: "SHOW_NOTIF",
         message: "Please set an API key in settings.",
         // icon: "error_outline",
-        timeOut: 2000
+        timeOut: 2000,
       });
   }
 
@@ -226,8 +242,8 @@ function Home() {
    * the search result list
    */
 
-  const handleAutoSuggestClick = id => {
-    const which = state.searchResults.Search.find(item => item.imdbID === id);
+  const handleAutoSuggestClick = (id) => {
+    const which = state.searchResults.Search.find((item) => item.imdbID === id);
 
     dispatch({
       type: "TOGGLE_MODAL",
@@ -241,56 +257,53 @@ function Home() {
           onToWatchClick={handleAddToWatch}
         />
       ),
-      closeAction: () => dispatch({ type: "TOGGLE_MODAL" })
+      closeAction: () => dispatch({ type: "TOGGLE_MODAL" }),
     });
   };
 
-  /**
-   * Placeholders
-   */
-
-  function logTarget(e) {
-    log(e.currentTarget);
-  }
-
   return (
-    <StoreContext.Consumer>
-      {([store]) => (
-        <Layout rootClass="Home" selected={1}>
-          <div className="wrapper">
-            {/* ========================
-              ITEM SEARCH
-              ======================== */}
-            <section className="search">
-              <SearchField
-                searchQuery={state.searchQuery}
-                searchHandler={handleSearch}
-                focusHandler={handleFocus}
-                resetHandler={handleSearchReset}
-              >
-                {state.showSearchResults && (
-                  <AutoSuggest
-                    content={state.searchResults.Search}
-                    onItemClick={handleAutoSuggestClick}
-                    limit={5}
-                  />
-                )}
-              </SearchField>
-            </section>
+    <Layout rootClass="Home" selected={1}>
+      <div className="wrapper">
+        {/* ========================
+        ITEM SEARCH
+        ======================== */}
+        <section className="search">
+          <SearchField
+            searchQuery={state.searchQuery}
+            searchHandler={_.throttle(handleSearch, 6000, { trailing: true })}
+            focusHandler={handleFocus}
+            resetHandler={handleSearchReset}
+          >
+            {state.showSearchResults && (
+              <AutoSuggest
+                content={state.searchResults.Search}
+                onItemClick={handleAutoSuggestClick}
+                limit={5}
+              />
+            )}
+          </SearchField>
+        </section>
 
-            {/* ========================
-              WATCHED
-              ======================== */}
+        {/* ========================
+        WATCHED & TO WATCH
+        ======================== */}
 
-            <DataProvider
-              render={data => (
-                <WatchedList watched={data} title="Latest watched" limit={6} />
-              )}
-            />
-          </div>
-        </Layout>
-      )}
-    </StoreContext.Consumer>
+        <DataProvider
+          dataSet="watched"
+          render={(data) => (
+            <WatchedList watched={data} title="Latest watched" limit={6} />
+          )}
+        />
+
+        {/* TODO */}
+        {/* <DataProvider
+          dataSet="toWatch"
+          render={(data) => (
+            <WatchedList watched={data} title="Latest To Watch" limit={6} />
+          )}
+        /> */}
+      </div>
+    </Layout>
   );
 }
 
