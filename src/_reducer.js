@@ -3,155 +3,161 @@ reducer
 --------------------------------- */
 
 import { createReducer } from "@reduxjs/toolkit";
-
 import { log, storage } from "./utils";
 import initialState from "./initialState";
+import { TEST } from "./actions";
 
-export const _reducer = createReducer(
-  {},
-  {
-    INIT_USER(state, action) {
-      const { uid } = action;
+const _reducer = createReducer(initialState, {
+  /*
+  INIT_USER(state, action) {
+    const { uid } = action;
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...userDataTemplate,
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...userDataTemplate,
+        },
+      },
+    };
+  },
+
+  DESTROY_USER(state, action) {
+    return {
+      ...state,
+      userData: {},
+    };
+  },
+
+  SET_INITIAL_DATA(state, action) {
+    const { uid, mappedData } = action;
+
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          watched: [...mappedData.watched].reverse(),
+          toWatch: [...mappedData.toWatch].reverse(),
+        },
+      },
+    };
+  },
+
+  SET_API_KEY(state, action) {
+    const { key: apiKey, uid } = action;
+
+    return {
+      ...state,
+      userData: {
+        ...state.userData,
+        [uid]: {
+          ...state.userData[uid],
+          settings: {
+            apiKey,
           },
         },
-      };
-    },
+      },
+    };
+  },
 
-    DESTROY_USER(state, action) {
-      return {
-        ...state,
-        userData: {},
-      };
-    },
+  GET_USER(state, action) {
+    return state;
+  },
 
-    SET_INITIAL_DATA(state, action) {
-      const { uid, mappedData } = action;
+  CREATE_WATCHED(state, action) {
+    const { watchedItem, uid } = action;
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...state.userData[uid],
-            watched: [...mappedData.watched].reverse(),
-            toWatch: [...mappedData.toWatch].reverse(),
-          },
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          watched: [watchedItem, ...state.userData[uid]["watched"]],
         },
-      };
-    },
+      },
+    };
+  },
 
-    SET_API_KEY(state, action) {
-      const { key: apiKey, uid } = action;
+  CREATE_TO_WATCH(state, action) {
+    const { toWatchItem, uid } = action;
 
-      return {
-        ...state,
-        userData: {
-          ...state.userData,
-          [uid]: {
-            ...state.userData[uid],
-            settings: {
-              apiKey,
-            },
-          },
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          toWatch: [toWatchItem, ...state.userData[uid]["toWatch"]],
         },
-      };
-    },
+      },
+    };
+  },
 
-    GET_USER(state, action) {
-      return state;
-    },
+  UPDATE_WATCHED(state, action) {
+    return state;
+  },
 
-    CREATE_WATCHED(state, action) {
-      const { watchedItem, uid } = action;
+  DELETE_WATCHED(state, action) {
+    return state;
+  },
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...state.userData[uid],
-            watched: [watchedItem, ...state.userData[uid]["watched"]],
-          },
-        },
-      };
-    },
+  FILTER_WATCHED(state, action) {
+    const { query, uid } = action;
+    const lowercased = (item) => item.toLowerCase();
+    const _query = lowercased(query);
+    const result = state.userData[uid]["watched"].filter((item) =>
+      lowercased(item.title).includes(_query)
+    );
 
-    CREATE_TO_WATCH(state, action) {
-      const { toWatchItem, uid } = action;
+    log(query);
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...state.userData[uid],
-            toWatch: [toWatchItem, ...state.userData[uid]["toWatch"]],
-          },
-        },
-      };
-    },
+    return {
+      ...state,
+      filter: result, // TODO should this be in local state?
+    };
+  },
 
-    UPDATE_WATCHED(state, action) {
-      return state;
-    },
+  SHOW_NOTIF(state, action) {
+    const { message, icon, timeOut } = action;
 
-    DELETE_WATCHED(state, action) {
-      return state;
-    },
+    return {
+      ...state,
+      notificationMessage: {
+        isVisible: true,
+        message,
+        icon,
+        timeOut,
+      },
+    };
+  },
 
-    FILTER_WATCHED(state, action) {
-      const { query, uid } = action;
-      const lowercased = (item) => item.toLowerCase();
-      const _query = lowercased(query);
-      const result = state.userData[uid]["watched"].filter((item) =>
-        lowercased(item.title).includes(_query)
-      );
+  HIDE_NOTIF(state, action) {
+    return {
+      ...state,
+      notificationMessage: {
+        ...initialState.notificationMessage,
+      },
+    };
+  },
 
-      log(query);
+  TOGGLE_MODAL(state, action) {
+    const { children = null, closeAction = null } = action;
 
-      return {
-        ...state,
-        filter: result, // TODO should this be in local state?
-      };
-    },
+    return {
+      ...state,
+      modal: {
+        open: !state.modal.open,
+        children,
+        closeAction,
+      },
+    };
+  },
+  */
 
-    SHOW_NOTIF(state, action) {
-      const { message, icon, timeOut } = action;
+  [TEST](state, action) {
+    log("@@@", action.type);
+    return state;
+  },
+});
 
-      return {
-        ...state,
-        notificationMessage: {
-          isVisible: true,
-          message,
-          icon,
-          timeOut,
-        },
-      };
-    },
-
-    HIDE_NOTIF(state, action) {
-      return {
-        ...state,
-        notificationMessage: {
-          ...initialState.notificationMessage,
-        },
-      };
-    },
-
-    TOGGLE_MODAL(state, action) {
-      const { children = null, closeAction = null } = action;
-
-      return {
-        ...state,
-        modal: {
-          open: !state.modal.open,
-          children,
-          closeAction,
-        },
-      };
-    },
-  }
-);
+export default _reducer;
