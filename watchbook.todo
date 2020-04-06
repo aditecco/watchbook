@@ -14,12 +14,11 @@ Fixes:
   - add fixed width wrapper to nav & header
   - empty sort & filter fields
   ☐ show auth errors in the UI
-  - prevent duplicates in DB /content
   - React does not recognize the `data-toggleTarget` prop on a DOM element.
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
   - new item notif is not centered
-  - DataProvider loader gets stuck sometimes
+  - DataProvider loader can get stuck
 
 Optims/refactor:
   - …
@@ -32,10 +31,12 @@ Optims/refactor:
       keep profile & settings buttons visible in profile & settings pages
   - create DataProvider
     - …
+    - move user init to other specialized component
     - init settings in new users
 
 Features/stories:
   - …
+  - prevent duplicates in DB /content
   - [CARDS] create card back
     loads rich info about the content
     displays a skeleton animation while loading
