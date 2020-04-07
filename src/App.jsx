@@ -26,6 +26,8 @@ import { log } from "./utils";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Modal from "./components/Modal/Modal";
 import Spinner from "./components/Spinner/Spinner";
+import { connect } from "react-redux";
+import * as dispatchActions from "./actions";
 
 // global utils
 window.storage = storage;
@@ -38,7 +40,7 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -49,7 +51,7 @@ export const StoreContext = React.createContext();
 export const AuthContext = React.createContext();
 
 // app
-function App() {
+function App({ auth, data, notification, modal }) {
   /**
    * auth reducer
    */
@@ -77,7 +79,7 @@ function App() {
 
   useEffect(() => {
     const observer = firebase.auth().onAuthStateChanged(
-      user => {
+      (user) => {
         /**
          * user should be present in case of
          *  signup, login or persistent session
@@ -110,7 +112,7 @@ function App() {
 
         setLoading(false);
       },
-      err => {
+      (err) => {
         console.error("@onAuthStateChanged", err);
 
         setLoading(false);
@@ -168,12 +170,20 @@ function App() {
           </StoreContext.Provider>
         </AuthContext.Provider>
 
-        <Modal open={store.modal.open} closeAction={store.modal.closeAction}>
-          {store.modal.children}
+        <Modal open={modal.open} closeAction={modal.closeAction}>
+          {modal.children}
         </Modal>
       </div>
     </ErrorBoundary>
   );
 }
 
-export default App;
+const mapState = (state) => ({
+  auth: state.authentication,
+  data: state.userData,
+  notification: state.notificationMessage,
+  modal: state.modal,
+});
+const mapDispatch = () => ({ ...dispatchActions });
+
+export default connect(mapState, mapDispatch)(App);

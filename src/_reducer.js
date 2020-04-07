@@ -5,11 +5,33 @@ reducer
 import { createReducer } from "@reduxjs/toolkit";
 import { log, storage } from "./utils";
 import initialState from "./initialState";
-import { TEST } from "./actions";
+import {
+  test,
+  initUser,
+  destroyUser,
+  setInitialData,
+  setApiKey,
+  getUser,
+  createWatched,
+  createToWatch,
+  updateWatched,
+  deleteWatched,
+  filterWatched,
+  showNotif,
+  hideNotif,
+  toggleModal,
+} from "./actions";
+
+const userDataTemplate = {
+  watched: [],
+  toWatch: [],
+  settings: {
+    apiKey: "",
+  },
+};
 
 const _reducer = createReducer(initialState, {
-  /*
-  INIT_USER(state, action) {
+  [initUser](state, action) {
     const { uid } = action;
 
     return {
@@ -22,14 +44,14 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  DESTROY_USER(state, action) {
+  [destroyUser](state, action) {
     return {
       ...state,
       userData: {},
     };
   },
 
-  SET_INITIAL_DATA(state, action) {
+  [setInitialData](state, action) {
     const { uid, mappedData } = action;
 
     return {
@@ -44,7 +66,7 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  SET_API_KEY(state, action) {
+  [setApiKey](state, action) {
     const { key: apiKey, uid } = action;
 
     return {
@@ -61,11 +83,11 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  GET_USER(state, action) {
+  [getUser](state, action) {
     return state;
   },
 
-  CREATE_WATCHED(state, action) {
+  [createWatched](state, action) {
     const { watchedItem, uid } = action;
 
     return {
@@ -79,7 +101,7 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  CREATE_TO_WATCH(state, action) {
+  [createToWatch](state, action) {
     const { toWatchItem, uid } = action;
 
     return {
@@ -93,15 +115,15 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  UPDATE_WATCHED(state, action) {
+  [updateWatched](state, action) {
     return state;
   },
 
-  DELETE_WATCHED(state, action) {
+  [deleteWatched](state, action) {
     return state;
   },
 
-  FILTER_WATCHED(state, action) {
+  [filterWatched](state, action) {
     const { query, uid } = action;
     const lowercased = (item) => item.toLowerCase();
     const _query = lowercased(query);
@@ -117,7 +139,7 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  SHOW_NOTIF(state, action) {
+  [showNotif](state, action) {
     const { message, icon, timeOut } = action;
 
     return {
@@ -131,7 +153,7 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  HIDE_NOTIF(state, action) {
+  [hideNotif](state, action) {
     return {
       ...state,
       notificationMessage: {
@@ -140,7 +162,7 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  TOGGLE_MODAL(state, action) {
+  [toggleModal](state, action) {
     const { children = null, closeAction = null } = action;
 
     return {
@@ -152,10 +174,9 @@ const _reducer = createReducer(initialState, {
       },
     };
   },
-  */
 
-  [TEST](state, action) {
-    log("@@@", action.type);
+  [test](state, action) {
+    log("@@@", action.payload);
     return state;
   },
 });

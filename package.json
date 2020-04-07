@@ -12,6 +12,7 @@
     "@types/node": "^13.5.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
+    "@types/react-redux": "^7.1.7",
     "axios": "^0.19.2",
     "firebase": "^7.8.1",
     "flat-ui-colors-sass": "^1.0.0",
