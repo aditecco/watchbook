@@ -11,6 +11,7 @@ import { Redirect } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
+import { useSelector } from "react-redux";
 
 export const AuthForm = ({ action, actionHandler }) => {
   const [email, setEmail] = useState("");
@@ -53,10 +54,11 @@ export const AuthForm = ({ action, actionHandler }) => {
 
 export default function Auth() {
   const [{ authenticated }] = useContext(AuthContext);
+  // const { authenticated } = useSelector(state => state.authentication);
   const [store, dispatch] = useContext(StoreContext);
 
   const initialComponentState = {
-    hasError: { error: false, errorMeta: {} }
+    hasError: { error: false, errorMeta: {} },
   };
 
   const [state, setState] = useReducer(
@@ -94,7 +96,7 @@ export default function Auth() {
         // message: `Welcome, ${user.email}!`,
         message: `Welcome!`,
         icon: null,
-        timeOut: 2000
+        timeOut: 2000,
       });
     } catch (err) {
       handleError(err);
@@ -132,7 +134,7 @@ export default function Auth() {
           type: "SHOW_NOTIF",
           message: `${code}: ${message}`,
           icon: null,
-          timeOut: 4000
+          timeOut: 4000,
         });
 
         log("@Auth", error);
@@ -150,12 +152,12 @@ export default function Auth() {
           tabs={[
             {
               name: "Login",
-              content: <AuthForm action="login" actionHandler={handleAuth} />
+              content: <AuthForm action="login" actionHandler={handleAuth} />,
             },
             {
               name: "Signup",
-              content: <AuthForm action="signup" actionHandler={handleAuth} />
-            }
+              content: <AuthForm action="signup" actionHandler={handleAuth} />,
+            },
           ]}
         />
       </div>

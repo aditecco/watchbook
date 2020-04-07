@@ -27,7 +27,23 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Modal from "./components/Modal/Modal";
 import Spinner from "./components/Spinner/Spinner";
 import { connect } from "react-redux";
-import * as dispatchActions from "./actions";
+import {
+  _test,
+  createToWatch,
+  createWatched,
+  deleteWatched,
+  destroyUser,
+  filterWatched,
+  getUser,
+  hideNotif,
+  initUser,
+  setApiKey,
+  setAuthState,
+  setInitialData,
+  showNotif,
+  toggleModal,
+  updateWatched,
+} from "./actions";
 
 // global utils
 window.storage = storage;
@@ -50,13 +66,16 @@ export const db = firebase.database();
 export const StoreContext = React.createContext();
 export const AuthContext = React.createContext();
 
-// app
-function App({ auth, data, notification, modal }) {
+/* ========================
+function App
+======================== */
+
+function App({ auth, data, notification, modal, dispatch }) {
   /**
    * auth reducer
    */
 
-  const [authState, setAuthState] = useReducer(
+  const [_authState, _setAuthState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     initialAuthState
   );
@@ -65,7 +84,7 @@ function App({ auth, data, notification, modal }) {
    * store reducer
    */
 
-  const [store, dispatch] = useReducer(reducer, initialState);
+  const [_store, _dispatch] = useReducer(reducer, initialState);
 
   /**
    * loading state
@@ -79,7 +98,7 @@ function App({ auth, data, notification, modal }) {
 
   useEffect(() => {
     const observer = firebase.auth().onAuthStateChanged(
-      (user) => {
+      user => {
         /**
          * user should be present in case of
          *  signup, login or persistent session
@@ -94,15 +113,12 @@ function App({ auth, data, notification, modal }) {
             uid, name, email, photoUrl, emailVerified,
           } = user;
           
-          // TODO use just the store context
-          dispatch({type: 'INIT_USER', uid})
-
-          setAuthState({
+          dispatch(setAuthState({
             authenticated: true,
             user: {
               uid, name, email, photoUrl, emailVerified,
             }
-          })
+          }))
         }
         
         else
@@ -112,7 +128,7 @@ function App({ auth, data, notification, modal }) {
 
         setLoading(false);
       },
-      (err) => {
+      err => {
         console.error("@onAuthStateChanged", err);
 
         setLoading(false);
@@ -122,13 +138,17 @@ function App({ auth, data, notification, modal }) {
     return () => observer(); // this will unsubscribe from the obs.
   }, []);
 
+  useEffect(() => {
+    auth.authenticated && dispatch(initUser(auth.user));
+  }, [auth]);
+
   return loading ? (
     <Spinner />
   ) : (
     <ErrorBoundary>
       <div className="App">
-        <AuthContext.Provider value={[authState, setAuthState]}>
-          <StoreContext.Provider value={[store, dispatch]}>
+        <AuthContext.Provider value={[_authState, _setAuthState]}>
+          <StoreContext.Provider value={[_store, _dispatch]}>
             <NotificationMessage />
 
             <Router>
@@ -178,12 +198,11 @@ function App({ auth, data, notification, modal }) {
   );
 }
 
-const mapState = (state) => ({
+const mapState = state => ({
   auth: state.authentication,
   data: state.userData,
   notification: state.notificationMessage,
   modal: state.modal,
 });
-const mapDispatch = () => ({ ...dispatchActions });
 
-export default connect(mapState, mapDispatch)(App);
+export default connect(mapState)(App);

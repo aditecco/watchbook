@@ -6,20 +6,21 @@ import { createReducer } from "@reduxjs/toolkit";
 import { log, storage } from "./utils";
 import initialState from "./initialState";
 import {
-  test,
-  initUser,
-  destroyUser,
-  setInitialData,
-  setApiKey,
-  getUser,
-  createWatched,
+  _test,
   createToWatch,
-  updateWatched,
+  createWatched,
   deleteWatched,
+  destroyUser,
   filterWatched,
-  showNotif,
+  getUser,
   hideNotif,
+  initUser,
+  setApiKey,
+  setAuthState,
+  setInitialData,
+  showNotif,
   toggleModal,
+  updateWatched,
 } from "./actions";
 
 const userDataTemplate = {
@@ -31,8 +32,23 @@ const userDataTemplate = {
 };
 
 const _reducer = createReducer(initialState, {
+  [setAuthState](state, action) {
+    const {
+      payload: { authenticated, user },
+    } = action;
+
+    return {
+      ...state,
+      authentication: {
+        ...state.authentication,
+        authenticated,
+        user,
+      },
+    };
+  },
+
   [initUser](state, action) {
-    const { uid } = action;
+    const { uid } = action.payload;
 
     return {
       ...state,
@@ -125,9 +141,9 @@ const _reducer = createReducer(initialState, {
 
   [filterWatched](state, action) {
     const { query, uid } = action;
-    const lowercased = (item) => item.toLowerCase();
+    const lowercased = item => item.toLowerCase();
     const _query = lowercased(query);
-    const result = state.userData[uid]["watched"].filter((item) =>
+    const result = state.userData[uid]["watched"].filter(item =>
       lowercased(item.title).includes(_query)
     );
 
@@ -175,7 +191,7 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  [test](state, action) {
+  [_test](state, action) {
     log("@@@", action.payload);
     return state;
   },
