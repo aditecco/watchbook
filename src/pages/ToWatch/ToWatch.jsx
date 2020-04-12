@@ -2,18 +2,25 @@
 ToWatch
 --------------------------------- */
 
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import { AuthContext, StoreContext } from "../../App";
 import WatchedList from "../../components/WatchedList/WatchedList";
+import { useSelector } from "react-redux";
 import { log } from "../../utils";
 
 export default function ToWatch() {
-  const [{ user }] = useContext(AuthContext);
-  const [store, dispatch] = useContext(StoreContext);
-  const { toWatch } = store.userData[user.uid];
+  // global state
+  const {
+    user: { uid },
+  } = useSelector(state => state.authentication);
+  const userData = useSelector(state => state.userData);
+
+  // localState
   const [compactView, setCompactView] = useState(false);
+
+  // other
+  const { toWatch } = userData[uid];
   const titleWithCount = `To Watch (${toWatch.length})`;
   const getType = type => toWatch.filter(item => item.type === type).length;
 
@@ -31,7 +38,7 @@ export default function ToWatch() {
       />
 
       <WatchedList
-        watched={store.userData[user.uid]["toWatch"]}
+        watched={userData[uid]["toWatch"]}
         title={titleWithCount}
         compact={compactView}
       />

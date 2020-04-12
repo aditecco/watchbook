@@ -3,14 +3,14 @@ Watched
 --------------------------------- */
 
 import React, { useState } from "react";
-import Layout from "../../components/Layout/Layout";
-import PageHeader from "../../components/PageHeader/PageHeader";
-import WatchedList from "../../components/WatchedList/WatchedList";
-import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
-import ViewOptions from "../../components/ViewOptions/ViewOptions";
 import { log } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
-import { filterWatched } from "../../actions";
+import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
+import FilterAndSortProvider from "../../components/FilterAndSortProvider";
+import Layout from "../../components/Layout/Layout";
+import PageHeader from "../../components/PageHeader/PageHeader";
+import ViewOptions from "../../components/ViewOptions/ViewOptions";
+import WatchedList from "../../components/WatchedList/WatchedList";
 
 export default function Watched() {
   // global state
@@ -32,6 +32,13 @@ export default function Watched() {
   const watchedItemsYears = ["Select a year"].concat(
     watched.map(item => item.year)
   );
+
+  function filterItems(items, query) {
+    const lowercased = item => item.toLowerCase();
+    const _query = lowercased(query);
+
+    return items.filter(item => lowercased(item.title).includes(_query));
+  }
 
   function handleSortByYear(e) {
     const year = e.target.value;
@@ -69,43 +76,21 @@ export default function Watched() {
         />
       </div>
 
-      {showFilters && (
-        <FilterAndSort
-          filterHandler={e =>
-            dispatch(
-              filterWatched({
-                query: e.currentTarget.value,
-                uid,
-              })
-            )
-          }
-          sortHandler={handleSortByYear}
-          sortOptions={watchedItemsYears}
-        />
-      )}
-
-      {
-        /*store.filter && store.filter.length*/ false ? (
+      <FilterAndSortProvider
+        toggleUI={showFilters}
+        FilterAndSortComponent={FilterAndSort}
+        data={watched}
+        handlers={{ filter: filterItems, sort: handleSortByYear }}
+        sortOptions={watchedItemsYears}
+      >
+        {filteredItems => (
           <WatchedList
-            // watched={store.filter}
-            watched={[]}
+            watched={filteredItems}
             title={titleWithCount}
             compact={compactView}
           />
-        ) : sorted && sorted.length ? (
-          <WatchedList
-            watched={sorted}
-            title={titleWithCount}
-            compact={compactView}
-          />
-        ) : (
-          <WatchedList
-            watched={watched}
-            title={titleWithCount}
-            compact={compactView}
-          />
-        )
-      }
+        )}
+      </FilterAndSortProvider>
     </Layout>
   );
 }

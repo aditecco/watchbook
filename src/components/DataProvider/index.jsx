@@ -2,8 +2,8 @@
 DataProvider
 --------------------------------- */
 
-import React, { useReducer, useEffect, useContext } from "react";
-import { AuthContext, StoreContext, db } from "../../App";
+import React, { useReducer, useEffect } from "react";
+import { db } from "../../App";
 import { log } from "../../utils";
 import Spinner from "../Spinner/Spinner";
 import { useSelector, useDispatch } from "react-redux";
