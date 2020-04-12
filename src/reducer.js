@@ -2,176 +2,203 @@
 reducer
 --------------------------------- */
 
-import { log, storage } from "./utils";
+import { createReducer } from "@reduxjs/toolkit";
+import { log } from "./utils";
 import initialState from "./initialState";
+import {
+  createToWatch,
+  createWatched,
+  deleteWatched,
+  destroyUser,
+  filterWatched,
+  getUser,
+  hideNotif,
+  initUser,
+  setApiKey,
+  setAuthState,
+  setInitialData,
+  showNotif,
+  toggleModal,
+  updateWatched,
+} from "./actions";
 
-export const userDataTemplate = {
+const userDataTemplate = {
   watched: [],
   toWatch: [],
   settings: {
-    apiKey: ""
-  }
+    apiKey: "",
+  },
 };
 
-export default function reducer(state, action) {
-  log(action.type);
+const reducer = createReducer(initialState, {
+  [setAuthState](state, action) {
+    const {
+      payload: { authenticated, user },
+    } = action;
 
-  switch (action.type) {
-    case "INIT_USER": {
-      const { uid } = action;
+    return {
+      ...state,
+      authentication: {
+        ...state.authentication,
+        authenticated,
+        user,
+      },
+    };
+  },
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...userDataTemplate
-          }
-        }
-      };
-    }
+  [initUser](state, action) {
+    const { uid } = action.payload;
 
-    case "DESTROY_USER": {
-      return {
-        ...state,
-        userData: {}
-      };
-    }
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...userDataTemplate,
+        },
+      },
+    };
+  },
 
-    case "SET_INITIAL_DATA": {
-      const { uid, mappedData } = action;
+  [destroyUser](state) {
+    return {
+      ...state,
+      authentication: { authenticated: false, user: null },
+      userData: {},
+    };
+  },
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...state.userData[uid],
-            watched: [...mappedData.watched].reverse(),
-            toWatch: [...mappedData.toWatch].reverse()
-          }
-        }
-      };
-    }
+  [setInitialData](state, action) {
+    const {
+      payload: { uid, mappedData },
+    } = action;
 
-    case "SET_API_KEY": {
-      const { key: apiKey, uid } = action;
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          watched: [...mappedData.watched].reverse(),
+          toWatch: [...mappedData.toWatch].reverse(),
+        },
+      },
+    };
+  },
 
-      // return Object.assign({}, state, {
-      //   userData: {
-      //     [uid]: {
-      //       settings: {
-      //         apiKey
-      //       }
-      //     }
-      //   }
-      // });
+  [setApiKey](state, action) {
+    const {
+      payload: { key: apiKey, uid },
+    } = action;
 
-      return {
-        ...state,
-        userData: {
-          ...state.userData,
-          [uid]: {
-            ...state.userData[uid],
-            settings: {
-              apiKey
-            }
-          }
-        }
-      };
-    }
+    return {
+      ...state,
+      userData: {
+        ...state.userData,
+        [uid]: {
+          ...state.userData[uid],
+          settings: {
+            apiKey,
+          },
+        },
+      },
+    };
+  },
 
-    case "GET_USER": {
-      return state;
-    }
+  [getUser](state, action) {
+    return state;
+  },
 
-    case "CREATE_WATCHED": {
-      const { watchedItem, uid } = action;
+  [createWatched](state, action) {
+    const {
+      payload: { watchedItem, uid },
+    } = action;
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...state.userData[uid],
-            watched: [watchedItem, ...state.userData[uid]["watched"]]
-          }
-        }
-      };
-    }
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          watched: [watchedItem, ...state.userData[uid]["watched"]],
+        },
+      },
+    };
+  },
 
-    case "CREATE_TO_WATCH": {
-      const { toWatchItem, uid } = action;
+  [createToWatch](state, action) {
+    const {
+      payload: { toWatchItem, uid },
+    } = action;
 
-      return {
-        ...state,
-        userData: {
-          [uid]: {
-            ...state.userData[uid],
-            toWatch: [toWatchItem, ...state.userData[uid]["toWatch"]]
-          }
-        }
-      };
-    }
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          toWatch: [toWatchItem, ...state.userData[uid]["toWatch"]],
+        },
+      },
+    };
+  },
 
-    case "UPDATE_WATCHED": {
-      return state;
-    }
+  [updateWatched](state, action) {
+    return state;
+  },
 
-    case "DELETE_WATCHED": {
-      return state;
-    }
+  [deleteWatched](state, action) {
+    return state;
+  },
 
-    case "FILTER_WATCHED": {
-      const { query, uid } = action;
-      const lowercased = item => item.toLowerCase();
-      const _query = lowercased(query);
-      const result = state.userData[uid]["watched"].filter(item =>
-        lowercased(item.title).includes(_query)
-      );
+  [filterWatched](state, action) {
+    const {
+      payload: { query, uid },
+    } = action;
+    const lowercased = item => item.toLowerCase();
+    const _query = lowercased(query);
+    const result = state.userData[uid]["watched"].filter(item =>
+      lowercased(item.title).includes(_query)
+    );
 
-      log(query);
+    log(query);
 
-      return {
-        ...state,
-        filter: result // TODO should this be in local state?
-      };
-    }
+    return {
+      ...state,
+      filter: result, // TODO should this be in local state?
+    };
+  },
 
-    case "SHOW_NOTIF": {
-      const { message, icon, timeOut } = action;
+  [showNotif](state, action) {
+    const {
+      payload: { message, icon, timeOut },
+    } = action;
 
-      return {
-        ...state,
-        notificationMessage: {
-          isVisible: true,
-          message,
-          icon,
-          timeOut
-        }
-      };
-    }
+    return {
+      ...state,
+      notificationMessage: {
+        isVisible: true,
+        message,
+        icon,
+        timeOut,
+      },
+    };
+  },
 
-    case "HIDE_NOTIF": {
-      return {
-        ...state,
-        notificationMessage: {
-          ...initialState.notificationMessage
-        }
-      };
-    }
+  [hideNotif](state) {
+    return {
+      ...state,
+      notificationMessage: {
+        ...initialState.notificationMessage,
+      },
+    };
+  },
 
-    case "TOGGLE_MODAL": {
-      const { children = null, closeAction = null } = action;
+  [toggleModal](state, action) {
+    return {
+      ...state,
+      modal: {
+        open: !state.modal.open,
+        content: action.payload ? action.payload.content : null,
+      },
+    };
+  },
+});
 
-      return {
-        ...state,
-        modal: {
-          open: !state.modal.open,
-          children,
-          closeAction
-        }
-      };
-    }
-
-    default:
-      return state;
-  }
-}
+export default reducer;
