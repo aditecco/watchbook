@@ -10,12 +10,12 @@ import Home from "../../pages/Home/Home";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Profile from "../../pages/Profile/Profile";
 import Settings from "../../pages/Settings/Settings";
-import TestPage from "../../pages/TestPage";
 import ToWatch from "../../pages/ToWatch/ToWatch";
 import Watched from "../../pages/Watched/Watched";
 
 export default function Routes() {
   return (
+    // TODO refactor w/o PrivateRoute
     <Router>
       <Switch>
         <Route exact path="/">

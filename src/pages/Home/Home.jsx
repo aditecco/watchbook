@@ -2,7 +2,7 @@
 Home
 --------------------------------- */
 
-import React, { useEffect, useReducer, useContext, useState } from "react";
+import React, { useReducer } from "react";
 import _ from "lodash";
 import uuidv4 from "uuid";
 import Card from "../../components/Card/Card";
@@ -10,9 +10,8 @@ import WatchedList from "../../components/WatchedList/WatchedList";
 import Layout from "../../components/Layout/Layout";
 import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
-import { LOCAL_STORAGE_KEY } from "../../constants";
-import { log, storage } from "../../utils";
-import { AuthContext, StoreContext, db } from "../../App";
+import { storage } from "../../utils";
+import { db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
 import { useSelector, useDispatch } from "react-redux";
@@ -45,21 +44,6 @@ function Home() {
   const { uid } = user;
   const dbRef = db.ref();
   const contentRef = db.ref("content");
-  const userRef = db.ref(`users/${uid}`);
-
-  /**
-   * syncStorage
-   */
-
-  function syncStorage({ watched, toWatch }) {
-    const localData = storage.pull(LOCAL_STORAGE_KEY);
-
-    storage.push(LOCAL_STORAGE_KEY, {
-      ...localData,
-      watched: watched ? [watched, ...localData.watched] : localData.watched,
-      toWatch: toWatch ? [toWatch, ...localData.toWatch] : localData.toWatch,
-    });
-  }
 
   /**
    * Gets data from API based on

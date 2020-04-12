@@ -2,11 +2,10 @@
 Auth
 --------------------------------- */
 
-import React, { useReducer, useContext, useState } from "react";
+import React, { useReducer, useState } from "react";
 import { log, storage, capitalize } from "../../utils";
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import { AuthContext, StoreContext } from "../../App";
 import { Redirect } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
@@ -55,7 +54,7 @@ export const AuthForm = ({ action, actionHandler }) => {
 
 export default function Auth() {
   const dispatch = useDispatch();
-  const { authenticated, user } = useSelector(state => state.authentication);
+  const { authenticated } = useSelector(state => state.authentication);
 
   const initialComponentState = {
     hasError: { error: false, errorMeta: {} },

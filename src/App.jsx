@@ -53,30 +53,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.database();
 
-// context initializers
-export const StoreContext = React.createContext();
-export const AuthContext = React.createContext();
-
 /* ========================
 function App
 ======================== */
 
 function App({ auth, data, notification, modal, dispatch }) {
-  /**
-   * auth reducer
-   */
-
-  const [_authState, _setAuthState] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    initialAuthState
-  );
-
-  /**
-   * store reducer
-   */
-
-  const [_store, _dispatch] = useReducer(reducer, initialState);
-
   /**
    * loading state
    */
@@ -138,17 +119,13 @@ function App({ auth, data, notification, modal, dispatch }) {
   ) : (
     <ErrorBoundary>
       <div className="App">
-        <AuthContext.Provider value={[_authState, _setAuthState]}>
-          <StoreContext.Provider value={[_store, _dispatch]}>
-            <Routes />
+        <Routes />
 
-            <NotificationMessage />
+        <NotificationMessage />
 
-            <Modal open={modal.open} closeAction={modal.closeAction}>
-              {modal.children}
-            </Modal>
-          </StoreContext.Provider>
-        </AuthContext.Provider>
+        <Modal open={modal.open} closeAction={modal.closeAction}>
+          {modal.children}
+        </Modal>
       </div>
     </ErrorBoundary>
   );

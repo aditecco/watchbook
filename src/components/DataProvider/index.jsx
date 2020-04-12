@@ -2,12 +2,12 @@
 DataProvider
 --------------------------------- */
 
-import React, { useReducer, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../../App";
 import { log } from "../../utils";
-import Spinner from "../Spinner/Spinner";
-import { useSelector, useDispatch } from "react-redux";
 import { setInitialData } from "../../actions";
+import { useSelector, useDispatch } from "react-redux";
+import Spinner from "../Spinner/Spinner";
 
 export default function DataProvider({ render, dataSet }) {
   /**
@@ -19,6 +19,7 @@ export default function DataProvider({ render, dataSet }) {
    *  √ fetch remote data
    *  √ set remote data to global state
    *  √ feed data to consumer components
+   *  √ use data from a cache when data has already been downloaded
    *  save new data
    *  edit data
    *  delete data
@@ -26,93 +27,84 @@ export default function DataProvider({ render, dataSet }) {
    *  filter, sort & manipulate data
    */
 
-  const [state, setState] = useReducer(
-    (state, newState) => ({
-      ...state,
-      ...newState,
-    }),
-    {
-      loading: true,
-      data: null,
-    }
-  );
-
-  const { loading, data } = state;
-  // const [store, dispatch] = useContext(StoreContext);
   const dispatch = useDispatch();
   const {
     user: { uid },
   } = useSelector(state => state.authentication);
-
   const userData = useSelector(state => state.userData);
-  // const [{ user }] = useContext(AuthContext);
-  // const { uid } = user;
-  const contentRef = db.ref("content");
-  // const userRef = db.ref(`users/${uid}`);
-  const watchedRef = db.ref(`users/${uid}/watched`);
-  const toWatchRef = db.ref(`users/${uid}/toWatch`);
+  const [loading, setLoading] = useState(true);
+  const data = userData[uid][dataSet];
 
   /**
    * Checks if any initial data exists in the remote DB
    * and, if so, feeds it to the app's state
    */
 
-  useEffect(() => {
-    (async function fetchDBdata() {
-      log("DataProvider: running fetchDBdata…");
+  async function fetchDBdata() {
+    log("DataProvider: running fetchDBdata…");
 
-      try {
-        const content = await contentRef.once("value");
-        const watched = await watchedRef.once("value");
-        const toWatch = await toWatchRef.once("value");
-        const contentData = await content.val();
-        const watchedData = await watched.val();
-        const toWatchData = await toWatch.val();
+    try {
+      const contentRef = db.ref("content");
+      const watchedRef = db.ref(`users/${uid}/watched`);
+      const toWatchRef = db.ref(`users/${uid}/toWatch`);
+      const content = await contentRef.once("value");
+      const watched = await watchedRef.once("value");
+      const toWatch = await toWatchRef.once("value");
+      const contentData = await content.val();
+      const watchedData = await watched.val();
+      const toWatchData = await toWatch.val();
 
-        // prettier-ignore
-        // NEW USER INITIALIZER
-        if (
-          [watchedData, toWatchData].every(
-            value => value === null || value === undefined
-          )
-        ) {
-          // write initialData to DB
-          // firebase won't accept empty values, so we use 0
-          db.ref().update(
+      // prettier-ignore
+      // NEW USER INITIALIZER
+      if (
+        [watchedData, toWatchData].every(
+          value => value === null || value === undefined
+        )
+      ) {
+        // write initialData to DB
+        // firebase won't accept empty values, so we use 0
+        db.ref().update(
+          {
+            [`/users/${uid}`]: { watched: 0, toWatch: 0 },
+            [`/settings/${uid}`]: { apiKey: 0 } // TODO is this the right place?
+          },
+
+          // completion cb
+          err => {
+
+            // TODO also dispatch to notif
+            if (err) { console.error(err); }
+            
+            else
             {
-              [`/users/${uid}`]: { watched: 0, toWatch: 0 },
-              [`/settings/${uid}`]: { apiKey: 0 } // TODO is this the right place?
-            },
+              log("Successfully initialized DB. Now syncing data to app state...");
 
-            // completion cb
-            err => {
-
-              if (err) { console.error(err); }
-              
-              else
-              {
-                log("Successfully initialized DB. Now syncing data to app state...");
-
-                fetchDBdata();
-              }
+              fetchDBdata();
             }
-          );
-        } else {
-          const mappedData = {
-            watched: Object.keys(watchedData).map(key => contentData[key]),
-            // 0 => []
-            toWatch: Object.keys(toWatchData).map(key => contentData[key])
-          };
-
-          dispatch(setInitialData({uid, mappedData}))
-          // dispatch({ type: "SET_INITIAL_DATA", uid, mappedData });
-          setState({ loading: false });
-        }
-      } catch (err) {
-        console.error("@fetchDBData", err);
+          }
+        );
       }
-    })(); // IIFE;
+      
+      else
+      {
+        const mappedData = {
+          watched: Object.keys(watchedData).map(key => contentData[key]),
+          // 0 => []
+          toWatch: Object.keys(toWatchData).map(key => contentData[key])
+        };
+
+        dispatch(setInitialData({ uid, mappedData }))
+        setLoading(false);
+      }
+    } catch (err) {
+      // TODO also dispatch to notif
+      console.error("@fetchDBData", err);
+    }
+  }
+
+  useEffect(() => {
+    data.length ? setLoading(false) : fetchDBdata();
   }, []);
 
-  return !loading ? render(userData[uid][dataSet]) : <Spinner shadow="none" />;
+  return loading ? <Spinner shadow="none" /> : render(data);
 }
