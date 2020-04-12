@@ -13,10 +13,12 @@ import { setApiKey } from "../../actions";
 export default function Settings() {
   const [input, setInput] = useState("");
   const [hasKey, setHasKey] = useState(false);
-  const { user } = useSelector(state => state.authentication);
-  const { userData } = useSelector(state => state.userData);
+  const {
+    user: { uid },
+  } = useSelector(state => state.authentication);
+  const userData = useSelector(state => state.userData);
   const dispatch = useDispatch();
-  const apiKey = userData[user.uid].settings.apiKey || storage.pull(API_KEY);
+  const apiKey = userData[uid].settings.apiKey || storage.pull(API_KEY);
 
   useEffect(() => {
     if (apiKey) setHasKey(true);
@@ -34,7 +36,7 @@ export default function Settings() {
     }
 
     setInput("");
-    dispatch(setApiKey({ key: input, uid: user.uid }));
+    dispatch(setApiKey({ key: input, uid }));
 
     storage.push(API_KEY, input);
   }
