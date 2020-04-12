@@ -72,7 +72,7 @@ export default function Profile() {
               />
 
               <button
-                data-toggleTarget="isUserEmailEnabled"
+                data-toggletarget="isUserEmailEnabled"
                 type="button"
                 className="UserDataFormEditButton"
                 onClick={toggleInput}
@@ -101,7 +101,7 @@ export default function Profile() {
               />
 
               <button
-                data-toggleTarget="isUserHandleEnabled"
+                data-toggletarget="isUserHandleEnabled"
                 type="button"
                 className="UserDataFormEditButton"
                 onClick={toggleInput}
