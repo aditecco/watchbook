@@ -53,8 +53,8 @@ export const AuthForm = ({ action, actionHandler }) => {
 };
 
 export default function Auth() {
-  const [{ authenticated }] = useContext(AuthContext);
-  // const { authenticated } = useSelector(state => state.authentication);
+  // const [{ authenticated }] = useContext(AuthContext);
+  const { authenticated } = useSelector(state => state.authentication);
   const [store, dispatch] = useContext(StoreContext);
 
   const initialComponentState = {

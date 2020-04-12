@@ -15,6 +15,7 @@ import { log, storage } from "../../utils";
 import { AuthContext, StoreContext, db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
+import { useSelector } from "react-redux";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -33,7 +34,8 @@ function Home() {
   );
 
   const [store, dispatch] = useContext(StoreContext);
-  const [{ user }] = useContext(AuthContext);
+  // const [{ user }] = useContext(AuthContext);
+  const { user } = useSelector(state => state.authentication);
   const hasApiKey = useApiKey();
   const { uid } = user;
   const dbRef = db.ref();
@@ -59,7 +61,7 @@ function Home() {
    * the user's query
    */
 
-  const fetchQueryData = async (query) => {
+  const fetchQueryData = async query => {
     const KEY = storage.pull("OMDbApiKey");
     const endpoint = (key, query) =>
       `https://www.omdbapi.com/?apiKey=${key}&s=${query}`;
@@ -128,7 +130,7 @@ function Home() {
       [`/users/${uid}/toWatch/${newItemRef}`]: true,
     };
 
-    dbRef.update(updates, (err) => {
+    dbRef.update(updates, err => {
       if (err) {
         // TODO handle error
         console.error(err);
@@ -154,7 +156,7 @@ function Home() {
    * Handles creation of new watched items
    */
 
-  const handleAddWatched = (data) => {
+  const handleAddWatched = data => {
     const id = uuidv4();
     const timestamp = Date.now();
 
@@ -174,7 +176,7 @@ function Home() {
       [`/users/${uid}/watched/${newItemRef}`]: true,
     };
 
-    dbRef.update(updates, (err) => {
+    dbRef.update(updates, err => {
       if (err) {
         // TODO handle error
         console.error(err);
@@ -201,7 +203,7 @@ function Home() {
    * main input field
    */
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
@@ -242,8 +244,8 @@ function Home() {
    * the search result list
    */
 
-  const handleAutoSuggestClick = (id) => {
-    const which = state.searchResults.Search.find((item) => item.imdbID === id);
+  const handleAutoSuggestClick = id => {
+    const which = state.searchResults.Search.find(item => item.imdbID === id);
 
     dispatch({
       type: "TOGGLE_MODAL",
@@ -290,7 +292,7 @@ function Home() {
 
         <DataProvider
           dataSet="watched"
-          render={(data) => (
+          render={data => (
             <WatchedList watched={data} title="Latest watched" limit={6} />
           )}
         />

@@ -9,17 +9,7 @@ import "firebase/database";
 import "firebase/auth";
 import initialState from "./initialState";
 import reducer from "./reducer";
-import Watched from "./pages/Watched/Watched";
-import ToWatch from "./pages/ToWatch/ToWatch";
-import Settings from "./pages/Settings/Settings";
-import Profile from "./pages/Profile/Profile";
-import Home from "./pages/Home/Home";
-import BlankPage from "./pages/BlankPage";
-import TestPage from "./pages/TestPage";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/index.scss";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import Auth from "./pages/Auth/Auth";
 import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 import { log } from "./utils";
@@ -44,6 +34,7 @@ import {
   toggleModal,
   updateWatched,
 } from "./actions";
+import Routes from "./components/Routes";
 
 // global utils
 window.storage = storage;
@@ -149,50 +140,15 @@ function App({ auth, data, notification, modal, dispatch }) {
       <div className="App">
         <AuthContext.Provider value={[_authState, _setAuthState]}>
           <StoreContext.Provider value={[_store, _dispatch]}>
+            <Routes />
+
             <NotificationMessage />
 
-            <Router>
-              <Switch>
-                <Route exact path="/">
-                  <Auth />
-                </Route>
-
-                <PrivateRoute exact path="/home">
-                  <Home />
-                </PrivateRoute>
-
-                <PrivateRoute exact path="/watched">
-                  <Watched />
-                </PrivateRoute>
-
-                <PrivateRoute exact path="/to-watch">
-                  <ToWatch />
-                </PrivateRoute>
-
-                <PrivateRoute exact path="/settings">
-                  <Settings />
-                </PrivateRoute>
-
-                <PrivateRoute exact path="/profile">
-                  <Profile />
-                </PrivateRoute>
-
-                {/* catch-all */}
-                <Route
-                  render={({ location }) => (
-                    <BlankPage title="404" icon="wifi_off">
-                      <h4>Sorry, nothing to see at {location.pathname}</h4>
-                    </BlankPage>
-                  )}
-                />
-              </Switch>
-            </Router>
+            <Modal open={modal.open} closeAction={modal.closeAction}>
+              {modal.children}
+            </Modal>
           </StoreContext.Provider>
         </AuthContext.Provider>
-
-        <Modal open={modal.open} closeAction={modal.closeAction}>
-          {modal.children}
-        </Modal>
       </div>
     </ErrorBoundary>
   );

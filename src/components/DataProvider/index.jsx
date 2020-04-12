@@ -6,6 +6,7 @@ import React, { useReducer, useEffect, useContext } from "react";
 import { AuthContext, StoreContext, db } from "../../App";
 import { log } from "../../utils";
 import Spinner from "../Spinner/Spinner";
+import { useSelector } from "react-redux";
 
 export default function DataProvider({ render, dataSet }) {
   /**
@@ -27,18 +28,21 @@ export default function DataProvider({ render, dataSet }) {
   const [state, setState] = useReducer(
     (state, newState) => ({
       ...state,
-      ...newState
+      ...newState,
     }),
     {
       loading: true,
-      data: null
+      data: null,
     }
   );
 
   const { loading, data } = state;
   const [store, dispatch] = useContext(StoreContext);
-  const [{ user }] = useContext(AuthContext);
-  const { uid } = user;
+  const {
+    user: { uid },
+  } = useSelector(state => state.authentication);
+  // const [{ user }] = useContext(AuthContext);
+  // const { uid } = user;
   const contentRef = db.ref("content");
   // const userRef = db.ref(`users/${uid}`);
   const watchedRef = db.ref(`users/${uid}/watched`);

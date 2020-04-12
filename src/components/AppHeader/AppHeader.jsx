@@ -6,9 +6,11 @@ import React, { useContext } from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../App";
+import { useSelector } from "react-redux";
 
 export default function AppHeader() {
-  const [{ authenticated }] = useContext(AuthContext);
+  const { authenticated } = useSelector(state => state.authentication);
+  // const [{ authenticated }] = useContext(AuthContext);
 
   return (
     <header className="AppHeader">
