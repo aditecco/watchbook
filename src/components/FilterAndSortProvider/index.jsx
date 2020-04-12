@@ -7,16 +7,16 @@ import { log } from "../../utils";
 
 export default function FilterAndSortProvider({
   children,
-  data: originalData,
+  data: initialData,
   FilterAndSortUI,
   handlers,
   toggleUI,
 }) {
   const [sortQuery, setSortQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
-  const [output, setOutput] = useState(originalData);
+  const [output, setOutput] = useState(initialData);
   // TODO abstract 'options'
-  const options = ["Select a year"].concat(originalData.map(item => item.year));
+  const options = ["Select a year"].concat(initialData.map(item => item.year));
 
   /**
    * Filter handler
@@ -53,13 +53,13 @@ export default function FilterAndSortProvider({
     }
 
     // the unaltered initial data
-    return originalData;
+    return initialData;
   }
 
   useEffect(() => {
-    console.count("FX");
+    console.count("Running useEffect…");
 
-    setOutput(sortOrFilter(output));
+    setOutput(sortOrFilter(initialData));
   }, [filterQuery, sortQuery]);
 
   return (
