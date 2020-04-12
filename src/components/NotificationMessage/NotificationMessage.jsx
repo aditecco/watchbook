@@ -2,9 +2,7 @@
 NotificationMessage
 --------------------------------- */
 
-import React, { useContext, useEffect } from "react";
-import { StoreContext } from "../../App";
-import { log } from "../../utils";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideNotif } from "../../actions";
 

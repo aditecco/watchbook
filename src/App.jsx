@@ -2,15 +2,12 @@
 App
 --------------------------------- */
 
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { storage } from "./utils";
 import * as firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
-import initialState from "./initialState";
-import reducer from "./reducer";
 import "./styles/index.scss";
-import { initialAuthState } from "./initialAuthState";
 import NotificationMessage from "./components/NotificationMessage/NotificationMessage";
 import { log } from "./utils";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
@@ -18,7 +15,6 @@ import Modal from "./components/Modal/Modal";
 import Spinner from "./components/Spinner/Spinner";
 import { connect } from "react-redux";
 import {
-  _test,
   createToWatch,
   createWatched,
   deleteWatched,
@@ -120,12 +116,8 @@ function App({ auth, data, notification, modal, dispatch }) {
     <ErrorBoundary>
       <div className="App">
         <Routes />
-
         <NotificationMessage />
-
-        <Modal open={modal.open} closeAction={modal.closeAction}>
-          {modal.children}
-        </Modal>
+        <Modal />
       </div>
     </ErrorBoundary>
   );

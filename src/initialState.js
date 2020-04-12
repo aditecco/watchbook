@@ -13,14 +13,13 @@ export default {
   },
   userData: {},
   notificationMessage: {
+    isVisible: false,
     message: "",
     icon: "",
-    isVisible: false,
     timeOut: 0,
   },
   modal: {
     open: false,
-    children: null,
-    closeAction: null,
+    content: undefined,
   },
 };

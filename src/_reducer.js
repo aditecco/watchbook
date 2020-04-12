@@ -3,10 +3,9 @@ reducer
 --------------------------------- */
 
 import { createReducer } from "@reduxjs/toolkit";
-import { log, storage } from "./utils";
+import { log } from "./utils";
 import initialState from "./initialState";
 import {
-  _test,
   createToWatch,
   createWatched,
   deleteWatched,
@@ -192,16 +191,11 @@ const _reducer = createReducer(initialState, {
   },
 
   [toggleModal](state, action) {
-    const {
-      payload: { children = null, closeAction = null },
-    } = action;
-
     return {
       ...state,
       modal: {
         open: !state.modal.open,
-        children,
-        closeAction,
+        content: action.payload ? action.payload.content : null,
       },
     };
   },

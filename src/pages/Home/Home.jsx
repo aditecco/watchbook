@@ -242,7 +242,7 @@ function Home() {
 
     dispatch(
       toggleModal({
-        children: (
+        content: (
           <Card
             image={which.Poster}
             title={which.Title}
@@ -252,7 +252,6 @@ function Home() {
             onToWatchClick={handleAddToWatch}
           />
         ),
-        closeAction: () => dispatch(toggleModal()),
       })
     );
   };
