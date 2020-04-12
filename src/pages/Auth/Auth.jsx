@@ -11,7 +11,8 @@ import { Redirect } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { showNotif } from "../../actions";
 
 export const AuthForm = ({ action, actionHandler }) => {
   const [email, setEmail] = useState("");
@@ -53,9 +54,8 @@ export const AuthForm = ({ action, actionHandler }) => {
 };
 
 export default function Auth() {
-  // const [{ authenticated }] = useContext(AuthContext);
-  const { authenticated } = useSelector(state => state.authentication);
-  const [store, dispatch] = useContext(StoreContext);
+  const dispatch = useDispatch();
+  const { authenticated, user } = useSelector(state => state.authentication);
 
   const initialComponentState = {
     hasError: { error: false, errorMeta: {} },
@@ -89,15 +89,13 @@ export default function Auth() {
 
       setState(initialComponentState);
 
-      // dispatch({ type: "INIT_USER", uid });
-
-      dispatch({
-        type: "SHOW_NOTIF",
-        // message: `Welcome, ${user.email}!`,
-        message: `Welcome!`,
-        icon: null,
-        timeOut: 2000,
-      });
+      dispatch(
+        showNotif({
+          message: `Welcome!`,
+          icon: null,
+          timeOut: 2000,
+        })
+      );
     } catch (err) {
       handleError(err);
     }
@@ -130,12 +128,13 @@ export default function Auth() {
       }
 
       default: {
-        dispatch({
-          type: "SHOW_NOTIF",
-          message: `${code}: ${message}`,
-          icon: null,
-          timeOut: 4000,
-        });
+        dispatch(
+          showNotif({
+            message: `${code}: ${message}`,
+            icon: null,
+            timeOut: 4000,
+          })
+        );
 
         log("@Auth", error);
         break;

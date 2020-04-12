@@ -6,7 +6,8 @@ import React, { useReducer, useEffect, useContext } from "react";
 import { AuthContext, StoreContext, db } from "../../App";
 import { log } from "../../utils";
 import Spinner from "../Spinner/Spinner";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setInitialData } from "../../actions";
 
 export default function DataProvider({ render, dataSet }) {
   /**
@@ -37,10 +38,13 @@ export default function DataProvider({ render, dataSet }) {
   );
 
   const { loading, data } = state;
-  const [store, dispatch] = useContext(StoreContext);
+  // const [store, dispatch] = useContext(StoreContext);
+  const dispatch = useDispatch();
   const {
     user: { uid },
   } = useSelector(state => state.authentication);
+
+  const userData = useSelector(state => state.userData);
   // const [{ user }] = useContext(AuthContext);
   // const { uid } = user;
   const contentRef = db.ref("content");
@@ -100,7 +104,8 @@ export default function DataProvider({ render, dataSet }) {
             toWatch: Object.keys(toWatchData).map(key => contentData[key])
           };
 
-          dispatch({ type: "SET_INITIAL_DATA", uid, mappedData });
+          dispatch(setInitialData({uid, mappedData}))
+          // dispatch({ type: "SET_INITIAL_DATA", uid, mappedData });
           setState({ loading: false });
         }
       } catch (err) {
@@ -109,9 +114,5 @@ export default function DataProvider({ render, dataSet }) {
     })(); // IIFE;
   }, []);
 
-  return !loading ? (
-    render(store.userData[uid][dataSet])
-  ) : (
-    <Spinner shadow="none" />
-  );
+  return !loading ? render(userData[uid][dataSet]) : <Spinner shadow="none" />;
 }

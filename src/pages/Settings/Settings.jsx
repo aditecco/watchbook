@@ -2,20 +2,21 @@
 Settings
 --------------------------------- */
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { API_KEY } from "../../constants";
 import { log, storage } from "../../utils";
-import { AuthContext, StoreContext } from "../../App";
+import { useSelector, useDispatch } from "react-redux";
+import { setApiKey } from "../../actions";
 
 export default function Settings() {
   const [input, setInput] = useState("");
   const [hasKey, setHasKey] = useState(false);
-  const [{ user }] = useContext(AuthContext);
-  const [store, dispatch] = useContext(StoreContext);
-  const apiKey =
-    store.userData[user.uid].settings.apiKey || storage.pull(API_KEY);
+  const { user } = useSelector(state => state.authentication);
+  const { userData } = useSelector(state => state.userData);
+  const dispatch = useDispatch();
+  const apiKey = userData[user.uid].settings.apiKey || storage.pull(API_KEY);
 
   useEffect(() => {
     if (apiKey) setHasKey(true);
@@ -33,7 +34,7 @@ export default function Settings() {
     }
 
     setInput("");
-    dispatch({ type: "SET_API_KEY", key: input, uid: user.uid });
+    dispatch(setApiKey({ key: input, uid: user.uid }));
 
     storage.push(API_KEY, input);
   }

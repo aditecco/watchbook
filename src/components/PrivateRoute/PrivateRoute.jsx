@@ -4,10 +4,10 @@ PrivateRoute
 
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { AuthContext } from "../../App";
+import { useSelector } from "react-redux";
 
 export default function PrivateRoute({ children, ...rest }) {
-  const [{ authenticated }] = useContext(AuthContext);
+  const { authenticated } = useSelector(state => state.authentication);
 
   return (
     <Route
@@ -19,7 +19,7 @@ export default function PrivateRoute({ children, ...rest }) {
           <Redirect
             to={{
               pathname: "/",
-              state: { from: location }
+              state: { from: location },
             }}
           />
         )

@@ -5,16 +5,19 @@ NotificationMessage
 import React, { useContext, useEffect } from "react";
 import { StoreContext } from "../../App";
 import { log } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { hideNotif } from "../../actions";
 
 export default function NotificationMessage() {
-  const [store, dispatch] = useContext(StoreContext);
-
-  const { message, icon, isVisible, timeOut } = store.notificationMessage;
+  const dispatch = useDispatch();
+  const { message, icon, isVisible, timeOut } = useSelector(
+    state => state.notificationMessage
+  );
 
   useEffect(() => {
     isVisible &&
       setTimeout(() => {
-        dispatch({ type: "HIDE_NOTIF" });
+        dispatch(hideNotif());
       }, timeOut);
   }, [isVisible]);
 

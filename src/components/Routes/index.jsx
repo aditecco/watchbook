@@ -22,10 +22,9 @@ export default function Routes() {
           <Auth />
         </Route>
 
-        <Home />
-        {/* <PrivateRoute exact path="/home">
+        <PrivateRoute exact path="/home">
           <Home />
-        </PrivateRoute> */}
+        </PrivateRoute>
 
         <PrivateRoute exact path="/watched">
           <Watched />

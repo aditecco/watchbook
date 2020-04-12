@@ -60,15 +60,18 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  [destroyUser](state, action) {
+  [destroyUser](state) {
     return {
       ...state,
+      authentication: { authenticated: false, user: null },
       userData: {},
     };
   },
 
   [setInitialData](state, action) {
-    const { uid, mappedData } = action;
+    const {
+      payload: { uid, mappedData },
+    } = action;
 
     return {
       ...state,
@@ -83,7 +86,9 @@ const _reducer = createReducer(initialState, {
   },
 
   [setApiKey](state, action) {
-    const { key: apiKey, uid } = action;
+    const {
+      payload: { key: apiKey, uid },
+    } = action;
 
     return {
       ...state,
@@ -104,7 +109,9 @@ const _reducer = createReducer(initialState, {
   },
 
   [createWatched](state, action) {
-    const { watchedItem, uid } = action;
+    const {
+      payload: { watchedItem, uid },
+    } = action;
 
     return {
       ...state,
@@ -118,7 +125,9 @@ const _reducer = createReducer(initialState, {
   },
 
   [createToWatch](state, action) {
-    const { toWatchItem, uid } = action;
+    const {
+      payload: { toWatchItem, uid },
+    } = action;
 
     return {
       ...state,
@@ -140,7 +149,9 @@ const _reducer = createReducer(initialState, {
   },
 
   [filterWatched](state, action) {
-    const { query, uid } = action;
+    const {
+      payload: { query, uid },
+    } = action;
     const lowercased = item => item.toLowerCase();
     const _query = lowercased(query);
     const result = state.userData[uid]["watched"].filter(item =>
@@ -156,7 +167,9 @@ const _reducer = createReducer(initialState, {
   },
 
   [showNotif](state, action) {
-    const { message, icon, timeOut } = action;
+    const {
+      payload: { message, icon, timeOut },
+    } = action;
 
     return {
       ...state,
@@ -169,7 +182,7 @@ const _reducer = createReducer(initialState, {
     };
   },
 
-  [hideNotif](state, action) {
+  [hideNotif](state) {
     return {
       ...state,
       notificationMessage: {
@@ -179,7 +192,9 @@ const _reducer = createReducer(initialState, {
   },
 
   [toggleModal](state, action) {
-    const { children = null, closeAction = null } = action;
+    const {
+      payload: { children = null, closeAction = null },
+    } = action;
 
     return {
       ...state,
@@ -189,11 +204,6 @@ const _reducer = createReducer(initialState, {
         closeAction,
       },
     };
-  },
-
-  [_test](state, action) {
-    log("@@@", action.payload);
-    return state;
   },
 });
 

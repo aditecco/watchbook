@@ -15,7 +15,13 @@ import { log, storage } from "../../utils";
 import { AuthContext, StoreContext, db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  showNotif,
+  createToWatch,
+  toggleModal,
+  createWatched,
+} from "../../actions";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -33,8 +39,7 @@ function Home() {
     }
   );
 
-  const [store, dispatch] = useContext(StoreContext);
-  // const [{ user }] = useContext(AuthContext);
+  const dispatch = useDispatch();
   const { user } = useSelector(state => state.authentication);
   const hasApiKey = useApiKey();
   const { uid } = user;
@@ -87,12 +92,13 @@ function Home() {
          * is resolved
          */
 
-        dispatch({
-          type: "SHOW_NOTIF",
-          message: `${request.status} Error: ${response.Error}`,
-          icon: null,
-          timeOut: 4000,
-        });
+        dispatch(
+          showNotif({
+            message: `${request.status} Error: ${response.Error}`,
+            icon: null,
+            timeOut: 4000,
+          })
+        );
 
         throw new Error(response.Error);
       }
@@ -121,7 +127,7 @@ function Home() {
       ...data,
     };
 
-    dispatch({ type: "CREATE_TO_WATCH", toWatchItem: newItem, uid });
+    dispatch(createToWatch({ toWatchItem: newItem, uid }));
 
     const newItemRef = contentRef.push().key;
 
@@ -135,14 +141,15 @@ function Home() {
         // TODO handle error
         console.error(err);
       } else {
-        dispatch({ type: "TOGGLE_MODAL" });
+        dispatch(toggleModal());
 
-        dispatch({
-          type: "SHOW_NOTIF",
-          message: `To Watch: ${newItem.title}`,
-          icon: null,
-          timeOut: 2000,
-        });
+        dispatch(
+          showNotif({
+            message: `To Watch: ${newItem.title}`,
+            icon: null,
+            timeOut: 2000,
+          })
+        );
       }
     });
 
@@ -166,7 +173,7 @@ function Home() {
       ...data,
     };
 
-    dispatch({ type: "CREATE_WATCHED", watchedItem: newItem, uid });
+    dispatch(createWatched({ watchedItem: newItem, uid }));
 
     // const newItemRef = contentRef.push().key would return the ref key
     const newItemRef = contentRef.push().key;
@@ -181,14 +188,15 @@ function Home() {
         // TODO handle error
         console.error(err);
       } else {
-        dispatch({ type: "TOGGLE_MODAL" });
+        dispatch(toggleModal());
 
-        dispatch({
-          type: "SHOW_NOTIF",
-          message: `Watched: ${newItem.title}`,
-          icon: null,
-          timeOut: 2000,
-        });
+        dispatch(
+          showNotif({
+            message: `Watched: ${newItem.title}`,
+            icon: null,
+            timeOut: 2000,
+          })
+        );
       }
     });
 
@@ -231,12 +239,13 @@ function Home() {
 
   function handleFocus() {
     !hasApiKey &&
-      dispatch({
-        type: "SHOW_NOTIF",
-        message: "Please set an API key in settings.",
-        // icon: "error_outline",
-        timeOut: 2000,
-      });
+      dispatch(
+        showNotif({
+          message: "Please set an API key in settings.",
+          // icon: "error_outline",
+          timeOut: 2000,
+        })
+      );
   }
 
   /**
@@ -247,20 +256,21 @@ function Home() {
   const handleAutoSuggestClick = id => {
     const which = state.searchResults.Search.find(item => item.imdbID === id);
 
-    dispatch({
-      type: "TOGGLE_MODAL",
-      children: (
-        <Card
-          image={which.Poster}
-          title={which.Title}
-          type={which.Type}
-          year={which.Year}
-          onWatchedClick={handleAddWatched}
-          onToWatchClick={handleAddToWatch}
-        />
-      ),
-      closeAction: () => dispatch({ type: "TOGGLE_MODAL" }),
-    });
+    dispatch(
+      toggleModal({
+        children: (
+          <Card
+            image={which.Poster}
+            title={which.Title}
+            type={which.Type}
+            year={which.Year}
+            onWatchedClick={handleAddWatched}
+            onToWatchClick={handleAddToWatch}
+          />
+        ),
+        closeAction: () => dispatch(toggleModal()),
+      })
+    );
   };
 
   return (

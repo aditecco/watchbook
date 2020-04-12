@@ -2,30 +2,31 @@
 Profile
 --------------------------------- */
 
-import React, { useState, useContext, useReducer } from "react";
+import React, { useReducer } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import { log } from "../../utils";
-import { AuthContext, StoreContext } from "../../App";
 import { Redirect } from "react-router-dom";
-import { initialAuthState } from "../../initialAuthState";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
+import { destroyUser } from "../../actions";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Profile() {
-  const [{ authenticated, user }, setAuthState] = useContext(AuthContext);
-  const [store, dispatch] = useContext(StoreContext);
+  // const [{ authenticated, user }, setAuthState] = useContext(AuthContext);
+  const { authenticated, user } = useSelector(state => state.authentication);
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useReducer(
     (state, newState) => ({
       ...state,
-      ...newState
+      ...newState,
     }),
     {
       isUserEmailEnabled: false,
       userEmailInput: "",
       isUserHandleEnabled: false,
-      userHandleInput: ""
+      userHandleInput: "",
     }
   );
 
@@ -39,8 +40,7 @@ export default function Profile() {
     firebase
       .auth()
       .signOut()
-      .then(() => setAuthState(initialAuthState))
-      .then(() => dispatch({ type: "DESTROY_USER" }))
+      .then(() => dispatch(destroyUser()))
       .catch(err => console.error("@Profile", err));
   }
 
