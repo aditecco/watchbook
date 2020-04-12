@@ -7,7 +7,7 @@ import React from "react";
 export default function FilterAndSort({
   filterHandler,
   sortHandler,
-  sortOptions: options
+  sortOptions: options,
 }) {
   return (
     <div className="FilterAndSort">
@@ -35,7 +35,7 @@ export default function FilterAndSort({
             {[...options]
               .sort((a, b) => a - b)
               .map((option, i) => (
-                <option value={option} key={option + i}>
+                <option value={i === 0 ? "" : option} key={option + i}>
                   {option}
                 </option>
               ))}

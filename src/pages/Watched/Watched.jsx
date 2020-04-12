@@ -23,29 +23,11 @@ export default function Watched() {
   // local state
   const [showFilters, setShowFilters] = useState(false);
   const [compactView, setCompactView] = useState(false);
-  const [sorted, setSorted] = useState([]);
 
   // other
   const { watched } = userData[uid]; // watched items cache
   const titleWithCount = `Watched (${watched.length})`;
   const getType = type => watched.filter(item => item.type === type).length;
-  const watchedItemsYears = ["Select a year"].concat(
-    watched.map(item => item.year)
-  );
-
-  function filterItems(items, query) {
-    const lowercased = item => item.toLowerCase();
-    const _query = lowercased(query);
-
-    return items.filter(item => lowercased(item.title).includes(_query));
-  }
-
-  function handleSortByYear(e) {
-    const year = e.target.value;
-    log(year);
-
-    setSorted(watched.filter(item => item.year === year));
-  }
 
   return (
     <Layout rootClass="Watched" selected={2}>
@@ -78,14 +60,12 @@ export default function Watched() {
 
       <FilterAndSortProvider
         toggleUI={showFilters}
-        FilterAndSortComponent={FilterAndSort}
+        FilterAndSortUI={FilterAndSort}
         data={watched}
-        handlers={{ filter: filterItems, sort: handleSortByYear }}
-        sortOptions={watchedItemsYears}
       >
-        {filteredItems => (
+        {processedItems => (
           <WatchedList
-            watched={filteredItems}
+            watched={processedItems}
             title={titleWithCount}
             compact={compactView}
           />
