@@ -8,8 +8,6 @@ Inbox:
 
 Fixes:
   - …
-  - optimize Watched page performance
-    add lazy loading for card posters
   - throttle or debounce `fetchQueryData`
   - add fixed width wrapper to nav & header
   - empty sort & filter fields
@@ -33,14 +31,14 @@ Optims/refactor:
 
 Features/stories:
   - …
-  - Implement 'show more' for autosuggest
-  - Implement lazyloading for cards @focus 
-  - prevent duplicates in DB /content
   - [CARDS] create card back
     loads rich info about the content
     displays a skeleton animation while loading
     - add skeleton loader for card backs
-  - [WATCHED] add reset button to filter field
+  - [WATCHED] add reset button to filter fields
+  - Implement 'show more' for autosuggest
+  - Implement lazyloading for cards @focus 
+  - prevent duplicates in DB /content
   - add ESC key listener for search cancel button
   - save API key to DB
   - create validators for input fields
@@ -70,6 +68,9 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ add scrollTo top to every content page @done(20-04-13 18:57) @project(Optims/refactor)
+  ✔ optimize Watched page performance @done(20-04-13 18:38) @project(Fixes)
+    add lazy loading for card posters
   ✔ create DB rules @focus @done(20-04-13 01:30) @project(Platform)
   ✔ React does not recognize the `data-toggleTarget` prop on a DOM element. @done(20-04-13 01:29) @project(Fixes)
   ✔ DataProvider loader can get stuck @done(20-04-13 01:29) @project(Fixes)

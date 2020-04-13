@@ -2,7 +2,7 @@
 Home
 --------------------------------- */
 
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import _ from "lodash";
 import uuidv4 from "uuid";
 import Card from "../../components/Card/Card";
@@ -255,6 +255,15 @@ function Home() {
       })
     );
   };
+
+  /**
+   * Effects
+   */
+
+  useEffect(() => {
+    // reset scroll position when we enter the page
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Layout rootClass="Home" selected={1}>

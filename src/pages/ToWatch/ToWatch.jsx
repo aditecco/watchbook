@@ -2,7 +2,7 @@
 ToWatch
 --------------------------------- */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import WatchedList from "../../components/WatchedList/WatchedList";
@@ -23,6 +23,15 @@ export default function ToWatch() {
   const { toWatch } = userData[uid];
   const titleWithCount = `To Watch (${toWatch.length})`;
   const getType = type => toWatch.filter(item => item.type === type).length;
+
+  /**
+   * Effects
+   */
+
+  useEffect(() => {
+    // reset scroll position when we enter the page
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Layout rootClass="ToWatch" selected={3}>
