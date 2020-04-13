@@ -5,13 +5,15 @@ WatchedList
 import React from "react";
 import Card from "../Card/Card";
 import CompactCard from "../CompactCard/CompactCard";
+import Spinner from "../Spinner/Spinner";
 
 export default function WatchedList({
-  watched = [],
-  limit = undefined,
-  title,
   compact,
+  infiniteScroll,
+  limit = undefined,
   loading,
+  title,
+  watched = [],
 }) {
   return (
     <section className="watched">
@@ -25,7 +27,7 @@ export default function WatchedList({
               const { image, title, type, year } = item;
 
               return !compact ? (
-                <li key={i} className="cardListItem">
+                <li key={i} data-index={i} className="cardListItem">
                   <Card
                     added
                     image={image}
@@ -35,7 +37,7 @@ export default function WatchedList({
                   />
                 </li>
               ) : (
-                <li key={i} className="cardListItem">
+                <li key={i} data-index={i} className="cardListItem">
                   <CompactCard
                     image={image}
                     title={title}
@@ -46,6 +48,23 @@ export default function WatchedList({
               );
             })}
           </ul>
+
+          {/* TODO */}
+          {/* {infiniteScroll && <Spinner />} */}
+          {infiniteScroll ? (
+            <div
+              className="infiniteScrollLoader"
+              style={{ display: "block", textAlign: "center", padding: "1rem" }}
+            >
+              Loading…
+            </div>
+          ) : (
+            <span
+              style={{ display: "block", textAlign: "center", padding: "1rem" }}
+            >
+              No more items to load.
+            </span>
+          )}
         </>
       ) : (
         <div className="blankSlate">

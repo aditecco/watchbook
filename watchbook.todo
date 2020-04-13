@@ -33,6 +33,7 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - Implement 'show more' for autosuggest
   - Implement lazyloading for cards @focus 
   - prevent duplicates in DB /content
   - [CARDS] create card back
