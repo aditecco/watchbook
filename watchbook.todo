@@ -24,6 +24,8 @@ Optims/refactor:
     - …
     - Create navbar comp
       keep profile & settings buttons visible in profile & settings pages
+  - move async logic to saga
+  - rewrite reducer logic w/ immer-like syntax
   - create DataProvider
     - …
     - move user init to other specialized component
