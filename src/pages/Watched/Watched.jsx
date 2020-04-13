@@ -4,7 +4,7 @@ Watched
 
 import React, { useState } from "react";
 import { log } from "../../utils";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
 import FilterAndSortProvider from "../../components/FilterAndSortProvider";
 import Layout from "../../components/Layout/Layout";
@@ -14,7 +14,6 @@ import WatchedList from "../../components/WatchedList/WatchedList";
 
 export default function Watched() {
   // global state
-  const dispatch = useDispatch();
   const {
     user: { uid },
   } = useSelector(state => state.authentication);
@@ -65,6 +64,7 @@ export default function Watched() {
       >
         {processedItems => (
           <WatchedList
+            // limit={10}
             watched={processedItems}
             title={titleWithCount}
             compact={compactView}

@@ -18,10 +18,7 @@ export default function WatchedList({
       {watched && watched.length ? (
         <>
           <header className="watchedHeader">
-            <h3 className="watchedHeaderTitle">
-              {title}
-              {/* <span> ({watched.length}) </span> */}
-            </h3>
+            <h3 className="watchedHeaderTitle">{title}</h3>
           </header>
           <ul className="cardList watchedList">
             {watched.slice(0, limit).map((item, i) => {
@@ -35,9 +32,6 @@ export default function WatchedList({
                     title={title}
                     type={type}
                     year={year}
-                    // TODO
-                    // onWatchedClick={(e) => null}
-                    // onToWatchClick={(e) => null}
                   />
                 </li>
               ) : (
@@ -47,9 +41,6 @@ export default function WatchedList({
                     title={title}
                     type={type}
                     year={year}
-                    // TODO
-                    // onWatchedClick={(e) => null}
-                    // onToWatchClick={(e) => null}
                   />
                 </li>
               );

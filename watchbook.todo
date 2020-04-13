@@ -14,15 +14,12 @@ Fixes:
   - add fixed width wrapper to nav & header
   - empty sort & filter fields
   ☐ show auth errors in the UI
-  - React does not recognize the `data-toggleTarget` prop on a DOM element.
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
   - new item notif is not centered
-  - DataProvider loader can get stuck
 
 Optims/refactor:
   - …
-  - use redux
   - redesign card w/ background-image
   - actually implement Typescript
   - refactor to extract components where due
@@ -36,6 +33,7 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - Implement lazyloading for cards @focus 
   - prevent duplicates in DB /content
   - [CARDS] create card back
     loads rich info about the content
@@ -58,7 +56,6 @@ UX:
 
 Platform:
   - …
-  - create DB rules @focus
 
 Tests:
   - …
@@ -72,6 +69,11 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ create DB rules @focus @done(20-04-13 01:30) @project(Platform)
+  ✔ React does not recognize the `data-toggleTarget` prop on a DOM element. @done(20-04-13 01:29) @project(Fixes)
+  ✔ DataProvider loader can get stuck @done(20-04-13 01:29) @project(Fixes)
+  ✔ use redux @done(20-04-13 01:29) @project(Optims/refactor)
+  ✔ refactor to fetch remote data only when needed @done(20-04-13 01:30) @project(Optims/refactor)
   ✔ fix card modal position @done(20-04-05 17:06) @project(Fixes)
     calculate centering with: left: (temp1.getBoundingClientRect().width - window.visualViewport.width) / 2
   ✔ add most recent toWatch content to HP @done(20-04-05 03:04) @project(Features/stories)
