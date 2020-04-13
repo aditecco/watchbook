@@ -15,6 +15,7 @@ import { db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
 import { useSelector, useDispatch } from "react-redux";
+import { log } from "../../utils";
 import {
   showNotif,
   createToWatch,
@@ -58,6 +59,7 @@ function Home() {
     setState({ loading: true });
 
     try {
+      // TODO use axios
       const request = await fetch(
         // "https://cors-anywhere.herokuapp.com/" + endpoint
         endpoint(KEY, query)
@@ -237,24 +239,44 @@ function Home() {
    * the search result list
    */
 
-  const handleAutoSuggestClick = id => {
+  const handleAutoSuggestClick = async id => {
     const which = state.searchResults.Search.find(item => item.imdbID === id);
 
-    dispatch(
-      toggleModal({
-        content: (
-          <Card
-            image={which.Poster}
-            title={which.Title}
-            type={which.Type}
-            year={which.Year}
-            onWatchedClick={handleAddWatched}
-            onToWatchClick={handleAddToWatch}
-          />
-        ),
-      })
-    );
+    fetchAdditionalData(id).then(additionalData => {
+      log("@@@", additionalData);
+
+      dispatch(
+        toggleModal({
+          content: (
+            <Card
+              image={which.Poster}
+              title={which.Title}
+              type={which.Type}
+              year={which.Year}
+              additionalData={additionalData}
+              onWatchedClick={handleAddWatched}
+              onToWatchClick={handleAddToWatch}
+            />
+          ),
+        })
+      );
+    });
   };
+
+  async function fetchAdditionalData(id) {
+    const KEY = storage.pull("OMDbApiKey");
+    const endpoint = (key, query) =>
+      `https://www.omdbapi.com/?apiKey=${key}&i=${query}`;
+
+    try {
+      // TODO use axios
+      const request = await fetch(endpoint(KEY, id));
+
+      const response = await request.json();
+
+      return Promise.resolve(response);
+    } catch (err) {}
+  }
 
   /**
    * Effects

@@ -15,6 +15,7 @@ export default function Card({
   onToWatchClick,
   onWatchedClick,
   added,
+  additionalData,
   ...other
 }) {
   // log(arguments);
@@ -33,7 +34,7 @@ export default function Card({
         style={{
           position: "absolute",
           zIndex: !flipped ? 1 : "auto",
-          opacity: opacity.interpolate((o) => 1 - o),
+          opacity: opacity.interpolate(o => 1 - o),
           transform,
         }}
       >
@@ -77,7 +78,7 @@ export default function Card({
                   <button
                     className="CardControlsButton"
                     type="button"
-                    onClick={(e) => {
+                    onClick={e => {
                       e.preventDefault();
 
                       onToWatchClick({ image, title, type, year });
@@ -89,7 +90,7 @@ export default function Card({
                   <button
                     className="CardControlsButton"
                     type="button"
-                    onClick={(e) => {
+                    onClick={e => {
                       e.preventDefault();
 
                       onWatchedClick({ image, title, type, year });
@@ -110,7 +111,7 @@ export default function Card({
         style={{
           position: "absolute",
           opacity,
-          transform: transform.interpolate((t) => `${t} rotateY(180deg)`),
+          transform: transform.interpolate(t => `${t} rotateY(180deg)`),
         }}
       >
         <article className="Card back">
@@ -119,7 +120,7 @@ export default function Card({
               <MaterialIcon icon="close" />
             </button>
           </div>
-          back of the card
+          {additionalData && additionalData.Plot}
         </article>
       </animated.div>
     </div>

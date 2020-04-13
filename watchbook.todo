@@ -18,6 +18,7 @@ Fixes:
 
 Optims/refactor:
   - …
+  - use axios for requests
   - redesign card w/ background-image
   - actually implement Typescript
   - refactor to extract components where due
