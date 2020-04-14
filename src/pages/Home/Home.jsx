@@ -64,13 +64,11 @@ function Home() {
     setState({ loading: true });
 
     try {
-      // TODO use axios
-      const request = await fetch(
-        // "https://cors-anywhere.herokuapp.com/" + endpoint
+      const request = await axios.get(
         requestUrl(API_KEY, buildQuery({ s: query }))
       );
 
-      const response = await request.json();
+      const { data: response } = request;
 
       if ("Error" in response) {
         /**
@@ -100,7 +98,7 @@ function Home() {
         loading: false,
       });
     } catch (err) {
-      console.error("@fetchData: ", err);
+      // console.error("@fetchData: ", err);
     }
   };
 
