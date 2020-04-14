@@ -140,7 +140,15 @@ export default function Card({
               <MaterialIcon icon="close" />
             </button>
           </div>
-          {Object.keys(_additionalData).length && _additionalData.plot}
+
+          <div className="CardBackContent">
+            {Object.keys(_additionalData).length &&
+              Object.entries(_additionalData).map(([key, val], i) => (
+                <p key={i} className="CardBackContentItem">
+                  {`${key}: ${val}`}
+                </p>
+              ))}
+          </div>
         </article>
       </animated.div>
     </div>

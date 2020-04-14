@@ -24,7 +24,7 @@ export default function WatchedList({
           </header>
           <ul className="cardList watchedList">
             {watched.slice(0, limit).map((item, i) => {
-              const { image, title, type, year } = item;
+              const { image, title, type, year, ...rest } = item;
 
               return !compact ? (
                 <li key={i} data-index={i} className="cardListItem">
@@ -34,6 +34,7 @@ export default function WatchedList({
                     title={title}
                     type={type}
                     year={year}
+                    additionalData={{ ...rest }}
                   />
                 </li>
               ) : (

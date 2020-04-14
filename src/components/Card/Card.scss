@@ -33,6 +33,18 @@
     height: $cardHeight;
   }
 
+  .CardBackContent {
+    height: 100%;
+    padding: 40px 1rem;
+    overflow-y: scroll;
+
+    // it's temporary
+    &Item {
+      text-transform: capitalize;
+      overflow: hidden;
+    }
+  }
+
   &.added {
     .CardPosterCurtain {
       padding-bottom: 20px;
