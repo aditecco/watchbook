@@ -27,6 +27,14 @@ export default function Card({
     config: { mass: 5, tension: 500, friction: 80 },
   });
 
+  const normalize = data =>
+    Object.entries(data).reduce((acc, [key, val]) => {
+      acc[key.toLowerCase()] = val;
+      return acc;
+    }, {});
+
+  const _additionalData = additionalData ? normalize(additionalData) : {};
+
   return (
     <div className="CardContainer">
       <animated.div
@@ -81,7 +89,13 @@ export default function Card({
                     onClick={e => {
                       e.preventDefault();
 
-                      onToWatchClick({ image, title, type, year });
+                      onToWatchClick({
+                        image,
+                        title,
+                        type,
+                        year,
+                        ..._additionalData,
+                      });
                     }}
                   >
                     To Watch
@@ -93,7 +107,13 @@ export default function Card({
                     onClick={e => {
                       e.preventDefault();
 
-                      onWatchedClick({ image, title, type, year });
+                      onWatchedClick({
+                        image,
+                        title,
+                        type,
+                        year,
+                        ..._additionalData,
+                      });
                     }}
                   >
                     Watched <i className="material-icons">check_circle</i>
@@ -120,7 +140,7 @@ export default function Card({
               <MaterialIcon icon="close" />
             </button>
           </div>
-          {additionalData && additionalData.Plot}
+          {Object.keys(_additionalData).length && _additionalData.plot}
         </article>
       </animated.div>
     </div>
