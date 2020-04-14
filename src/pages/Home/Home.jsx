@@ -4,6 +4,7 @@ Home
 
 import React, { useReducer, useEffect } from "react";
 import _ from "lodash";
+import axios from "axios";
 import uuidv4 from "uuid";
 import Card from "../../components/Card/Card";
 import WatchedList from "../../components/WatchedList/WatchedList";
@@ -45,6 +46,14 @@ function Home() {
   const { uid } = user;
   const dbRef = db.ref();
   const contentRef = db.ref("content");
+  const API_KEY = storage.pull("OMDbApiKey");
+  const API_URL = `https://www.omdbapi.com/?apiKey=`;
+  const requestUrl = (key, queryAndParams) =>
+    `${API_URL}${key}${queryAndParams}`;
+  const buildQuery = params =>
+    Object.entries(params)
+      .map(([param, query]) => `&${param}=${query}`)
+      .join("");
 
   /**
    * Gets data from API based on
@@ -52,17 +61,13 @@ function Home() {
    */
 
   const fetchQueryData = async query => {
-    const KEY = storage.pull("OMDbApiKey");
-    const endpoint = (key, query) =>
-      `https://www.omdbapi.com/?apiKey=${key}&s=${query}`;
-
     setState({ loading: true });
 
     try {
       // TODO use axios
       const request = await fetch(
         // "https://cors-anywhere.herokuapp.com/" + endpoint
-        endpoint(KEY, query)
+        requestUrl(API_KEY, buildQuery({ s: query }))
       );
 
       const response = await request.json();
@@ -242,40 +247,48 @@ function Home() {
   const handleAutoSuggestClick = async id => {
     const which = state.searchResults.Search.find(item => item.imdbID === id);
 
-    fetchAdditionalData(id).then(additionalData => {
-      log("@@@", additionalData);
-
-      dispatch(
-        toggleModal({
-          content: (
-            <Card
-              image={which.Poster}
-              title={which.Title}
-              type={which.Type}
-              year={which.Year}
-              additionalData={additionalData}
-              onWatchedClick={handleAddWatched}
-              onToWatchClick={handleAddToWatch}
-            />
-          ),
-        })
-      );
-    });
+    dispatch(
+      toggleModal({
+        content: (
+          <Card
+            image={which.Poster}
+            title={which.Title}
+            type={which.Type}
+            year={which.Year}
+            additionalData={await fetchAdditionalData(id)}
+            onWatchedClick={handleAddWatched}
+            onToWatchClick={handleAddToWatch}
+          />
+        ),
+      })
+    );
+    // });
   };
 
+  /**
+   * Gets additional data for the selected card
+   */
+
   async function fetchAdditionalData(id) {
-    const KEY = storage.pull("OMDbApiKey");
-    const endpoint = (key, query) =>
-      `https://www.omdbapi.com/?apiKey=${key}&i=${query}`;
+    // prettier-ignore
+    try
+    {
+      const request = await axios.get(
+        requestUrl(API_KEY, buildQuery({ i: id }))
+      );
 
-    try {
-      // TODO use axios
-      const request = await fetch(endpoint(KEY, id));
-
-      const response = await request.json();
-
-      return Promise.resolve(response);
-    } catch (err) {}
+      return request.data;
+    }
+    
+    catch (err) {
+      dispatch(
+        showNotif({
+          message: err.message,
+          icon: null,
+          timeOut: 4000,
+        })
+      );
+    }
   }
 
   /**
