@@ -18,6 +18,9 @@ Fixes:
 
 Optims/refactor:
   - …
+  - fine-tune styles
+    - signup/login switcher
+    - profile inputs
   - (re)organize SCSS vars, map all colors, sizes
   - redesign card w/ background-image
   - actually implement Typescript
@@ -35,6 +38,8 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - Implement PWA
+  - Version number in footer
   - [CARDS] create card back
     loads rich info about the content
     displays a skeleton animation while loading
