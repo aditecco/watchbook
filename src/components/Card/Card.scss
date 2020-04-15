@@ -31,17 +31,60 @@
 
   &.back {
     height: $cardHeight;
+
+    // overrides!
+    .CardFlipControls {
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) -250%,
+        transparent
+      );
+
+      button {
+        .material-icons {
+          color: $fontAlt;
+        }
+      }
+    }
   }
 
   .CardBackContent {
     height: 100%;
-    padding: 40px 1rem;
+    padding: 40px 0;
     overflow-y: scroll;
+  }
 
-    // it's temporary
+  .CardBackContentHeader {
+    padding: 0 1rem;
+    border-bottom: $border;
+
+    &Title {
+      @include smallHeading();
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .CardBackDataList {
+    @include box(0, 0, true);
+
     &Item {
+      display: block;
       text-transform: capitalize;
       overflow: hidden;
+      padding: 0.75rem 1rem;
+      line-height: 1.6rem;
+      color: $font;
+
+      &:nth-child(even) {
+        background-color: rgba($flat-gray-1, 0.4);
+      }
+
+      .DataKey {
+        text-transform: uppercase;
+        color: $fontAlt;
+        padding-right: $padding / 2;
+      }
     }
   }
 

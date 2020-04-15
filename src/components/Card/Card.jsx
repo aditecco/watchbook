@@ -153,12 +153,21 @@ export default function Card({
           </div>
 
           <div className="CardBackContent">
-            {Object.keys(_additionalData).length &&
-              Object.entries(_additionalData).map(([key, val], i) => (
-                <p key={i} className="CardBackContentItem">
-                  {`${key}: ${val}`}
-                </p>
-              ))}
+            <header className="CardBackContentHeader">
+              <h4 className="CardBackContentHeaderTitle">{title}</h4>
+            </header>
+
+            <ul className="CardBackDataList">
+              {Object.keys(_additionalData).length &&
+                Object.entries(_additionalData).map(([key, val], i) => (
+                  <li key={i} className="CardBackDataListItem">
+                    <span className="DataKey">{key}:</span>
+
+                    {/* TODO some vals are objects */}
+                    {val.toString()}
+                  </li>
+                ))}
+            </ul>
           </div>
         </article>
       </animated.div>
