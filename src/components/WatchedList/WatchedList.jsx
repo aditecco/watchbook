@@ -6,6 +6,7 @@ import React from "react";
 import Card from "../Card/Card";
 import CompactCard from "../CompactCard/CompactCard";
 import Spinner from "../Spinner/Spinner";
+import { UI_LABELS } from "../../constants";
 
 export default function WatchedList({
   compact,
@@ -63,7 +64,7 @@ export default function WatchedList({
             <span
               style={{ display: "block", textAlign: "center", padding: "1rem" }}
             >
-              No more items to load.
+              {UI_LABELS.allLoaded}
             </span>
           )}
         </>

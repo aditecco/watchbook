@@ -18,7 +18,6 @@ Fixes:
 
 Optims/refactor:
   - …
-  - use axios for requests
   - redesign card w/ background-image
   - actually implement Typescript
   - refactor to extract components where due
@@ -26,7 +25,8 @@ Optims/refactor:
     - Create navbar comp
       keep profile & settings buttons visible in profile & settings pages
   - move async logic to saga
-  - rewrite reducer logic w/ immer-like syntax
+  - rewrite reducer logic w/ immer-like syntax @focus
+  - rename WatchedList as content-agnostic
   - create DataProvider
     - …
     - move user init to other specialized component
@@ -37,10 +37,15 @@ Features/stories:
   - [CARDS] create card back
     loads rich info about the content
     displays a skeleton animation while loading
+    https://github.com/danilowoz/react-content-loader
+    https://github.com/buildo/react-placeholder
+    https://github.com/dvtng/react-loading-skeleton
+    - create card back structure
     - add skeleton loader for card backs
+  - add reload button to watched & toWatch (re-fetches loads cards if lost)
+  - add page transitions on page change
   - [WATCHED] add reset button to filter fields
   - Implement 'show more' for autosuggest
-  - Implement lazyloading for cards @focus 
   - prevent duplicates in DB /content
   - add ESC key listener for search cancel button
   - save API key to DB
@@ -71,6 +76,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ use axios for requests @done(20-04-15 23:40) @project(Optims/refactor)
+  ✔ Implement lazyloading for cards @focus @done(20-04-15 23:40) @project(Features/stories)
   ✔ add scrollTo top to every content page @done(20-04-13 18:57) @project(Optims/refactor)
   ✔ optimize Watched page performance @done(20-04-13 18:38) @project(Fixes)
     add lazy loading for card posters

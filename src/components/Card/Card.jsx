@@ -63,10 +63,21 @@ export default function Card({
 
                   {year}
                 </li>
-                <li className="CardMetaItem">
-                  <h6 className="CardMetaItemTitle">Type</h6>
 
-                  {type}
+                <li className="CardMetaItem">
+                  <h6 className="CardMetaItemTitle">Country</h6>
+
+                  {_additionalData.country
+                    ? _additionalData.country.length > 15
+                      ? _additionalData.country.substring(0, 10) + "…"
+                      : _additionalData.country
+                    : "n/a"}
+                </li>
+
+                <li className="CardMetaItem">
+                  <h6 className="CardMetaItemTitle">Director</h6>
+
+                  {_additionalData.director || "n/a"}
                 </li>
               </ul>
             </div>
