@@ -159,14 +159,39 @@ export default function Card({
 
             <ul className="CardBackDataList">
               {Object.keys(_additionalData).length &&
-                Object.entries(_additionalData).map(([key, val], i) => (
-                  <li key={i} className="CardBackDataListItem">
-                    <span className="DataKey">{key}:</span>
+                Object.entries(_additionalData).map(([key, val], i) => {
+                  // prettier-ignore
 
-                    {/* TODO some vals are objects */}
-                    {val.toString()}
-                  </li>
-                ))}
+                  // TODO
+                  // we don't manage these keys for now
+                  if (
+                    key === "ratings" ||
+                    key === 'id' ||
+                    key === 'response'
+                  )
+                  {
+                    return;
+                  }
+
+                  else if (key === "timestamp")
+                  {
+                    key = "Date Added";
+                    val = new Date(val).toLocaleDateString()
+                  }
+
+                  else if (key === 'poster')
+                  {
+                    val = <a href={val}>link</a>
+                  }
+
+                  return (
+                    <li key={i} className="CardBackDataListItem">
+                      <span className="DataKey">{key}:</span>
+
+                      {val}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </article>
