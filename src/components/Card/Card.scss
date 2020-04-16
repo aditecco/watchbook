@@ -42,7 +42,7 @@
 
       button {
         .material-icons {
-          color: $fontAlt;
+          color: rgba($fontAlt, 0.6);
         }
       }
     }
@@ -202,10 +202,10 @@
     @include flex(row nowrap, space-around, center);
 
     .CardControlsButton {
+      flex: 0 0 45%;
       font-size: $small;
       color: $flat-gray-4;
       text-align: center;
-      width: 120px;
       padding: 16px 10px;
       background-color: white;
       border: transparent;

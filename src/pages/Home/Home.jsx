@@ -48,8 +48,10 @@ function Home() {
   const contentRef = db.ref("content");
   const API_KEY = storage.pull("OMDbApiKey");
   const API_URL = `https://www.omdbapi.com/?apiKey=`;
+
   const requestUrl = (key, queryAndParams) =>
     `${API_URL}${key}${queryAndParams}`;
+
   const buildQuery = params =>
     Object.entries(params)
       .map(([param, query]) => `&${param}=${query}`)
@@ -61,7 +63,7 @@ function Home() {
    */
 
   const fetchQueryData = async query => {
-    setState({ loading: true });
+    setState({ loading: true }); // ?
 
     try {
       const request = await axios.get(
@@ -192,6 +194,7 @@ function Home() {
     setState({
       showSearchResults: false,
       searchQuery: "",
+      searchResults: {},
     });
   };
 
@@ -242,25 +245,30 @@ function Home() {
    * the search result list
    */
 
-  const handleAutoSuggestClick = async id => {
+  const handleAutoSuggestClick = id => {
     const which = state.searchResults.Search.find(item => item.imdbID === id);
 
-    dispatch(
-      toggleModal({
-        content: (
-          <Card
-            image={which.Poster}
-            title={which.Title}
-            type={which.Type}
-            year={which.Year}
-            additionalData={await fetchAdditionalData(id)}
-            onWatchedClick={handleAddWatched}
-            onToWatchClick={handleAddToWatch}
-          />
-        ),
-      })
-    );
-    // });
+    setState({ loading: true });
+
+    fetchAdditionalData(id).then(additionalData => {
+      setState({ loading: false });
+
+      dispatch(
+        toggleModal({
+          content: (
+            <Card
+              image={which.Poster}
+              title={which.Title}
+              type={which.Type}
+              year={which.Year}
+              additionalData={additionalData}
+              onWatchedClick={handleAddWatched}
+              onToWatchClick={handleAddToWatch}
+            />
+          ),
+        })
+      );
+    });
   };
 
   /**
@@ -307,7 +315,7 @@ function Home() {
         <section className="search">
           <SearchField
             searchQuery={state.searchQuery}
-            searchHandler={_.throttle(handleSearch, 6000, { trailing: true })}
+            searchHandler={_.throttle(handleSearch, 6000, { trailing: true })} // TODO!
             focusHandler={handleFocus}
             resetHandler={handleSearchReset}
           >

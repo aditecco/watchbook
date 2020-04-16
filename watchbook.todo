@@ -19,6 +19,8 @@ Fixes:
 
 Optims/refactor:
   - …
+  - rewrite reducer logic w/ immer-like syntax @focus
+  - move async logic to saga
   - fine-tune styles
     - signup/login switcher
     - profile inputs
@@ -31,26 +33,28 @@ Optims/refactor:
     - …
     - Create navbar comp
       keep profile & settings buttons visible in profile & settings pages
-  - move async logic to saga
-  - rewrite reducer logic w/ immer-like syntax @focus
   - rename WatchedList as content-agnostic
-  - create DataProvider
+  - Complete DataProvider
     - …
     - move user init to other specialized component
     - init settings in new users
+    - make it modular (dataset…)
 
 Features/stories:
   - …
-  - Implement PWA
-  - Version number in footer
+  - add fullscreen mode to cards
+  - Implement PWA @focus
+    https://create-react-app.dev/docs/making-a-progressive-web-app/
+    requires HTTPS!
+  - Version number in footer or settings
   - [CARDS] create card back
     loads rich info about the content
     displays a skeleton animation while loading
     https://github.com/danilowoz/react-content-loader
     https://github.com/buildo/react-placeholder
     https://github.com/dvtng/react-loading-skeleton
-    - add skeleton loader for card backs
-    - filter/order info on card back (response, ID, timestamp)
+    - add skeleton loader for card backs @focus 
+    - move internal info (response, ID, etc) to hidden section
   - add reload button to watched & toWatch (re-fetches loads cards if lost)
   - add page transitions on page change
   - [WATCHED] add reset button to filter fields
@@ -69,6 +73,7 @@ Features/stories:
 UX:
   - show number of results in search
   - create placeholder image for movie cards
+  - increase tap targets for info button
 
 Platform:
   - …
@@ -85,6 +90,7 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ filter/order info on card back (response, ID, timestamp) @done(20-04-17 00:14) @project(Features/stories)
   ✔ create card back structure @done(20-04-16 01:07) @project(Features/stories)
   ✔ create card back styles @done(20-04-16 01:07) @project(Features/stories)
   ✔ use axios for requests @done(20-04-15 23:40) @project(Optims/refactor)
