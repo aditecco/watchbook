@@ -70,14 +70,25 @@
 
     &Item {
       display: block;
-      text-transform: capitalize;
       overflow: hidden;
       padding: 0.75rem 1rem;
       line-height: 1.6rem;
       color: $font;
 
+      a {
+        @extend %resetAnchors;
+
+        > span {
+          margin-right: $margin / 3;
+
+          &:last-child {
+            border-bottom: 1px dashed black;
+          }
+        }
+      }
+
       &:nth-child(even) {
-        background-color: rgba($flat-gray-1, 0.4);
+        background-color: rgba($flat-gray-1, 0.5);
       }
 
       .DataKey {

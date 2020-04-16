@@ -181,7 +181,12 @@ export default function Card({
 
                   else if (key === 'poster')
                   {
-                    val = <a href={val}>link</a>
+                    val = (
+                    <a href={val}>
+                      <span>&rarr;</span>
+                      <span>link</span>
+                    </a>
+                    )
                   }
 
                   return (

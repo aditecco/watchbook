@@ -8,6 +8,7 @@ Inbox:
 
 Fixes:
   - …
+  - API key should be editable
   - throttle or debounce `fetchQueryData`
   - add fixed width wrapper to nav & header
   - empty sort & filter fields
@@ -21,6 +22,8 @@ Optims/refactor:
   - fine-tune styles
     - signup/login switcher
     - profile inputs
+    - refine CardFlipControls front
+    background: radial-gradient(at bottom center, transparent 60%, rgba(0, 0, 0, 0.9));
   - (re)organize SCSS vars, map all colors, sizes
   - redesign card w/ background-image
   - actually implement Typescript
