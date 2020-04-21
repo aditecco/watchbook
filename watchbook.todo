@@ -19,6 +19,7 @@ Fixes:
 
 Optims/refactor:
   - …
+  - merge handleAddToWatch & handleAddWatched
   - rewrite reducer logic w/ immer-like syntax @focus
   - move async logic to saga
   - fine-tune styles
@@ -42,6 +43,8 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - create dark theme
+  - [TO-WATCH] convert to watch cards to watched
   - add fullscreen mode to cards
   - Implement PWA @focus
     https://create-react-app.dev/docs/making-a-progressive-web-app/
@@ -53,10 +56,11 @@ Features/stories:
     https://github.com/danilowoz/react-content-loader
     https://github.com/buildo/react-placeholder
     https://github.com/dvtng/react-loading-skeleton
-    - add skeleton loader for card backs @focus 
+    - add skeleton loader for card backs @focus
     - move internal info (response, ID, etc) to hidden section
   - add reload button to watched & toWatch (re-fetches loads cards if lost)
   - add page transitions on page change
+    https://github.com/react-spring/react-spring-examples/blob/renderprops/demos/renderprops/pagetransitions/index.js
   - [WATCHED] add reset button to filter fields
   - Implement 'show more' for autosuggest
   - prevent duplicates in DB /content
@@ -66,6 +70,7 @@ Features/stories:
   - add user name to login notif
   - add user config options to profile page
   - Add signout notif
+  - allow multiple data sources (APIs)
   - sync local data to DB when performing CRUD operations
     - update
     - delete

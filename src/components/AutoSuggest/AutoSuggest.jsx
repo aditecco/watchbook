@@ -2,26 +2,62 @@
 AutoSuggest
 --------------------------------- */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
+import { rand } from "../../utils";
 
 export default function AutoSuggest({ content, limit, onItemClick }) {
-  return (
+  const [loading, setLoading] = useState(true);
+
+  const loadingPlaceholder = (
+    <li className="AutoSuggestItem">
+      <div className="AutoSuggestItemLinkTarget">
+        <h4 className="AutoSuggestItemTitle">
+          <Skeleton />
+        </h4>
+
+        <p className="AutoSuggestItemDesc">
+          <span className="ItemType">
+            <Skeleton />
+          </span>
+
+          <span className="ItemYear">
+            <Skeleton />
+          </span>
+        </p>
+      </div>
+    </li>
+  );
+
+  useEffect(() => {
+    content && setLoading(false);
+
+    return () => setLoading(true);
+  }, [content]);
+
+  return loading ? (
+    <div className="AutoSuggest">
+      <ul className="AutoSuggestContent">
+        {Array(5).fill(loadingPlaceholder)}
+      </ul>
+    </div>
+  ) : (
     <div className="AutoSuggest">
       <ul className="AutoSuggestContent">
         {content.slice(0, limit).map((searchItem, i) => (
           <li className="AutoSuggestItem" key={i}>
-            <a
+            <div
               className="AutoSuggestItemLinkTarget"
-              href={"#"}
               onClick={() => onItemClick(searchItem.imdbID)}
             >
               <h4 className="AutoSuggestItemTitle">{searchItem.Title}</h4>
+
               <p className="AutoSuggestItemDesc">
-                {searchItem.Type}
+                <span className="ItemType">{searchItem.Type}</span>
                 {", "}
-                {searchItem.Year}
+                <span className="ItemYear">{searchItem.Year}</span>
               </p>
-            </a>
+            </div>
           </li>
         ))}
         <button type="button" onClick={e => null}>

@@ -8,6 +8,8 @@ Watched
 
   .viewOptionsContainer {
     @include flex(row wrap, space-around, center);
-    padding: .9rem;
+    padding: 0.9rem;
+    border-bottom: 1px solid $strokeLight;
+    border-bottom: $border;
   }
 }

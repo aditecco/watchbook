@@ -32,10 +32,10 @@ function Home() {
     }),
     {
       loading: false,
-      searchResults: {},
+      showSearchResults: false,
+      searchResults: null,
       searchQuery: "",
       hasError: false,
-      showSearchResults: false,
       selectedCard: {},
     }
   );
@@ -62,8 +62,8 @@ function Home() {
    * the user's query
    */
 
-  const fetchQueryData = async query => {
-    setState({ loading: true }); // ?
+  async function fetchQueryData(query) {
+    setState({ loading: true, showSearchResults: true });
 
     try {
       const request = await axios.get(
@@ -95,14 +95,13 @@ function Home() {
       }
 
       setState({
-        searchResults: response,
-        showSearchResults: true,
         loading: false,
+        searchResults: response,
       });
     } catch (err) {
       // console.error("@fetchData: ", err);
     }
-  };
+  }
 
   /**
    * Handles creation of new to-watch items
@@ -146,7 +145,9 @@ function Home() {
 
     setState({
       showSearchResults: false,
+      loading: false,
       searchQuery: "",
+      searchResults: null,
     });
   }
 
@@ -154,7 +155,7 @@ function Home() {
    * Handles creation of new watched items
    */
 
-  const handleAddWatched = data => {
+  function handleAddWatched(data) {
     const id = uuidv4();
     const timestamp = Date.now();
 
@@ -193,27 +194,26 @@ function Home() {
 
     setState({
       showSearchResults: false,
+      loading: false,
       searchQuery: "",
-      searchResults: {},
+      searchResults: null,
     });
-  };
+  }
 
   /**
    * Handles search queries from the
    * main input field
    */
 
-  const handleSearch = e => {
+  function handleSearch(e) {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
       fetchQueryData(searchQuery);
     }
 
-    setState({
-      searchQuery,
-    });
-  };
+    setState({ searchQuery });
+  }
 
   /**
    * Handles resetting
@@ -221,7 +221,12 @@ function Home() {
    */
 
   function handleSearchReset() {
-    setState({ searchQuery: "", showSearchResults: false });
+    setState({
+      showSearchResults: false,
+      loading: false,
+      searchQuery: "",
+      searchResults: null,
+    });
   }
 
   /**
@@ -245,7 +250,7 @@ function Home() {
    * the search result list
    */
 
-  const handleAutoSuggestClick = id => {
+  function handleAutoSuggestClick(id) {
     const which = state.searchResults.Search.find(item => item.imdbID === id);
 
     setState({ loading: true });
@@ -269,7 +274,7 @@ function Home() {
         })
       );
     });
-  };
+  }
 
   /**
    * Gets additional data for the selected card
@@ -321,7 +326,7 @@ function Home() {
           >
             {state.showSearchResults && (
               <AutoSuggest
-                content={state.searchResults.Search}
+                content={state.searchResults && state.searchResults.Search}
                 onItemClick={handleAutoSuggestClick}
                 limit={5}
               />
