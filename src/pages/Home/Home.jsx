@@ -322,15 +322,15 @@ function Home() {
           searchHandler={_.throttle(handleSearch, 6000, { trailing: true })} // TODO!
           focusHandler={handleFocus}
           resetHandler={handleSearchReset}
-        >
-          {state.showSearchResults && (
-            <AutoSuggest
-              content={state.searchResults && state.searchResults.Search}
-              onItemClick={handleAutoSuggestClick}
-              limit={5}
-            />
-          )}
-        </SearchField>
+        />
+
+        {state.showSearchResults && (
+          <AutoSuggest
+            content={state.searchResults && state.searchResults.Search}
+            onItemClick={handleAutoSuggestClick}
+            limit={5}
+          />
+        )}
       </section>
 
       {/* ========================

@@ -3,11 +3,10 @@ Home
 --------------------------------- */
 
 .Home {
-
-  // Search secton
   .search {
     border-bottom: 1px solid #c2c2c2;
     box-shadow: 0 1px 20px rgba(black, 0.22);
     background-color: $flat-gray-1;
+    position: relative;
   }
 }
