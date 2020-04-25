@@ -19,7 +19,7 @@ WatchedList
   }
 
   .cardList {
-    @include box(0 1.6rem, 0, true);
+    @include box(0 1.6rem, inherit, true);
 
     &.watchedList {
       display: grid;

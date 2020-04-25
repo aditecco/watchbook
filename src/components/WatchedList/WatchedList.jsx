@@ -25,33 +25,35 @@ export default function WatchedList({
               <h3 className="watchedHeaderTitle">{title}</h3>
             </div>
           </header>
-          <ul className="cardList watchedList">
-            {watched.slice(0, limit).map((item, i) => {
-              const { image, title, type, year, ...rest } = item;
+          <div className="wrapper">
+            <ul className="cardList watchedList">
+              {watched.slice(0, limit).map((item, i) => {
+                const { image, title, type, year, ...rest } = item;
 
-              return !compact ? (
-                <li key={i} data-index={i} className="cardListItem">
-                  <Card
-                    added
-                    image={image}
-                    title={title}
-                    type={type}
-                    year={year}
-                    additionalData={{ ...rest }}
-                  />
-                </li>
-              ) : (
-                <li key={i} data-index={i} className="cardListItem">
-                  <CompactCard
-                    image={image}
-                    title={title}
-                    type={type}
-                    year={year}
-                  />
-                </li>
-              );
-            })}
-          </ul>
+                return !compact ? (
+                  <li key={i} data-index={i} className="cardListItem">
+                    <Card
+                      added
+                      image={image}
+                      title={title}
+                      type={type}
+                      year={year}
+                      additionalData={{ ...rest }}
+                    />
+                  </li>
+                ) : (
+                  <li key={i} data-index={i} className="cardListItem">
+                    <CompactCard
+                      image={image}
+                      title={title}
+                      type={type}
+                      year={year}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
           {/* TODO */}
           {/* {infiniteScroll && <Spinner />} */}
