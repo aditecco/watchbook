@@ -12,12 +12,9 @@ Watched
 
     > .wrapper {
       @include flex(row wrap, center, center);
-      @media screen and (min-width: $MD) {
-        // justify-content: center;
 
-        > * + * {
-          margin-left: $margin / 2;
-        }
+      > * + * {
+        margin-left: $margin / 2;
       }
     }
   }

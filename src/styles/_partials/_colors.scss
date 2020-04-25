@@ -6,13 +6,18 @@ colors.scss
 
 $accent: $flat-red-1;
 $accentDark: $flat-red-2;
-$background_main: $flat-gray-1;
+$backgroundMain: $flat-gray-1;
+$backgroundLight: rgba($backgroundMain, 0.4);
+$backgroundDark: null;
+
 $font: lighten(black, 0.2);
 $fontAlt: #444;
 $fontLight: $flat-gray-4;
+
 $transparent: rgba(255, 255, 255, 0);
 $success: $flat-green-1;
 $error: rgba($flat-red-1, 0.8);
 $paleYellow: #fffae1e7;
-$strokeLight: $flat-gray-1;
+$strokeLight: $backgroundMain;
+$darkGray: #444;
 // $strokeDark:

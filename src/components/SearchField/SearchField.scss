@@ -20,11 +20,11 @@ $accent: #e74c3c;
     width: 100%;
     font-size: 1.1rem;
     font-weight: 300;
-    border: 3px solid rgba(#444, 0.2);
+    border: 2px solid rgba(#444, 0.2);
     border-radius: 4px;
 
     &:focus {
-      outline: 3px solid rgba($accent, 0.8);
+      outline: 2px solid rgba($accent, 0.8);
     }
   }
 
