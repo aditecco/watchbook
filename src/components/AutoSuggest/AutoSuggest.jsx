@@ -10,7 +10,7 @@ export default function AutoSuggest({ content, limit, onItemClick }) {
   const [loading, setLoading] = useState(true);
 
   const loadingPlaceholder = (
-    <li className="AutoSuggestItem">
+    <li className="AutoSuggestItem wrapper">
       <div className="AutoSuggestItemLinkTarget">
         <h4 className="AutoSuggestItemTitle">
           <Skeleton />
@@ -45,7 +45,7 @@ export default function AutoSuggest({ content, limit, onItemClick }) {
     <div className="AutoSuggest">
       <ul className="AutoSuggestContent">
         {content.slice(0, limit).map((searchItem, i) => (
-          <li className="AutoSuggestItem" key={i}>
+          <li className="AutoSuggestItem wrapper" key={i}>
             <div
               className="AutoSuggestItemLinkTarget"
               onClick={() => onItemClick(searchItem.imdbID)}

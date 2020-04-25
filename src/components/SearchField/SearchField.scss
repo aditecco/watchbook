@@ -8,8 +8,11 @@ $accent: #e74c3c;
   position: relative;
   padding: 0 1.6rem;
 
-  .mainSearchField {
+  > .wrapper {
     position: relative;
+  }
+
+  .mainSearchField {
     padding: 0.5rem;
     margin: 1rem 0;
     border: none;
@@ -28,7 +31,7 @@ $accent: #e74c3c;
   .searchCancel {
     position: absolute;
     top: 25px;
-    right: 32px;
+    right: 8px;
     padding: 0;
     color: #444;
     // browser styles overrides

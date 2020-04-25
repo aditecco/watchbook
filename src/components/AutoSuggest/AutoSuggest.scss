@@ -12,14 +12,14 @@ AutoSuggest
   height: 100vh;
 
   .AutoSuggestContent {
-    padding: 0 1rem;
+    padding: 0 1.6rem;
     margin: 0;
     list-style: none;
 
     .AutoSuggestItem {
-      max-width: 75%;
-      min-width: 280px;
-      margin: 0 auto;
+      // max-width: 75%;
+      // min-width: 280px;
+      // margin: 0 auto;
       border-radius: 2px;
       background-color: white;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
