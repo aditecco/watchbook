@@ -5,9 +5,15 @@ PageHeader
 .PageHeader {
   @include flex(column nowrap, space-between, center);
   padding: 1rem 1.6rem;
-  border-top: 1px solid rgba(#c2c2c2, 0.4);
+  border-top: $borderDark;
   background-color: $flat-gray-1;
   color: #f5f5f5;
+  @media screen and (min-width: $MD) {
+    padding: {
+      top: 2rem;
+      bottom: 2rem;
+    }
+  }
 
   .container {
     position: relative;

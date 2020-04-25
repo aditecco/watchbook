@@ -2,6 +2,33 @@
 Common
 --------------------------------- */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// html {
+//   font-size: 62.5%;
+// }
+
+body {
+  font-family: $firaSans;
+  font-weight: 400;
+}
+
+#root {
+  height: 100vh;
+}
+
+.wrapper {
+  @include container(1080px);
+
+  &.thin {
+    max-width: 450px;
+  }
+}
+
 .BaseInput {
   width: 100%;
   padding: 0.5rem;

@@ -21,7 +21,9 @@ export default function WatchedList({
       {watched && watched.length ? (
         <>
           <header className="watchedHeader">
-            <h3 className="watchedHeaderTitle">{title}</h3>
+            <div className="wrapper">
+              <h3 className="watchedHeaderTitle">{title}</h3>
+            </div>
           </header>
           <ul className="cardList watchedList">
             {watched.slice(0, limit).map((item, i) => {
@@ -69,7 +71,7 @@ export default function WatchedList({
           )}
         </>
       ) : (
-        <div className="blankSlate">
+        <div className="blankSlate wrapper">
           <span>No watched items.</span>
         </div>
       )}

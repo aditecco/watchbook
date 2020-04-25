@@ -45,7 +45,7 @@ export default function Settings() {
     <Layout rootClass="Settings">
       <PageHeader title="settings" icon="settings" />
 
-      <div className="wrapper">
+      <div className="wrapper thin">
         {hasKey ? (
           <div className="p">Your API key: {apiKey}</div>
         ) : (

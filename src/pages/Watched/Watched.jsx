@@ -73,19 +73,21 @@ export default function Watched() {
       />
 
       <div className="viewOptionsContainer">
-        <ViewOptions
-          labels={{ off: "Show filters", on: "Hide filters" }}
-          icons={{ off: "filter_list", on: "" }}
-          toggleCallback={() => setShowFilters(!showFilters)}
-          toggleStatus={showFilters}
-        />
+        <div className="wrapper">
+          <ViewOptions
+            labels={{ off: "Show filters", on: "Hide filters" }}
+            icons={{ off: "filter_list", on: "" }}
+            toggleCallback={() => setShowFilters(!showFilters)}
+            toggleStatus={showFilters}
+          />
 
-        <ViewOptions
-          labels={{ off: "Compact view", on: "Card view" }}
-          icons={{ off: "view_stream", on: "view_module" }}
-          toggleCallback={() => setCompactView(!compactView)}
-          toggleStatus={compactView}
-        />
+          <ViewOptions
+            labels={{ off: "Compact view", on: "Card view" }}
+            icons={{ off: "view_stream", on: "view_module" }}
+            toggleCallback={() => setCompactView(!compactView)}
+            toggleStatus={compactView}
+          />
+        </div>
       </div>
 
       <FilterAndSortProvider

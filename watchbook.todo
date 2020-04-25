@@ -10,7 +10,6 @@ Fixes:
   - …
   - API key should be editable
   - throttle or debounce `fetchQueryData`
-  - add fixed width wrapper to nav & header
   - empty sort & filter fields
   ☐ show auth errors in the UI
   - 'Can't perform a React state update on an unmounted component'
@@ -43,6 +42,7 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - create public demo version (no private pages)
   - create dark theme
   - [TO-WATCH] convert to watch cards to watched
   - add fullscreen mode to cards
@@ -95,6 +95,7 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ add fixed width wrapper to nav & header & app-wide @done(20-04-25 18:27) @project(Fixes)
   ✔ filter/order info on card back (response, ID, timestamp) @done(20-04-17 00:14) @project(Features/stories)
   ✔ create card back structure @done(20-04-16 01:07) @project(Features/stories)
   ✔ create card back styles @done(20-04-16 01:07) @project(Features/stories)

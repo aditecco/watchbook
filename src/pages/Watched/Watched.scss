@@ -7,9 +7,17 @@ Watched
   padding-bottom: 100px;
 
   .viewOptionsContainer {
-    @include flex(row wrap, space-around, center);
-    padding: 0.9rem;
-    border-bottom: 1px solid $strokeLight;
     border-bottom: $border;
+    padding: 0.9rem;
+
+    > .wrapper {
+      @include flex(row wrap, space-around, center);
+      @media screen and (min-width: $MD) {
+        justify-content: center;
+        > * + * {
+          margin-left: $margin / 2;
+        }
+      }
+    }
   }
 }

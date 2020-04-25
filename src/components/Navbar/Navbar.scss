@@ -8,16 +8,16 @@ Navbar
   background-color: $accent;
   width: 100%;
   z-index: 1;
+  box-shadow: 0 -2px 40px rgba(black, 0.45);
 
   .linkList {
     @include box(0 0.5rem, 0, true);
     @include flex(row nowrap, space-evenly, stretch);
-    box-shadow: 0 -2px 40px rgba(black, 0.45);
 
     .linkContainer {
       flex-basis: 33.3%;
 
-      >* {
+      > * {
         @extend %resetAnchors;
         height: 100%;
         display: block;
@@ -28,15 +28,14 @@ Navbar
         border-top: 6px solid transparent;
         border-top: 6px solid transparent;
 
-        @media(max-width: 375px) {
+        @media (max-width: 375px) {
           i.material-icons {
             display: block;
           }
 
           .navLabel {
-            font-size: .9rem;
+            font-size: 0.9rem;
           }
-
         }
 
         i.material-icons {

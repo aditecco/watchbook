@@ -313,46 +313,44 @@ function Home() {
 
   return (
     <Layout rootClass="Home" selected={1}>
-      <div className="wrapper">
-        {/* ========================
+      {/* ========================
         ITEM SEARCH
         ======================== */}
-        <section className="search">
-          <SearchField
-            searchQuery={state.searchQuery}
-            searchHandler={_.throttle(handleSearch, 6000, { trailing: true })} // TODO!
-            focusHandler={handleFocus}
-            resetHandler={handleSearchReset}
-          >
-            {state.showSearchResults && (
-              <AutoSuggest
-                content={state.searchResults && state.searchResults.Search}
-                onItemClick={handleAutoSuggestClick}
-                limit={5}
-              />
-            )}
-          </SearchField>
-        </section>
+      <section className="search">
+        <SearchField
+          searchQuery={state.searchQuery}
+          searchHandler={_.throttle(handleSearch, 6000, { trailing: true })} // TODO!
+          focusHandler={handleFocus}
+          resetHandler={handleSearchReset}
+        >
+          {state.showSearchResults && (
+            <AutoSuggest
+              content={state.searchResults && state.searchResults.Search}
+              onItemClick={handleAutoSuggestClick}
+              limit={5}
+            />
+          )}
+        </SearchField>
+      </section>
 
-        {/* ========================
+      {/* ========================
         WATCHED & TO WATCH
         ======================== */}
 
-        <DataProvider
-          dataSet="watched"
-          render={data => (
-            <WatchedList watched={data} title="Latest watched" limit={6} />
-          )}
-        />
+      <DataProvider
+        dataSet="watched"
+        render={data => (
+          <WatchedList watched={data} title="Latest watched" limit={9} />
+        )}
+      />
 
-        {/* TODO */}
-        {/* <DataProvider
+      {/* TODO */}
+      {/* <DataProvider
           dataSet="toWatch"
           render={(data) => (
             <WatchedList watched={data} title="Latest To Watch" limit={6} />
           )}
         /> */}
-      </div>
     </Layout>
   );
 }

@@ -3,6 +3,10 @@ Profile
 --------------------------------- */
 
 .Profile {
+  main > .wrapper {
+    padding: $padding;
+  }
+
   .UserDataForm {
     &Label {
       @include smallHeading();

@@ -6,16 +6,8 @@ Layout
   // need to 'escape' the var!
   height: calc(100vh - #{$headerHeight});
 
-  &:not(.Home) {
-    .wrapper {
-      padding: 1rem;
-      margin: 0 auto;
-      max-width: 450px;
-    }
-  }
-
-  main,
-  .wrapper {
+  > main,
+  main > .wrapper {
     // TODO refine this
     height: calc(100% - #{$headerHeight});
   }

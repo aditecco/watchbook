@@ -3,6 +3,10 @@ Settings
 --------------------------------- */
 
 .Settings {
+  main > .wrapper {
+    padding: $padding;
+  }
+
   .SettingsForm {
     &Label {
       @include smallHeading();

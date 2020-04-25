@@ -3,7 +3,6 @@ AppHeader
 --------------------------------- */
 
 .AppHeader {
-  @include flex(row wrap, space-between, center);
   width: 100%;
   padding: 1.6rem 1.6rem 0;
   position: fixed;
@@ -13,6 +12,10 @@ AppHeader
 
   + .Layout {
     margin-top: $headerHeight;
+  }
+
+  .container {
+    @include flex(row wrap, space-between, center);
   }
 
   .appTitle {

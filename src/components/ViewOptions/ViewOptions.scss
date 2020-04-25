@@ -3,7 +3,6 @@ ViewOptions
 --------------------------------- */
 
 .viewOptions {
-
   .viewToggle {
     @include flex(row nowrap, space-around, center);
     background-color: white;
@@ -18,9 +17,10 @@ ViewOptions
     @include smallHeading;
     margin: 0;
     // margin-left: .4rem;
-    margin-right: .4rem;
+    margin-right: 0.4rem;
     margin-bottom: -2px;
   }
 
-  .material-icons {}
+  .material-icons {
+  }
 }

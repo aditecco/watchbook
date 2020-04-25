@@ -48,7 +48,7 @@ export default function Profile() {
     <Layout rootClass="Profile">
       <PageHeader title="profile" icon="account_circle" />
 
-      <div className="wrapper">
+      <div className="wrapper thin">
         <p className="ProfileWelcome">Hello, {user.email}!</p>
 
         <form className="UserDataForm">

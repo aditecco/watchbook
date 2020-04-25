@@ -10,11 +10,11 @@ export default function SearchField({
   focusHandler,
   resetHandler,
   searchQuery,
-  children
+  children,
 }) {
   return (
     <form className="itemSearch">
-      <>
+      <div className="wrapper">
         <input
           className="mainSearchField"
           type="text"
@@ -28,7 +28,7 @@ export default function SearchField({
           type="button"
           className="searchCancel"
           style={{
-            display: `${!searchQuery.length ? "none" : "inline-block"}`
+            display: `${!searchQuery.length ? "none" : "inline-block"}`,
           }}
           onClick={resetHandler}
         >
@@ -36,7 +36,7 @@ export default function SearchField({
         </button>
 
         {children}
-      </>
+      </div>
     </form>
   );
 }

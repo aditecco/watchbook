@@ -13,35 +13,12 @@ imports
 @import "./_partials/_typography";
 @import "./_partials/_anims";
 @import "./_partials/_fx";
-
-/* ---------------------------------
-common
---------------------------------- */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-// html {
-//   font-size: 62.5%;
-// }
-
-body {
-  font-family: $firaSans;
-  font-weight: 400;
-}
-
-#root {
-  height: 100vh;
-}
+@import "./_partials/common";
 
 /* ---------------------------------
 components & pages
 --------------------------------- */
 
-@import "./_partials/common";
 @import "../components/Card/Card";
 @import "../components/Navbar/Navbar";
 @import "../components/PageHeader/PageHeader";
