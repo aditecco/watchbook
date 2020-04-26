@@ -8,7 +8,8 @@ AppFooter
   width: 100%;
   height: $footerHeight;
   padding: 3px 1.6rem;
-  color: #eee;
+  color: rgba(white, 0.8);
+  font-family: $workSans;
   text-align: center;
   font-size: 0.8em;
   background-color: darken($accent, 5%);

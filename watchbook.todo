@@ -8,6 +8,7 @@ Inbox:
 
 Fixes:
   - …
+  - fix app root URL
   - API key should be editable
   - throttle or debounce `fetchQueryData`
   - empty sort & filter fields @focus
@@ -17,6 +18,7 @@ Fixes:
 
 Optims/refactor:
   - …
+  - infinite scroll loading indicator visible in filter view
   - refine item search skeleton loader
   - remove ranges from years filter
   - enforce fixed order in item data sheet @quick 
@@ -43,13 +45,15 @@ Features/stories:
   - …
   - add _notes_ feature
   - add more filters (director, …)
+    - director @quick 
   - create poster downloader to cache media
   - [TO-WATCH] convert to watch cards to watched
   - implement search with Algolia
-  - create mobile app icon
+  - create mobile app icon & landing page
   - create public demo version (no private pages)
     w/ static dataset http://files.tmdb.org
   - create dark theme
+    ✔ create 1st draft @done(20-04-27 00:38)
   - add fullscreen mode to cards
   - Implement PWA @focus
     https://create-react-app.dev/docs/making-a-progressive-web-app/
@@ -81,6 +85,7 @@ Features/stories:
 UX:
   - increase tap targets for info button @quick 
   - create placeholder image for movie cards
+  - create graphical loader for infinite scroll
 
 Platform:
   - …
