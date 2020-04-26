@@ -34,18 +34,27 @@
 
     // overrides!
     .CardFlipControls {
+      display: block;
+      height: auto;
       background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.3) -250%,
         transparent
       );
 
-      .CardFlipAreaButton {
-        justify-self: flex-start;
+      button {
+        // TODO DRY
+        float: right;
+        width: 30px;
+        height: 30px;
+        margin-top: 0.8rem;
+        margin-right: 0.6rem;
       }
 
       .material-icons {
         color: rgba($fontAlt, 0.6);
+        font-size: 1.25rem;
+        text-align: center;
       }
     }
   }

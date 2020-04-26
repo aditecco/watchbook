@@ -150,12 +150,9 @@ export default function Card({
       >
         <article className="Card back">
           <div className="CardFlipControls">
-            <div
-              className="CardFlipAreaButton"
-              onClick={() => toggleFlipped(!flipped)}
-            >
+            <button onClick={() => toggleFlipped(!flipped)}>
               <MaterialIcon icon="close" />
-            </div>
+            </button>
           </div>
 
           <div className="CardBackContent">
