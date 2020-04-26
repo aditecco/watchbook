@@ -54,7 +54,6 @@ Features/stories:
   - Implement PWA @focus
     https://create-react-app.dev/docs/making-a-progressive-web-app/
     requires HTTPS!
-  - add version/build number in footer or settings @quick
   - [CARDS] create card back
     loads rich info about the content
     displays a skeleton animation while loading
@@ -98,6 +97,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ Auth wrapper @done(20-04-26 17:02) @project(Fixes)
+  ✔ add version/build number in footer or settings @quick @done(20-04-26 17:02) @project(Features/stories)
   ✔ de-duplicate years in year filter @quick @done(20-04-26 15:19) @project(Fixes)
   ✔ show number of results in search @quick @done(20-04-26 03:31) @project(UX)
   ✔ add ESC key listener to search cancel button @quick @done(20-04-26 03:17) @project(Features/stories)
