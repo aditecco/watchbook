@@ -6,7 +6,7 @@ export default {
   meta: {
     app: "WatchBook",
     version: `${process.env.REACT_APP_APP_VERSION}`,
-    build: `${process.env.REACT_APP_APP_BUILD}`,
+    build: `${process.env.BUILD_ID}`, // will be resolved by Netlify
   },
   authentication: {
     authenticated: false,
