@@ -18,12 +18,12 @@ Fixes:
 
 Optims/refactor:
   - …
-  - merge handleAddToWatch & handleAddWatched
+  - enforce fixed order in item data sheet @quick 
+  - merge handleAddToWatch & handleAddWatched @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
-  - move async logic to saga
+  - move async logic to saga @focus
   - fine-tune styles
-    - signup/login switcher
-    - profile inputs
+    - signup/login switcher @quick 
     - refine CardFlipControls front
     background: radial-gradient(at bottom center, transparent 60%, rgba(0, 0, 0, 0.9));
   - (re)organize SCSS vars, map all colors, sizes
@@ -31,8 +31,6 @@ Optims/refactor:
   - actually implement Typescript
   - refactor to extract components where due
     - …
-    - Create navbar comp
-      keep profile & settings buttons visible in profile & settings pages
   - rename WatchedList as content-agnostic
   - Complete DataProvider
     - …
@@ -42,14 +40,18 @@ Optims/refactor:
 
 Features/stories:
   - …
-  - create public demo version (no private pages)
-  - create dark theme
+  - create poster downloader to cache media
   - [TO-WATCH] convert to watch cards to watched
+  - implement search with Algolia
+  - create mobile app icon
+  - create public demo version (no private pages)
+    w/ static dataset http://files.tmdb.org
+  - create dark theme
   - add fullscreen mode to cards
   - Implement PWA @focus
     https://create-react-app.dev/docs/making-a-progressive-web-app/
     requires HTTPS!
-  - Version number in footer or settings
+  - add version/build number in footer or settings @quick
   - [CARDS] create card back
     loads rich info about the content
     displays a skeleton animation while loading
@@ -64,7 +66,6 @@ Features/stories:
   - [WATCHED] add reset button to filter fields
   - Implement 'show more' for autosuggest
   - prevent duplicates in DB /content
-  - add ESC key listener for search cancel button
   - save API key to DB
   - create validators for input fields
   - add user name to login notif
@@ -76,9 +77,9 @@ Features/stories:
     - delete
 
 UX:
-  - show number of results in search
+  - show number of results in search @quick 
+  - increase tap targets for info button @quick 
   - create placeholder image for movie cards
-  - increase tap targets for info button
 
 Platform:
   - …
@@ -95,6 +96,10 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ add ESC key listener for search cancel button @quick @done(20-04-26 03:17) @project(Features/stories)
+  ✔ Create navbar comp @done(20-04-26 02:29) @project(Optims/refactor)
+  ✔ keep profile & settings buttons visible in profile & settings pages @done(20-04-26 02:29) @project(Optims/refactor)
+  ✔ profile inputs @done(20-04-26 02:07) @project(Optims/refactor)
   ✔ add fixed width wrapper to nav & header & app-wide @done(20-04-25 18:27) @project(Fixes)
   ✔ filter/order info on card back (response, ID, timestamp) @done(20-04-17 00:14) @project(Features/stories)
   ✔ create card back structure @done(20-04-16 01:07) @project(Features/stories)

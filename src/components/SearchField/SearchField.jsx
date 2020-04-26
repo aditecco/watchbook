@@ -20,6 +20,9 @@ export default function SearchField({
           type="text"
           onChange={searchHandler}
           onFocus={focusHandler}
+          onKeyDown={e =>
+            (e.key === "Escape" || e.code === "Escape") && resetHandler()
+          }
           placeholder="Search for a movie or TV show…"
           value={searchQuery}
         />
