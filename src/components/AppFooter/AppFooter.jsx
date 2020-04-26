@@ -4,11 +4,12 @@ AppFooter
 
 import React from "react";
 
-export default function AppFooter({ version, build }) {
+export default function AppFooter() {
   return (
     <footer className="AppFooter">
-      <span>v1.0#73738</span>
-      <a>repo</a>
+      <span>
+        {process.env.REACT_APP_APP_VERSION} {process.env.REACT_APP_APP_BUILD}
+      </span>
     </footer>
   );
 }

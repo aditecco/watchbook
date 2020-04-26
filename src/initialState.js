@@ -5,7 +5,8 @@ store
 export default {
   meta: {
     app: "WatchBook",
-    version: "v0.0.0",
+    version: `${process.env.REACT_APP_APP_VERSION}`,
+    build: `${process.env.REACT_APP_APP_BUILD}`,
   },
   authentication: {
     authenticated: false,
