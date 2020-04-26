@@ -105,6 +105,10 @@
     .CardPosterCurtain {
       padding-bottom: 20px;
     }
+
+    .CardFooter {
+      z-index: auto;
+    }
   }
 
   .CardFlipControls {
@@ -194,6 +198,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+    z-index: 1;
     border: {
       bottom-right-radius: 6px;
       bottom-left-radius: 6px;
