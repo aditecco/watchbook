@@ -15,8 +15,12 @@ export default function FilterAndSortProvider({
   const [sortQuery, setSortQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
   const [output, setOutput] = useState(initialData);
-  // TODO abstract 'options'
-  const options = ["Select a year"].concat(initialData.map(item => item.year));
+  const optionsKey = "year"; // TODO abstract 'options', move to props
+  const options = removeDuplicates(initialData.map(item => item[optionsKey]));
+
+  function removeDuplicates(data) {
+    return [...new Set(data)];
+  }
 
   /**
    * Filter handler
@@ -68,7 +72,7 @@ export default function FilterAndSortProvider({
         <FilterAndSortUI
           filterHandler={e => setFilterQuery(e.target.value)}
           sortHandler={e => setSortQuery(e.target.value)}
-          sortOptions={options}
+          sortOptions={[`Select a ${optionsKey}`].concat(options)}
         />
       )}
 

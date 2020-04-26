@@ -8,6 +8,7 @@ Inbox:
 
 Fixes:
   - …
+  - de-duplicate years in year filter @quick 
   - API key should be editable
   - throttle or debounce `fetchQueryData`
   - empty sort & filter fields
@@ -40,6 +41,7 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - add _notes_ feature
   - add more filters (director, …)
   - create poster downloader to cache media
   - [TO-WATCH] convert to watch cards to watched
