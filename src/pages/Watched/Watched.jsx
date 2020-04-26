@@ -28,7 +28,6 @@ export default function Watched() {
 
   // other
   const { watched } = userData[uid]; // watched items cache
-  const titleWithCount = `Watched (${watched.length})`;
   const getType = type => watched.filter(item => item.type === type).length;
 
   /**
@@ -100,7 +99,9 @@ export default function Watched() {
             limit={renderedItemsLimit}
             infiniteScroll={renderedItemsLimit <= watched.length}
             watched={processedItems}
-            title={titleWithCount}
+            title={`${processedItems.length} item${
+              processedItems.length > 1 ? "s" : ""
+            }`}
             compact={compactView}
           />
         )}

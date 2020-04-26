@@ -40,6 +40,7 @@ Optims/refactor:
 
 Features/stories:
   - …
+  - add more filters (director, …)
   - create poster downloader to cache media
   - [TO-WATCH] convert to watch cards to watched
   - implement search with Algolia
@@ -77,7 +78,6 @@ Features/stories:
     - delete
 
 UX:
-  - show number of results in search @quick 
   - increase tap targets for info button @quick 
   - create placeholder image for movie cards
 
@@ -96,7 +96,8 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
-  ✔ add ESC key listener for search cancel button @quick @done(20-04-26 03:17) @project(Features/stories)
+  ✔ show number of results in search @quick @done(20-04-26 03:31) @project(UX)
+  ✔ add ESC key listener to search cancel button @quick @done(20-04-26 03:17) @project(Features/stories)
   ✔ Create navbar comp @done(20-04-26 02:29) @project(Optims/refactor)
   ✔ keep profile & settings buttons visible in profile & settings pages @done(20-04-26 02:29) @project(Optims/refactor)
   ✔ profile inputs @done(20-04-26 02:07) @project(Optims/refactor)

@@ -21,7 +21,6 @@ export default function ToWatch() {
 
   // other
   const { toWatch } = userData[uid];
-  const titleWithCount = `To Watch (${toWatch.length})`;
   const getType = type => toWatch.filter(item => item.type === type).length;
 
   /**
@@ -48,7 +47,7 @@ export default function ToWatch() {
 
       <WatchedList
         watched={userData[uid]["toWatch"]}
-        title={titleWithCount}
+        title={`${toWatch.length} item${toWatch.length > 1 ? "s" : ""}`}
         compact={compactView}
       />
     </Layout>
