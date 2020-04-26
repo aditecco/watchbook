@@ -40,10 +40,12 @@
         transparent
       );
 
-      button {
-        .material-icons {
-          color: rgba($fontAlt, 0.6);
-        }
+      .CardFlipAreaButton {
+        justify-self: flex-start;
+      }
+
+      .material-icons {
+        color: rgba($fontAlt, 0.6);
       }
     }
   }
@@ -108,25 +110,27 @@
   .CardFlipControls {
     position: absolute;
     z-index: 1;
+    @include flex(row nowrap, flex-end, center);
     width: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 10%, transparent);
-    border: {
-      top-left-radius: 6px;
-      top-right-radius: 6px;
-    }
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent 30%);
+    border-radius: 6px;
+  }
 
-    button {
-      @extend %resetButtons;
+  .CardFlipAreaButton {
+    height: 100%;
+    flex-basis: 30%;
+
+    .material-icons {
       float: right;
-      width: 40px;
-      height: 40px;
-      padding-top: 0.6rem;
-
-      .material-icons {
-        font-size: 1.25rem;
-        color: white;
-        // text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-      }
+      width: 30px;
+      height: 30px;
+      margin-top: 0.8rem;
+      margin-right: 0.6rem;
+      font-size: 1.25rem;
+      color: white;
+      text-align: center;
+      // text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
     }
   }
 
@@ -152,7 +156,7 @@
     height: 100%;
     width: 100%;
     padding-bottom: 80px;
-    background: linear-gradient(to bottom, transparent 30%, black);
+    background: linear-gradient(to bottom, transparent 50%, black);
 
     &Title {
       padding: 1rem 1rem 0.25rem;

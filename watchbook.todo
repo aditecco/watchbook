@@ -83,9 +83,10 @@ Features/stories:
     - delete
 
 UX:
-  - increase tap targets for info button @quick 
+  ✔ increase tap targets for info button @quick @done(20-04-27 01:32)
   - create placeholder image for movie cards
   - create graphical loader for infinite scroll
+  - auto-shorten directors' names, i.e. S. Kubrik
 
 Platform:
   - …

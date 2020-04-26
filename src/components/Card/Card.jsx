@@ -48,9 +48,12 @@ export default function Card({
       >
         <article className={`Card front${added ? " added" : ""}`}>
           <div className="CardFlipControls">
-            <button onClick={() => toggleFlipped(!flipped)}>
+            <div
+              className="CardFlipAreaButton"
+              onClick={() => toggleFlipped(!flipped)}
+            >
               <MaterialIcon icon="info" />
-            </button>
+            </div>
           </div>
 
           <section className="CardMedia">
@@ -147,9 +150,12 @@ export default function Card({
       >
         <article className="Card back">
           <div className="CardFlipControls">
-            <button onClick={() => toggleFlipped(!flipped)}>
+            <div
+              className="CardFlipAreaButton"
+              onClick={() => toggleFlipped(!flipped)}
+            >
               <MaterialIcon icon="close" />
-            </button>
+            </div>
           </div>
 
           <div className="CardBackContent">
