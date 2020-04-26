@@ -8,17 +8,17 @@ Inbox:
 
 Fixes:
   - …
-  - de-duplicate years in year filter @quick 
   - API key should be editable
   - throttle or debounce `fetchQueryData`
-  - empty sort & filter fields
+  - empty sort & filter fields @focus
   ☐ show auth errors in the UI
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
-  - new item notif is not centered
 
 Optims/refactor:
   - …
+  - refine item search skeleton loader
+  - remove ranges from years filter
   - enforce fixed order in item data sheet @quick 
   - merge handleAddToWatch & handleAddWatched @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
@@ -98,6 +98,7 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ de-duplicate years in year filter @quick @done(20-04-26 15:19) @project(Fixes)
   ✔ show number of results in search @quick @done(20-04-26 03:31) @project(UX)
   ✔ add ESC key listener to search cancel button @quick @done(20-04-26 03:17) @project(Features/stories)
   ✔ Create navbar comp @done(20-04-26 02:29) @project(Optims/refactor)

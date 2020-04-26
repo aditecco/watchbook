@@ -5,13 +5,15 @@ Layout
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 import AppHeader from "../AppHeader/AppHeader";
+import AppFooter from "../AppFooter/AppFooter";
 
 export default function Layout({
   children,
   rootClass,
   selected = null,
   hasNav = true,
-  hasHeader = true
+  hasHeader = true,
+  hasFooter = true,
 }) {
   return (
     <>
@@ -19,6 +21,13 @@ export default function Layout({
 
       <div className={"Layout" + " " + rootClass}>
         <main className={rootClass + "Content"}>{children}</main>
+
+        {/*
+          comes _before_ the nav so that we
+          can  create 'conditional styles' with
+          the adjacent selector
+        */}
+        {hasFooter && <AppFooter />}
 
         {hasNav && <Navbar selected={selected} />}
       </div>

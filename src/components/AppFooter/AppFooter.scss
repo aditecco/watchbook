@@ -1,0 +1,25 @@
+/* ---------------------------------
+AppFooter
+--------------------------------- */
+
+.AppFooter {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: $footerHeight;
+  padding: 3px 1.6rem;
+  color: #eee;
+  text-align: center;
+  font-size: 0.8em;
+  background-color: darken($accent, 5%);
+  z-index: 2;
+
+  /*
+    If the footer is inserted in
+    the page, it will make room
+    by lifting the navbar
+  */
+  + .Navbar {
+    bottom: $footerHeight - 1;
+  }
+}

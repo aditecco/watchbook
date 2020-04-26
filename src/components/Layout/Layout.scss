@@ -6,7 +6,7 @@ Layout
   // need to 'escape' the var!
   height: calc(100vh - #{$headerHeight});
 
-  > main {
-    height: 100%;
-  }
+  // > main {
+  //   height: 100%;
+  // }
 }

@@ -48,11 +48,12 @@ AppHeader
 
         a {
           @extend %resetAnchors;
-          color: rgba($darkGray, 0.4);
+          color: $darkGray;
+          // color: rgba($darkGray, 0.4);
 
-          &:hover {
-            color: $darkGray;
-          }
+          // &:hover {
+          //   color: $darkGray;
+          // }
 
           .material-icons {
             font-size: 22px;
