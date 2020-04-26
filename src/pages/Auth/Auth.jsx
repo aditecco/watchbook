@@ -145,7 +145,7 @@ export default function Auth() {
     <Layout rootClass="Auth" hasNav={false}>
       <PageHeader title="Auth" icon="account_circle" />
 
-      <div className="wrapper">
+      <div className="wrapper thin">
         <TabSwitcher
           tabs={[
             {
