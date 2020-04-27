@@ -12,6 +12,7 @@ export default function CompactCard({
   year,
   onToWatchClick,
   onWatchedClick,
+  additionalData,
   ...other
 }) {
   // log(arguments);
@@ -27,7 +28,9 @@ export default function CompactCard({
           <header className="CompactCardHeader">
             <h4 className="CompactCardHeading">{title}</h4>
           </header>
-          <span className="CompactCardContent">{year + ", " + type}</span>
+          <span className="CompactCardContent">
+            {year + ", " + additionalData.director}
+          </span>
         </section>
       </article>
     </div>

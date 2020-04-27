@@ -11,10 +11,17 @@ NotificationMessage
   box-shadow: 0 2px 20px 10px rgba(black, 0.24);
   transition: top 0.3s ease-in-out;
   color: whitesmoke;
-  z-index: 3;
+  z-index: 4;
 
   &.isVisible {
     top: 20px;
+  }
+
+  &.light {
+    background-color: whitesmoke;
+    color: $fontAlt;
+    border-left: 4px solid $accent;
+    border-radius: $radius;
   }
 
   &Visual {

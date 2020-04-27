@@ -112,7 +112,7 @@ export default function Card({
                       });
                     }}
                   >
-                    To Watch
+                    To Watch <i className="material-icons">bookmark</i>
                   </button>
 
                   <button

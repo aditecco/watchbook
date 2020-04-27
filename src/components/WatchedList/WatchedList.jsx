@@ -48,6 +48,7 @@ export default function WatchedList({
                       title={title}
                       type={type}
                       year={year}
+                      additionalData={{ ...rest }}
                     />
                   </li>
                 );

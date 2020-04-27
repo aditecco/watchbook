@@ -19,7 +19,7 @@
     margin-right: 8px;
   }
 
-  #{$root}Media {
+  .CompactCardMedia {
     overflow: hidden;
     height: 90px;
     flex: 30% 0 0;
@@ -34,19 +34,21 @@
     }
   }
 
-  #{$root}Body {
+  .CompactCardBody {
     flex-grow: 1;
 
-    #{$root}Header {
-      #{$root}Heading {
-        @include smallHeading();
-        font-size: $small;
-        margin-bottom: $margin / 2;
+    .CompactCardHeader {
+      .CompactCardHeading {
+        font-family: $workSans;
+        font-size: 1rem;
+        margin-bottom: $margin / 5;
         color: $font;
+        font-weight: normal;
       }
     }
 
     .CompactCardContent {
+      font-family: $archivo;
       font-size: $small;
       text-transform: capitalize;
       color: $flat-gray-4;
