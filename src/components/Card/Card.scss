@@ -56,7 +56,7 @@
       }
 
       .material-icons {
-        color: rgba($fontAlt, 0.6);
+        color: rgba($fontAlt, 0.25);
         font-size: 1.25rem;
         text-align: center;
       }
@@ -71,12 +71,15 @@
 
   .CardBackContentHeader {
     padding: 0 1rem;
-    border-bottom: $border;
+    // border-bottom: $border;
 
     &Title {
-      @include smallHeading();
-      font-size: 1rem;
-      margin-bottom: 0.75rem;
+      font-family: $workSans;
+      font-size: 1.1rem;
+      font-weight: normal;
+      display: inline-block;
+      border-bottom: 3px solid $accent;
+      margin: 0 0 0.75rem;
     }
   }
 

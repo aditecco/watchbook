@@ -15,9 +15,12 @@ Spinner
 }
 
 .SpinnerContainer {
-  @include flex(column nowrap, center, center);
-  // TODO refine
-  height: calc(100% - #{$headerHeight} * 2);
+  @include flex(column nowrap);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
 }
 
 .Spinner {
