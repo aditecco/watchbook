@@ -18,6 +18,8 @@ Fixes:
 
 Optims/refactor:
   - …
+  - CSS
+    - reset all button outlines
   - infinite scroll loading indicator visible in filter view
   - refine item search skeleton loader
   - remove ranges from years filter

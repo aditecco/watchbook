@@ -167,7 +167,7 @@ const reducer = createReducer(initialState, {
 
   [showNotif](state, action) {
     const {
-      payload: { message, icon, timeOut },
+      payload: { message, icon, timeOut, theme = "dark" },
     } = action;
 
     return {
@@ -177,6 +177,7 @@ const reducer = createReducer(initialState, {
         message,
         icon,
         timeOut,
+        theme,
       },
     };
   },

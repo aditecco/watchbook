@@ -62,7 +62,7 @@ export default function Watched() {
     <Layout rootClass="Watched" selected={2}>
       <PageHeader
         title="watched"
-        icon="check_circle"
+        // icon="check_circle"
         subHeading={
           <>
             <span className="highlight">{getType("movie")} Movies, </span>

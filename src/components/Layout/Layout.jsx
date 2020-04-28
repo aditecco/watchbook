@@ -13,7 +13,7 @@ export default function Layout({
   selected = null,
   hasNav = true,
   hasHeader = true,
-  hasFooter = true,
+  hasFooter = false,
 }) {
   return (
     <>

@@ -22,10 +22,20 @@ body {
 }
 
 .wrapper {
-  @include container(1080px);
+  @include container($wrapper);
 
   &.thin {
     max-width: 450px;
+  }
+}
+
+.blankSlate {
+  @include flex(column nowrap);
+  height: calc(100vh - #{$appContent});
+
+  &Content {
+    display: block;
+    text-align: center;
   }
 }
 

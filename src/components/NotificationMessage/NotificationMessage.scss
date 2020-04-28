@@ -6,12 +6,18 @@ NotificationMessage
   position: fixed;
   right: 20px;
   top: -999px;
+  // @include flex(row nowrap, space-around);
+  padding: 13px 16px;
   background-color: rgba(black, 0.8);
   border-radius: 4px;
-  box-shadow: 0 2px 20px 10px rgba(black, 0.24);
+  box-shadow: 0 2px 20px 20px rgba(black, 0.1);
   transition: top 0.3s ease-in-out;
   color: whitesmoke;
   z-index: 4;
+
+  > * {
+    display: inline-block;
+  }
 
   &.isVisible {
     top: 20px;
@@ -20,14 +26,23 @@ NotificationMessage
   &.light {
     background-color: whitesmoke;
     color: $fontAlt;
-    border-left: 4px solid $accent;
+    border-left: 5px solid $accent;
     border-radius: $radius;
   }
 
   &Visual {
+    vertical-align: middle;
+
+    i.material-icons {
+      color: $success;
+      font-size: 1.3rem;
+    }
+
+    + .NotificationMessageContent {
+      margin-left: 10px;
+    }
   }
 
   &Content {
-    padding: 16px 20px;
   }
 }

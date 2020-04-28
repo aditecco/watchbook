@@ -43,7 +43,10 @@ export default function Settings() {
 
   return (
     <Layout rootClass="Settings">
-      <PageHeader title="settings" icon="settings" />
+      <PageHeader
+        title="settings"
+        // icon="settings"
+      />
 
       <div className="wrapper thin">
         {hasKey ? (

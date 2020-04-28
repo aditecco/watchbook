@@ -46,7 +46,10 @@ export default function Profile() {
 
   return authenticated ? (
     <Layout rootClass="Profile">
-      <PageHeader title="profile" icon="account_circle" />
+      <PageHeader
+        title="profile"
+        // icon="account_circle"
+      />
 
       <div className="wrapper thin">
         <p className="ProfileWelcome">Hello, {user.email}!</p>

@@ -194,7 +194,7 @@ export default function Card({
 
                   return (
                     <li key={i} className="CardBackDataListItem">
-                      <span className="DataKey">{key}:</span>
+                      <span className="DataKey">{key}</span>
 
                       {val}
                     </li>

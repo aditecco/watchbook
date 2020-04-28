@@ -8,7 +8,7 @@ import { hideNotif } from "../../actions";
 
 export default function NotificationMessage() {
   const dispatch = useDispatch();
-  const { message, icon, isVisible, timeOut } = useSelector(
+  const { message, icon, isVisible, timeOut, theme } = useSelector(
     state => state.notificationMessage
   );
 
@@ -20,7 +20,11 @@ export default function NotificationMessage() {
   }, [isVisible]);
 
   return isVisible ? (
-    <div className={`NotificationMessage ${isVisible ? "isVisible" : ""}`}>
+    <div
+      className={`NotificationMessage ${isVisible ? "isVisible" : ""} ${
+        theme === "light" ? "light" : ""
+      }`}
+    >
       <div className="NotificationMessageVisual">{icon}</div>
 
       <div className="NotificationMessageContent">{message}</div>

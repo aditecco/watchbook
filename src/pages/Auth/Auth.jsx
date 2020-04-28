@@ -143,7 +143,10 @@ export default function Auth() {
 
   return !authenticated ? (
     <Layout rootClass="Auth" hasNav={false} hasFooter={false}>
-      <PageHeader title="Auth" icon="account_circle" />
+      <PageHeader
+        title="Auth"
+        // icon="account_circle"
+      />
 
       <div className="wrapper thin">
         <TabSwitcher

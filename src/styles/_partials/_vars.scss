@@ -18,9 +18,12 @@ $XL: 1268px;
 $XXL: null;
 
 // UI
+$wrapper: 780px;
 $cardMinWidth: 280px;
 $cardMaxWidth: 320px;
 $mediaHeight: 400px;
 $cardHeight: $mediaHeight;
 $headerHeight: 65px;
+$navbarHeight: $headerHeight;
 $footerHeight: 20px;
+$appContent: $headerHeight + $navbarHeight + 98 + 49;

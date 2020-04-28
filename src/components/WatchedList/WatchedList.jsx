@@ -75,7 +75,7 @@ export default function WatchedList({
         </>
       ) : (
         <div className="blankSlate wrapper">
-          <span>No watched items.</span>
+          <div className="blankSlateContent">No items.</div>
         </div>
       )}
     </section>

@@ -18,6 +18,7 @@ export default {
     message: "",
     icon: "",
     timeOut: 0,
+    theme: "",
   },
   modal: {
     open: false,

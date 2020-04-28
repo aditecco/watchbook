@@ -36,7 +36,7 @@ export default function ToWatch() {
     <Layout rootClass="ToWatch" selected={3}>
       <PageHeader
         title="to watch"
-        icon="bookmark"
+        // icon="bookmark"
         subHeading={
           <>
             <span className="highlight">{getType("movie")} Movies, </span>

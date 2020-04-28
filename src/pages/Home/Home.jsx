@@ -11,6 +11,7 @@ import WatchedList from "../../components/WatchedList/WatchedList";
 import Layout from "../../components/Layout/Layout";
 import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
+import MaterialIcon from "../../components/Misc/MaterialIcon";
 import { storage } from "../../utils";
 import { db } from "../../App";
 import { useApiKey } from "../../hooks";
@@ -136,8 +137,9 @@ function Home() {
         dispatch(
           showNotif({
             message: `To Watch: ${newItem.title}`,
-            icon: null,
+            icon: <MaterialIcon icon="bookmark" />,
             timeOut: 2000,
+            theme: "light",
           })
         );
       }
@@ -185,8 +187,9 @@ function Home() {
         dispatch(
           showNotif({
             message: `Watched: ${newItem.title}`,
-            icon: null,
+            icon: <MaterialIcon icon="check_circle" />,
             timeOut: 2000,
+            theme: "light",
           })
         );
       }
