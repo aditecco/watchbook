@@ -11,7 +11,6 @@ Fixes:
   - fix app root URL
   - API key should be editable
   - throttle or debounce `fetchQueryData`
-  - empty sort & filter fields @focus
   ☐ show auth errors in the UI
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
@@ -29,7 +28,6 @@ Optims/refactor:
   - move async logic to saga @focus
   - fine-tune styles
     - signup/login switcher @quick 
-    - refine CardFlipControls front
     background: radial-gradient(at bottom center, transparent 60%, rgba(0, 0, 0, 0.9));
   - (re)organize SCSS vars, map all colors, sizes
   - redesign card w/ background-image
@@ -55,7 +53,6 @@ Features/stories:
   - create public demo version (no private pages)
     w/ static dataset http://files.tmdb.org
   - create dark theme
-    ✔ create 1st draft @done(20-04-27 00:38)
   - add fullscreen mode to cards
   - Implement PWA @focus
     https://create-react-app.dev/docs/making-a-progressive-web-app/
@@ -85,7 +82,6 @@ Features/stories:
     - delete
 
 UX:
-  ✔ increase tap targets for info button @quick @done(20-04-27 01:32)
   - create placeholder image for movie cards
   - create graphical loader for infinite scroll
   - auto-shorten directors' names, i.e. S. Kubrik
@@ -105,6 +101,10 @@ Feature ideas:
   - detect duplicate items
 
 Archive:
+  ✔ empty sort & filter fields @focus @done(20-04-29 01:23) @project(Fixes)
+  ✔ refine CardFlipControls front @done(20-04-29 00:51) @project(Optims/refactor)
+  ✔ create 1st draft @done(20-04-27 00:38) @project(Features/stories)
+  ✔ increase tap targets for info button @quick @done(20-04-27 01:32) @project(UX)
   ✔ Auth wrapper @done(20-04-26 17:02) @project(Fixes)
   ✔ add version/build number in footer or settings @quick @done(20-04-26 17:02) @project(Features/stories)
   ✔ de-duplicate years in year filter @quick @done(20-04-26 15:19) @project(Fixes)

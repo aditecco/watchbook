@@ -8,6 +8,7 @@
     padding: 1.6rem;
 
     .formGroup {
+      position: relative;
       flex-grow: 1;
       padding: 10px 12px;
       border: $border;
@@ -48,5 +49,27 @@
     border: 1px solid $strokeLight;
     background-color: white;
     box-shadow: inset 0px 2px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  // copied from 'searchCancel'
+  // TODO anchor to input, add container
+  .filterCancel {
+    position: absolute;
+    bottom: 11px;
+    right: 20px;
+    padding: 0;
+    color: #444;
+    // browser styles overrides
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    i.material-icons {
+      font-size: 1.1rem;
+
+      &:active {
+        color: black;
+      }
+    }
   }
 }
