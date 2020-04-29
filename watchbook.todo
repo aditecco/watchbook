@@ -7,18 +7,22 @@ Inbox:
   - move INIT_USER to auth?
 
 Fixes:
+  Things that don't work properly
+  *******************************
   - …
+  - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
-  - API key should be editable
-  - throttle or debounce `fetchQueryData`
-  ☐ show auth errors in the UI
+  - show auth errors in the UI
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
 
 Optims/refactor:
+  Things that work, but can be improved
+  *************************************
   - …
-  - CSS
-    - reset all button outlines
+  - remove 'movie not found' errors from the UI -- handle API errors properly
+  - API key should be editable
+  - throttle or debounce `fetchQueryData`
   - infinite scroll loading indicator visible in filter view
   - refine item search skeleton loader
   - remove ranges from years filter
@@ -40,20 +44,26 @@ Optims/refactor:
     - move user init to other specialized component
     - init settings in new users
     - make it modular (dataset…)
+  - CSS
+    - reset all button outlines
 
 Features/stories:
+  Things that could be implemented
+  ********************************
   - …
   - add _notes_ feature
   - add more filters (director, …)
     - director @quick 
   - create poster downloader to cache media
-  - [TO-WATCH] convert to watch cards to watched
+  - [TO-WATCH] to watch cards should have the ability to be converted to watched
+  - card deletion
   - implement search with Algolia
   - create mobile app icon & landing page
   - create public demo version (no private pages)
     w/ static dataset http://files.tmdb.org
   - create dark theme
   - add fullscreen mode to cards
+  - add reload button to watched & toWatch (re-fetches loads cards if 
   - Implement PWA @focus
     https://create-react-app.dev/docs/making-a-progressive-web-app/
     requires HTTPS!
@@ -64,13 +74,12 @@ Features/stories:
     https://github.com/buildo/react-placeholder
     https://github.com/dvtng/react-loading-skeleton
     - add skeleton loader for card backs @focus
-    - move internal info (response, ID, etc) to hidden section
-  - add reload button to watched & toWatch (re-fetches loads cards if lost)
+    - move internal info (response, ID, etc) to hidden section @quick
+  lost)
   - add page transitions on page change
     https://github.com/react-spring/react-spring-examples/blob/renderprops/demos/renderprops/pagetransitions/index.js
   - [WATCHED] add reset button to filter fields
   - Implement 'show more' for autosuggest
-  - prevent duplicates in DB /content
   - save API key to DB
   - create validators for input fields
   - add user name to login notif
@@ -82,11 +91,15 @@ Features/stories:
     - delete
 
 UX:
+  Things that can make the user experience better
+  ***********************************************
   - create placeholder image for movie cards
   - create graphical loader for infinite scroll
   - auto-shorten directors' names, i.e. S. Kubrik
 
 Platform:
+  Env, tools, etc
+  ***************
   - …
 
 Tests:
@@ -96,11 +109,13 @@ Tests:
   - write e2e tests
 
 Feature ideas:
+  Things that could be implemented and require major analysis
+  ***********************************************************
   - Gamification
   - content collections
-  - detect duplicate items
 
 Archive:
+  ✔ duplicate detection @done(20-04-30 00:28) @project(Features/stories)
   ✔ empty sort & filter fields @focus @done(20-04-29 01:23) @project(Fixes)
   ✔ refine CardFlipControls front @done(20-04-29 00:51) @project(Optims/refactor)
   ✔ create 1st draft @done(20-04-27 00:38) @project(Features/stories)

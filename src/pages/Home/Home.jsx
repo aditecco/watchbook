@@ -42,9 +42,13 @@ function Home() {
   );
 
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.authentication);
+  const {
+    user: { uid },
+  } = useSelector(state => state.authentication);
+  const userData = useSelector(state => state.userData);
+  const { watched, toWatch } = userData[uid];
   const hasApiKey = useApiKey();
-  const { uid } = user;
+
   const dbRef = db.ref();
   const contentRef = db.ref("content");
   const API_KEY = storage.pull("OMDbApiKey");
@@ -204,6 +208,27 @@ function Home() {
   }
 
   /**
+   * Finds out if a searched entry
+   * already exists in local data
+   */
+
+  function detectDuplicates(query, callback) {
+    const dataSet = [...watched, ...toWatch];
+
+    if (dataSet.some(item => item.title.toLowerCase() === query)) {
+      dispatch(
+        showNotif({
+          message: "Oops! You already added this item.",
+          icon: null,
+          timeOut: 4000,
+        })
+      );
+    } else {
+      callback(query);
+    }
+  }
+
+  /**
    * Handles search queries from the
    * main input field
    */
@@ -212,7 +237,7 @@ function Home() {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
-      fetchQueryData(searchQuery);
+      detectDuplicates(searchQuery, fetchQueryData);
     }
 
     setState({ searchQuery });
