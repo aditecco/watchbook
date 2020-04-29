@@ -7,7 +7,7 @@ NotificationMessage
   right: 20px;
   top: -999px;
   // @include flex(row nowrap, space-around);
-  padding: 13px 16px;
+  padding: 16px;
   background-color: rgba(black, 0.8);
   border-radius: 4px;
   box-shadow: 0 2px 20px 20px rgba(black, 0.1);
@@ -26,7 +26,7 @@ NotificationMessage
   &.light {
     background-color: whitesmoke;
     color: $fontAlt;
-    border-left: 5px solid $accent;
+    border-top: 4px solid $accent;
     border-radius: $radius;
   }
 

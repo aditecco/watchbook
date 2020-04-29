@@ -89,13 +89,15 @@ function Home() {
          * is resolved
          */
 
-        dispatch(
-          showNotif({
-            message: `${request.status} Error: ${response.Error}`,
-            icon: null,
-            timeOut: 4000,
-          })
-        );
+        if (!response.Error.includes === "not found") {
+          dispatch(
+            showNotif({
+              message: `${request.status} Error: ${response.Error}`,
+              icon: null,
+              timeOut: 4000,
+            })
+          );
+        }
 
         throw new Error(response.Error);
       }
@@ -209,14 +211,15 @@ function Home() {
   }
 
   /**
-   * Finds out if a searched entry
+   * Finds out if a search query
    * already exists in local data
    */
 
   function detectDuplicates(query, callback) {
     const dataSet = [...watched, ...toWatch];
+    const compareFn = item => item.title.toLowerCase() === query.toLowerCase();
 
-    if (dataSet.some(item => item.title.toLowerCase() === query)) {
+    if (dataSet.some(compareFn)) {
       setState({ hasError: true, error: "duplicateContent" });
 
       dispatch(
@@ -375,7 +378,7 @@ function Home() {
       <DataProvider
         dataSet="watched"
         render={data => (
-          <WatchedList watched={data} title="Latest watched" limit={9} />
+          <WatchedList watched={data} title="Latest watched" limit={10} />
         )}
       />
 
