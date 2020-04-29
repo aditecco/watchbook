@@ -11,12 +11,13 @@ export default function SearchField({
   resetHandler,
   searchQuery,
   children,
+  error,
 }) {
   return (
     <form className="itemSearch">
       <div className="wrapper">
         <input
-          className="mainSearchField"
+          className={`mainSearchField${error ? " hasError" : ""}`}
           type="text"
           onChange={searchHandler}
           onFocus={focusHandler}

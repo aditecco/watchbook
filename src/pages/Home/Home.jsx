@@ -37,6 +37,7 @@ function Home() {
       searchResults: null,
       searchQuery: "",
       hasError: false,
+      error: "",
       selectedCard: {},
     }
   );
@@ -216,6 +217,8 @@ function Home() {
     const dataSet = [...watched, ...toWatch];
 
     if (dataSet.some(item => item.title.toLowerCase() === query)) {
+      setState({ hasError: true, error: "duplicateContent" });
+
       dispatch(
         showNotif({
           message: "Oops! You already added this item.",
@@ -224,6 +227,7 @@ function Home() {
         })
       );
     } else {
+      setState({ hasError: false, error: "" });
       callback(query);
     }
   }
@@ -254,6 +258,8 @@ function Home() {
       loading: false,
       searchQuery: "",
       searchResults: null,
+      hasError: false,
+      error: "",
     });
   }
 
@@ -347,9 +353,10 @@ function Home() {
       <section className="search">
         <SearchField
           searchQuery={state.searchQuery}
-          searchHandler={_.throttle(handleSearch, 6000, { trailing: true })} // TODO!
+          searchHandler={handleSearch} // TODO throttle/debounce!
           focusHandler={handleFocus}
           resetHandler={handleSearchReset}
+          error={state.error}
         />
 
         {state.showSearchResults && (

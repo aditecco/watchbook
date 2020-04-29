@@ -20,6 +20,7 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - create className utility
   - remove 'movie not found' errors from the UI -- handle API errors properly
   - API key should be editable
   - throttle or debounce `fetchQueryData`
@@ -51,6 +52,7 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
+  - create persistent notifs
   - add _notes_ feature
   - add more filters (director, …)
     - director @quick 
