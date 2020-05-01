@@ -20,6 +20,9 @@ import {
   showNotif,
   toggleModal,
   updateWatched,
+  fetchQueryDataPending,
+  fetchQueryDataError,
+  fetchQueryDataSuccess,
 } from "./actions";
 
 const userDataTemplate = {
@@ -200,6 +203,57 @@ const reducer = createReducer(initialState, {
       },
     };
   },
+
+  /**
+   * apiData: {
+    loading: false,
+    query: "",
+    data: null,
+    error: null,
+  },
+   */
+
+  [fetchQueryDataPending](state) {
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        loading: true,
+      },
+    };
+  },
+
+  [fetchQueryDataSuccess](state, action) {
+    const {
+      payload: { response: data },
+    } = action;
+
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        loading: false,
+        data,
+      },
+    };
+  },
+
+  [fetchQueryDataError](state, action) {
+    const {
+      payload: { error },
+    } = action;
+
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        loading: false,
+        error,
+      },
+    };
+  },
+
+  // end
 });
 
 export default reducer;

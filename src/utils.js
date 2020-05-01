@@ -2,11 +2,27 @@
 Utils
 --------------------------------- */
 
+import { OMDB_API_URL } from "./constants";
+
 // shorter console.log
 export const log = window.console.log.bind(window.console);
 
 // shorter querySelector
 export const $ = window.document.querySelector.bind(window.document);
+
+//
+export const requestUrl = (key, queryAndParams) =>
+  `${OMDB_API_URL}${key}${queryAndParams}`;
+
+//
+export const buildQuery = params =>
+  Object.entries(params)
+    .map(([param, query]) => `&${param}=${query}`)
+    .join("");
+
+/**
+ * fetchQueryData
+ */
 
 // shorter localStorage, w/ JSON manipulation included
 export const storage = (() => {
@@ -35,7 +51,7 @@ export const storage = (() => {
     },
     destroy() {
       boundFn(window.localStorage.clear)();
-    }
+    },
   };
 })();
 
@@ -57,10 +73,7 @@ export function capitalize(word) {
   if (!word) return undefined;
 
   if (word.includes(" ")) {
-    return word
-      .split(" ")
-      .map(capitalizer)
-      .join(" ");
+    return word.split(" ").map(capitalizer).join(" ");
   }
 
   return capitalizer(word);

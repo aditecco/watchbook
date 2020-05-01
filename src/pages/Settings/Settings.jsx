@@ -5,7 +5,7 @@ Settings
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import { API_KEY } from "../../constants";
+import { API_KEY_ID } from "../../constants";
 import { log, storage } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
 import { setApiKey } from "../../actions";
@@ -18,7 +18,7 @@ export default function Settings() {
   } = useSelector(state => state.authentication);
   const userData = useSelector(state => state.userData);
   const dispatch = useDispatch();
-  const apiKey = userData[uid].settings.apiKey || storage.pull(API_KEY);
+  const apiKey = userData[uid].settings.apiKey || storage.pull(API_KEY_ID);
 
   useEffect(() => {
     if (apiKey) setHasKey(true);
@@ -38,7 +38,7 @@ export default function Settings() {
     setInput("");
     dispatch(setApiKey({ key: input, uid }));
 
-    storage.push(API_KEY, input);
+    storage.push(API_KEY_ID, input);
   }
 
   return (

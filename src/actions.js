@@ -19,3 +19,7 @@ export const setInitialData = createAction("SET_INITIAL_DATA");
 export const showNotif = createAction("SHOW_NOTIF");
 export const toggleModal = createAction("TOGGLE_MODAL");
 export const updateWatched = createAction("UPDATE_WATCHED");
+export const fetchQueryDataRequest = createAction("FETCH_QUERY_DATA_REQUEST");
+export const fetchQueryDataPending = createAction("FETCH_QUERY_DATA_PENDING");
+export const fetchQueryDataSuccess = createAction("FETCH_QUERY_DATA_SUCCESS");
+export const fetchQueryDataError = createAction("FETCH_QUERY_DATA_ERROR");

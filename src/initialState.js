@@ -13,6 +13,12 @@ export default {
     user: null,
   },
   userData: {},
+  apiData: {
+    loading: false,
+    query: "",
+    data: null,
+    error: null,
+  },
   notificationMessage: {
     isVisible: false,
     message: "",

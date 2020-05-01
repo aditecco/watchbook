@@ -12,17 +12,18 @@ import Layout from "../../components/Layout/Layout";
 import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
-import { storage } from "../../utils";
+import { requestUrl, buildQuery, storage, log } from "../../utils";
 import { db } from "../../App";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
 import { useSelector, useDispatch } from "react-redux";
-import { log } from "../../utils";
+import { API_KEY_ID } from "../../constants";
 import {
   showNotif,
   createToWatch,
   toggleModal,
   createWatched,
+  fetchQueryDataRequest,
 } from "../../actions";
 
 function Home() {
@@ -47,68 +48,22 @@ function Home() {
     user: { uid },
   } = useSelector(state => state.authentication);
   const userData = useSelector(state => state.userData);
+  const apiData = useSelector(state => state.apiData);
   const { watched, toWatch } = userData[uid];
   const hasApiKey = useApiKey();
-
+  const apiKey = storage.pull(API_KEY_ID);
   const dbRef = db.ref();
   const contentRef = db.ref("content");
-  const API_KEY = storage.pull("OMDbApiKey");
-  const API_URL = `https://www.omdbapi.com/?apiKey=`;
-
-  const requestUrl = (key, queryAndParams) =>
-    `${API_URL}${key}${queryAndParams}`;
-
-  const buildQuery = params =>
-    Object.entries(params)
-      .map(([param, query]) => `&${param}=${query}`)
-      .join("");
 
   /**
    * Gets data from API based on
    * the user's query
    */
 
-  async function fetchQueryData(query) {
+  function fetchQueryData(query) {
     setState({ loading: true, showSearchResults: true });
 
-    try {
-      const request = await axios.get(
-        requestUrl(API_KEY, buildQuery({ s: query }))
-      );
-
-      const { data: response } = request;
-
-      if ("Error" in response) {
-        /**
-         * TODO
-         *
-         * very WIP
-         * prevent multiple notifs to be fired
-         * could use hasError: false in state
-         * to lock searches until the error
-         * is resolved
-         */
-
-        if (!response.Error.includes === "not found") {
-          dispatch(
-            showNotif({
-              message: `${request.status} Error: ${response.Error}`,
-              icon: null,
-              timeOut: 4000,
-            })
-          );
-        }
-
-        throw new Error(response.Error);
-      }
-
-      setState({
-        loading: false,
-        searchResults: response,
-      });
-    } catch (err) {
-      // console.error("@fetchData: ", err);
-    }
+    dispatch(fetchQueryDataRequest({ query }));
   }
 
   /**
@@ -288,7 +243,7 @@ function Home() {
    */
 
   function handleAutoSuggestClick(id) {
-    const which = state.searchResults.Search.find(item => item.imdbID === id);
+    const which = apiData.data.Search.find(item => item.imdbID === id);
 
     setState({ loading: true });
 
@@ -322,7 +277,7 @@ function Home() {
     try
     {
       const request = await axios.get(
-        requestUrl(API_KEY, buildQuery({ i: id }))
+        requestUrl(apiKey, buildQuery({ i: id }))
       );
 
       return request.data;
@@ -364,7 +319,7 @@ function Home() {
 
         {state.showSearchResults && (
           <AutoSuggest
-            content={state.searchResults && state.searchResults.Search}
+            content={apiData.data && apiData.data.Search}
             onItemClick={handleAutoSuggestClick}
             limit={5}
           />
