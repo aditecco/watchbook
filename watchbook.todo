@@ -21,8 +21,8 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - handle long titles in notifs
   - create className utility
-  - remove 'movie not found' errors from the UI -- handle API errors properly
   - API key should be editable
   - throttle or debounce `fetchQueryData`
   - infinite scroll loading indicator visible in filter view
@@ -119,6 +119,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ remove 'movie not found' errors from the UI -- handle API errors properly @done(20-05-01 16:50) @project(Optims/refactor)
   ✔ show auth errors in the UI @done(20-05-01 01:54) @project(Fixes)
   ✔ duplicate detection @done(20-04-30 00:28) @project(Features/stories)
   ✔ empty sort & filter fields @focus @done(20-04-29 01:23) @project(Fixes)
