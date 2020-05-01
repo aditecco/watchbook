@@ -13,7 +13,7 @@ AutoSuggest
   overflow-y: scroll;
 
   .AutoSuggestContent {
-    padding: 10px 1.6rem 0;
+    padding: 10px 1.6rem 40px;
     margin: 0;
     list-style: none;
   }
@@ -59,8 +59,11 @@ AutoSuggest
   }
 
   .AutoSuggestShowMoreButton {
+    @extend %resetButtons;
+    cursor: pointer;
     display: block;
     text-align: center;
+    text-decoration: underline;
     width: 160px;
     padding: 1rem;
     margin: 0 auto;

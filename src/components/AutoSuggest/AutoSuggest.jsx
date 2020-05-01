@@ -68,13 +68,15 @@ export default function AutoSuggest({ content, limit, onItemClick }) {
           </li>
         ))}
 
-        <button
-          type="button"
-          className="AutoSuggestShowMoreButton"
-          onClick={() => setItemsToShow(content.length)}
-        >
-          Show more…
-        </button>
+        {itemsToShow < content.length && (
+          <button
+            type="button"
+            className="AutoSuggestShowMoreButton"
+            onClick={() => setItemsToShow(content.length)}
+          >
+            Show more…
+          </button>
+        )}
       </ul>
     </div>
   );
