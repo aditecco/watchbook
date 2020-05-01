@@ -6,54 +6,64 @@ AutoSuggest
 .AutoSuggest {
   background-color: #f5f5f5e3;
   z-index: 3;
-  position: absolute;
+  position: fixed;
   width: 100%;
-  left: 0;
-  height: 100vh;
+  bottom: 0;
+  height: calc(100vh - (#{$headerHeight + $searchHeight - 5}));
+  overflow-y: scroll;
 
   .AutoSuggestContent {
     padding: 0 1.6rem;
     margin: 0;
     list-style: none;
+  }
 
-    .AutoSuggestItem {
-      border-radius: 2px;
-      background-color: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease;
-      cursor: pointer;
+  .AutoSuggestItem {
+    border-radius: 2px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    cursor: pointer;
 
-      + .AutoSuggestItem {
-        border-top: 1px solid #ddd;
-        margin-top: 0.5rem;
-      }
-
-      &:hover {
-        transform: scale(1.05);
-      }
+    + .AutoSuggestItem {
+      border-top: 1px solid #ddd;
+      margin-top: 0.5rem;
     }
 
-    // TODO change name
-    .AutoSuggestItemLinkTarget {
-      padding: 1rem;
-
-      > * {
-        margin: 0;
-      }
+    &:hover {
+      transform: scale(1.05);
     }
+  }
 
-    .AutoSuggestItemTitle {
-      margin-bottom: 0.6rem;
-      font-weight: normal;
+  // TODO change name
+  .AutoSuggestItemLinkTarget {
+    padding: 1rem;
+
+    > * {
+      margin: 0;
     }
+  }
 
-    .AutoSuggestItemDesc {
-      font-size: 0.9rem;
-      color: #999;
+  .AutoSuggestItemTitle {
+    margin-bottom: 0.6rem;
+    font-weight: normal;
+  }
 
-      .ItemType,
-      .ItemYear {
-      }
+  .AutoSuggestItemDesc {
+    font-size: 0.9rem;
+    color: #999;
+
+    .ItemType,
+    .ItemYear {
     }
+  }
+
+  .AutoSuggestShowMoreButton {
+    display: block;
+    text-align: center;
+    width: 160px;
+    padding: 1rem;
+    margin: 0 auto;
+    font-size: 0.9rem;
   }
 }

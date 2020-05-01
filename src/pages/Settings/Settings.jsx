@@ -21,6 +21,11 @@ export default function Settings() {
   const apiKey = userData[uid].settings.apiKey || storage.pull(API_KEY_ID);
 
   useEffect(() => {
+    // reset scroll position when we enter the page
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (apiKey) setHasKey(true);
   }, [apiKey]);
 

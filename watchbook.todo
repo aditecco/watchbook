@@ -84,7 +84,6 @@ Features/stories:
   - add page transitions on page change
     https://github.com/react-spring/react-spring-examples/blob/renderprops/demos/renderprops/pagetransitions/index.js
   - [WATCHED] add reset button to filter fields
-  - Implement 'show more' for autosuggest
   - save API key to DB
   - create validators for input fields
   - add user name to login notif
@@ -120,6 +119,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ Implement 'show more' for autosuggest @done(20-05-01 23:10) @project(Features/stories)
   ✔ remove 'movie not found' errors from the UI -- handle API errors properly @done(20-05-01 16:50) @project(Optims/refactor)
   ✔ show auth errors in the UI @done(20-05-01 01:54) @project(Fixes)
   ✔ duplicate detection @done(20-04-30 00:28) @project(Features/stories)

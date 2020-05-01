@@ -2,7 +2,7 @@
 Profile
 --------------------------------- */
 
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import * as firebase from "firebase/app";
@@ -14,7 +14,6 @@ import { destroyUser } from "../../actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Profile() {
-  // const [{ authenticated, user }, setAuthState] = useContext(AuthContext);
   const { authenticated, user } = useSelector(state => state.authentication);
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useReducer(
@@ -43,6 +42,11 @@ export default function Profile() {
       .then(() => dispatch(destroyUser()))
       .catch(err => console.error("@Profile", err));
   }
+
+  useEffect(() => {
+    // reset scroll position when we enter the page
+    window.scrollTo(0, 0);
+  }, []);
 
   return authenticated ? (
     <Layout rootClass="Profile">

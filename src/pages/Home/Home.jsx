@@ -3,7 +3,6 @@ Home
 --------------------------------- */
 
 import React, { useReducer, useEffect } from "react";
-import _ from "lodash";
 import axios from "axios";
 import uuidv4 from "uuid";
 import Card from "../../components/Card/Card";

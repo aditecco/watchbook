@@ -4,10 +4,10 @@ AutoSuggest
 
 import React, { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
-import { rand } from "../../utils";
 
 export default function AutoSuggest({ content, limit, onItemClick }) {
   const [loading, setLoading] = useState(true);
+  const [itemsToShow, setItemsToShow] = useState(limit);
 
   const loadingPlaceholder = (
     <li className="AutoSuggestItem wrapper">
@@ -30,6 +30,13 @@ export default function AutoSuggest({ content, limit, onItemClick }) {
   );
 
   useEffect(() => {
+    const app = document.querySelector(".App");
+    app.style.overflow = "hidden";
+
+    return () => (app.style.overflow = "visible");
+  }, []);
+
+  useEffect(() => {
     content && setLoading(false);
 
     return () => setLoading(true);
@@ -44,7 +51,7 @@ export default function AutoSuggest({ content, limit, onItemClick }) {
   ) : (
     <div className="AutoSuggest">
       <ul className="AutoSuggestContent">
-        {content.slice(0, limit).map((searchItem, i) => (
+        {content.slice(0, itemsToShow).map((searchItem, i) => (
           <li className="AutoSuggestItem wrapper" key={i}>
             <div
               className="AutoSuggestItemLinkTarget"
@@ -60,7 +67,12 @@ export default function AutoSuggest({ content, limit, onItemClick }) {
             </div>
           </li>
         ))}
-        <button type="button" onClick={e => null}>
+
+        <button
+          type="button"
+          className="AutoSuggestShowMoreButton"
+          onClick={() => setItemsToShow(content.length)}
+        >
           Show more…
         </button>
       </ul>
