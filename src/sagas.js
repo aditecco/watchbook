@@ -18,7 +18,7 @@ import axios from "axios";
  */
 
 function* fetchQueryData(action) {
-  const apiKey = storage.pull("d");
+  const apiKey = storage.pull(API_KEY_ID);
   const {
     payload: { query },
   } = action;
@@ -32,24 +32,20 @@ function* fetchQueryData(action) {
     );
     const { data: response } = request;
 
+    // we handle 200 responses
+    // that are considered errors
+    // by the API
+    // TODO handle the not found
     if ("Error" in response) {
-      if (!response.Error.toLowercase().includes === "not found") {
-        yield put(
-          showNotif({
-            message: `${request.status} Error: ${response.Error}`,
-            icon: null,
-            timeOut: 4000,
-          })
-        );
-      }
-
       throw new Error(response.Error);
     }
 
     yield put(fetchQueryDataSuccess({ response }));
+    //
   } catch (err) {
     // yield put(fetchQueryDataError({ err }));
 
+    // the augmented error
     if ("response" in err) {
       const {
         status,
@@ -65,9 +61,27 @@ function* fetchQueryData(action) {
       );
     }
 
+    // 'error' force-thrown from a 200 response
+    else {
+      // TODO
+      // we don't surface to the UI some frequent errors
+      if (
+        !err.message.toLowerCase().includes("not found") &&
+        !err.message.toLowerCase().includes("too many")
+      ) {
+        yield put(
+          showNotif({
+            message: `Error: ${err.message}`,
+            icon: null,
+            timeOut: 4000,
+          })
+        );
+      }
+    }
+
     // we print the error response
     // by default, or undefined
-    console.error(err.response);
+    console.error(err.response || err.message);
   }
 }
 
