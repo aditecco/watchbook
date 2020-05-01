@@ -17,14 +17,14 @@ export default function FilterAndSort({
       <div className="wrapper">
         <form action="" className="FilterAndSortForm">
           <div className="formGroup formGroup__filter">
-            <label htmlFor="watchedSearchFilter">Filter</label>
+            <label htmlFor="watchedSearchFilter">Filter by title</label>
 
             <input
               id="watchedSearchFilter"
               type="text"
               className="watchedFilter"
               onChange={filterHandler}
-              placeholder="Filter by name"
+              placeholder="Enter a title…"
               value={inputValue}
             />
 
@@ -42,7 +42,7 @@ export default function FilterAndSort({
           </div>
 
           <div className="formGroup formGroup__sort">
-            <label htmlFor="watchedSearchSort">Sort by year</label>
+            <label htmlFor="watchedSearchSort">Filter by year</label>
             <select
               onChange={sortHandler}
               // onSelect={sortHandler}

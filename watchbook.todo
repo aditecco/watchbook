@@ -12,9 +12,10 @@ Fixes:
   - …
   - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
-  - show auth errors in the UI
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
+  - non-serializable objects…
+  - recreate filter & sort
 
 Optims/refactor:
   Things that work, but can be improved
@@ -26,7 +27,7 @@ Optims/refactor:
   - throttle or debounce `fetchQueryData`
   - infinite scroll loading indicator visible in filter view
   - refine item search skeleton loader
-  - remove ranges from years filter
+  - remove ranges from years filter @quick
   - enforce fixed order in item data sheet @quick 
   - merge handleAddToWatch & handleAddWatched @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
@@ -55,7 +56,8 @@ Features/stories:
   - create persistent notifs
   - add _notes_ feature
   - add more filters (director, …)
-    - director @quick 
+    - director @quick
+  - move internal info (response, ID, etc) to hidden section @quick
   - create poster downloader to cache media
   - [TO-WATCH] to watch cards should have the ability to be converted to watched
   - card deletion
@@ -75,8 +77,8 @@ Features/stories:
     https://github.com/danilowoz/react-content-loader
     https://github.com/buildo/react-placeholder
     https://github.com/dvtng/react-loading-skeleton
-    - add skeleton loader for card backs @focus
-    - move internal info (response, ID, etc) to hidden section @quick
+    - add skeleton loader for card backs or card loading placeholder @focus
+    
   lost)
   - add page transitions on page change
     https://github.com/react-spring/react-spring-examples/blob/renderprops/demos/renderprops/pagetransitions/index.js
@@ -117,6 +119,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ show auth errors in the UI @done(20-05-01 01:54) @project(Fixes)
   ✔ duplicate detection @done(20-04-30 00:28) @project(Features/stories)
   ✔ empty sort & filter fields @focus @done(20-04-29 01:23) @project(Fixes)
   ✔ refine CardFlipControls front @done(20-04-29 00:51) @project(Optims/refactor)
