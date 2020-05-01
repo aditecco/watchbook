@@ -35,7 +35,6 @@ function* fetchQueryData(action) {
     // we handle 200 responses
     // that are considered errors
     // by the API
-    // TODO handle the not found
     if ("Error" in response) {
       throw new Error(response.Error);
     }
@@ -65,9 +64,12 @@ function* fetchQueryData(action) {
     else {
       // TODO
       // we don't surface to the UI some frequent errors
+
       if (
-        !err.message.toLowerCase().includes("not found") &&
-        !err.message.toLowerCase().includes("too many")
+        ["not found", "too many"].every(
+          blacklistedItem =>
+            !err.message.toLowerCase().includes(blacklistedItem)
+        )
       ) {
         yield put(
           showNotif({
