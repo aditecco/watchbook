@@ -10,16 +10,15 @@ import {
   fetchQueryDataSuccess,
   fetchQueryDataError,
 } from "./actions";
-import { storage, requestUrl, buildQuery } from "./utils";
+import { log, storage, requestUrl, buildQuery } from "./utils";
 import axios from "axios";
-
-const apiKey = storage.pull(API_KEY_ID);
 
 /**
  * fetchQueryData
  */
 
 function* fetchQueryData(action) {
+  const apiKey = storage.pull("d");
   const {
     payload: { query },
   } = action;
@@ -34,17 +33,7 @@ function* fetchQueryData(action) {
     const { data: response } = request;
 
     if ("Error" in response) {
-      /**
-       * TODO
-       *
-       * very WIP
-       * prevent multiple notifs to be fired
-       * could use hasError: false in state
-       * to lock searches until the error
-       * is resolved
-       */
-
-      if (!response.Error.includes === "not found") {
+      if (!response.Error.toLowercase().includes === "not found") {
         yield put(
           showNotif({
             message: `${request.status} Error: ${response.Error}`,
@@ -59,7 +48,26 @@ function* fetchQueryData(action) {
 
     yield put(fetchQueryDataSuccess({ response }));
   } catch (err) {
-    yield put(fetchQueryDataError({ err }));
+    // yield put(fetchQueryDataError({ err }));
+
+    if ("response" in err) {
+      const {
+        status,
+        data: { Error: message },
+      } = err.response;
+
+      yield put(
+        showNotif({
+          message: `${status} Error: ${message}`,
+          icon: null,
+          timeOut: 4000,
+        })
+      );
+    }
+
+    // we print the error response
+    // by default, or undefined
+    console.error(err.response);
   }
 }
 
