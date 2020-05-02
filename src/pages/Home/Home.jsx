@@ -23,6 +23,7 @@ import {
   toggleModal,
   createWatched,
   fetchQueryDataRequest,
+  resetQueryData,
 } from "../../actions";
 
 function Home() {
@@ -109,6 +110,8 @@ function Home() {
       loading: false,
       searchQuery: "",
     });
+
+    dispatch(resetQueryData());
   }
 
   /**
@@ -158,6 +161,8 @@ function Home() {
       loading: false,
       searchQuery: "",
     });
+
+    dispatch(resetQueryData());
   }
 
   /**
@@ -213,6 +218,8 @@ function Home() {
       hasError: false,
       error: "",
     });
+
+    dispatch(resetQueryData());
   }
 
   /**

@@ -23,6 +23,7 @@ import {
   fetchQueryDataPending,
   fetchQueryDataError,
   fetchQueryDataSuccess,
+  resetQueryData,
 } from "./actions";
 
 const userDataTemplate = {
@@ -247,6 +248,22 @@ const reducer = createReducer(initialState, {
         ...state.apiData,
         fetching: false,
         error,
+      },
+    };
+  },
+
+  [resetQueryData](state) {
+    return {
+      ...state,
+      apiData: {
+        // not really necessary to clone,
+        // but I could add new props
+        // in the future
+        ...state.apiData,
+        fetching: false,
+        query: "",
+        data: null,
+        error: null,
       },
     };
   },

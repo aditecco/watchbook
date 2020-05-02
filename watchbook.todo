@@ -11,8 +11,6 @@ Fixes:
   *******************************
   - …
   - data of prev query are in state when performing new query @high 
-  - fix item search perf issues @high 
-    Appears to work fine on mobile
   - handle not found in item search
   - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
@@ -36,7 +34,10 @@ Optims/refactor:
   - merge handleAddToWatch & handleAddWatched @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
   - move async logic to saga @focus
-    ✔ content search @done(20-05-02 15:15)
+      content search
+      additional info
+      auth
+      fetchDBdata
     - additional info
     - auth
     - fetchDBdata
@@ -129,6 +130,9 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ fix item search perf issues @high @done(20-05-02 16:03) @project(Fixes)
+    Appears to work fine on mobile
+  ✔ content search @done(20-05-02 15:15) @project(Optims/refactor)
   ✔ throttle or debounce `fetchQueryData` @done(20-05-02 14:49) @project(Optims/refactor)
   ✔ Implement 'show more' for autosuggest @done(20-05-01 23:10) @project(Features/stories)
   ✔ remove 'movie not found' errors from the UI -- handle API errors properly @done(20-05-01 16:50) @project(Optims/refactor)
