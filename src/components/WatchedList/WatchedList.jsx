@@ -8,7 +8,7 @@ import CompactCard from "../CompactCard/CompactCard";
 import Spinner from "../Spinner/Spinner";
 import { UI_LABELS } from "../../constants";
 
-/*export default*/ function WatchedList({
+export default function WatchedList({
   compact,
   infiniteScroll,
   limit = undefined,
@@ -81,4 +81,3 @@ import { UI_LABELS } from "../../constants";
     </section>
   );
 }
-export default React.memo(WatchedList);
