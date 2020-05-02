@@ -310,7 +310,7 @@ function Home() {
       <section className="search">
         <SearchField
           searchQuery={state.searchQuery}
-          searchHandler={handleSearch} // TODO throttle/debounce!
+          searchHandler={handleSearch}
           focusHandler={handleFocus}
           resetHandler={handleSearchReset}
           error={state.error}

@@ -14,7 +14,7 @@ export default {
   },
   userData: {},
   apiData: {
-    loading: false,
+    fetching: false,
     query: "",
     data: null,
     error: null,

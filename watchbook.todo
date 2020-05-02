@@ -15,7 +15,8 @@ Fixes:
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
   - non-serializable objects…
-  - recreate filter & sort
+  - recreate/redesign filter & sort
+  - data of prev query are in state when performing new query
 
 Optims/refactor:
   Things that work, but can be improved

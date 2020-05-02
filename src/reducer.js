@@ -204,21 +204,19 @@ const reducer = createReducer(initialState, {
     };
   },
 
-  /**
-   * apiData: {
-    loading: false,
-    query: "",
-    data: null,
-    error: null,
-  },
-   */
+  [fetchQueryDataPending](state, action) {
+    const {
+      payload: { query },
+    } = action;
 
-  [fetchQueryDataPending](state) {
     return {
       ...state,
       apiData: {
         ...state.apiData,
-        loading: true,
+        fetching: true,
+        query,
+        data: null,
+        error: null,
       },
     };
   },
@@ -232,7 +230,7 @@ const reducer = createReducer(initialState, {
       ...state,
       apiData: {
         ...state.apiData,
-        loading: false,
+        fetching: false,
         data,
       },
     };
@@ -247,7 +245,7 @@ const reducer = createReducer(initialState, {
       ...state,
       apiData: {
         ...state.apiData,
-        loading: false,
+        fetching: false,
         error,
       },
     };

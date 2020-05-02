@@ -14,22 +14,7 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Modal from "./components/Modal/Modal";
 import Spinner from "./components/Spinner/Spinner";
 import { connect } from "react-redux";
-import {
-  createToWatch,
-  createWatched,
-  deleteWatched,
-  destroyUser,
-  filterWatched,
-  getUser,
-  hideNotif,
-  initUser,
-  setApiKey,
-  setAuthState,
-  setInitialData,
-  showNotif,
-  toggleModal,
-  updateWatched,
-} from "./actions";
+import { initUser, setAuthState } from "./actions";
 import Routes from "./components/Routes";
 
 // global utils

@@ -2,10 +2,18 @@
 Sagas
 --------------------------------- */
 
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+  call,
+  put,
+  takeEvery,
+  takeLatest,
+  throttle,
+  delay,
+} from "redux-saga/effects";
 import { API_KEY_ID } from "./constants";
 import {
   showNotif,
+  fetchQueryDataRequest,
   fetchQueryDataPending,
   fetchQueryDataSuccess,
   fetchQueryDataError,
@@ -23,18 +31,22 @@ function* fetchQueryData(action) {
     payload: { query },
   } = action;
 
-  yield put(fetchQueryDataPending());
+  yield delay(1000);
+  yield put(fetchQueryDataPending({ query }));
 
   try {
     const request = yield call(
-      () => axios.get(requestUrl(apiKey, buildQuery({ s: query }))),
-      []
+      axios.get,
+      requestUrl(apiKey, buildQuery({ s: query }))
     );
+
     const { data: response } = request;
 
-    // we handle 200 responses
-    // that are considered errors
-    // by the API
+    /**
+     * we handle 200 responses
+     * that are considered errors
+     * by the API
+     */
     if ("Error" in response) {
       throw new Error(response.Error);
     }
@@ -81,6 +93,8 @@ function* fetchQueryData(action) {
       }
     }
 
+    // fetchQueryDataError?
+
     // we print the error response
     // by default, or undefined
     console.error(err.response || err.message);
@@ -88,11 +102,12 @@ function* fetchQueryData(action) {
 }
 
 /**
- * s
+ * fetchQueryDataWatcher
  */
 
-function* s() {
-  yield takeLatest("FETCH_QUERY_DATA_REQUEST", fetchQueryData);
+function* fetchQueryDataWatcher() {
+  // yield throttle(2000, `${fetchQueryDataRequest}`, fetchQueryData);
+  yield takeLatest(`${fetchQueryDataRequest}`, fetchQueryData);
 }
 
-export default s;
+export default fetchQueryDataWatcher;
