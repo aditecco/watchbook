@@ -37,7 +37,6 @@ function Home() {
       searchQuery: "",
       hasError: false,
       error: "",
-      selectedCard: {},
     }
   );
 

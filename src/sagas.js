@@ -114,4 +114,5 @@ function* fetchQueryDataWatcher() {
   yield takeLatest(`${fetchQueryDataRequest}`, fetchQueryData);
 }
 
+// TODO root Saga
 export default fetchQueryDataWatcher;

@@ -10,8 +10,9 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
-  - fix item search perf issues @high 
   - data of prev query are in state when performing new query @high 
+  - fix item search perf issues @high 
+    Appears to work fine on mobile
   - handle not found in item search
   - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
@@ -24,6 +25,7 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - better autosuggest loading state
   - handle long titles in notifs
   - create className utility
   - API key should be editable
@@ -59,6 +61,8 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
+  - create repo readme
+  - create website
   - create stats page
   - create persistent notifs
   - add _notes_ feature
