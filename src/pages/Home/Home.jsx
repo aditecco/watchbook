@@ -318,7 +318,7 @@ function Home() {
 
         {state.showSearchResults && (
           <AutoSuggest
-            content={apiData.data && apiData.data.Search}
+            content={(apiData.data && apiData.data.Search) || null}
             onItemClick={handleAutoSuggestClick}
             limit={5}
           />
