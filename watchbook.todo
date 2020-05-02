@@ -10,13 +10,15 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
+  - fix item search perf issues
+  - data of prev query are in state when performing new query
+  - handle not found in item search
   - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
   - non-serializable objects…
   - recreate/redesign filter & sort
-  - data of prev query are in state when performing new query
 
 Optims/refactor:
   Things that work, but can be improved
@@ -25,7 +27,6 @@ Optims/refactor:
   - handle long titles in notifs
   - create className utility
   - API key should be editable
-  - throttle or debounce `fetchQueryData`
   - infinite scroll loading indicator visible in filter view
   - refine item search skeleton loader
   - remove ranges from years filter @quick
@@ -120,6 +121,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ throttle or debounce `fetchQueryData` @done(20-05-02 14:49) @project(Optims/refactor)
   ✔ Implement 'show more' for autosuggest @done(20-05-01 23:10) @project(Features/stories)
   ✔ remove 'movie not found' errors from the UI -- handle API errors properly @done(20-05-01 16:50) @project(Optims/refactor)
   ✔ show auth errors in the UI @done(20-05-01 01:54) @project(Fixes)

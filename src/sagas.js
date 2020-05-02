@@ -78,7 +78,11 @@ function* fetchQueryData(action) {
       // we don't surface to the UI some frequent errors
 
       if (
-        ["not found", "too many"].every(
+        // prettier-ignore
+        [
+          "not found",
+          "too many"
+        ].every(
           blacklistedItem =>
             !err.message.toLowerCase().includes(blacklistedItem)
         )
