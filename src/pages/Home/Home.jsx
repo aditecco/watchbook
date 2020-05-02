@@ -34,7 +34,6 @@ function Home() {
     {
       loading: false,
       showSearchResults: false,
-      searchResults: null,
       searchQuery: "",
       hasError: false,
       error: "",
@@ -110,7 +109,6 @@ function Home() {
       showSearchResults: false,
       loading: false,
       searchQuery: "",
-      searchResults: null,
     });
   }
 
@@ -160,7 +158,6 @@ function Home() {
       showSearchResults: false,
       loading: false,
       searchQuery: "",
-      searchResults: null,
     });
   }
 
@@ -214,7 +211,6 @@ function Home() {
       showSearchResults: false,
       loading: false,
       searchQuery: "",
-      searchResults: null,
       hasError: false,
       error: "",
     });
