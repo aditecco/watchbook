@@ -10,8 +10,8 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
-  - fix item search perf issues
-  - data of prev query are in state when performing new query
+  - fix item search perf issues @high 
+  - data of prev query are in state when performing new query @high 
   - handle not found in item search
   - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
@@ -34,6 +34,10 @@ Optims/refactor:
   - merge handleAddToWatch & handleAddWatched @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
   - move async logic to saga @focus
+    ✔ content search @done(20-05-02 15:15)
+    - additional info
+    - auth
+    - fetchDBdata
   - fine-tune styles
     - signup/login switcher @quick 
     background: radial-gradient(at bottom center, transparent 60%, rgba(0, 0, 0, 0.9));
