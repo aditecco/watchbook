@@ -6,7 +6,6 @@ import React, { useEffect, useReducer } from "react";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import * as firebase from "firebase/app";
-import "firebase/auth";
 import { log } from "../../utils";
 import { Redirect } from "react-router-dom";
 import MaterialIcon from "../../components/Misc/MaterialIcon";

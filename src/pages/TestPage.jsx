@@ -8,7 +8,6 @@ import PageHeader from "../components/PageHeader/PageHeader";
 import { AuthContext, db } from "../App";
 import { log } from "../utils";
 import * as firebase from "firebase/app";
-import "firebase/auth";
 
 export default function TestPage() {
   const [{ user }] = useContext(AuthContext);
@@ -39,7 +38,7 @@ export default function TestPage() {
 
     return {
       watched: await watched.val(),
-      movies: await movies.val()
+      movies: await movies.val(),
     };
   }
 

@@ -3,8 +3,6 @@ createRemoteContent
 --------------------------------- */
 
 import React from "react";
-import * as firebase from "firebase/app";
-import "firebase/database";
 import { put, takeEvery, select } from "redux-saga/effects";
 import {
   showNotif,
@@ -16,9 +14,7 @@ import {
 } from "../redux/actions";
 import uuidv4 from "uuid";
 import MaterialIcon from "../components/Misc/MaterialIcon";
-
-// db init
-const db = firebase.database();
+import { db } from "../index";
 
 function* createRemoteContentSaga(action) {
   const {

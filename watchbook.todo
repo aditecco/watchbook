@@ -16,7 +16,7 @@ Fixes:
   - fix app root URL
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
-  - non-serializable objects…
+  - "A non-serializable value was detected in the state"
   - recreate/redesign filter & sort
 
 Optims/refactor:

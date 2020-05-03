@@ -5,7 +5,6 @@ Auth
 import React, { useReducer, useState } from "react";
 import { log, storage, capitalize } from "../../utils";
 import * as firebase from "firebase/app";
-import "firebase/auth";
 import { Redirect } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";

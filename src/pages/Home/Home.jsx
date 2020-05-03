@@ -12,7 +12,7 @@ import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
 import { requestUrl, buildQuery, storage, log } from "../../utils";
-import { db } from "../../App";
+import { db } from "../../index";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
 import { useSelector, useDispatch } from "react-redux";
