@@ -19,11 +19,10 @@ export const setInitialData = createAction("SET_INITIAL_DATA");
 export const showNotif = createAction("SHOW_NOTIF");
 export const toggleModal = createAction("TOGGLE_MODAL");
 export const updateWatched = createAction("UPDATE_WATCHED");
-export const fetchQueryDataRequest = createAction("FETCH_QUERY_DATA_REQUEST");
+export const fetchQueryData = createAction("FETCH_QUERY_DATA");
 export const fetchQueryDataPending = createAction("FETCH_QUERY_DATA_PENDING");
 export const fetchQueryDataSuccess = createAction("FETCH_QUERY_DATA_SUCCESS");
 export const fetchQueryDataError = createAction("FETCH_QUERY_DATA_ERROR");
 export const resetQueryData = createAction("RESET_QUERY_DATA");
-export const fetchAdditionalDataRequest = createAction(
-  "FETCH_ADDITIONAL_DATA_REQUEST"
-);
+export const fetchAdditionalData = createAction("FETCH_ADDITIONAL_DATA");
+export const createRemoteContent = createAction("CREATE_CONTENT");

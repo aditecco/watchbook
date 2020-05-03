@@ -13,6 +13,8 @@ export default {
     user: null,
   },
   userData: {},
+  // TODO rename 'remoteData'
+  // remoteData { contentSearch: {...}, additionalData: {...} }
   apiData: {
     fetching: false,
     query: "",

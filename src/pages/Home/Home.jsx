@@ -22,8 +22,8 @@ import {
   createToWatch,
   toggleModal,
   createWatched,
-  fetchQueryDataRequest,
-  fetchAdditionalDataRequest,
+  fetchQueryData,
+  fetchAdditionalData,
   resetQueryData,
 } from "../../redux/actions";
 
@@ -55,17 +55,6 @@ function Home() {
   const contentRef = db.ref("content");
 
   /**
-   * Gets data from API based on
-   * the user's query
-   */
-
-  function fetchQueryData(query) {
-    setState({ loading: true, showSearchResults: true });
-
-    dispatch(fetchQueryDataRequest({ query }));
-  }
-
-  /**
    * Handles creation of new to-watch items
    */
 
@@ -81,30 +70,30 @@ function Home() {
 
     dispatch(createToWatch({ toWatchItem: newItem, uid }));
 
-    const newItemRef = contentRef.push().key;
+    // const newItemRef = contentRef.push().key;
 
-    const updates = {
-      [`/content/${newItemRef}`]: newItem,
-      [`/users/${uid}/toWatch/${newItemRef}`]: true,
-    };
+    // const updates = {
+    //   [`/content/${newItemRef}`]: newItem,
+    //   [`/users/${uid}/toWatch/${newItemRef}`]: true,
+    // };
 
-    dbRef.update(updates, err => {
-      if (err) {
-        // TODO handle error
-        console.error(err);
-      } else {
-        dispatch(toggleModal());
+    // dbRef.update(updates, err => {
+    //   if (err) {
+    //     // TODO handle error
+    //     console.error(err);
+    //   } else {
+    //     dispatch(toggleModal());
 
-        dispatch(
-          showNotif({
-            message: `To Watch: ${newItem.title}`,
-            icon: <MaterialIcon icon="bookmark" />,
-            timeOut: 2000,
-            theme: "light",
-          })
-        );
-      }
-    });
+    //     dispatch(
+    //       showNotif({
+    //         message: `To Watch: ${newItem.title}`,
+    //         icon: <MaterialIcon icon="bookmark" />,
+    //         timeOut: 2000,
+    //         theme: "light",
+    //       })
+    //     );
+    //   }
+    // });
 
     setState({
       showSearchResults: false,
@@ -200,7 +189,11 @@ function Home() {
     const { value: searchQuery } = e.currentTarget;
 
     if (searchQuery.length > 2) {
-      detectDuplicates(searchQuery, fetchQueryData);
+      detectDuplicates(searchQuery, query => {
+        setState({ loading: true, showSearchResults: true });
+
+        dispatch(fetchQueryData({ query }));
+      });
     }
 
     setState({ searchQuery });
@@ -245,7 +238,7 @@ function Home() {
    */
 
   function handleAutoSuggestClick(id) {
-    dispatch(fetchAdditionalDataRequest({ id }));
+    dispatch(fetchAdditionalData({ id }));
   }
 
   /**

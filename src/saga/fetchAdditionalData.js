@@ -5,22 +5,18 @@ fetchAdditionalData
 import React from "react";
 import { call, put, takeEvery, delay, select } from "redux-saga/effects";
 import { API_KEY_ID } from "../constants";
-import {
-  showNotif,
-  fetchAdditionalDataRequest,
-  toggleModal,
-} from "../redux/actions";
+import { showNotif, fetchAdditionalData, toggleModal } from "../redux/actions";
 import { log, storage, requestUrl, buildQuery } from "../utils";
 import axios from "axios";
 import Card from "../components/Card/Card";
 
 /**
- * fetchAdditionalData
+ * fetchAdditionalDataSaga
  */
 
 const apiKey = storage.pull(API_KEY_ID);
 
-function* fetchAdditionalData(action) {
+function* fetchAdditionalDataSaga(action) {
   const {
     payload: { id },
   } = action;
@@ -68,5 +64,5 @@ function* fetchAdditionalData(action) {
  */
 
 export default function* fetchAdditionalDataWatcher() {
-  yield takeEvery(`${fetchAdditionalDataRequest}`, fetchAdditionalData);
+  yield takeEvery(`${fetchAdditionalData}`, fetchAdditionalDataSaga);
 }

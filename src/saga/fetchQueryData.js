@@ -6,7 +6,7 @@ import { call, put, takeLatest, delay } from "redux-saga/effects";
 import { API_KEY_ID } from "../constants";
 import {
   showNotif,
-  fetchQueryDataRequest,
+  fetchQueryData,
   fetchQueryDataPending,
   fetchQueryDataSuccess,
   fetchQueryDataError,
@@ -15,10 +15,10 @@ import { log, storage, requestUrl, buildQuery } from "../utils";
 import axios from "axios";
 
 /**
- * fetchQueryData
+ * fetchQueryDataSaga
  */
 
-function* fetchQueryData(action) {
+function* fetchQueryDataSaga(action) {
   const apiKey = storage.pull(API_KEY_ID);
   const {
     payload: { query },
@@ -103,5 +103,5 @@ function* fetchQueryData(action) {
 
 export default function* fetchQueryDataWatcher() {
   // yield throttle(2000, `${fetchQueryDataRequest}`, fetchQueryData);
-  yield takeLatest(`${fetchQueryDataRequest}`, fetchQueryData);
+  yield takeLatest(`${fetchQueryData}`, fetchQueryDataSaga);
 }
