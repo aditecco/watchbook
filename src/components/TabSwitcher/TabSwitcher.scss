@@ -3,6 +3,8 @@ TabSwitcher
 --------------------------------- */
 
 .TabSwitcher {
+  padding: 1rem;
+
   .TabHeader {
     @include flex(row wrap, center, flex-end);
     margin-bottom: 1rem;

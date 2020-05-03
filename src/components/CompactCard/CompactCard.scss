@@ -23,6 +23,9 @@
     overflow: hidden;
     height: 90px;
     flex: 30% 0 0;
+    // some browsers won't
+    // register the shrink prop
+    flex-shrink: 0;
 
     .CompactCardPoster {
       display: block;
