@@ -10,7 +10,7 @@ import "firebase/auth";
 import { log } from "../../utils";
 import { Redirect } from "react-router-dom";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
-import { destroyUser } from "../../actions";
+import { destroyUser } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Profile() {

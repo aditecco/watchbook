@@ -24,7 +24,7 @@ import {
   createWatched,
   fetchQueryDataRequest,
   resetQueryData,
-} from "../../actions";
+} from "../../redux/actions";
 
 function Home() {
   const [state, setState] = useReducer(

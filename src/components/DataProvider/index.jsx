@@ -5,7 +5,7 @@ DataProvider
 import React, { useState, useEffect } from "react";
 import { db } from "../../App";
 import { log } from "../../utils";
-import { setInitialData } from "../../actions";
+import { setInitialData } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import Spinner from "../Spinner/Spinner";
 

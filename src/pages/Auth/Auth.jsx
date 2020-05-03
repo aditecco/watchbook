@@ -11,7 +11,7 @@ import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
 import { useSelector, useDispatch } from "react-redux";
-import { showNotif } from "../../actions";
+import { showNotif } from "../../redux/actions";
 
 export const AuthForm = ({ action, actionHandler }) => {
   const [email, setEmail] = useState("");

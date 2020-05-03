@@ -4,8 +4,8 @@ store
 
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import reducer from "./reducer";
-import sagas from "./sagas";
+import reducer from "./redux/reducer";
+import sagas from "./saga/";
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];

@@ -1,24 +1,17 @@
 /* ---------------------------------
-Sagas
+fetchQueryData
 --------------------------------- */
 
-import {
-  call,
-  put,
-  takeEvery,
-  takeLatest,
-  throttle,
-  delay,
-} from "redux-saga/effects";
-import { API_KEY_ID } from "./constants";
+import { call, put, takeLatest, delay } from "redux-saga/effects";
+import { API_KEY_ID } from "../constants";
 import {
   showNotif,
   fetchQueryDataRequest,
   fetchQueryDataPending,
   fetchQueryDataSuccess,
   fetchQueryDataError,
-} from "./actions";
-import { log, storage, requestUrl, buildQuery } from "./utils";
+} from "../redux/actions";
+import { log, storage, requestUrl, buildQuery } from "../utils";
 import axios from "axios";
 
 /**
@@ -113,5 +106,4 @@ function* fetchQueryDataWatcher() {
   yield takeLatest(`${fetchQueryDataRequest}`, fetchQueryData);
 }
 
-// TODO root Saga
 export default fetchQueryDataWatcher;

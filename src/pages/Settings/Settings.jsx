@@ -8,7 +8,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import { API_KEY_ID } from "../../constants";
 import { log, storage } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
-import { setApiKey } from "../../actions";
+import { setApiKey } from "../../redux/actions";
 
 export default function Settings() {
   const [input, setInput] = useState("");

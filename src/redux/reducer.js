@@ -3,7 +3,7 @@ reducer
 --------------------------------- */
 
 import { createReducer } from "@reduxjs/toolkit";
-import { log } from "./utils";
+import { log } from "../utils";
 import initialState from "./initialState";
 import {
   createToWatch,

@@ -4,7 +4,7 @@ NotificationMessage
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hideNotif } from "../../actions";
+import { hideNotif } from "../../redux/actions";
 
 export default function NotificationMessage() {
   const dispatch = useDispatch();

@@ -34,7 +34,7 @@ Optims/refactor:
   - merge handleAddToWatch & handleAddWatched @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
   - move async logic to saga @focus
-      content search
+      √ content search
       additional info
       auth
       fetchDBdata
