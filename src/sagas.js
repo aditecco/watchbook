@@ -53,15 +53,13 @@ function* fetchQueryData(action) {
 
     yield put(fetchQueryDataSuccess({ response }));
     //
-  } catch (err) {
-    // yield put(fetchQueryDataError({ err }));
-
+  } catch (error) {
     // the augmented error
-    if ("response" in err) {
+    if ("response" in error) {
       const {
         status,
         data: { Error: message },
-      } = err.response;
+      } = error.response;
 
       yield put(
         showNotif({
@@ -84,12 +82,12 @@ function* fetchQueryData(action) {
           "too many"
         ].every(
           blacklistedItem =>
-            !err.message.toLowerCase().includes(blacklistedItem)
+            !error.message.toLowerCase().includes(blacklistedItem)
         )
       ) {
         yield put(
           showNotif({
-            message: `Error: ${err.message}`,
+            message: `Error: ${error.message}`,
             icon: null,
             timeOut: 4000,
           })
@@ -101,7 +99,8 @@ function* fetchQueryData(action) {
 
     // we print the error response
     // by default, or undefined
-    console.error(err.response || err.message);
+    yield put(fetchQueryDataError({ error: error.response || error.message }));
+    console.error(error.response || error.message);
   }
 }
 
