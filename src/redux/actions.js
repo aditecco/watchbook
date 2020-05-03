@@ -24,3 +24,6 @@ export const fetchQueryDataPending = createAction("FETCH_QUERY_DATA_PENDING");
 export const fetchQueryDataSuccess = createAction("FETCH_QUERY_DATA_SUCCESS");
 export const fetchQueryDataError = createAction("FETCH_QUERY_DATA_ERROR");
 export const resetQueryData = createAction("RESET_QUERY_DATA");
+export const fetchAdditionalDataRequest = createAction(
+  "FETCH_ADDITIONAL_DATA_REQUEST"
+);

@@ -101,9 +101,7 @@ function* fetchQueryData(action) {
  * fetchQueryDataWatcher
  */
 
-function* fetchQueryDataWatcher() {
+export default function* fetchQueryDataWatcher() {
   // yield throttle(2000, `${fetchQueryDataRequest}`, fetchQueryData);
   yield takeLatest(`${fetchQueryDataRequest}`, fetchQueryData);
 }
-
-export default fetchQueryDataWatcher;

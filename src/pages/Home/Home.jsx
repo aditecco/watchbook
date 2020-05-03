@@ -23,6 +23,7 @@ import {
   toggleModal,
   createWatched,
   fetchQueryDataRequest,
+  fetchAdditionalDataRequest,
   resetQueryData,
 } from "../../redux/actions";
 
@@ -244,55 +245,7 @@ function Home() {
    */
 
   function handleAutoSuggestClick(id) {
-    const which = apiData.data.Search.find(item => item.imdbID === id);
-
-    setState({ loading: true });
-
-    fetchAdditionalData(id).then(additionalData => {
-      setState({ loading: false });
-
-      dispatch(
-        toggleModal({
-          content: (
-            <Card
-              image={which.Poster}
-              title={which.Title}
-              type={which.Type}
-              year={which.Year}
-              additionalData={additionalData}
-              onWatchedClick={handleAddWatched}
-              onToWatchClick={handleAddToWatch}
-            />
-          ),
-        })
-      );
-    });
-  }
-
-  /**
-   * Gets additional data for the selected card
-   */
-
-  async function fetchAdditionalData(id) {
-    // prettier-ignore
-    try
-    {
-      const request = await axios.get(
-        requestUrl(apiKey, buildQuery({ i: id }))
-      );
-
-      return request.data;
-    }
-    
-    catch (err) {
-      dispatch(
-        showNotif({
-          message: err.message,
-          icon: null,
-          timeOut: 4000,
-        })
-      );
-    }
+    dispatch(fetchAdditionalDataRequest({ id }));
   }
 
   /**
