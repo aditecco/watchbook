@@ -96,6 +96,7 @@ export default function Card({
               {/* TODO maybe find a better prop name */}
               {!added && (
                 <>
+                  {/* TO WATCH */}
                   <button
                     className="CardControlsButton"
                     type="button"
@@ -103,6 +104,7 @@ export default function Card({
                       e.preventDefault();
 
                       onToWatchClick({
+                        contentType: "toWatch",
                         image,
                         title,
                         type,
@@ -114,6 +116,7 @@ export default function Card({
                     To Watch <i className="material-icons">bookmark</i>
                   </button>
 
+                  {/* WATCHED */}
                   <button
                     className="CardControlsButton"
                     type="button"
@@ -121,6 +124,7 @@ export default function Card({
                       e.preventDefault();
 
                       onWatchedClick({
+                        contentType: "watched",
                         image,
                         title,
                         type,

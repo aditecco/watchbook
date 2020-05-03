@@ -25,4 +25,13 @@ export const fetchQueryDataSuccess = createAction("FETCH_QUERY_DATA_SUCCESS");
 export const fetchQueryDataError = createAction("FETCH_QUERY_DATA_ERROR");
 export const resetQueryData = createAction("RESET_QUERY_DATA");
 export const fetchAdditionalData = createAction("FETCH_ADDITIONAL_DATA");
-export const createRemoteContent = createAction("CREATE_CONTENT");
+export const createRemoteContent = createAction("CREATE_REMOTE_CONTENT");
+export const createRemoteContentPending = createAction(
+  "CREATE_REMOTE_CONTENT_PENDING"
+);
+export const createRemoteContentSuccess = createAction(
+  "CREATE_REMOTE_CONTENT_SUCCESS"
+);
+export const createRemoteContentError = createAction(
+  "CREATE_REMOTE_CONTENT_ERROR"
+);

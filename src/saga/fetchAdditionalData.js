@@ -5,10 +5,16 @@ fetchAdditionalData
 import React from "react";
 import { call, put, takeEvery, delay, select } from "redux-saga/effects";
 import { API_KEY_ID } from "../constants";
-import { showNotif, fetchAdditionalData, toggleModal } from "../redux/actions";
+import {
+  showNotif,
+  fetchAdditionalData,
+  toggleModal,
+  createRemoteContent,
+} from "../redux/actions";
 import { log, storage, requestUrl, buildQuery } from "../utils";
 import axios from "axios";
 import Card from "../components/Card/Card";
+import store from "../store";
 
 /**
  * fetchAdditionalDataSaga
@@ -42,8 +48,13 @@ function* fetchAdditionalDataSaga(action) {
             type={which.Type}
             year={which.Year}
             additionalData={request.data}
-            // onWatchedClick={handleAddWatched}
-            // onToWatchClick={handleAddToWatch}
+            // TODO!!!
+            onWatchedClick={data =>
+              store.dispatch(createRemoteContent({ data }))
+            }
+            onToWatchClick={data =>
+              store.dispatch(createRemoteContent({ data }))
+            }
           />
         ),
       })

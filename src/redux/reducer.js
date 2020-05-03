@@ -24,6 +24,9 @@ import {
   fetchQueryDataError,
   fetchQueryDataSuccess,
   resetQueryData,
+  createRemoteContentPending,
+  createRemoteContentSuccess,
+  createRemoteContentError,
 } from "./actions";
 
 const userDataTemplate = {
@@ -266,6 +269,18 @@ const reducer = createReducer(initialState, {
         error: null,
       },
     };
+  },
+
+  [createRemoteContentPending](state, action) {
+    return state;
+  },
+
+  [createRemoteContentSuccess](state, action) {
+    return state;
+  },
+
+  [createRemoteContentError](state, action) {
+    return state;
   },
 
   // end

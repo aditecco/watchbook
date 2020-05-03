@@ -3,46 +3,75 @@ createRemoteContent
 --------------------------------- */
 
 import React from "react";
-import { call, put, takeEvery, delay, select } from "redux-saga/effects";
-import { API_KEY_ID } from "../constants";
+import * as firebase from "firebase/app";
+import "firebase/database";
+import { put, takeEvery, select } from "redux-saga/effects";
 import {
   showNotif,
-  fetchAdditionalData,
   toggleModal,
   createRemoteContent,
+  createRemoteContentPending,
+  createRemoteContentError,
+  createRemoteContentSuccess,
 } from "../redux/actions";
-import { log, storage, requestUrl, buildQuery } from "../utils";
-import axios from "axios";
-import Card from "../components/Card/Card";
+import uuidv4 from "uuid";
+import MaterialIcon from "../components/Misc/MaterialIcon";
 
-/**
- * createContent
- */
-
-const apiKey = storage.pull(API_KEY_ID);
+// db init
+const db = firebase.database();
 
 function* createRemoteContentSaga(action) {
-  // const newItemRef = contentRef.push().key;
-  // const updates = {
-  //   [`/content/${newItemRef}`]: newItem,
-  //   [`/users/${uid}/toWatch/${newItemRef}`]: true,
-  // };
-  // dbRef.update(updates, err => {
-  //   if (err) {
-  //     // TODO handle error
-  //     console.error(err);
-  //   } else {
-  //     dispatch(toggleModal());
-  //     dispatch(
-  //       showNotif({
-  //         message: `To Watch: ${newItem.title}`,
-  //         icon: <MaterialIcon icon="bookmark" />,
-  //         timeOut: 2000,
-  //         theme: "light",
-  //       })
-  //     );
-  //   }
-  // });
+  const {
+    payload: { data },
+  } = action;
+
+  const id = uuidv4();
+  const timestamp = Date.now();
+  const authSelector = state => state.authentication;
+
+  const newItem = {
+    id,
+    timestamp,
+    // TODO remove contentType
+    ...data,
+  };
+
+  const {
+    user: { uid },
+  } = yield select(authSelector);
+
+  yield put(createRemoteContentPending());
+
+  try {
+    const dbRef = db.ref();
+    const contentRef = db.ref("content");
+    const newItemRef = contentRef.push().key;
+
+    const updates = {
+      [`/content/${newItemRef}`]: newItem,
+      [`/users/${uid}/${data.contentType}/${newItemRef}`]: true,
+    };
+
+    yield dbRef.update(updates);
+
+    yield put(createRemoteContentSuccess());
+
+    yield put(toggleModal());
+
+    yield put(
+      showNotif({
+        // TODO
+        message: `${data.contentType}: ${newItem.title}`,
+        icon: <MaterialIcon icon="bookmark" />,
+        timeOut: 2000,
+        theme: "light",
+      })
+    );
+  } catch (error) {
+    //
+    console.error(error);
+    yield put(createRemoteContentError());
+  }
 }
 
 /**
