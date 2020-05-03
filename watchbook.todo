@@ -31,13 +31,13 @@ Optims/refactor:
   - refine item search skeleton loader
   - remove ranges from years filter @quick
   - enforce fixed order in item data sheet @quick 
-  - merge handleAddToWatch & handleAddWatched @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
   - move async logic to saga @focus
       √ content search
-      additional info
+      √ additional info
       auth
       fetchDBdata
+      √ create content
     - additional info
     - auth
     - fetchDBdata
@@ -131,6 +131,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ merge handleAddToWatch & handleAddWatched @quick @done(20-05-04 01:16) @project(Optims/refactor)
+  ✔ create content @done(20-05-04 01:16) @project(Optims/refactor)
   ✔ fix item search perf issues @high @done(20-05-02 16:03) @project(Fixes)
     Appears to work fine on mobile
   ✔ content search @done(20-05-02 15:15) @project(Optims/refactor)

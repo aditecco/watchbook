@@ -20,13 +20,12 @@ import store from "../store";
  * fetchAdditionalDataSaga
  */
 
-const apiKey = storage.pull(API_KEY_ID);
-
 function* fetchAdditionalDataSaga(action) {
   const {
     payload: { id },
   } = action;
 
+  const apiKey = storage.pull(API_KEY_ID);
   const apiDataSelector = state => state.apiData;
 
   try {
@@ -48,7 +47,7 @@ function* fetchAdditionalDataSaga(action) {
             type={which.Type}
             year={which.Year}
             additionalData={request.data}
-            // TODO!!!
+            // TODO avoid using dispatch
             onWatchedClick={data =>
               store.dispatch(createRemoteContent({ data }))
             }

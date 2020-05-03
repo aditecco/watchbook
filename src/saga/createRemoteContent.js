@@ -3,7 +3,7 @@ createRemoteContent
 --------------------------------- */
 
 import React from "react";
-import { put, takeEvery, select } from "redux-saga/effects";
+import { put, takeEvery, select, all } from "redux-saga/effects";
 import {
   showNotif,
   toggleModal,
@@ -11,10 +11,17 @@ import {
   createRemoteContentPending,
   createRemoteContentError,
   createRemoteContentSuccess,
+  createWatched,
+  createToWatch,
+  resetQueryData,
 } from "../redux/actions";
 import uuidv4 from "uuid";
 import MaterialIcon from "../components/Misc/MaterialIcon";
 import { db } from "../index";
+
+/**
+ * createRemoteContentSaga
+ */
 
 function* createRemoteContentSaga(action) {
   const {
@@ -48,6 +55,14 @@ function* createRemoteContentSaga(action) {
       [`/users/${uid}/${data.contentType}/${newItemRef}`]: true,
     };
 
+    // TODO should we handle this outside the saga?
+    yield put(
+      data.contentType === "watched"
+        ? createWatched({ watchedItem: newItem, uid })
+        : createToWatch({ toWatchItem: newItem, uid })
+    );
+
+    // TODO use call
     yield dbRef.update(updates);
 
     yield put(createRemoteContentSuccess());
@@ -63,15 +78,18 @@ function* createRemoteContentSaga(action) {
         theme: "light",
       })
     );
+
+    yield put(resetQueryData());
+    //
   } catch (error) {
     //
     console.error(error);
-    yield put(createRemoteContentError());
+    yield put(createRemoteContentError({ error }));
   }
 }
 
 /**
- * createContentWatcher
+ * createRemoteContentWatcher
  */
 
 export default function* createRemoteContentWatcher() {

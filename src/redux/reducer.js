@@ -271,16 +271,40 @@ const reducer = createReducer(initialState, {
     };
   },
 
-  [createRemoteContentPending](state, action) {
-    return state;
+  [createRemoteContentPending](state) {
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        fetching: true,
+      },
+    };
   },
 
-  [createRemoteContentSuccess](state, action) {
-    return state;
+  [createRemoteContentSuccess](state) {
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        fetching: false,
+      },
+    };
   },
 
   [createRemoteContentError](state, action) {
-    return state;
+    // TODO avoid duplication with fetchQueryDataError
+    const {
+      payload: { error },
+    } = action;
+
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        fetching: false,
+        error,
+      },
+    };
   },
 
   // end
