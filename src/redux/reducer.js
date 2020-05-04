@@ -221,6 +221,7 @@ const reducer = createReducer(initialState, {
         query,
         data: null,
         error: null,
+        resetSignal: false,
       },
     };
   },
@@ -267,6 +268,7 @@ const reducer = createReducer(initialState, {
         query: "",
         data: null,
         error: null,
+        resetSignal: true,
       },
     };
   },
@@ -277,6 +279,7 @@ const reducer = createReducer(initialState, {
       apiData: {
         ...state.apiData,
         fetching: true,
+        resetSignal: false,
       },
     };
   },

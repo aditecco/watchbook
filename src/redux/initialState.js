@@ -20,6 +20,7 @@ export default {
     query: "",
     data: null,
     error: null,
+    resetSignal: false,
   },
   notificationMessage: {
     isVisible: false,

@@ -130,6 +130,11 @@ function Home() {
     window.scrollTo(0, 0);
   }, []);
 
+  // TODO maybe there's a better way
+  useEffect(() => {
+    apiData.resetSignal && setState({ searchQuery: "" });
+  }, [apiData.resetSignal]);
+
   return (
     <Layout rootClass="Home" selected={1}>
       {/* ========================
