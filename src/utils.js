@@ -78,3 +78,13 @@ export function capitalize(word) {
 
   return capitalizer(word);
 }
+
+// filterKeys
+// TODO support for more than 1 filtered item
+export function filterKeys(obj, filtered) {
+  return Object.entries(obj).reduce((acc, [k, val]) => {
+    k !== filtered && (acc[k] = val);
+
+    return acc;
+  }, {});
+}

@@ -3,7 +3,7 @@ fetchAdditionalData
 --------------------------------- */
 
 import React from "react";
-import { call, put, takeEvery, delay, select } from "redux-saga/effects";
+import { call, put, takeEvery, select } from "redux-saga/effects";
 import { API_KEY_ID } from "../constants";
 import {
   showNotif,

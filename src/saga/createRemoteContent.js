@@ -3,7 +3,7 @@ createRemoteContent
 --------------------------------- */
 
 import React from "react";
-import { put, takeEvery, select, all } from "redux-saga/effects";
+import { put, takeEvery, select } from "redux-saga/effects";
 import {
   showNotif,
   toggleModal,
@@ -18,6 +18,7 @@ import {
 import uuidv4 from "uuid";
 import MaterialIcon from "../components/Misc/MaterialIcon";
 import { db } from "../index";
+import { filterKeys } from "../utils";
 
 /**
  * createRemoteContentSaga
@@ -35,8 +36,7 @@ function* createRemoteContentSaga(action) {
   const newItem = {
     id,
     timestamp,
-    // TODO remove contentType
-    ...data,
+    ...filterKeys(data, "contentType"),
   };
 
   const {

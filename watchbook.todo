@@ -10,6 +10,8 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
+  - when network is slow, local content is created with a delay
+  - show some kind of user feefback for the error response
   - data of prev query are in state when performing new query @high 
   - handle not found in item search
   - empty select option in Firefox shows '1924' even though the value is ''
