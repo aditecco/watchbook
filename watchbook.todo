@@ -133,6 +133,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ make cards bigger on screens > 360px w @done(20-05-07 01:55) @project(Optims/refactor)
   ✔ merge handleAddToWatch & handleAddWatched @quick @done(20-05-04 01:16) @project(Optims/refactor)
   ✔ create content @done(20-05-04 01:16) @project(Optims/refactor)
   ✔ fix item search perf issues @high @done(20-05-02 16:03) @project(Fixes)

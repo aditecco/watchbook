@@ -24,7 +24,13 @@ Modal
       width: $cardMinWidth;
 
       @media screen and (min-width: 360px) {
-        width: $cardMaxWidth;
+        width: $cardInModalWidth;
+        height: $cardInModalHeight;
+
+        .CardMedia,
+        .Card.back {
+          height: $cardInModalHeight;
+        }
       }
     }
   }
