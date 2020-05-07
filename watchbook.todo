@@ -11,20 +11,21 @@ Fixes:
   *******************************
   - …
   - when network is slow, local content is created with a delay
-  - show some kind of user feefback for the error response
-  - data of prev query are in state when performing new query @high 
+  - show some kind of user feedback for the error response
   - handle not found in item search
   - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
   - "A non-serializable value was detected in the state"
-  - recreate/redesign filter & sort
 
 Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - refactor routes w/o PrivateRoute
+  - fine-tune sagas (esp. additional info)
+  - recreate/redesign filter & sort
   - better autosuggest loading state
   - handle long titles in notifs
   - create className utility
@@ -40,7 +41,6 @@ Optims/refactor:
       auth
       fetchDBdata
       √ create content
-    - additional info
     - auth
     - fetchDBdata
   - fine-tune styles
@@ -51,10 +51,10 @@ Optims/refactor:
   - actually implement Typescript
   - refactor to extract components where due
     - …
-  - rename WatchedList as content-agnostic
+  - rename WatchedList as content-agnostic @quick 
   - Complete DataProvider
     - …
-    - move user init to other specialized component
+    - move user init to ~~other specialized component~~ saga
     - init settings in new users
     - make it modular (dataset…)
   - CSS
@@ -70,7 +70,7 @@ Features/stories:
   - create advanced search by IMDB ID
   - manually add a title
   - create repo readme
-  - create website
+  - create website @focus 
   - create stats page
   - create persistent notifs
   - add _notes_ feature
@@ -81,10 +81,10 @@ Features/stories:
   - [TO-WATCH] to watch cards should have the ability to be converted to watched
   - card deletion
   - implement search with Algolia
-  - create mobile app icon & landing page
-  - create public demo version (no private pages)
+  - create mobile app icon & landing page @focus 
+  - create public demo version (no private pages) @focus 
     w/ static dataset http://files.tmdb.org
-  - create dark theme
+  - create dark theme @focus 
   - add fullscreen mode to cards
   - add reload button to watched & toWatch (re-fetches loads cards if 
   - Implement PWA @focus
@@ -99,15 +99,16 @@ Features/stories:
     - add skeleton loader for card backs or card loading placeholder @focus
     
   lost)
-  - add page transitions on page change
+  - add page transitions on page change @focus 
     https://github.com/react-spring/react-spring-examples/blob/renderprops/demos/renderprops/pagetransitions/index.js
-  - [WATCHED] add reset button to filter fields
+  ✔ [WATCHED] add reset button to filter fields @done(20-05-08 00:53)
   - save API key to DB
   - create validators for input fields
   - add user name to login notif
   - add user config options to profile page
   - Add signout notif
   - allow multiple data sources (APIs)
+  - add technical info to settings page/create about page @quick 
   - sync local data to DB when performing CRUD operations
     - update
     - delete
@@ -137,6 +138,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ data of prev query are in state when performing new query @high @done(20-05-08 00:47) @project(Fixes)
+  ✔ additional info @done(20-05-08 00:48) @project(Optims/refactor)
   ✔ make cards bigger on screens > 360px w @done(20-05-07 01:55) @project(Optims/refactor)
   ✔ merge handleAddToWatch & handleAddWatched @quick @done(20-05-04 01:16) @project(Optims/refactor)
   ✔ create content @done(20-05-04 01:16) @project(Optims/refactor)
