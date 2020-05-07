@@ -22,6 +22,13 @@ export default {
     data: null,
     error: null,
     resetSignal: false,
+    cardData: {
+      fetching: false,
+      query: "",
+      data: null,
+      error: null,
+      resetSignal: false,
+    },
   },
   notificationMessage: {
     isVisible: false,

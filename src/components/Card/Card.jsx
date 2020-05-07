@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { log } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { useSpring, animated } from "react-spring";
+import { useDispatch } from "react-redux";
+import { refreshCardData } from "../../redux/actions";
 
 export default function Card({
   image,
@@ -25,6 +27,8 @@ export default function Card({
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
     config: { mass: 5, tension: 500, friction: 80 },
   });
+
+  const dispatch = useDispatch();
 
   const normalize = data =>
     Object.entries(data).reduce((acc, [key, val]) => {
@@ -204,6 +208,13 @@ export default function Card({
                   );
                 })}
             </ul>
+
+            <button
+              className="BaseButton button--outline"
+              onClick={dispatch(refreshCardData({ title }))}
+            >
+              re-fetch
+            </button>
           </div>
         </article>
       </animated.div>

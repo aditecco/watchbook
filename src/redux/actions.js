@@ -35,3 +35,7 @@ export const createRemoteContentSuccess = createAction(
 export const createRemoteContentError = createAction(
   "CREATE_REMOTE_CONTENT_ERROR"
 );
+export const refreshCardData = createAction("REFRESH_CARD_DATA");
+export const refreshCardDataPending = createAction("REFRESH_CARD_DATA_PENDING");
+export const refreshCardDataSuccess = createAction("REFRESH_CARD_DATA_SUCCESS");
+export const refreshCardDataError = createAction("REFRESH_CARD_DATA_ERROR");

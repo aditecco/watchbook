@@ -27,6 +27,9 @@ import {
   createRemoteContentPending,
   createRemoteContentSuccess,
   createRemoteContentError,
+  refreshCardDataPending,
+  refreshCardDataSuccess,
+  refreshCardDataError,
 } from "./actions";
 
 const userDataTemplate = {
@@ -306,6 +309,42 @@ const reducer = createReducer(initialState, {
         ...state.apiData,
         fetching: false,
         error,
+      },
+    };
+  },
+
+  [refreshCardDataPending](state) {
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        cardData: {
+          ...state.apiData.cardData,
+          fetching: true,
+          // data: null,
+          // error: null,
+          // resetSignal: false,
+        },
+      },
+    };
+  },
+
+  [refreshCardDataSuccess](state, action) {
+    const {
+      payload: { data },
+    } = action;
+
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        cardData: {
+          ...state.apiData.cardData,
+          fetching: false,
+          data,
+          // error: null,
+          // resetSignal: false,
+        },
       },
     };
   },
