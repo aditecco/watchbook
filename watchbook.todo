@@ -38,7 +38,7 @@ Optims/refactor:
   - move async logic to saga @focus
       √ content search
       √ additional info
-      auth
+      auth (signup, login, logout)
       fetchDBdata
       √ create content
     - auth
@@ -64,6 +64,7 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
+  - create new product GIFs @focus 
   - re-fetch card info
     add info to cards that don't have it,
     or update card info
@@ -101,14 +102,12 @@ Features/stories:
   lost)
   - add page transitions on page change @focus 
     https://github.com/react-spring/react-spring-examples/blob/renderprops/demos/renderprops/pagetransitions/index.js
-  ✔ [WATCHED] add reset button to filter fields @done(20-05-08 00:53)
   - save API key to DB
   - create validators for input fields
   - add user name to login notif
   - add user config options to profile page
   - Add signout notif
   - allow multiple data sources (APIs)
-  - add technical info to settings page/create about page @quick 
   - sync local data to DB when performing CRUD operations
     - update
     - delete
@@ -138,6 +137,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ [WATCHED] add reset button to filter fields @done(20-05-08 00:53) @project(Features/stories)
+  ✔ add technical info to settings page/create about page @quick @done(20-05-08 01:14) @project(Features/stories)
   ✔ data of prev query are in state when performing new query @high @done(20-05-08 00:47) @project(Fixes)
   ✔ additional info @done(20-05-08 00:48) @project(Optims/refactor)
   ✔ make cards bigger on screens > 360px w @done(20-05-07 01:55) @project(Optims/refactor)

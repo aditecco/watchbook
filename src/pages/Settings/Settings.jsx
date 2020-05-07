@@ -16,6 +16,7 @@ export default function Settings() {
   const {
     user: { uid },
   } = useSelector(state => state.authentication);
+  const { app, version, build, source } = useSelector(state => state.meta);
   const userData = useSelector(state => state.userData);
   const dispatch = useDispatch();
   const apiKey = userData[uid].settings.apiKey || storage.pull(API_KEY_ID);
@@ -77,6 +78,12 @@ export default function Settings() {
             </button>
           </form>
         )}
+
+        <footer className="SettingsFooter">
+          <small>
+            {app} {version}-{build} &middot; <a href={source}>source</a>
+          </small>
+        </footer>
       </div>
     </Layout>
   );
