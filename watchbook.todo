@@ -64,7 +64,11 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
+  - re-fetch card info
+    add info to cards that don't have it,
+    or update card info
   - create advanced search by IMDB ID
+  - manually add a title
   - create repo readme
   - create website
   - create stats page
