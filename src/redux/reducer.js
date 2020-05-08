@@ -330,9 +330,7 @@ const reducer = createReducer(initialState, {
   },
 
   [refreshCardDataSuccess](state, action) {
-    const {
-      payload: { data },
-    } = action;
+    const { payload } = action;
 
     return {
       ...state,
@@ -341,12 +339,16 @@ const reducer = createReducer(initialState, {
         cardData: {
           ...state.apiData.cardData,
           fetching: false,
-          data,
+          data: payload,
           // error: null,
           // resetSignal: false,
         },
       },
     };
+  },
+
+  [refreshCardDataError](state) {
+    return state;
   },
 
   // end

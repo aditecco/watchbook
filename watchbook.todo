@@ -23,6 +23,7 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - image lazyloading
   - refactor routes w/o PrivateRoute
   - fine-tune sagas (esp. additional info)
   - recreate/redesign filter & sort

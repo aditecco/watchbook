@@ -20,19 +20,26 @@ import axios from "axios";
 
 function* refreshCardDataSaga(action) {
   const apiKey = storage.pull(API_KEY_ID);
-  const {
-    payload: { query },
-  } = action;
+  const { payload } = action;
+  log(payload);
 
   yield put(refreshCardDataPending());
 
   try {
     const request = yield call(
       axios.get,
-      requestUrl(apiKey, buildQuery({ s: query }))
+      requestUrl(
+        apiKey,
+        buildQuery({
+          t: payload.title,
+          type: payload.type,
+          y: payload.year,
+        })
+      )
     );
 
     const { data: response } = request;
+    log(response);
 
     /**
      * we handle 200 responses
@@ -85,6 +92,5 @@ function* refreshCardDataSaga(action) {
  */
 
 export default function* refreshCardDataWatcher() {
-  // yield throttle(2000, `${fetchQueryDataRequest}`, fetchQueryData);
   yield takeLatest(`${refreshCardData}`, refreshCardDataSaga);
 }
