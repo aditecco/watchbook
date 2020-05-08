@@ -211,7 +211,17 @@ export default function Card({
 
             <button
               className="BaseButton button--outline"
-              onClick={dispatch(refreshCardData({ title }))}
+              onClick={() =>
+                dispatch(
+                  refreshCardData({
+                    image,
+                    title,
+                    type,
+                    year,
+                    ..._additionalData,
+                  })
+                )
+              }
             >
               re-fetch
             </button>
