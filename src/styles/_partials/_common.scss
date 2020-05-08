@@ -81,13 +81,16 @@ body {
   &.button--naked {
     background-color: $transparent;
     color: $accent;
-    // …hover
   }
 
   &.button--outline {
     @extend .button--naked;
     border: 2px solid $accent;
-    // …hover
+
+    &:hover {
+      color: $accentDark;
+      border-color: $accentDark;
+    }
   }
 }
 

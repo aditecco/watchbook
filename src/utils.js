@@ -10,19 +10,15 @@ export const log = window.console.log.bind(window.console);
 // shorter querySelector
 export const $ = window.document.querySelector.bind(window.document);
 
-//
+// requestUrl
 export const requestUrl = (key, queryAndParams) =>
   `${OMDB_API_URL}${key}${queryAndParams}`;
 
-//
+// buildQuery
 export const buildQuery = params =>
   Object.entries(params)
     .map(([param, query]) => `&${param}=${query}`)
     .join("");
-
-/**
- * fetchQueryData
- */
 
 // shorter localStorage, w/ JSON manipulation included
 export const storage = (() => {
