@@ -2,7 +2,7 @@
 fetchQueryData
 --------------------------------- */
 
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, all, put, takeLatest } from "redux-saga/effects";
 import { API_KEY_ID } from "../constants";
 import {
   showNotif,
@@ -10,6 +10,7 @@ import {
   refreshCardDataPending,
   refreshCardDataSuccess,
   refreshCardDataError,
+  updateRemoteContent,
 } from "../redux/actions";
 import { log, storage, requestUrl, buildQuery } from "../utils";
 import axios from "axios";
@@ -21,7 +22,8 @@ import axios from "axios";
 function* refreshCardDataSaga(action) {
   const apiKey = storage.pull(API_KEY_ID);
   const { payload } = action;
-  log(payload);
+
+  const dbItemKey = payload.key;
 
   yield put(refreshCardDataPending());
 
@@ -39,7 +41,6 @@ function* refreshCardDataSaga(action) {
     );
 
     const { data: response } = request;
-    log(response);
 
     /**
      * we handle 200 responses
@@ -51,6 +52,9 @@ function* refreshCardDataSaga(action) {
     }
 
     yield put(refreshCardDataSuccess({ response }));
+
+    yield put(updateRemoteContent([dbItemKey, { ...response }]));
+
     //
   } catch (error) {
     // the augmented error

@@ -7,14 +7,16 @@ import fetchQueryDataWatcher from "./fetchQueryData";
 import fetchAdditionalDataWatcher from "./fetchAdditionalData";
 import createRemoteContentWatcher from "./createRemoteContent";
 import refreshCardDataWatcher from "./refreshCardData";
+import updateRemoteContentWatcher from "./updateRemoteContent";
 
 export default function* rootSaga() {
   yield all([
     //
-    fetchQueryDataWatcher(),
-    fetchAdditionalDataWatcher(),
     createRemoteContentWatcher(),
+    fetchAdditionalDataWatcher(),
+    fetchQueryDataWatcher(),
     refreshCardDataWatcher(),
+    updateRemoteContentWatcher(),
     //
   ]);
 }

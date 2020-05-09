@@ -35,6 +35,7 @@ export const setAuthState = createAction("SET_AUTH_STATE");
 export const setInitialData = createAction("SET_INITIAL_DATA");
 export const showNotif = createAction("SHOW_NOTIF");
 export const toggleModal = createAction("TOGGLE_MODAL");
+export const updateRemoteContent = createAction("UPDATE_REMOTE_CONTENT");
 export const updateRemoteContentError = createAction("UPDATE_REMOTE_CONTENT_ERROR");
 export const updateRemoteContentPending = createAction("UPDATE_REMOTE_CONTENT_PENDING");
 export const updateRemoteContentSuccess = createAction("UPDATE_REMOTE_CONTENT_SUCCESS");

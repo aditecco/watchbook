@@ -3,7 +3,7 @@ Card
 --------------------------------- */
 
 import React, { useState } from "react";
-import { log } from "../../utils";
+import { log, normalize } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { useSpring, animated } from "react-spring";
 import { useDispatch } from "react-redux";
@@ -29,13 +29,6 @@ export default function Card({
   });
 
   const dispatch = useDispatch();
-
-  const normalize = data =>
-    Object.entries(data).reduce((acc, [key, val]) => {
-      acc[key.toLowerCase()] = val;
-      return acc;
-    }, {});
-
   const _additionalData = additionalData ? normalize(additionalData) : {};
 
   return (

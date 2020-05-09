@@ -88,9 +88,15 @@ export default function DataProvider({ render, dataSet }) {
       else
       {
         const mappedData = {
-          watched: Object.keys(watchedData).map(key => contentData[key]),
+          watched: Object.keys(watchedData).map(key => ({
+            key,
+            ...contentData[key]
+          })),
           // 0 => []
-          toWatch: Object.keys(toWatchData).map(key => contentData[key])
+          toWatch: Object.keys(toWatchData).map(key => ({
+            key,
+            ...contentData[key]
+          }))
         };
 
         dispatch(setInitialData({ uid, mappedData }))
