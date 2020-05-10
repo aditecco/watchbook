@@ -210,7 +210,6 @@ export default function Card({
               onClick={() =>
                 dispatch(
                   refreshCardData({
-                    image,
                     title,
                     type,
                     year,

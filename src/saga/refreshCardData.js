@@ -1,5 +1,5 @@
 /* ---------------------------------
-fetchQueryData
+refreshCardData
 --------------------------------- */
 
 import { call, all, put, takeLatest } from "redux-saga/effects";
@@ -21,9 +21,9 @@ import axios from "axios";
 
 function* refreshCardDataSaga(action) {
   const apiKey = storage.pull(API_KEY_ID);
-  const { payload } = action;
-
-  const dbItemKey = payload.key;
+  const {
+    payload: { key, title, type, year },
+  } = action;
 
   yield put(refreshCardDataPending());
 
@@ -33,9 +33,9 @@ function* refreshCardDataSaga(action) {
       requestUrl(
         apiKey,
         buildQuery({
-          t: payload.title,
-          type: payload.type,
-          y: payload.year,
+          t: title,
+          type: type,
+          y: year,
         })
       )
     );
@@ -53,7 +53,7 @@ function* refreshCardDataSaga(action) {
 
     yield put(refreshCardDataSuccess({ response }));
 
-    yield put(updateRemoteContent([dbItemKey, { ...response }]));
+    yield put(updateRemoteContent([key, { ...response }]));
 
     //
   } catch (error) {
