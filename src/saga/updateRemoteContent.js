@@ -2,6 +2,7 @@
 updateRemoteContent
 --------------------------------- */
 
+import React from "react";
 import { put, takeEvery } from "redux-saga/effects";
 import {
   showNotif,
@@ -12,6 +13,7 @@ import {
 } from "../redux/actions";
 import { db } from "../index";
 import { log, normalize } from "../utils";
+import MaterialIcon from "../components/Misc/MaterialIcon";
 
 /**
  * updateRemoteContentSaga
@@ -21,8 +23,7 @@ function* updateRemoteContentSaga(action) {
   const {
     payload: [key, data],
   } = action;
-
-  const updateTimestamp = Date.now();
+  log(data);
 
   yield put(updateRemoteContentPending());
 
@@ -34,7 +35,7 @@ function* updateRemoteContentSaga(action) {
     const mergedData = {
       ...value,
       ...normalize(data),
-      updateTimestamp,
+      updateTimestamp: Date.now(),
     };
 
     // TODO use call
@@ -44,8 +45,8 @@ function* updateRemoteContentSaga(action) {
 
     yield put(
       showNotif({
-        message: `Updated: ${data.title}`,
-        icon: null,
+        message: `Updated: ${data.Title}`,
+        icon: <MaterialIcon icon="sync" />,
         timeOut: 2000,
         theme: "light",
       })

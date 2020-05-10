@@ -30,12 +30,11 @@ function* createRemoteContentSaga(action) {
   } = action;
 
   const id = uuidv4();
-  const timestamp = Date.now();
   const authSelector = state => state.authentication;
 
   const newItem = {
     id,
-    timestamp,
+    timestamp: Date.now(),
     ...filterKeys(data, "contentType"),
   };
 
