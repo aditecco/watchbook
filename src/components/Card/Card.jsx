@@ -205,21 +205,23 @@ export default function Card({
                 })}
             </ul>
 
-            <button
-              className="BaseButton button--outline"
-              onClick={() =>
-                dispatch(
-                  refreshCardData({
-                    title,
-                    type,
-                    year,
-                    ..._additionalData,
-                  })
-                )
-              }
-            >
-              re-fetch
-            </button>
+            <div className="CardBackControls">
+              <button
+                className="BaseButton button--outline"
+                onClick={() =>
+                  dispatch(
+                    refreshCardData({
+                      title,
+                      type,
+                      year,
+                      ..._additionalData,
+                    })
+                  )
+                }
+              >
+                re-fetch
+              </button>
+            </div>
           </div>
         </article>
       </animated.div>

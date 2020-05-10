@@ -3,7 +3,7 @@ updateRemoteContent
 --------------------------------- */
 
 import React from "react";
-import { put, takeEvery } from "redux-saga/effects";
+import { put, takeEvery, select } from "redux-saga/effects";
 import {
   showNotif,
   updateRemoteContent,
@@ -23,9 +23,14 @@ function* updateRemoteContentSaga(action) {
   const {
     payload: [key, data],
   } = action;
-  log(data);
+
+  const authSelector = state => state.authentication;
 
   yield put(updateRemoteContentPending());
+
+  const {
+    user: { uid },
+  } = yield select(authSelector);
 
   try {
     const itemRef = db.ref(`/content/${key}`);
@@ -41,7 +46,13 @@ function* updateRemoteContentSaga(action) {
     // TODO use call
     yield itemRef.update(mergedData);
 
-    yield put(updateRemoteContentSuccess());
+    yield put(
+      updateRemoteContentSuccess({
+        uid,
+        contentType: "watched", // TODO should be configurable!
+        updatedContent: mergedData,
+      })
+    );
 
     yield put(
       showNotif({

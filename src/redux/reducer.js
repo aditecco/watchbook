@@ -6,30 +6,33 @@ import { createReducer } from "@reduxjs/toolkit";
 import { log } from "../utils";
 import initialState from "./initialState";
 import {
+  createRemoteContentError,
+  createRemoteContentPending,
+  createRemoteContentSuccess,
   createToWatch,
   createWatched,
   deleteWatched,
   destroyUser,
+  fetchQueryDataError,
+  fetchQueryDataPending,
+  fetchQueryDataSuccess,
   filterWatched,
   getUser,
   hideNotif,
   initUser,
+  refreshCardDataError,
+  refreshCardDataPending,
+  refreshCardDataSuccess,
+  resetQueryData,
   setApiKey,
   setAuthState,
   setInitialData,
   showNotif,
   toggleModal,
+  updateRemoteContentPending,
+  updateRemoteContentSuccess,
+  updateRemoteContentError,
   updateWatched,
-  fetchQueryDataPending,
-  fetchQueryDataError,
-  fetchQueryDataSuccess,
-  resetQueryData,
-  createRemoteContentPending,
-  createRemoteContentSuccess,
-  createRemoteContentError,
-  refreshCardDataPending,
-  refreshCardDataSuccess,
-  refreshCardDataError,
 } from "./actions";
 
 const userDataTemplate = {
@@ -348,6 +351,37 @@ const reducer = createReducer(initialState, {
   },
 
   [refreshCardDataError](state) {
+    return state;
+  },
+
+  [updateRemoteContentPending](state, action) {
+    return state;
+  },
+
+  [updateRemoteContentSuccess](state, action) {
+    const {
+      payload: { uid, contentType, updatedContent },
+    } = action;
+
+    return state;
+
+    //   return {
+    //     ...state,
+    //     userData: {
+    //       [uid]: {
+    //         ...state.userData[uid],
+    //         // prettier-ignore
+    //         [contentType]: [
+    //           ...state.userData[uid][contentType],
+    //         ]
+    //       },
+    //     },
+    //   };
+  },
+
+  [updateRemoteContentError](state, action) {
+    console.error(action.payload.error);
+
     return state;
   },
 

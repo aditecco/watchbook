@@ -119,6 +119,10 @@
     }
   }
 
+  .CardBackControls {
+    padding: $padding $padding 0;
+  }
+
   &.added {
     .CardPosterCurtain {
       padding-bottom: 20px;
