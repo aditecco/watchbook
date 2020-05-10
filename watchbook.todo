@@ -69,6 +69,12 @@ Features/stories:
   - re-fetch card info
     add info to cards that don't have it,
     or update card info
+    re-fetch button
+    fetch content info via API
+    merges new info w/ old info
+    uploads merged info to DB
+    updates local copy of content item
+    - update local copy of content item
   - create advanced search by IMDB ID
   - manually add a title
   - create repo readme
@@ -138,6 +144,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ create POC @done(20-05-09 02:50) @project(Features/stories)
+  ✔ remove 'key' from cards (filter property) @done(20-05-10 03:13) @project(Features/stories)
   ✔ [WATCHED] add reset button to filter fields @done(20-05-08 00:53) @project(Features/stories)
   ✔ add technical info to settings page/create about page @quick @done(20-05-08 01:14) @project(Features/stories)
   ✔ data of prev query are in state when performing new query @high @done(20-05-08 00:47) @project(Fixes)

@@ -167,11 +167,14 @@ export default function Card({
 
                   // TODO
                   // we don't manage these keys for now
-                  if (
-                    key === "ratings" ||
-                    key === 'id' ||
-                    key === 'response'
-                  )
+                  if ([
+                      'ratings',
+                      'id',
+                      'response',
+                      'dvd',
+                      'website',
+                      'key',
+                    ].includes(key))
                   {
                     return;
                   }
