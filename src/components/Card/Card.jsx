@@ -179,9 +179,9 @@ export default function Card({
                     return;
                   }
 
-                  else if (key === "timestamp")
+                  else if (key === "timestamp" || key === 'updatetimestamp')
                   {
-                    key = "Date Added";
+                    key = key === "timestamp" ? "Date Added" : "Date Updated";
                     val = new Date(val).toLocaleDateString()
                   }
 
