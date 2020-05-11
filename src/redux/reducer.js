@@ -363,20 +363,24 @@ const reducer = createReducer(initialState, {
       payload: { uid, contentType, updatedContent },
     } = action;
 
-    return state;
+    const where = state.userData[uid][contentType].findIndex(
+      el => el.id === updatedContent.id
+    );
 
-    //   return {
-    //     ...state,
-    //     userData: {
-    //       [uid]: {
-    //         ...state.userData[uid],
-    //         // prettier-ignore
-    //         [contentType]: [
-    //           ...state.userData[uid][contentType],
-    //         ]
-    //       },
-    //     },
-    //   };
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          // prettier-ignore
+          [contentType]: [
+            ...state.userData[uid][contentType].slice(0, where),
+            updatedContent,
+            ...state.userData[uid][contentType].slice(where + 1),
+          ]
+        },
+      },
+    };
   },
 
   [updateRemoteContentError](state, action) {
