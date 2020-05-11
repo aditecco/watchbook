@@ -2,7 +2,7 @@
 Card
 --------------------------------- */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { log, normalize } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { useSpring, animated } from "react-spring";
@@ -30,6 +30,10 @@ export default function Card({
 
   const dispatch = useDispatch();
   const _additionalData = additionalData ? normalize(additionalData) : {};
+
+  useEffect(() => {
+    additionalData.updateTimestamp && log("additionalData!");
+  }, [additionalData]);
 
   return (
     <div className="CardContainer">

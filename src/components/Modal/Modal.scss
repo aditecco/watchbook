@@ -9,7 +9,8 @@ Modal
   z-index: 4;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  // background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba($flat-clouds, 0.9);
 
   .ModalContainer {
     width: 100%;
@@ -22,6 +23,10 @@ Modal
     // targets
     > .CardContainer {
       width: $cardMinWidth;
+
+      .Card {
+        box-shadow: 0 4px 14px 14px rgba(black, 0.25);
+      }
 
       @media screen and (min-width: 360px) {
         width: $cardInModalWidth;
@@ -44,7 +49,6 @@ Modal
     .ModalCloseButton {
       background-color: transparent;
       border: none;
-      color: white;
       cursor: pointer;
 
       &:focus {
@@ -52,7 +56,8 @@ Modal
       }
 
       i.material-icons {
-        color: rgba(white, 0.6);
+        // color: rgba(white, 0.6);
+        color: $fontAlt;
       }
     }
   }
