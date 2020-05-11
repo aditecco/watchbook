@@ -324,16 +324,14 @@ const reducer = createReducer(initialState, {
         cardData: {
           ...state.apiData.cardData,
           fetching: true,
-          // data: null,
-          // error: null,
-          // resetSignal: false,
+          data: null,
         },
       },
     };
   },
 
   [refreshCardDataSuccess](state, action) {
-    const { payload } = action;
+    const { payload: data } = action;
 
     return {
       ...state,
@@ -342,9 +340,7 @@ const reducer = createReducer(initialState, {
         cardData: {
           ...state.apiData.cardData,
           fetching: false,
-          data: payload,
-          // error: null,
-          // resetSignal: false,
+          data,
         },
       },
     };
@@ -354,8 +350,17 @@ const reducer = createReducer(initialState, {
     return state;
   },
 
-  [updateRemoteContentPending](state, action) {
-    return state;
+  [updateRemoteContentPending](state) {
+    return {
+      ...state,
+      apiData: {
+        ...state.apiData,
+        dbData: {
+          ...state.apiData.dbData,
+          fetching: true,
+        },
+      },
+    };
   },
 
   [updateRemoteContentSuccess](state, action) {
@@ -375,9 +380,19 @@ const reducer = createReducer(initialState, {
           // prettier-ignore
           [contentType]: [
             ...state.userData[uid][contentType].slice(0, where),
-            updatedContent,
+            {
+              ...state.userData[uid][contentType][where],
+              ...updatedContent,
+            },
             ...state.userData[uid][contentType].slice(where + 1),
           ]
+        },
+      },
+      apiData: {
+        ...state.apiData,
+        dbData: {
+          ...state.apiData.dbData,
+          fetching: false,
         },
       },
     };

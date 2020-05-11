@@ -22,12 +22,17 @@ export default {
     data: null,
     error: null,
     resetSignal: false,
-    cardData: {
+    dbData: {
       fetching: false,
       query: "",
       data: null,
       error: null,
-      resetSignal: false,
+    },
+    cardData: {
+      fetching: false,
+      pendingUpdate: "",
+      data: null,
+      error: null,
     },
   },
   notificationMessage: {
