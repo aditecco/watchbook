@@ -46,7 +46,8 @@ function Home() {
 
   function detectDuplicates(query, callback) {
     const dataSet = [...watched, ...toWatch];
-    const compareFn = item => item.title.toLowerCase() === query.toLowerCase();
+    const compareFn = item =>
+      item.title && item.title.toLowerCase() === query.toLowerCase();
 
     if (dataSet.some(compareFn)) {
       setState({ hasError: true, error: "duplicateContent" });

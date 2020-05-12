@@ -31,11 +31,11 @@ export default function FilterAndSortProvider({
    */
 
   function handleFilter(data, query) {
-    const lowercased = item => item.toLowerCase();
-    const _query = lowercased(query);
-
     // TODO throttle/debounce
-    return data.filter(item => lowercased(item.title).includes(_query));
+    return data.filter(
+      item =>
+        item.title && item.title.toLowerCase().includes(query.toLowerCase())
+    );
   }
 
   /**
