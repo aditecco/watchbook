@@ -32,7 +32,7 @@ import {
   updateRemoteContentPending,
   updateRemoteContentSuccess,
   updateRemoteContentError,
-  updateWatched,
+  updateLocalContent,
 } from "./actions";
 
 const userDataTemplate = {
@@ -152,8 +152,32 @@ const reducer = createReducer(initialState, {
     };
   },
 
-  [updateWatched](state, action) {
-    return state;
+  [updateLocalContent](state, action) {
+    const {
+      payload: { uid, contentType, updatedContent },
+    } = action;
+
+    const where = state.userData[uid][contentType].findIndex(
+      el => el.id === updatedContent.id
+    );
+
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          // prettier-ignore
+          [contentType]: [
+            ...state.userData[uid][contentType].slice(0, where),
+            {
+              ...state.userData[uid][contentType][where],
+              ...updatedContent,
+            },
+            ...state.userData[uid][contentType].slice(where + 1),
+          ]
+        },
+      },
+    };
   },
 
   [deleteWatched](state, action) {
@@ -325,6 +349,7 @@ const reducer = createReducer(initialState, {
           ...state.apiData.cardData,
           fetching: true,
           data: null,
+          updateSignal: "",
         },
       },
     };
@@ -363,31 +388,9 @@ const reducer = createReducer(initialState, {
     };
   },
 
-  [updateRemoteContentSuccess](state, action) {
-    const {
-      payload: { uid, contentType, updatedContent },
-    } = action;
-
-    const where = state.userData[uid][contentType].findIndex(
-      el => el.id === updatedContent.id
-    );
-
+  [updateRemoteContentSuccess](state) {
     return {
       ...state,
-      userData: {
-        [uid]: {
-          ...state.userData[uid],
-          // prettier-ignore
-          [contentType]: [
-            ...state.userData[uid][contentType].slice(0, where),
-            {
-              ...state.userData[uid][contentType][where],
-              ...updatedContent,
-            },
-            ...state.userData[uid][contentType].slice(where + 1),
-          ]
-        },
-      },
       apiData: {
         ...state.apiData,
         dbData: {
@@ -408,3 +411,15 @@ const reducer = createReducer(initialState, {
 });
 
 export default reducer;
+
+/*
+{
+  type: "UPDATE_LOCAL_CONTENT",
+  payload: {
+    uid: 'ejcZFplCYHcaASxQ9VRRCFLEpG53',
+    contentType: 'watched',
+    id: '00523025-e430-4a17-aa2c-57f33fe687c2',
+    updatedContent: { title: 'no' }
+  },
+}
+*/

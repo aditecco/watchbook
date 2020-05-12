@@ -39,4 +39,4 @@ export const updateRemoteContent = createAction("UPDATE_REMOTE_CONTENT");
 export const updateRemoteContentError = createAction("UPDATE_REMOTE_CONTENT_ERROR");
 export const updateRemoteContentPending = createAction("UPDATE_REMOTE_CONTENT_PENDING");
 export const updateRemoteContentSuccess = createAction("UPDATE_REMOTE_CONTENT_SUCCESS");
-export const updateWatched = createAction("UPDATE_WATCHED");
+export const updateLocalContent = createAction("UPDATE_LOCAL_CONTENT");

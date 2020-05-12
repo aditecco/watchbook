@@ -144,6 +144,9 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ fix the horrible 'ghost items' issue @done(20-05-13 01:13) @project(Fixes)
+    [ { key: '-M3cCtkN-vlW054wz2nA' }, { key: '-M3cCpPyjTF5p8zLwZyi' } ]
+    I'm an idiot
   ✔ create POC @done(20-05-09 02:50) @project(Features/stories)
   ✔ remove 'key' from cards (filter property) @done(20-05-10 03:13) @project(Features/stories)
   ✔ [WATCHED] add reset button to filter fields @done(20-05-08 00:53) @project(Features/stories)

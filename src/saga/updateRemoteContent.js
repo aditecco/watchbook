@@ -10,6 +10,7 @@ import {
   updateRemoteContentPending,
   updateRemoteContentSuccess,
   updateRemoteContentError,
+  updateLocalContent,
 } from "../redux/actions";
 import { db } from "../index";
 import { log, normalize } from "../utils";
@@ -46,8 +47,10 @@ function* updateRemoteContentSaga(action) {
     // TODO use call
     yield itemRef.update(mergedData);
 
+    yield put(updateRemoteContentSuccess());
+
     yield put(
-      updateRemoteContentSuccess({
+      updateLocalContent({
         uid,
         contentType: "watched", // TODO should be configurable!
         updatedContent: mergedData,

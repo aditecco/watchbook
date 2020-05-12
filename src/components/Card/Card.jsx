@@ -5,9 +5,9 @@ Card
 import React, { useState, useEffect } from "react";
 import { log, normalize } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
-import { useSpring, animated } from "react-spring";
-import { useDispatch } from "react-redux";
-import { refreshCardData } from "../../redux/actions";
+import { useSpring, animated, useTrail } from "react-spring";
+import { useSelector, useDispatch } from "react-redux";
+import { refreshCardData, setAuthState } from "../../redux/actions";
 
 export default function Card({
   image,
@@ -21,6 +21,9 @@ export default function Card({
   ...other
 }) {
   const [flipped, toggleFlipped] = useState(false);
+  const dispatch = useDispatch();
+  const { cardData } = useSelector(state => state.apiData);
+  const [loading, setLoading] = useState(false);
 
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -28,14 +31,15 @@ export default function Card({
     config: { mass: 5, tension: 500, friction: 80 },
   });
 
-  const dispatch = useDispatch();
   const _additionalData = additionalData ? normalize(additionalData) : {};
 
   useEffect(() => {
-    additionalData.updateTimestamp && log("additionalData!");
-  }, [additionalData]);
+    cardData.updateSignal === additionalData.id && log("UPDATED ", title);
+  }, [cardData]);
 
-  return (
+  return loading ? (
+    "loading" // Card placeholder
+  ) : (
     <div className="CardContainer">
       <animated.div
         className="CardAnimatedFrame"

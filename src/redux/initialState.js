@@ -30,7 +30,7 @@ export default {
     },
     cardData: {
       fetching: false,
-      pendingUpdate: "",
+      updateSignal: "",
       data: null,
       error: null,
     },
