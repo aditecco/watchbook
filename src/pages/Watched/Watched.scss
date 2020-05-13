@@ -7,6 +7,11 @@ Watched
   padding-bottom: 100px;
 
   .viewOptionsContainer {
+    position: sticky;
+    top: $headerHeight;
+    background-color: white;
+    z-index: 2;
+    box-shadow: $lightShadow;
     border-bottom: $border;
     padding: 0.9rem;
 
