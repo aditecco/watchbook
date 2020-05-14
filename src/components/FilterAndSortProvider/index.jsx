@@ -11,6 +11,7 @@ export default function FilterAndSortProvider({
   FilterAndSortUI,
   handlers,
   toggleUI,
+  toggleCallback,
 }) {
   const [sortQuery, setSortQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
@@ -83,6 +84,7 @@ export default function FilterAndSortProvider({
           }}
           inputValue={filterQuery}
           sortOptions={[`Select a ${optionsKey}`].concat(options)}
+          toggleCallback={toggleCallback}
         />
       )}
 

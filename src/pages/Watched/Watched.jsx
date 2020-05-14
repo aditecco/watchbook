@@ -93,6 +93,7 @@ export default function Watched() {
         toggleUI={showFilters}
         FilterAndSortUI={FilterAndSort}
         data={watched}
+        toggleCallback={() => setShowFilters(!showFilters)}
       >
         {processedItems => (
           <WatchedList

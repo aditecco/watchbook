@@ -125,7 +125,6 @@ UX:
   - create placeholder image for movie cards
   - create graphical loader for infinite scroll
   - auto-shorten directors' names, i.e. S. Kubrik
-  ✔ make filter UI sticky @done(20-05-14 01:04)
 
 Platform:
   Env, tools, etc
@@ -145,6 +144,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ make filter UI sticky @done(20-05-14 01:04) @project(UX)
   ✔ fix the horrible 'ghost items' issue @done(20-05-13 01:13) @project(Fixes)
     [ { key: '-M3cCtkN-vlW054wz2nA' }, { key: '-M3cCpPyjTF5p8zLwZyi' } ]
     I'm an idiot

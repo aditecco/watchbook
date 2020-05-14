@@ -227,7 +227,7 @@ export default function Card({
                   )
                 }
               >
-                re-fetch
+                <MaterialIcon icon="sync" /> Update info
               </button>
             </div>
           </div>

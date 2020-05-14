@@ -11,7 +11,8 @@ Watched
     top: $headerHeight;
     background-color: white;
     z-index: 2;
-    box-shadow: $lightShadow;
+    box-shadow: 0 10px 30px -10px rgba(black, 0.2);
+    border-top: $border;
     border-bottom: $border;
     padding: 0.9rem;
 

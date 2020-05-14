@@ -11,9 +11,13 @@ export default function FilterAndSort({
   resetHandler,
   inputValue,
   sortOptions: options,
+  toggleCallback,
 }) {
   return (
     <div className="FilterAndSort">
+      <button className="closeButton" onClick={toggleCallback}>
+        <MaterialIcon icon="close"></MaterialIcon>
+      </button>
       <div className="wrapper">
         <form action="" className="FilterAndSortForm">
           <div className="formGroup formGroup__filter">
