@@ -26,7 +26,8 @@ Optims/refactor:
   - image lazyloading
   - refactor routes w/o PrivateRoute
   - fine-tune sagas (esp. additional info)
-  - recreate/redesign filter & sort
+  ✔ redesign filter & sort @done(20-05-16 18:12)
+  - rething filter & sort logic @focus 
   - better autosuggest loading state
   - handle long titles in notifs
   - create className utility
@@ -66,7 +67,7 @@ Features/stories:
   ********************************
   - …
   - create new product GIFs @focus 
-  - re-fetch card info
+  - re-fetch card info @focus 
     add info to cards that don't have it,
     or update card info
     re-fetch button
@@ -75,6 +76,7 @@ Features/stories:
     uploads merged info to DB
     updates local copy of content item
     - update local copy of content item
+    - add loading states
   - create advanced search by IMDB ID
   - manually add a title
   - create repo readme
@@ -125,6 +127,8 @@ UX:
   - create placeholder image for movie cards
   - create graphical loader for infinite scroll
   - auto-shorten directors' names, i.e. S. Kubrik
+  - create blank slates w/ illustrations
+  - animate FilterAndSortContainer
 
 Platform:
   Env, tools, etc
