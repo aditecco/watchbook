@@ -18,7 +18,9 @@ export default function FilterAndSort({
       <button className="closeButton" onClick={toggleCallback}>
         <MaterialIcon icon="close"></MaterialIcon>
       </button>
-      <div className="wrapper">
+
+      <div className="FilterAndSortContainer">
+        <div className="wrapper"></div>
         <form action="" className="FilterAndSortForm">
           <div className="formGroup formGroup__filter">
             <label htmlFor="watchedSearchFilter">Filter by title</label>
