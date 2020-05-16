@@ -2,18 +2,6 @@
 Spinner
 --------------------------------- */
 
-// inpired by: https://codepen.io/alexanderkaran/pen/BaNmmRV?editors=0100
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .SpinnerContainer {
   @include flex(column nowrap);
   position: fixed;
