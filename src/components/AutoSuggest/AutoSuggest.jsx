@@ -4,6 +4,7 @@ AutoSuggest
 
 import React, { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
+import MaterialIcon from "../Misc/MaterialIcon";
 
 export default function AutoSuggest({ content, limit, onItemClick }) {
   const [itemsToShow, setItemsToShow] = useState(limit);
@@ -48,7 +49,7 @@ export default function AutoSuggest({ content, limit, onItemClick }) {
             className="AutoSuggestShowMoreButton"
             onClick={() => setItemsToShow(content.length)}
           >
-            &rarr; Show more…
+            <MaterialIcon icon="arrow_forward" /> Show more…
           </button>
         )}
       </ul>
