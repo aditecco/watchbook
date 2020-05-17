@@ -37,12 +37,14 @@ export default function ToWatch() {
       <PageHeader
         title="to watch"
         // icon="bookmark"
-        subHeading={
-          <>
-            <span className="highlight">{getType("movie")} Movies, </span>
-            <span className="highlight">{getType("series")} TV Shows</span>
-          </>
-        }
+        subHeading={[
+          <span className="highlight" key="movieCount">
+            {getType("movie")} Movies,{" "}
+          </span>,
+          <span className="highlight" key="seriesCount">
+            {getType("series")} TV Shows
+          </span>,
+        ]}
       />
 
       <WatchedList

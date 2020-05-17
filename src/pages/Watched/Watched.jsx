@@ -65,12 +65,14 @@ export default function Watched() {
       <PageHeader
         title="watched"
         // icon="check_circle"
-        subHeading={
-          <>
-            <span className="highlight">{getType("movie")} Movies, </span>
-            <span className="highlight">{getType("series")} TV Shows</span>
-          </>
-        }
+        subHeading={[
+          <span className="highlight" key="movieCount">
+            {getType("movie")} Movies,{" "}
+          </span>,
+          <span className="highlight" key="seriesCount">
+            {getType("series")} TV Shows
+          </span>,
+        ]}
       />
 
       <div className="viewOptionsContainer">
@@ -90,13 +92,6 @@ export default function Watched() {
           />
         </div>
       </div>
-
-      {/* 
-      
-      display current active filters
-      as buttons
-
-      */}
 
       {activeQuery && (
         <div className="activeQueries wrapper" style={{ padding: "1rem" }}>
