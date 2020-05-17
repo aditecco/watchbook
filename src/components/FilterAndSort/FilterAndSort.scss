@@ -66,9 +66,11 @@
   }
 
   .watchedSort {
+    @extend %resetButtons;
     border: 1px solid $strokeLight;
     background-color: white;
     box-shadow: inset 0px 2px 1px rgba(0, 0, 0, 0.1);
+    width: 100%;
   }
 
   // copied from 'searchCancel'

@@ -38,7 +38,7 @@ export default function FilterAndSort({
                   {[...options.year]
                     .sort((a, b) => a - b)
                     .map((option, i) => (
-                      <option value={i === 0 ? "" : option} key={option + i}>
+                      <option value={i === 0 ? "" : option} key={"option-" + i}>
                         {option}
                       </option>
                     ))}
@@ -51,18 +51,22 @@ export default function FilterAndSort({
                *
                */
               Object.entries(options).map(([sortKey, optionsArray], i) => (
-                <div className="formGroup" key={`sortGroup${i}`}>
-                  <label htmlFor="watchedSearchSort">Filter by {sortKey}</label>
+                <div className="formGroup" key={`formGroup-${i}`}>
+                  <label htmlFor={`formGroup-${i}`}>Filter by {sortKey}</label>
                   <select
                     onChange={sortHandler}
-                    name="sortKeySelector"
-                    id="watchedSearchSort"
+                    name={`formGroup-${i}`}
+                    id={`formGroup-${i}`}
                     className="watchedSort"
                   >
                     {[...optionsArray]
                       .sort((a, b) => a - b)
                       .map((option, i) => (
-                        <option value={i === 0 ? "" : option} key={option + i}>
+                        <option
+                          value={i === 0 ? "" : option}
+                          key={"option-" + i}
+                          //
+                        >
                           {option}
                         </option>
                       ))}

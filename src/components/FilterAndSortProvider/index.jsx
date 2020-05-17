@@ -3,7 +3,7 @@ FilterAndSortProvider
 --------------------------------- */
 
 import React, { useState, useEffect } from "react";
-import { log } from "../../utils";
+import { log, removeDuplicates } from "../../utils";
 
 export default function FilterAndSortProvider({
   children,
@@ -19,10 +19,14 @@ export default function FilterAndSortProvider({
 
   //
   const { type, UI, config } = FilterAndSortUI;
+
   const options =
     config.sortKeys &&
-    config.sortKeys.reduce((acc, k) => {
-      acc[k] = [`Select a ${k}`].concat(initialData.map(item => item[k]));
+    config.sortKeys.reduce((acc, sortKey) => {
+      acc[sortKey] = [`Select a ${sortKey}`].concat(
+        removeDuplicates(initialData.map(item => item[sortKey]))
+      );
+
       return acc;
     }, {});
 
