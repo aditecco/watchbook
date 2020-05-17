@@ -3,11 +3,8 @@ MaterialIcon
 --------------------------------- */
 
 import React from "react";
+import { addClasses } from "../../utils";
 
-export default function MaterialIcon({ icon, classes }) {
-  const additionalClasses = classes
-    ? " " + [...classes].toString().replace(/\,/g, " ")
-    : "";
-
-  return <i className={"material-icons" + additionalClasses}>{icon}</i>;
+export default function MaterialIcon({ icon, className }) {
+  return <i className={"material-icons" + addClasses(className)}>{icon}</i>;
 }

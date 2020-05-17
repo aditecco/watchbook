@@ -1,0 +1,31 @@
+/* ---------------------------------
+QuickSearch
+--------------------------------- */
+
+.QuickSearch {
+  padding: $padding;
+
+  .searchFieldContainer {
+    position: relative;
+  }
+
+  .searchField {
+    width: 100%;
+    border: 1px solid $strokeLight;
+    border-radius: 16px;
+    padding: 4px 1rem;
+    padding-left: 28px;
+    box-shadow: inset 0 -1px 8px rgba(0, 0, 0, 0.06);
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .searchIcon {
+    position: absolute;
+    font-size: 1rem;
+    padding: 4px 8px;
+  }
+}

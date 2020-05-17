@@ -11,13 +11,12 @@ import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ViewOptions from "../../components/ViewOptions/ViewOptions";
 import WatchedList from "../../components/WatchedList/WatchedList";
-
-import sample from "../../sampleData.json";
+import QuickSearch from "../../components/QuickSearch/QuickSearch";
 
 export default function Watched() {
   // global state
   const {
-    user: { uid },
+    user: { uid }
   } = useSelector(state => state.authentication);
   const userData = useSelector(state => state.userData);
 
@@ -48,7 +47,7 @@ export default function Watched() {
     let observer = new IntersectionObserver(handleObserver, {
       root: null, // uses the viewport
       rootMargin: "0px",
-      threshold: 0.25,
+      threshold: 0.25
     });
 
     const target = document.querySelector(".infiniteScrollLoader");
@@ -88,6 +87,19 @@ export default function Watched() {
           />
         </div>
       </div>
+
+      <QuickSearch
+        onChange={null}
+        placeholder="Filter by title…"
+        value={null}
+      />
+
+      {/* 
+      
+      display current active filters
+      as buttons
+
+      */}
 
       <FilterAndSortProvider
         toggleUI={showFilters}

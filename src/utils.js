@@ -47,7 +47,7 @@ export const storage = (() => {
     },
     destroy() {
       boundFn(window.localStorage.clear)();
-    },
+    }
   };
 })();
 
@@ -69,7 +69,10 @@ export function capitalize(word) {
   if (!word) return undefined;
 
   if (word.includes(" ")) {
-    return word.split(" ").map(capitalizer).join(" ");
+    return word
+      .split(" ")
+      .map(capitalizer)
+      .join(" ");
   }
 
   return capitalizer(word);
@@ -94,4 +97,9 @@ export function normalize(data) {
     acc[key.toLowerCase()] = val;
     return acc;
   }, {});
+}
+
+// handles additional classes
+export function addClasses(classes) {
+  return classes ? " " + classes : "";
 }
