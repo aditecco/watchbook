@@ -26,7 +26,6 @@ Optims/refactor:
   - image lazyloading
   - refactor routes w/o PrivateRoute
   - fine-tune sagas (esp. additional info)
-  ✔ redesign filter & sort @done(20-05-16 18:12)
   - rething filter & sort logic @focus 
   - better autosuggest loading state
   - handle long titles in notifs
@@ -148,6 +147,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ redesign filter & sort @done(20-05-16 18:12) @project(Optims/refactor)
   ✔ make filter UI sticky @done(20-05-14 01:04) @project(UX)
   ✔ fix the horrible 'ghost items' issue @done(20-05-13 01:13) @project(Fixes)
     [ { key: '-M3cCtkN-vlW054wz2nA' }, { key: '-M3cCpPyjTF5p8zLwZyi' } ]
