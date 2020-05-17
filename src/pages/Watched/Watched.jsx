@@ -98,20 +98,9 @@ export default function Watched() {
       */}
 
       <FilterAndSortProvider
-        // toggleUI={showFilters}
-        // FilterAndSortUI={FilterAndSort}
-        // data={watched}
-        // toggleCallback={() => setShowFilters(!showFilters)}
-        // toggleUI={quickSearch ? true : showFilters}
-        // FilterAndSortUI={quickSearch ? QuickSearch : FilterAndSort}
-        // data={watched}
-        // toggleCallback={
-        //   quickSearch ? undefined : () => setShowFilters(!showFilters)
-        // }
-
-        // toggleUI={quickSearch ? true : showFilters}
-        FilterAndSortUI={QuickSearch}
+        FilterAndSortUI={!showFilters ? QuickSearch : FilterAndSort}
         data={watched}
+        toggleCallback={() => setShowFilters(!showFilters)}
         placeholder={UI_LABELS.quickSearchPlaceholder}
       >
         {processedItems => (

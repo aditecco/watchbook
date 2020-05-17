@@ -22,30 +22,7 @@ export default function FilterAndSort({
       <div className="FilterAndSortContainer">
         <div className="wrapper">
           <form className="FilterAndSortForm">
-            <div className="formGroup formGroup__filter">
-              <label htmlFor="watchedSearchFilter">Filter by title</label>
-
-              <input
-                id="watchedSearchFilter"
-                type="text"
-                className="watchedFilter"
-                onChange={filterHandler}
-                placeholder="Enter a title…"
-                value={inputValue}
-              />
-
-              <button
-                type="button"
-                className="filterCancel"
-                // TODO appear when query is present
-                // style={{
-                //   display: `${!searchQuery.length ? "none" : "inline-block"}`,
-                // }}
-                onClick={resetHandler}
-              >
-                <MaterialIcon icon="close" />
-              </button>
-            </div>
+            {/* <div className="formGroup"></div> */}
 
             <div className="formGroup formGroup__sort">
               <label htmlFor="watchedSearchSort">Filter by year</label>
