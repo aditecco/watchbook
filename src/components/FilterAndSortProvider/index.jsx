@@ -9,14 +9,18 @@ export default function FilterAndSortProvider({
   children,
   data: initialData,
   FilterAndSortUI,
-  sendActiveQuery,
+  queryCallback,
   ...rest
 }) {
+  // local state
   const [sortQuery, setSortQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
   const [output, setOutput] = useState(initialData);
+
+  //
   const optionsKey = "year"; // TODO abstract 'options', move to props
   const options = removeDuplicates(initialData.map(item => item[optionsKey]));
+  const { type, UI, config } = FilterAndSortUI;
 
   /**
    * Removes dupes from a dataset
@@ -66,28 +70,49 @@ export default function FilterAndSortProvider({
   }
 
   useEffect(() => {
-    console.count("Running useEffect…");
+    console.count(`Processing ${filterQuery || sortQuery}…`);
 
     setOutput(sortOrFilter(initialData));
   }, [filterQuery, sortQuery]);
 
   return (
     <>
-      <FilterAndSortUI
-        filterHandler={e => {
-          setFilterQuery(e.target.value);
-          // sendActiveQuery(e.target.value);
-        }}
-        sortHandler={e => {
-          setSortQuery(e.target.value);
-          sendActiveQuery(e.target.value);
-        }}
+      <UI
+        /**
+         * default props
+         */
+
         resetHandler={() => {
           setFilterQuery("");
           setOutput(initialData);
         }}
-        inputValue={filterQuery}
-        sortOptions={[`Select a ${optionsKey}`].concat(options)}
+        /**
+         * type-dependent props
+         */
+
+        {...(type && type === "combo"
+          ? // combo type
+            {
+              sortHandler: e => {
+                setSortQuery(e.target.value);
+                queryCallback(e.target.value);
+              },
+              sortOptions: [`Select a ${optionsKey}`].concat(options),
+            }
+          : // simple type
+            {
+              filterHandler: e => setFilterQuery(e.target.value),
+              inputValue: filterQuery,
+            })}
+        /**
+         * config props
+         */
+
+        {...(config && config)}
+        /**
+         * other props
+         */
+
         {...rest}
       />
 

@@ -115,11 +115,25 @@ export default function Watched() {
       )}
 
       <FilterAndSortProvider
-        FilterAndSortUI={!showFilters ? QuickSearch : FilterAndSort}
         data={watched}
-        toggleCallback={() => setShowFilters(!showFilters)}
-        placeholder={UI_LABELS.quickSearchPlaceholder}
-        sendActiveQuery={query => setActiveQuery(query)}
+        queryCallback={query => setActiveQuery(query)}
+        FilterAndSortUI={
+          !showFilters
+            ? {
+                UI: QuickSearch,
+                type: "simple",
+                config: {
+                  placeholder: UI_LABELS.quickSearchPlaceholder,
+                },
+              }
+            : {
+                UI: FilterAndSort,
+                type: "combo",
+                config: {
+                  toggleCallback: () => setShowFilters(!showFilters),
+                },
+              }
+        }
       >
         {processedItems => (
           <WatchedList
