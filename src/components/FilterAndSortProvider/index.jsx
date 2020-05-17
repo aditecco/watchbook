@@ -9,6 +9,7 @@ export default function FilterAndSortProvider({
   children,
   data: initialData,
   FilterAndSortUI,
+  sendActiveQuery,
   ...rest
 }) {
   const [sortQuery, setSortQuery] = useState("");
@@ -73,8 +74,14 @@ export default function FilterAndSortProvider({
   return (
     <>
       <FilterAndSortUI
-        filterHandler={e => setFilterQuery(e.target.value)}
-        sortHandler={e => setSortQuery(e.target.value)}
+        filterHandler={e => {
+          setFilterQuery(e.target.value);
+          // sendActiveQuery(e.target.value);
+        }}
+        sortHandler={e => {
+          setSortQuery(e.target.value);
+          sendActiveQuery(e.target.value);
+        }}
         resetHandler={() => {
           setFilterQuery("");
           setOutput(initialData);

@@ -11,27 +11,29 @@ export default function QuickSearch({
   filterHandler,
   inputValue: value,
   resetHandler,
-  placeholder
+  placeholder,
 }) {
   return (
     <div className={"QuickSearch" + addClasses(className)}>
-      <div className="searchFieldContainer">
-        <MaterialIcon icon="search" className="searchIcon" />
+      <div className="wrapper">
+        <div className="searchFieldContainer">
+          <MaterialIcon icon="search" className="searchIcon" />
 
-        {value && (
-          <button className="resetButton" onClick={resetHandler}>
-            <MaterialIcon icon="close" className="resetIcon" />
-          </button>
-        )}
+          {value && (
+            <button className="resetButton" onClick={resetHandler}>
+              <MaterialIcon icon="close" className="resetIcon" />
+            </button>
+          )}
 
-        <input
-          type="text"
-          className="searchField"
-          onChange={filterHandler}
-          placeholder={placeholder}
-          value={value}
-          style={value ? { paddingRight: 38 } : {}}
-        />
+          <input
+            type="text"
+            className="searchField"
+            onChange={filterHandler}
+            placeholder={placeholder}
+            value={value}
+            style={value ? { paddingRight: 38 } : {}}
+          />
+        </div>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ import ViewOptions from "../../components/ViewOptions/ViewOptions";
 import WatchedList from "../../components/WatchedList/WatchedList";
 import QuickSearch from "../../components/QuickSearch/QuickSearch";
 import { UI_LABELS } from "../../constants";
+import MaterialIcon from "../../components/Misc/MaterialIcon";
 
 export default function Watched() {
   // global state
@@ -25,7 +26,7 @@ export default function Watched() {
   const [showFilters, setShowFilters] = useState(false);
   const [compactView, setCompactView] = useState(false);
   const [renderedItemsLimit, setRenderedItemsLimit] = useState(10);
-  const [quickSearch, setQuickSearch] = useState("");
+  const [activeQuery, setActiveQuery] = useState("");
 
   // other
   const { watched } = userData[uid]; // watched items cache
@@ -97,11 +98,33 @@ export default function Watched() {
 
       */}
 
+      {activeQuery && (
+        <div className="activeQueries wrapper" style={{ padding: "1rem" }}>
+          <button
+            className="PillButton"
+            onClick={_ => null}
+            style={{
+              fontSize: "1rem",
+              margin: 0,
+            }}
+          >
+            {activeQuery}
+            <span style={{ fontSize: 24, verticalAlign: "middle" }}>
+              {" "}
+              &times;
+            </span>
+
+            {/* <MaterialIcon icon="close" /> */}
+          </button>
+        </div>
+      )}
+
       <FilterAndSortProvider
         FilterAndSortUI={!showFilters ? QuickSearch : FilterAndSort}
         data={watched}
         toggleCallback={() => setShowFilters(!showFilters)}
         placeholder={UI_LABELS.quickSearchPlaceholder}
+        sendActiveQuery={query => setActiveQuery(query)}
       >
         {processedItems => (
           <WatchedList

@@ -24,7 +24,7 @@ export default function FilterAndSort({
           <form className="FilterAndSortForm">
             {/* <div className="formGroup"></div> */}
 
-            <div className="formGroup formGroup__sort">
+            <div className="formGroup">
               <label htmlFor="watchedSearchSort">Filter by year</label>
               <select
                 onChange={sortHandler}

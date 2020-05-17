@@ -99,11 +99,11 @@ body {
   display: inline-block;
   min-width: 99px;
   padding: 4px 8px;
-  border: $border;
+  border: 2px solid $accent;
   border-radius: $radius;
-  border-color: $accent;
   margin-bottom: $margin / 2;
   font-size: $small;
   text-align: center;
   color: $accent;
+  background-color: $transparent;
 }
