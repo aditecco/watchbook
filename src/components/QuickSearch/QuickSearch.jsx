@@ -4,6 +4,7 @@ QuickSearch
 
 import React from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
+import { addClasses } from "../../utils";
 
 export default function QuickSearch({
   className,
@@ -12,13 +13,13 @@ export default function QuickSearch({
   value
 }) {
   return (
-    <div className="QuickSearch">
+    <div className={"QuickSearch" + addClasses(className)}>
       <div className="searchFieldContainer">
         <MaterialIcon icon="search" className="searchIcon" />
 
         <input
           type="text"
-          className={`searchField${className ? " " + className : ""}`}
+          className="searchField"
           onChange={onChange}
           placeholder={placeholder}
           value={value}
