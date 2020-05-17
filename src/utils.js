@@ -47,7 +47,7 @@ export const storage = (() => {
     },
     destroy() {
       boundFn(window.localStorage.clear)();
-    }
+    },
   };
 })();
 
@@ -102,4 +102,12 @@ export function normalize(data) {
 // handles additional classes
 export function addClasses(classes) {
   return classes ? " " + classes : "";
+}
+
+/**
+ * Removes dupes from a dataset
+ */
+
+export function removeDuplicates(data) {
+  return [...new Set(data)];
 }

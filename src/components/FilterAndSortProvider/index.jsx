@@ -18,17 +18,13 @@ export default function FilterAndSortProvider({
   const [output, setOutput] = useState(initialData);
 
   //
-  const optionsKey = "year"; // TODO abstract 'options', move to props
-  const options = removeDuplicates(initialData.map(item => item[optionsKey]));
   const { type, UI, config } = FilterAndSortUI;
-
-  /**
-   * Removes dupes from a dataset
-   */
-
-  function removeDuplicates(data) {
-    return [...new Set(data)];
-  }
+  const options =
+    config.sortKeys &&
+    config.sortKeys.reduce((acc, k) => {
+      acc[k] = [`Select a ${k}`].concat(initialData.map(item => item[k]));
+      return acc;
+    }, {});
 
   /**
    * Filter handler
@@ -46,9 +42,8 @@ export default function FilterAndSortProvider({
    * Sort handler
    */
 
-  function handleSort(data, query) {
-    // TODO abstract 'year'
-    return data.filter(item => item[optionsKey] === query);
+  function handleSort(data, sortKey = "year", query) {
+    return data.filter(item => item[sortKey] === query);
   }
 
   /**
@@ -97,7 +92,7 @@ export default function FilterAndSortProvider({
                 setSortQuery(e.target.value);
                 queryCallback(e.target.value);
               },
-              sortOptions: [`Select a ${optionsKey}`].concat(options),
+              sortOptions: options,
             }
           : // simple type
             {
