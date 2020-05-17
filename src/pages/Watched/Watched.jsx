@@ -12,11 +12,12 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import ViewOptions from "../../components/ViewOptions/ViewOptions";
 import WatchedList from "../../components/WatchedList/WatchedList";
 import QuickSearch from "../../components/QuickSearch/QuickSearch";
+import { UI_LABELS } from "../../constants";
 
 export default function Watched() {
   // global state
   const {
-    user: { uid }
+    user: { uid },
   } = useSelector(state => state.authentication);
   const userData = useSelector(state => state.userData);
 
@@ -24,6 +25,7 @@ export default function Watched() {
   const [showFilters, setShowFilters] = useState(false);
   const [compactView, setCompactView] = useState(false);
   const [renderedItemsLimit, setRenderedItemsLimit] = useState(10);
+  const [quickSearch, setQuickSearch] = useState("");
 
   // other
   const { watched } = userData[uid]; // watched items cache
@@ -47,7 +49,7 @@ export default function Watched() {
     let observer = new IntersectionObserver(handleObserver, {
       root: null, // uses the viewport
       rootMargin: "0px",
-      threshold: 0.25
+      threshold: 0.25,
     });
 
     const target = document.querySelector(".infiniteScrollLoader");
@@ -88,12 +90,6 @@ export default function Watched() {
         </div>
       </div>
 
-      <QuickSearch
-        onChange={null}
-        placeholder="Filter by title…"
-        value={null}
-      />
-
       {/* 
       
       display current active filters
@@ -102,10 +98,21 @@ export default function Watched() {
       */}
 
       <FilterAndSortProvider
-        toggleUI={showFilters}
-        FilterAndSortUI={FilterAndSort}
+        // toggleUI={showFilters}
+        // FilterAndSortUI={FilterAndSort}
+        // data={watched}
+        // toggleCallback={() => setShowFilters(!showFilters)}
+        // toggleUI={quickSearch ? true : showFilters}
+        // FilterAndSortUI={quickSearch ? QuickSearch : FilterAndSort}
+        // data={watched}
+        // toggleCallback={
+        //   quickSearch ? undefined : () => setShowFilters(!showFilters)
+        // }
+
+        // toggleUI={quickSearch ? true : showFilters}
+        FilterAndSortUI={QuickSearch}
         data={watched}
-        toggleCallback={() => setShowFilters(!showFilters)}
+        placeholder={UI_LABELS.quickSearchPlaceholder}
       >
         {processedItems => (
           <WatchedList
