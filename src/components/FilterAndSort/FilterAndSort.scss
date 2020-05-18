@@ -6,9 +6,9 @@
   position: fixed;
   bottom: 0;
   z-index: 2;
-  height: 100vh;
+  height: $bottomDrawerHeight;
   width: 100%;
-  padding-top: 55vh;
+  padding-top: $bottomDrawerPadding;
   background-color: rgba(0, 0, 0, 0.5);
   overflow-y: scroll;
   @media screen and (min-width: $MD) {
@@ -17,7 +17,8 @@
 
   &Container {
     background-color: white;
-    height: 100%;
+    height: $bottomDrawerHeight - $bottomDrawerPadding;
+    overflow-y: scroll;
     box-shadow: 0 -10px 20px 10px rgba(0, 0, 0, 0.25);
   }
 
@@ -41,18 +42,15 @@
 
     .formGroup {
       position: relative;
-      flex-grow: 1;
+      flex: 1 1 280px;
       padding: 10px 12px;
       border: $border;
       border-radius: 4px;
+      margin-top: 1rem;
 
-      + .formGroup {
-        margin-left: 1rem;
-      }
-
-      @media (max-width: 375px) {
-        + .formGroup {
-          margin: 1rem 0 0 0;
+      @media screen and (min-width: 500px) {
+        &:nth-child(even) {
+          margin-left: 1rem;
         }
       }
     }

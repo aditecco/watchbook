@@ -5,6 +5,9 @@ WatchBook.todo
 Inbox:
   https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
   - move INIT_USER to auth?
+  - get n/a (not N/A) items
+  - sort filtered content alpha
+  ✔ fix filters CSS issue @done(20-05-19 00:47)
 
 Fixes:
   Things that don't work properly
