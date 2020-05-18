@@ -131,7 +131,7 @@ export default function Watched() {
                 type: "combo",
                 config: {
                   toggleCallback: () => setShowFilters(!showFilters),
-                  sortKeys: ["year", "director", "country"],
+                  sortKeys: ["year", "director", "country"], // TODO expose as prop
                 },
               }
         }
