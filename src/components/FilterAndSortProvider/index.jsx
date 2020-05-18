@@ -13,7 +13,7 @@ export default function FilterAndSortProvider({
   ...rest
 }) {
   // local state
-  const [sortQuery, setSortQuery] = useState("");
+  const [sortQuery, setSortQuery] = useState(null);
   const [filterQuery, setFilterQuery] = useState("");
   const [output, setOutput] = useState(initialData);
 
@@ -46,7 +46,7 @@ export default function FilterAndSortProvider({
    * Sort handler
    */
 
-  function handleSort(data, sortKey = "year", query) {
+  function handleSort(data, sortKey, query) {
     return data.filter(item => item[sortKey] === query);
   }
 
@@ -57,7 +57,9 @@ export default function FilterAndSortProvider({
 
   function sortOrFilter(data) {
     if (sortQuery) {
-      return handleSort(data, sortQuery);
+      const [sortKey, query] = sortQuery;
+
+      return handleSort(data, sortKey, query);
     }
 
     if (filterQuery) {
@@ -92,9 +94,9 @@ export default function FilterAndSortProvider({
         {...(type && type === "combo"
           ? // combo type
             {
-              sortHandler: e => {
-                setSortQuery(e.target.value);
-                queryCallback(e.target.value);
+              sortHandler: (id, value) => {
+                setSortQuery([id, value]);
+                queryCallback(value);
               },
               sortOptions: options,
             }

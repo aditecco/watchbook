@@ -50,13 +50,15 @@ export default function FilterAndSort({
                * Multiple sort options
                *
                */
+              // TODO this can replace the single option case, too
               Object.entries(options).map(([sortKey, optionsArray], i) => (
                 <div className="formGroup" key={`formGroup-${i}`}>
-                  <label htmlFor={`formGroup-${i}`}>Filter by {sortKey}</label>
+                  <label htmlFor={sortKey}>Filter by {sortKey}</label>
+
                   <select
-                    onChange={sortHandler}
-                    name={`formGroup-${i}`}
-                    id={`formGroup-${i}`}
+                    onChange={e => sortHandler(e.target.id, e.target.value)}
+                    name={`select__${sortKey}`}
+                    id={sortKey}
                     className="watchedSort"
                   >
                     {[...optionsArray]
