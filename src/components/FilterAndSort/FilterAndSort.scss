@@ -17,7 +17,7 @@
 
   &Container {
     background-color: white;
-    height: $bottomDrawerHeight - $bottomDrawerPadding;
+    height: calc((#{$bottomDrawerHeight} - #{$bottomDrawerPadding}) - 36px);
     overflow-y: scroll;
     box-shadow: 0 -10px 20px 10px rgba(0, 0, 0, 0.25);
   }
