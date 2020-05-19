@@ -5,9 +5,6 @@ WatchBook.todo
 Inbox:
   https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
   - move INIT_USER to auth?
-  - get n/a (not N/A) items
-  - sort options alpha
-  ✔ fix filters CSS issue @done(20-05-19 00:47)
   - remove update info CTA for non-added cards
   - make filters additive
 
@@ -18,7 +15,6 @@ Fixes:
   - when network is slow, local content is created with a delay
   - show some kind of user feedback for the error response
   - handle not found in item search
-  - empty select option in Firefox shows '1924' even though the value is ''
   - fix app root URL
   - 'Can't perform a React state update on an unmounted component'
     handleAuth	@	Auth.jsx:88
@@ -31,7 +27,6 @@ Optims/refactor:
   - image lazyloading
   - refactor routes w/o PrivateRoute
   - fine-tune sagas (esp. additional info)
-  - rething filter & sort logic @focus 
   - better autosuggest loading state
   - handle long titles in notifs
   - create className utility
@@ -89,8 +84,6 @@ Features/stories:
   - create stats page
   - create persistent notifs
   - add _notes_ feature
-  - add more filters (director, …)
-    - director @quick
   - move internal info (response, ID, etc) to hidden section @quick
   - create poster downloader to cache media
   - [TO-WATCH] to watch cards should have the ability to be converted to watched
@@ -153,6 +146,15 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ director @quick @done(20-05-20 01:07) @project(Features/stories)
+  ✔ type @done(20-05-20 01:07) @project(Features/stories)
+  ✔ genre @done(20-05-20 01:07) @project(Features/stories)
+  ✔ re-think filter & sort logic @focus @done(20-05-20 01:06) @project(Optims/refactor)
+  ✔ add more filters (director, …) @done(20-05-20 01:07) @project(Features/stories)
+  ✔ get n/a (not N/A) items @done(20-05-20 00:59) @project(Inbox)
+  ✔ sort options alpha @done(20-05-20 00:59) @project(Inbox)
+  ✔ fix filters CSS issue @done(20-05-19 00:47) @project(Inbox)
+  ✔ empty select option in Firefox shows '1924' even though the value is '' @done(20-05-20 01:00) @project(Fixes)
   ✔ redesign filter & sort @done(20-05-16 18:12) @project(Optims/refactor)
   ✔ make filter UI sticky @done(20-05-14 01:04) @project(UX)
   ✔ fix the horrible 'ghost items' issue @done(20-05-13 01:13) @project(Fixes)

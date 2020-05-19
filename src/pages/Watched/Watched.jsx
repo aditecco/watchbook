@@ -13,7 +13,7 @@ import ViewOptions from "../../components/ViewOptions/ViewOptions";
 import WatchedList from "../../components/WatchedList/WatchedList";
 import QuickSearch from "../../components/QuickSearch/QuickSearch";
 import { UI_LABELS } from "../../constants";
-import MaterialIcon from "../../components/Misc/MaterialIcon";
+// import sample from "../../sampleData";
 
 export default function Watched() {
   // global state
@@ -131,7 +131,14 @@ export default function Watched() {
                 type: "combo",
                 config: {
                   toggleCallback: () => setShowFilters(!showFilters),
-                  sortKeys: ["year", "director", "country"], // TODO expose as prop
+                  sortKeys: [
+                    "year",
+                    "director",
+                    "country",
+                    "genre",
+                    // "type",
+                    //
+                  ], // TODO expose as prop
                 },
               }
         }
