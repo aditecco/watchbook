@@ -24,7 +24,7 @@ export default function FilterAndSortProvider({
   const options =
     config.sortKeys &&
     config.sortKeys.reduce((acc, sortKey) => {
-      acc[sortKey] = [`Select a ${sortKey}`].concat(
+      acc[sortKey] = [["", `Select a ${sortKey}`]].concat(
         processOptions(extractOptions(initialData, sortKey), sortKey)
       );
 

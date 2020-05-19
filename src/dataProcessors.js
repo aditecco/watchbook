@@ -18,20 +18,36 @@ const dataProcessors = {
        * First Last => Last, F.
        */
       case 2: {
-        return split
-          .reverse()
-          .map((part, i) =>
-            i === 1 ? part.charAt(0).toUpperCase() + "." : part + ", "
-          )
-          .join(" ");
+        return [
+          firstLast,
+          split
+            .reverse()
+            .map((part, i) =>
+              i === 1 ? part.charAt(0).toUpperCase() + "." : part + ", "
+            )
+            .join(" "),
+        ];
       }
 
       default:
-        return firstLast;
+        return [firstLast];
     }
   },
-  year() {},
-  country() {},
+
+  /**
+   * TODO
+   * - remove dashes
+   * - remove ranges
+   */
+  year(data) {
+    return [data];
+  },
+  country(data) {
+    return [data];
+  },
+  genre(data) {
+    return [data];
+  },
 };
 
 export default dataProcessors;
