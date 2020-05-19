@@ -25,7 +25,11 @@ export default function FilterAndSortProvider({
     config.sortKeys &&
     config.sortKeys.reduce((acc, sortKey) => {
       acc[sortKey] = [["", `Select a ${sortKey}`]].concat(
-        processOptions(extractOptions(initialData, sortKey), sortKey)
+        processOptions(
+          extractOptions(initialData, sortKey),
+          sortKey
+          //
+        )
       );
 
       return acc;
