@@ -78,13 +78,13 @@ export default function Card({
                     ? _additionalData.country.length > 15
                       ? _additionalData.country.substring(0, 10) + "…"
                       : _additionalData.country
-                    : "n/a"}
+                    : "N/A"}
                 </li>
 
                 <li className="CardMetaItem">
                   <h6 className="CardMetaItemTitle">Director</h6>
 
-                  {_additionalData.director || "n/a"}
+                  {_additionalData.director || "N/A"}
                 </li>
               </ul>
             </div>

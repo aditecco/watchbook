@@ -30,17 +30,15 @@ export default function FilterAndSort({
                   id={sortKey}
                   className="watchedSort"
                 >
-                  {[...optionsArray]
-                    .sort((a, b) => a - b)
-                    .map((option, i) => (
-                      <option
-                        value={i === 0 ? "" : option}
-                        key={"option-" + i}
-                        //
-                      >
-                        {option}
-                      </option>
-                    ))}
+                  {optionsArray.map((option, i) => (
+                    <option
+                      value={i === 0 ? "" : option}
+                      key={"option-" + i}
+                      //
+                    >
+                      {option}
+                    </option>
+                  ))}
                 </select>
               </div>
             ))}

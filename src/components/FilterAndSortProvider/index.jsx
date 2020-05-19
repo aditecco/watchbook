@@ -24,11 +24,30 @@ export default function FilterAndSortProvider({
     config.sortKeys &&
     config.sortKeys.reduce((acc, sortKey) => {
       acc[sortKey] = [`Select a ${sortKey}`].concat(
-        removeDuplicates(initialData.map(item => item[sortKey]))
+        processOptions(extractOptions(initialData, sortKey))
       );
 
       return acc;
     }, {});
+
+  /**
+   * Processes options
+   * - removes dupes
+   * - sorts alpha
+   */
+
+  function processOptions(options) {
+    return [...removeDuplicates(options)].sort((a, b) => a - b);
+  }
+
+  /**
+   * Extracts options, providing a searchable
+   * placeholder in case of missing value
+   */
+
+  function extractOptions(data, key) {
+    return data.map(item => item[key] || "N/A");
+  }
 
   /**
    * Filter handler
@@ -46,6 +65,7 @@ export default function FilterAndSortProvider({
    * Sort handler
    */
 
+  // TODO rename: it's not a sort!
   function handleSort(data, sortKey, query) {
     return data.filter(item => item[sortKey] === query);
   }
