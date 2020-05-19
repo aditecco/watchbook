@@ -4,6 +4,7 @@ FilterAndSortProvider
 
 import React, { useState, useEffect } from "react";
 import { log, removeDuplicates } from "../../utils";
+import dataProcessors from "../../dataProcessors";
 
 export default function FilterAndSortProvider({
   children,
@@ -24,7 +25,7 @@ export default function FilterAndSortProvider({
     config.sortKeys &&
     config.sortKeys.reduce((acc, sortKey) => {
       acc[sortKey] = [`Select a ${sortKey}`].concat(
-        processOptions(extractOptions(initialData, sortKey))
+        processOptions(extractOptions(initialData, sortKey), sortKey)
       );
 
       return acc;
@@ -36,8 +37,10 @@ export default function FilterAndSortProvider({
    * - sorts alpha
    */
 
-  function processOptions(options) {
-    return [...removeDuplicates(options)].sort((a, b) => a - b);
+  function processOptions(options, key, sortFn = undefined) {
+    return removeDuplicates(options)
+      .map(dataProcessors[key])
+      .sort(sortFn);
   }
 
   /**
