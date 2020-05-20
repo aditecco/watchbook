@@ -12,6 +12,7 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
+  - Directors are sorted by first name! @focus 
   - when network is slow, local content is created with a delay
   - show some kind of user feedback for the error response
   - handle not found in item search
@@ -24,6 +25,9 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - abstract Watched, ToWatch into 'ContentPage'
+  - merge FilterAndSortProvider into DataProvider (?)
+  - refactor providers as class HOCs (?)
   - image lazyloading
   - refactor routes w/o PrivateRoute
   - fine-tune sagas (esp. additional info)
@@ -146,6 +150,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ refactor dataProcessor as a class @done(20-05-21 01:58) @project(Optims/refactor)
+  ✔ refactor FilterAndSortProvider to move all data manip to dataProcessor @done(20-05-21 01:58) @project(Optims/refactor)
   ✔ director @quick @done(20-05-20 01:07) @project(Features/stories)
   ✔ type @done(20-05-20 01:07) @project(Features/stories)
   ✔ genre @done(20-05-20 01:07) @project(Features/stories)

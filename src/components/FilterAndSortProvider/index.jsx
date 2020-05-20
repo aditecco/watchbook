@@ -3,8 +3,7 @@ FilterAndSortProvider
 --------------------------------- */
 
 import React, { useState, useEffect } from "react";
-import { log, removeDuplicates } from "../../utils";
-import dataProcessors from "../../dataProcessors";
+import dataProcessor from "../../dataProcessor";
 
 export default function FilterAndSortProvider({
   children,
@@ -20,32 +19,18 @@ export default function FilterAndSortProvider({
 
   //
   const { type, UI, config } = FilterAndSortUI;
+  const processor = new dataProcessor();
 
   const options =
     config.sortKeys &&
     config.sortKeys.reduce((acc, sortKey) => {
-      acc[sortKey] = [["", `Select a ${sortKey}`]].concat(
-        processOptions(
-          extractOptions(initialData, sortKey),
-          sortKey
-          //
-        )
+      acc[sortKey] = processor[sortKey].bind(processor)(
+        extractOptions(initialData, sortKey),
+        sortKey
       );
 
       return acc;
     }, {});
-
-  /**
-   * Processes options
-   * - removes dupes
-   * - sorts alpha
-   */
-
-  function processOptions(options, key, sortFn = undefined) {
-    return removeDuplicates(options)
-      .map(dataProcessors[key])
-      .sort(sortFn);
-  }
 
   /**
    * Extracts options, providing a searchable
