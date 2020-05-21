@@ -63,7 +63,7 @@ export default function WatchedList({
               className="infiniteScrollLoader"
               style={{ display: "block", textAlign: "center", padding: "1rem" }}
             >
-              Loading…
+              {!(limit >= watched.length) && "Loading…"}
             </div>
           ) : (
             <span
