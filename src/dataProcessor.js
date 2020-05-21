@@ -49,9 +49,13 @@ export default class dataProcessor {
               el,
               split
                 .reverse()
-                .map((part, i) =>
-                  i === 1 ? part.charAt(0).toUpperCase() + "." : part + ", "
-                )
+                .map((part, i) => {
+                  // return i === 1
+                  //   ? part.charAt(0).toUpperCase() + "."
+                  //   : part + ", ";
+
+                  return i === 1 ? part : part + ", ";
+                })
                 .join(" "),
             ];
           }
