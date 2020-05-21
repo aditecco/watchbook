@@ -4,17 +4,23 @@ Spinner
 
 import React from "react";
 
-export default function Spinner({ color, duration, shadow }) {
+export default function Spinner({ inline, color, duration, shadow, styles }) {
   return (
-    <div className="SpinnerContainer">
+    <div
+      className="SpinnerContainer"
+      style={
+        inline ? { position: "static", width: "100%", height: "100%" } : {}
+      }
+    >
       <div
         className="Spinner"
         style={
-          [color, duration, shadow].some(prop => prop !== undefined)
+          [color, duration, shadow, styles].some(prop => prop !== undefined)
             ? {
                 borderTopColor: color,
                 animationDuration: duration,
-                boxShadow: shadow
+                boxShadow: shadow,
+                ...styles,
               }
             : {}
         }

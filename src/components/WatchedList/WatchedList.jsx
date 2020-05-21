@@ -63,7 +63,12 @@ export default function WatchedList({
               className="infiniteScrollLoader"
               style={{ display: "block", textAlign: "center", padding: "1rem" }}
             >
-              {!(limit >= watched.length) && "Loading…"}
+              {!(limit >= watched.length) && (
+                <Spinner
+                  inline
+                  styles={{ width: 40, height: 40, borderWidth: 5 }}
+                />
+              )}
             </div>
           ) : (
             <span
