@@ -18,7 +18,7 @@ export default class dataProcessor {
     return [["", `Select a ${sortKey}`]].concat(data);
   }
 
-  generic(data, sortKey) {
+  applyGenericProcessing(data, sortKey) {
     return this.finalizeData(
       this.primeData(data).map(el => [el]),
       sortKey
@@ -35,35 +35,53 @@ export default class dataProcessor {
   */
 
   director(data, sortKey) {
+    function invertOrder(data) {
+      const split = data.split(" ");
+
+      if (split.length === 2) {
+        // Woody Allen => Allen Woody
+        return split.reverse().join(" ");
+      }
+
+      return data;
+    }
+
     return this.finalizeData(
-      this.primeData(data).map(el => {
-        const split = el.split(" ");
+      this.primeData(data)
+        .map(invertOrder)
+        .sort() // by sorting with inverse order, we achieve ordering by last name
+        .map(lastFirst => {
+          const split = lastFirst.split(" ");
 
-        switch (split.length) {
-          /**
-           * Default case:
-           * First Last => Last, F.
-           */
-          case 2: {
-            return [
-              el,
-              split
-                .reverse()
-                .map((part, i) => {
-                  // return i === 1
-                  //   ? part.charAt(0).toUpperCase() + "."
-                  //   : part + ", ";
+          switch (split.length) {
+            /**
+             * Default case:
+             *
+             * *************************************************
+             * | orig value  |   input value   |   UI label    |
+             * *************************************************
+             *
+             * Last First => [ [ First Last ], [ Last, First ] ]
+             *
+             * *************************************************
+             *
+             */
+            case 2: {
+              return [
+                // Allen Woody => Woody Allen
+                [...split].reverse().join(" "),
 
-                  return i === 1 ? part : part + ", ";
-                })
-                .join(" "),
-            ];
+                // Allen Woody => Allen, Woody
+                [...split]
+                  .map((part, i) => (i === 1 ? part : part + ", "))
+                  .join(" "),
+              ];
+            }
+
+            default:
+              return [lastFirst];
           }
-
-          default:
-            return [el];
-        }
-      }),
+        }),
       //
       sortKey
     );
@@ -78,7 +96,7 @@ export default class dataProcessor {
    */
 
   year(data, sortKey) {
-    return this.generic(data, sortKey);
+    return this.applyGenericProcessing(data, sortKey);
   }
 
   /**
@@ -86,7 +104,7 @@ export default class dataProcessor {
    */
 
   country(data, sortKey) {
-    return this.generic(data, sortKey);
+    return this.applyGenericProcessing(data, sortKey);
   }
 
   /**
@@ -94,7 +112,7 @@ export default class dataProcessor {
    */
 
   genre(data, sortKey) {
-    return this.generic(data, sortKey);
+    return this.applyGenericProcessing(data, sortKey);
   }
 
   /**
@@ -102,6 +120,6 @@ export default class dataProcessor {
    */
 
   type(data, sortKey) {
-    return this.generic(data, sortKey);
+    return this.applyGenericProcessing(data, sortKey);
   }
 }
