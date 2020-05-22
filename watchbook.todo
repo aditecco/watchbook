@@ -12,7 +12,6 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
-  - Directors are sorted by first name! @focus 
   - when network is slow, local content is created with a delay
   - show some kind of user feedback for the error response
   - handle not found in item search
@@ -69,7 +68,6 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
-  - working activeQuery
   - create new product GIFs @focus 
   - re-fetch card info @focus 
     add info to cards that don't have it,
@@ -150,6 +148,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ working activeQuery @done(20-05-22 02:24) @project(Features/stories)
+  ✔ Directors are sorted by first name! @focus @done(20-05-22 02:16) @project(Fixes)
   ✔ create graphical loader for infinite scroll @done(20-05-22 01:25) @project(UX)
   ✔ auto-shorten directors' names, i.e. S. Kubrik @done(20-05-22 00:48) @project(UX)
   ✔ refactor dataProcessor as a class @done(20-05-21 01:58) @project(Optims/refactor)

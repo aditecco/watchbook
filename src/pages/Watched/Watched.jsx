@@ -27,6 +27,7 @@ export default function Watched() {
   const [compactView, setCompactView] = useState(false);
   const [renderedItemsLimit, setRenderedItemsLimit] = useState(10);
   const [activeQuery, setActiveQuery] = useState("");
+  const [resetFilters, setResetFilters] = useState(false);
 
   // other
   const { watched } = userData[uid]; // watched items cache
@@ -97,7 +98,11 @@ export default function Watched() {
         <div className="activeQueries wrapper" style={{ padding: "1rem" }}>
           <button
             className="PillButton"
-            onClick={_ => null}
+            onClick={() => {
+              // TODO merge
+              setResetFilters(true);
+              setActiveQuery("");
+            }}
             style={{
               fontSize: "1rem",
               margin: 0,
@@ -117,6 +122,7 @@ export default function Watched() {
       <FilterAndSortProvider
         data={watched}
         queryCallback={query => setActiveQuery(query)}
+        remoteReset={resetFilters}
         FilterAndSortUI={
           !showFilters
             ? {

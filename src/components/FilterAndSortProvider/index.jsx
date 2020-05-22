@@ -10,6 +10,7 @@ export default function FilterAndSortProvider({
   data: initialData,
   FilterAndSortUI,
   queryCallback,
+  remoteReset,
   ...rest
 }) {
   // local state
@@ -87,6 +88,13 @@ export default function FilterAndSortProvider({
 
     setOutput(sortOrFilter(initialData));
   }, [filterQuery, sortQuery]);
+
+  useEffect(() => {
+    if (remoteReset) {
+      setFilterQuery("");
+      setOutput(initialData);
+    }
+  }, [remoteReset]);
 
   return (
     <>
