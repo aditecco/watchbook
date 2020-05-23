@@ -9,7 +9,7 @@ import { useSpring, animated, useTrail } from "react-spring";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshCardData, setAuthState } from "../../redux/actions";
 
-export default React.memo(function Card({
+export default function Card({
   image,
   title,
   type,
@@ -21,9 +21,9 @@ export default React.memo(function Card({
   ...other
 }) {
   const [flipped, toggleFlipped] = useState(false);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { cardData } = useSelector(state => state.apiData);
+  const [loading, setLoading] = useState(false);
 
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -235,4 +235,4 @@ export default React.memo(function Card({
       </animated.div>
     </div>
   );
-});
+}
