@@ -160,8 +160,8 @@ export default function ContentPage({
             limit={renderedItemsLimit}
             infiniteScroll={renderedItemsLimit <= content.length}
             content={processedItems}
-            title={`${processedItems.length} item${
-              processedItems.length > 1 ? "s" : ""
+            title={`${processedItems && processedItems.length} item${
+              processedItems && processedItems.length > 1 ? "s" : ""
             }`}
             compact={compactView}
           />
