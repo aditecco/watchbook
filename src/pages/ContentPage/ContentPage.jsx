@@ -1,5 +1,5 @@
 /* ---------------------------------
-Watched
+ContentPage
 --------------------------------- */
 
 import React, { useState, useEffect } from "react";
@@ -15,7 +15,13 @@ import QuickSearch from "../../components/QuickSearch/QuickSearch";
 import { UI_LABELS } from "../../constants";
 import sample from "../../sampleData";
 
-export default function Watched() {
+export default function ContentPage({
+  dataSet,
+  icon,
+  selectedIndex,
+  subHeading,
+  title,
+}) {
   // global state
   const {
     user: { uid },
@@ -30,8 +36,8 @@ export default function Watched() {
   const [resetFilters, setResetFilters] = useState(false);
 
   // other
-  const { watched } = userData[uid]; // watched items cache
-  const getType = type => watched.filter(item => item.type === type).length;
+  const content = userData[uid][dataSet];
+  const getType = type => content.filter(item => item.type === type).length;
 
   /**
    * The intersection observer callback
@@ -62,10 +68,10 @@ export default function Watched() {
   }, []);
 
   return (
-    <Layout rootClass="Watched" selected={2}>
+    <Layout rootClass="ContentPage" selected={selectedIndex}>
       <PageHeader
-        title="watched"
-        // icon="check_circle"
+        title={title}
+        icon={icon}
         subHeading={[
           <span className="highlight" key="movieCount">
             {getType("movie")} Movies,{" "}
@@ -120,7 +126,7 @@ export default function Watched() {
       )}
 
       <FilterAndSortProvider
-        data={watched}
+        data={content}
         queryCallback={query => setActiveQuery(query)}
         remoteReset={resetFilters}
         FilterAndSortUI={
@@ -152,7 +158,7 @@ export default function Watched() {
         {processedItems => (
           <WatchedList
             limit={renderedItemsLimit}
-            infiniteScroll={renderedItemsLimit <= watched.length}
+            infiniteScroll={renderedItemsLimit <= content.length}
             watched={processedItems}
             title={`${processedItems.length} item${
               processedItems.length > 1 ? "s" : ""

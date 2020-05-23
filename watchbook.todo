@@ -24,7 +24,6 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
-  - abstract Watched, ToWatch into 'ContentPage'
   - merge FilterAndSortProvider into DataProvider (?)
   - refactor providers as class HOCs (?)
   - image lazyloading
@@ -148,6 +147,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ abstract Watched, ToWatch into 'ContentPage' @done(20-05-23 03:33) @project(Optims/refactor)
   ✔ working activeQuery @done(20-05-22 02:24) @project(Features/stories)
   ✔ Directors are sorted by first name! @focus @done(20-05-22 02:16) @project(Fixes)
   ✔ create graphical loader for infinite scroll @done(20-05-22 01:25) @project(UX)
