@@ -5,7 +5,7 @@ CompactCardAnchor
 import React from "react";
 import { log } from "../../utils";
 
-export default function CompactCard({
+export default React.memo(function CompactCard({
   image,
   title,
   type,
@@ -35,4 +35,4 @@ export default function CompactCard({
       </article>
     </div>
   );
-}
+});
