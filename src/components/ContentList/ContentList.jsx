@@ -1,5 +1,5 @@
 /* ---------------------------------
-WatchedList
+ContentList
 --------------------------------- */
 
 import React from "react";
@@ -8,26 +8,26 @@ import CompactCard from "../CompactCard/CompactCard";
 import Spinner from "../Spinner/Spinner";
 import { UI_LABELS } from "../../constants";
 
-export default function WatchedList({
+export default function ContentList({
   compact,
   infiniteScroll,
   limit = undefined,
   loading,
   title,
-  watched = [],
+  content = [],
 }) {
   return (
-    <section className="watched">
-      {watched && watched.length ? (
+    <section className="ContentList">
+      {content && content.length ? (
         <>
-          <header className="watchedHeader">
+          <header className="ContentListHeader">
             <div className="wrapper">
-              <h3 className="watchedHeaderTitle">{title}</h3>
+              <h3 className="ContentListHeaderTitle">{title}</h3>
             </div>
           </header>
           <div className="wrapper">
-            <ul className="cardList watchedList">
-              {watched.slice(0, limit).map((item, i) => {
+            <ul className="ContentListCards ContentListGrid">
+              {content.slice(0, limit).map((item, i) => {
                 const { image, title, type, year, ...rest } = item;
 
                 return !compact ? (
@@ -63,7 +63,7 @@ export default function WatchedList({
               className="infiniteScrollLoader"
               style={{ display: "block", textAlign: "center", padding: "1rem" }}
             >
-              {!(limit >= watched.length) && (
+              {!(limit >= content.length) && (
                 <Spinner
                   inline
                   styles={{ width: 40, height: 40, borderWidth: 5 }}

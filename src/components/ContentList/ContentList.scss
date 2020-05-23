@@ -1,12 +1,12 @@
 /* ---------------------------------
-WatchedList
+ContentList
 --------------------------------- */
 
-.watched {
+.ContentList {
   padding-bottom: 120px;
 
-  .watchedHeader {
-    .watchedHeaderTitle {
+  &Header {
+    &Title {
       font-family: $workSans;
       color: $flat-blue-3;
       font-weight: normal;
@@ -18,10 +18,10 @@ WatchedList
     }
   }
 
-  .cardList {
+  &Cards {
     @include box(0 1.6rem, inherit, true);
 
-    &.watchedList {
+    &.ContentListGrid {
       display: grid;
       grid-template-columns: repeat(
         auto-fill,

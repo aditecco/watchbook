@@ -10,7 +10,7 @@ import FilterAndSortProvider from "../../components/FilterAndSortProvider";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ViewOptions from "../../components/ViewOptions/ViewOptions";
-import WatchedList from "../../components/WatchedList/WatchedList";
+import ContentList from "../../components/ContentList/ContentList";
 import QuickSearch from "../../components/QuickSearch/QuickSearch";
 import { UI_LABELS } from "../../constants";
 import sample from "../../sampleData";
@@ -156,10 +156,10 @@ export default function ContentPage({
         }
       >
         {processedItems => (
-          <WatchedList
+          <ContentList
             limit={renderedItemsLimit}
             infiniteScroll={renderedItemsLimit <= content.length}
-            watched={processedItems}
+            content={processedItems}
             title={`${processedItems.length} item${
               processedItems.length > 1 ? "s" : ""
             }`}

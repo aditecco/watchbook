@@ -54,7 +54,6 @@ Optims/refactor:
   - actually implement Typescript
   - refactor to extract components where due
     - …
-  - rename WatchedList as content-agnostic @quick 
   - Complete DataProvider
     - …
     - move user init to ~~other specialized component~~ saga
@@ -147,6 +146,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ rename WatchedList as content-agnostic @quick @done(20-05-23 04:07) @project(Optims/refactor)
   ✔ abstract Watched, ToWatch into 'ContentPage' @done(20-05-23 03:33) @project(Optims/refactor)
   ✔ working activeQuery @done(20-05-22 02:24) @project(Features/stories)
   ✔ Directors are sorted by first name! @focus @done(20-05-22 02:16) @project(Fixes)

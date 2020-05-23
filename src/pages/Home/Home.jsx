@@ -3,7 +3,7 @@ Home
 --------------------------------- */
 
 import React, { useReducer, useEffect } from "react";
-import WatchedList from "../../components/WatchedList/WatchedList";
+import ContentList from "../../components/ContentList/ContentList";
 import Layout from "../../components/Layout/Layout";
 import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
@@ -166,17 +166,9 @@ function Home() {
       <DataProvider
         dataSet="watched"
         render={data => (
-          <WatchedList watched={data} title="Latest watched" limit={10} />
+          <ContentList content={data} title="Latest watched" limit={10} />
         )}
       />
-
-      {/* TODO */}
-      {/* <DataProvider
-          dataSet="toWatch"
-          render={(data) => (
-            <WatchedList watched={data} title="Latest To Watch" limit={6} />
-          )}
-        /> */}
     </Layout>
   );
 }
