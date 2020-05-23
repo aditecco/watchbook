@@ -12,6 +12,7 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
+  - !!! To Watch cards are the same as Watched cards until props updated
   - when network is slow, local content is created with a delay
   - show some kind of user feedback for the error response
   - handle not found in item search

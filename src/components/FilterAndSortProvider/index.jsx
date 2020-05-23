@@ -16,7 +16,7 @@ export default function FilterAndSortProvider({
   // local state
   const [sortQuery, setSortQuery] = useState(null);
   const [filterQuery, setFilterQuery] = useState("");
-  const [output, setOutput] = useState(initialData);
+  const [output, setOutput] = useState([]);
 
   //
   const { type, UI, config } = FilterAndSortUI;
@@ -82,6 +82,10 @@ export default function FilterAndSortProvider({
     // the unaltered initial data
     return initialData;
   }
+
+  useEffect(() => {
+    initialData && initialData.length && setOutput(initialData);
+  }, [initialData]);
 
   useEffect(() => {
     console.count(`Processing ${filterQuery || sortQuery}…`);
