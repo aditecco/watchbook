@@ -2,7 +2,7 @@
 ContentPage
 --------------------------------- */
 
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { log } from "../../utils";
 import { useSelector } from "react-redux";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
@@ -29,11 +29,24 @@ export default function ContentPage({
   const userData = useSelector(state => state.userData);
 
   // local state
-  const [showFilters, setShowFilters] = useState(false);
-  const [compactView, setCompactView] = useState(false);
-  const [renderedItemsLimit, setRenderedItemsLimit] = useState(10);
-  const [activeQuery, setActiveQuery] = useState("");
-  const [resetFilters, setResetFilters] = useState(false);
+  const [state, setState] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    {
+      showFilters: false,
+      compactView: false,
+      renderedItemsLimit: 10,
+      activeQuery: "",
+      resetFilters: false,
+    }
+  );
+
+  const {
+    showFilters,
+    compactView,
+    renderedItemsLimit,
+    activeQuery,
+    resetFilters,
+  } = state;
 
   // other
   const content = userData[uid][dataSet];
@@ -46,7 +59,7 @@ export default function ContentPage({
   function handleObserver(entries, observer) {
     // log("intersecting…", entries, observer);
 
-    setRenderedItemsLimit(limit => limit + 10);
+    setState({ renderedItemsLimit: renderedItemsLimit + 10 });
   }
 
   useEffect(() => {
@@ -87,14 +100,14 @@ export default function ContentPage({
           <ViewOptions
             labels={{ off: "Show filters", on: "Hide filters" }}
             icons={{ off: "filter_list", on: "" }}
-            toggleCallback={() => setShowFilters(!showFilters)}
+            toggleCallback={() => setState({ showFilters: !showFilters })}
             toggleStatus={showFilters}
           />
 
           <ViewOptions
             labels={{ off: "Compact view", on: "Card view" }}
             icons={{ off: "view_stream", on: "view_module" }}
-            toggleCallback={() => setCompactView(!compactView)}
+            toggleCallback={() => setState({ compactView: !compactView })}
             toggleStatus={compactView}
           />
         </div>
@@ -105,9 +118,7 @@ export default function ContentPage({
           <button
             className="PillButton"
             onClick={() => {
-              // TODO merge
-              setResetFilters(true);
-              setActiveQuery("");
+              setState({ resetFilters: true, setActiveQuery: "" });
             }}
             style={{
               fontSize: "1rem",
@@ -127,7 +138,7 @@ export default function ContentPage({
 
       <FilterAndSortProvider
         data={content}
-        queryCallback={query => setActiveQuery(query)}
+        queryCallback={query => setState({ activeQuery: query })}
         remoteReset={resetFilters}
         FilterAndSortUI={
           !showFilters
@@ -142,7 +153,7 @@ export default function ContentPage({
                 UI: FilterAndSort,
                 type: "combo",
                 config: {
-                  toggleCallback: () => setShowFilters(!showFilters),
+                  toggleCallback: () => setState({ showFilters: !showFilters }),
                   sortKeys: [
                     "year",
                     "director",

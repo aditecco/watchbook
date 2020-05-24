@@ -12,7 +12,6 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
-  - !!! To Watch cards are the same as Watched cards until props updated
   - when network is slow, local content is created with a delay
   - show some kind of user feedback for the error response
   - handle not found in item search
@@ -147,6 +146,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ !!! To Watch cards are the same as Watched cards until props updated @done(20-05-23 16:22) @project(Fixes)
   ✔ rename WatchedList as content-agnostic @quick @done(20-05-23 04:07) @project(Optims/refactor)
   ✔ abstract Watched, ToWatch into 'ContentPage' @done(20-05-23 03:33) @project(Optims/refactor)
   ✔ working activeQuery @done(20-05-22 02:24) @project(Features/stories)
