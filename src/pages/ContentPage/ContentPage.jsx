@@ -2,7 +2,7 @@
 ContentPage
 --------------------------------- */
 
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useRef } from "react";
 import { log } from "../../utils";
 import { useSelector } from "react-redux";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
@@ -29,15 +29,17 @@ export default function ContentPage({
   const userData = useSelector(state => state.userData);
 
   // local state
+  const initialState = {
+    showFilters: false,
+    compactView: false,
+    renderedItemsLimit: 10,
+    activeQuery: "",
+    resetFilters: false,
+  };
+
   const [state, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
-    {
-      showFilters: false,
-      compactView: false,
-      renderedItemsLimit: 10,
-      activeQuery: "",
-      resetFilters: false,
-    }
+    initialState
   );
 
   const {
@@ -49,6 +51,7 @@ export default function ContentPage({
   } = state;
 
   // other
+  const initialPageIndex = useRef(selectedIndex);
   const content = userData[uid][dataSet];
   const getType = type => content.filter(item => item.type === type).length;
 
@@ -79,6 +82,21 @@ export default function ContentPage({
 
     return () => target && observer.unobserve(target);
   }, []);
+
+  useEffect(() => {
+    /**
+     * the index we saved on mount is
+     * different than the current prop val
+     */
+
+    if (selectedIndex !== initialPageIndex.current) {
+      // we re-assign the value for the next cycle
+      initialPageIndex.current = selectedIndex;
+
+      // we re-initialize the state on page change
+      setState(initialState);
+    }
+  }, [selectedIndex]);
 
   return (
     <Layout rootClass="ContentPage" selected={selectedIndex}>
@@ -118,7 +136,7 @@ export default function ContentPage({
           <button
             className="PillButton"
             onClick={() => {
-              setState({ resetFilters: true, setActiveQuery: "" });
+              setState({ resetFilters: true, activeQuery: "" });
             }}
             style={{
               fontSize: "1rem",
