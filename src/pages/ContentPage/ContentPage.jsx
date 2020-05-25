@@ -95,6 +95,9 @@ export default function ContentPage({
 
       // we re-initialize the state on page change
       setState(initialState);
+
+      // reset scroll position when we enter the page
+      window.scrollTo(0, 0);
     }
   }, [selectedIndex]);
 
