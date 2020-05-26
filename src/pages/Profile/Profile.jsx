@@ -50,7 +50,7 @@ export default function Profile() {
   return authenticated ? (
     <Layout rootClass="Profile">
       <PageHeader
-        title="profile"
+        title="Profile"
         // icon="account_circle"
       />
 

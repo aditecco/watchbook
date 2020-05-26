@@ -2,7 +2,7 @@
 ContentPage
 --------------------------------- */
 
-import React, { useReducer, useEffect, useRef } from "react";
+import React, { useState, useReducer, useEffect, useRef } from "react";
 import { log } from "../../utils";
 import { useSelector } from "react-redux";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
@@ -32,7 +32,6 @@ export default function ContentPage({
   const initialState = {
     showFilters: false,
     compactView: false,
-    renderedItemsLimit: 10,
     activeQuery: "",
     resetFilters: false,
   };
@@ -42,45 +41,46 @@ export default function ContentPage({
     initialState
   );
 
-  const {
-    showFilters,
-    compactView,
-    renderedItemsLimit,
-    activeQuery,
-    resetFilters,
-  } = state;
+  const { showFilters, compactView, activeQuery, resetFilters } = state;
+
+  const [renderedItemsLimit, setRenderedItemsLimit] = useState(10);
+
+  // observer init
+  const observer = new IntersectionObserver(handleObserver, {
+    root: null, // uses the viewport
+    rootMargin: "0px",
+    threshold: 0.25,
+  });
 
   // other
   const initialPageIndex = useRef(selectedIndex);
+  const _observer = useRef(observer);
+  const _target = useRef();
   const content = userData[uid][dataSet];
   const getType = type => content.filter(item => item.type === type).length;
 
   /**
-   * The intersection observer callback
+   * Intersection observer callback
    */
 
   function handleObserver(entries, observer) {
     // log("intersecting…", entries, observer);
+    console.count("@handleObserver");
 
-    setState({ renderedItemsLimit: renderedItemsLimit + 10 });
+    setRenderedItemsLimit(limit => limit + 10);
   }
 
   useEffect(() => {
     // reset scroll position when we enter the page
     window.scrollTo(0, 0);
 
-    // observer init
-    let observer = new IntersectionObserver(handleObserver, {
-      root: null, // uses the viewport
-      rootMargin: "0px",
-      threshold: 0.25,
-    });
+    // start observing
+    _target.current = document.querySelector(".infiniteScrollLoader");
+    _target.current && _observer.current.observe(_target.current);
 
-    const target = document.querySelector(".infiniteScrollLoader");
-
-    target && observer.observe(target);
-
-    return () => target && observer.unobserve(target);
+    // stop observing on unmount
+    return () =>
+      _target.current && _observer.current.unobserve(_target.current);
   }, []);
 
   useEffect(() => {
@@ -95,9 +95,17 @@ export default function ContentPage({
 
       // we re-initialize the state on page change
       setState(initialState);
+      // TODO merge
+      setRenderedItemsLimit(10);
 
       // reset scroll position when we enter the page
       window.scrollTo(0, 0);
+
+      // restart the observer
+      if (_target.current) {
+        _observer.current.disconnect();
+        _observer.current.observe(_target.current);
+      }
     }
   }, [selectedIndex]);
 

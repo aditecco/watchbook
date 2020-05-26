@@ -50,7 +50,7 @@ export default function Settings() {
   return (
     <Layout rootClass="Settings">
       <PageHeader
-        title="settings"
+        title="Settings"
         // icon="settings"
       />
 

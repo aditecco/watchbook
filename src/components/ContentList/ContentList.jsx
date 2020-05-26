@@ -2,7 +2,7 @@
 ContentList
 --------------------------------- */
 
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../Card/Card";
 import CompactCard from "../CompactCard/CompactCard";
 import Spinner from "../Spinner/Spinner";
@@ -10,15 +10,15 @@ import { UI_LABELS } from "../../constants";
 
 export default function ContentList({
   compact,
+  content,
   infiniteScroll,
-  limit = undefined,
+  limit,
   loading,
   title,
-  content = [],
 }) {
   return (
     <section className="ContentList">
-      {content && content.length ? (
+      {content ? (
         <>
           <header className="ContentListHeader">
             <div className="wrapper">
@@ -57,7 +57,6 @@ export default function ContentList({
           </div>
 
           {/* TODO */}
-          {/* {infiniteScroll && <Spinner />} */}
           {infiniteScroll ? (
             <div
               className="infiniteScrollLoader"
