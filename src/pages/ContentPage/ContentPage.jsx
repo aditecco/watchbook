@@ -5,6 +5,7 @@ ContentPage
 import React, { useState, useReducer, useEffect, useRef } from "react";
 import { log } from "../../utils";
 import { useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
 import FilterAndSortProvider from "../../components/FilterAndSortProvider";
 import Layout from "../../components/Layout/Layout";
@@ -45,8 +46,8 @@ export default function ContentPage({
 
   const [renderedItemsLimit, setRenderedItemsLimit] = useState(10);
 
-  // observer init
-  const observer = new IntersectionObserver(handleObserver, {
+  // intersection observer hook
+  const [ref, inView, entry] = useInView({
     root: null, // uses the viewport
     rootMargin: "0px",
     threshold: 0.25,
@@ -54,35 +55,16 @@ export default function ContentPage({
 
   // other
   const initialPageIndex = useRef(selectedIndex);
-  const _observer = useRef(observer);
-  const _target = useRef();
   const content = userData[uid][dataSet];
   const getType = type => content.filter(item => item.type === type).length;
 
-  /**
-   * Intersection observer callback
-   */
-
-  function handleObserver(entries, observer) {
-    // log("intersecting…", entries, observer);
-    console.count("@handleObserver");
-
-    setRenderedItemsLimit(limit => limit + 10);
-  }
-
+  // didMount
   useEffect(() => {
     // reset scroll position when we enter the page
     window.scrollTo(0, 0);
-
-    // start observing
-    _target.current = document.querySelector(".infiniteScrollLoader");
-    _target.current && _observer.current.observe(_target.current);
-
-    // stop observing on unmount
-    return () =>
-      _target.current && _observer.current.unobserve(_target.current);
   }, []);
 
+  // selectedIndex
   useEffect(() => {
     /**
      * the index we saved on mount is
@@ -100,14 +82,13 @@ export default function ContentPage({
 
       // reset scroll position when we enter the page
       window.scrollTo(0, 0);
-
-      // restart the observer
-      if (_target.current) {
-        _observer.current.disconnect();
-        _observer.current.observe(_target.current);
-      }
     }
   }, [selectedIndex]);
+
+  // inView
+  useEffect(() => {
+    inView && setRenderedItemsLimit(limit => limit + 10);
+  }, [inView]);
 
   return (
     <Layout rootClass="ContentPage" selected={selectedIndex}>
@@ -199,6 +180,7 @@ export default function ContentPage({
           <ContentList
             limit={renderedItemsLimit}
             infiniteScroll={renderedItemsLimit <= content.length}
+            observerRef={ref}
             content={processedItems}
             title={`${processedItems && processedItems.length} item${
               processedItems && processedItems.length > 1 ? "s" : ""

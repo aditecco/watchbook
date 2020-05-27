@@ -15,6 +15,7 @@ export default function ContentList({
   limit,
   loading,
   title,
+  observerRef,
 }) {
   return (
     <section className="ContentList">
@@ -59,6 +60,7 @@ export default function ContentList({
           {/* TODO */}
           {infiniteScroll ? (
             <div
+              ref={observerRef}
               className="infiniteScrollLoader"
               style={{ display: "block", textAlign: "center", padding: "1rem" }}
             >
