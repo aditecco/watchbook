@@ -7,7 +7,7 @@ import { log } from "../../utils";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
-import FilterAndSortProvider from "../../components/FilterAndSortProvider";
+import FilterProvider from "../../components/FilterProvider";
 import Layout from "../../components/Layout/Layout";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ViewOptions from "../../components/ViewOptions/ViewOptions";
@@ -146,11 +146,11 @@ export default function ContentPage({
         </div>
       )}
 
-      <FilterAndSortProvider
+      <FilterProvider
         data={content}
         queryCallback={query => setState({ activeQuery: query })}
         remoteReset={resetFilters}
-        FilterAndSortUI={
+        FilterUI={
           !showFilters
             ? {
                 UI: QuickSearch,
@@ -188,7 +188,7 @@ export default function ContentPage({
             compact={compactView}
           />
         )}
-      </FilterAndSortProvider>
+      </FilterProvider>
     </Layout>
   );
 }

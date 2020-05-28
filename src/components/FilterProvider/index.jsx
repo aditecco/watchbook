@@ -1,14 +1,14 @@
 /* ---------------------------------
-FilterAndSortProvider
+FilterProvider
 --------------------------------- */
 
 import React, { useState, useEffect } from "react";
 import dataProcessor from "../../dataProcessor";
 
-export default function FilterAndSortProvider({
+export default function FilterProvider({
   children,
   data: initialData,
-  FilterAndSortUI,
+  FilterUI,
   queryCallback,
   remoteReset,
   ...rest
@@ -19,7 +19,7 @@ export default function FilterAndSortProvider({
   const [output, setOutput] = useState([]);
 
   //
-  const { type, UI, config } = FilterAndSortUI;
+  const { type, UI, config } = FilterUI;
   const processor = new dataProcessor();
 
   const options =
