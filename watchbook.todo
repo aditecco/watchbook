@@ -66,7 +66,8 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
-  - create new product GIFs @focus 
+  - [TO-WATCH] to watch cards should have the ability to be converted to watched @focus
+  - card deletion @focus
   - re-fetch card info @focus 
     add info to cards that don't have it,
     or update card info
@@ -79,22 +80,14 @@ Features/stories:
     - add loading states
   - create advanced search by IMDB ID
   - manually add a title
-  - create repo readme
-  - create website @focus 
   - create stats page
   - create persistent notifs
   - add _notes_ feature
   - move internal info (response, ID, etc) to hidden section @quick
   - create poster downloader to cache media
-  - [TO-WATCH] to watch cards should have the ability to be converted to watched
-  - card deletion
   - implement search with Algolia
-  - create mobile app icon & landing page @focus 
-  - create public demo version (no private pages) @focus 
-    w/ static dataset http://files.tmdb.org
   - create dark theme @focus 
   - add fullscreen mode to cards
-  - add reload button to watched & toWatch (re-fetches loads cards if 
   - Implement PWA @focus
     https://create-react-app.dev/docs/making-a-progressive-web-app/
     requires HTTPS!
@@ -139,6 +132,14 @@ Tests:
   - try visual testing w/ StoryBook
   - write e2e tests
 
+Other:
+  - create new product GIFs @focus 
+  - create website @focus 
+  - create repo readme
+  - create mobile app icon & landing page @focus 
+  - create public demo version (no private pages) @focus 
+    w/ static dataset http://files.tmdb.org
+
 Feature ideas:
   Things that could be implemented and require major analysis
   ***********************************************************
@@ -146,6 +147,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ add reload button to watched & toWatch (re-fetches loads cards if @done(20-05-30 12:19) @project(Features/stories)
   ✔ !!! To Watch cards are the same as Watched cards until props updated @done(20-05-23 16:22) @project(Fixes)
   ✔ rename WatchedList as content-agnostic @quick @done(20-05-23 04:07) @project(Optims/refactor)
   ✔ abstract Watched, ToWatch into 'ContentPage' @done(20-05-23 03:33) @project(Optims/refactor)
