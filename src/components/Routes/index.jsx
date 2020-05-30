@@ -11,6 +11,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Profile from "../../pages/Profile/Profile";
 import Settings from "../../pages/Settings/Settings";
 import ContentPage from "../../pages/ContentPage/ContentPage";
+import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../../constants";
 
 export default function Routes() {
   return (
@@ -27,7 +28,7 @@ export default function Routes() {
 
         <PrivateRoute exact path="/watched">
           <ContentPage
-            dataSet="watched"
+            dataSet={PRIMARY_DATASET_KEY}
             selectedIndex={2}
             title="Watched"
             //
@@ -36,7 +37,7 @@ export default function Routes() {
 
         <PrivateRoute exact path="/to-watch">
           <ContentPage
-            dataSet="toWatch"
+            dataSet={SECONDARY_DATASET_KEY}
             selectedIndex={3}
             title="To Watch"
             //

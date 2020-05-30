@@ -55,7 +55,7 @@ export default function ContentPage({
 
   // other
   const initialPageIndex = useRef(selectedIndex);
-  const content = userData[uid][dataSet];
+  const content = sample;
   const getType = type => content.filter(item => item.type === type).length;
 
   // didMount
@@ -186,6 +186,7 @@ export default function ContentPage({
               processedItems && processedItems.length > 1 ? "s" : ""
             }`}
             compact={compactView}
+            dataSet={dataSet}
           />
         )}
       </FilterProvider>

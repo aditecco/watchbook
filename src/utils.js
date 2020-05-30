@@ -100,6 +100,7 @@ export function normalize(data) {
 }
 
 // handles additional classes
+// usage: className={"SomeClass" + addClasses(className)}
 export function addClasses(classes) {
   return classes ? " " + classes : "";
 }

@@ -9,6 +9,7 @@ import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
+import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../../constants";
 import { useSelector, useDispatch } from "react-redux";
 import {
   showNotif,
@@ -166,7 +167,12 @@ function Home() {
       <DataProvider
         dataSet="watched"
         render={data => (
-          <ContentList content={data} title="Latest watched" limit={10} />
+          <ContentList
+            content={data}
+            title="Latest watched"
+            limit={10}
+            dataSet={PRIMARY_DATASET_KEY}
+          />
         )}
       />
     </Layout>

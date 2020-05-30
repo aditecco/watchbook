@@ -5,19 +5,26 @@ Card
 import React, { useState, useEffect } from "react";
 import { log, normalize } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
+import CardControls from "./CardControls";
+import {
+  UI_LABELS,
+  PRIMARY_DATASET_KEY,
+  SECONDARY_DATASET_KEY,
+} from "../../constants";
 import { useSpring, animated, useTrail } from "react-spring";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshCardData, setAuthState } from "../../redux/actions";
 
 export default React.memo(function Card({
+  added,
+  additionalData,
+  dataSet,
   image,
+  onToWatchClick,
+  onWatchedClick,
   title,
   type,
   year,
-  onToWatchClick,
-  onWatchedClick,
-  added,
-  additionalData,
   ...other
 }) {
   const [flipped, toggleFlipped] = useState(false);
@@ -32,6 +39,39 @@ export default React.memo(function Card({
   });
 
   const _additionalData = additionalData ? normalize(additionalData) : {};
+
+  /**
+   * handlePrimaryAction
+   */
+  function handlePrimaryAction(e) {
+    e.preventDefault();
+
+    onWatchedClick({
+      contentType: PRIMARY_DATASET_KEY,
+      image,
+      title,
+      type,
+      year,
+      ..._additionalData,
+    });
+  }
+
+  /**
+   * handleSecondaryAction
+   */
+
+  function handleSecondaryAction(e) {
+    e.preventDefault();
+
+    onToWatchClick({
+      contentType: SECONDARY_DATASET_KEY,
+      image,
+      title,
+      type,
+      year,
+      ..._additionalData,
+    });
+  }
 
   useEffect(() => {
     cardData.updateSignal === additionalData.id && log("UPDATED ", title);
@@ -98,50 +138,28 @@ export default React.memo(function Card({
 
           <footer className="CardFooter">
             <div className="CardControls">
-              {/* TODO maybe find a better prop name */}
-              {!added && (
-                <>
-                  {/* TO WATCH */}
-                  <button
-                    className="CardControlsButton"
-                    type="button"
-                    onClick={e => {
-                      e.preventDefault();
-
-                      onToWatchClick({
-                        contentType: "toWatch",
-                        image,
-                        title,
-                        type,
-                        year,
-                        ..._additionalData,
-                      });
-                    }}
-                  >
-                    To Watch <i className="material-icons">bookmark</i>
-                  </button>
-
-                  {/* WATCHED */}
-                  <button
-                    className="CardControlsButton"
-                    type="button"
-                    onClick={e => {
-                      e.preventDefault();
-
-                      onWatchedClick({
-                        contentType: "watched",
-                        image,
-                        title,
-                        type,
-                        year,
-                        ..._additionalData,
-                      });
-                    }}
-                  >
-                    Watched <i className="material-icons">check_circle</i>
-                  </button>
-                </>
-              )}
+              {!added ? (
+                /**
+                 * cards in the new item modal
+                 */
+                <CardControls
+                  labels={UI_LABELS.cardControlsLabels(dataSet)}
+                  icons={["check_circle", "bookmark"]}
+                  handlers={[handlePrimaryAction, handleSecondaryAction]}
+                  type={dataSet}
+                />
+              ) : dataSet === SECONDARY_DATASET_KEY ? (
+                /**
+                 * cards in the toWatch section
+                 */
+                <CardControls
+                  labels={UI_LABELS.cardControlsLabels(dataSet)}
+                  icons={["check_circle", "remove_circle"]}
+                  handlers={[handlePrimaryAction, handleSecondaryAction]}
+                  type={dataSet}
+                />
+              ) : // other cards
+              null}
             </div>
           </footer>
         </article>
@@ -214,21 +232,23 @@ export default React.memo(function Card({
             </ul>
 
             <div className="CardBackControls">
-              <button
-                className="BaseButton button--outline"
-                onClick={() =>
-                  dispatch(
-                    refreshCardData({
-                      title,
-                      type,
-                      year,
-                      ..._additionalData,
-                    })
-                  )
-                }
-              >
-                <MaterialIcon icon="sync" /> Update info
-              </button>
+              {added && (
+                <button
+                  className="BaseButton button--outline"
+                  onClick={() =>
+                    dispatch(
+                      refreshCardData({
+                        title,
+                        type,
+                        year,
+                        ..._additionalData,
+                      })
+                    )
+                  }
+                >
+                  <MaterialIcon icon="sync" /> Update info
+                </button>
+              )}
             </div>
           </div>
         </article>

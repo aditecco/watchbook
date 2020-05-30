@@ -11,11 +11,12 @@ import { UI_LABELS } from "../../constants";
 export default function ContentList({
   compact,
   content,
+  dataSet,
   infiniteScroll,
   limit,
   loading,
-  title,
   observerRef,
+  title,
 }) {
   return (
     <section className="ContentList">
@@ -35,6 +36,7 @@ export default function ContentList({
                   <li key={i} data-index={i} className="cardListItem">
                     <Card
                       added
+                      dataSet={dataSet}
                       image={image}
                       title={title}
                       type={type}
