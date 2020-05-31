@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { log, normalize } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 import CardControls from "./CardControls";
+import CardBack from "./CardBack";
 import {
   UI_LABELS,
   PRIMARY_DATASET_KEY,
@@ -15,18 +16,18 @@ import { useSpring, animated, useTrail } from "react-spring";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshCardData, setAuthState } from "../../redux/actions";
 
-export default React.memo(function Card({
-  added,
-  additionalData,
-  dataSet,
-  image,
-  onToWatchClick,
-  onWatchedClick,
-  title,
-  type,
-  year,
-  ...other
-}) {
+export default React.memo(function Card(props) {
+  const {
+    added,
+    additionalData,
+    dataSet,
+    image,
+    onToWatchClick,
+    onWatchedClick,
+    title,
+    type,
+    year,
+  } = props;
   const [flipped, toggleFlipped] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -174,84 +175,21 @@ export default React.memo(function Card({
           transform: transform.interpolate(t => `${t} rotateY(180deg)`),
         }}
       >
-        <article className="Card back">
-          <div className="CardFlipControls">
-            <button onClick={() => toggleFlipped(!flipped)}>
-              <MaterialIcon icon="close" />
-            </button>
-          </div>
-
-          <div className="CardBackContent">
-            <header className="CardBackContentHeader">
-              <h4 className="CardBackContentHeaderTitle">{title}</h4>
-            </header>
-
-            <ul className="CardBackDataList">
-              {Object.keys(_additionalData).length &&
-                Object.entries(_additionalData).map(([key, val], i) => {
-                  // prettier-ignore
-
-                  // TODO
-                  // we don't manage these keys for now
-                  if ([
-                      'ratings',
-                      'id',
-                      'response',
-                      'dvd',
-                      'website',
-                      'key',
-                    ].includes(key))
-                  {
-                    return;
-                  }
-
-                  else if (key === "timestamp" || key === 'updatetimestamp')
-                  {
-                    key = key === "timestamp" ? "Date Added" : "Date Updated";
-                    val = new Date(val).toLocaleDateString()
-                  }
-
-                  else if (key === 'poster')
-                  {
-                    val = (
-                    <a href={val}>
-                      <span>&rarr;</span>
-                      <span>link</span>
-                    </a>
-                    )
-                  }
-
-                  return (
-                    <li key={i} className="CardBackDataListItem">
-                      <span className="DataKey">{key}</span>
-
-                      {val}
-                    </li>
-                  );
-                })}
-            </ul>
-
-            <div className="CardBackControls">
-              {added && (
-                <button
-                  className="BaseButton button--outline"
-                  onClick={() =>
-                    dispatch(
-                      refreshCardData({
-                        title,
-                        type,
-                        year,
-                        ..._additionalData,
-                      })
-                    )
-                  }
-                >
-                  <MaterialIcon icon="sync" /> Update info
-                </button>
-              )}
-            </div>
-          </div>
-        </article>
+        <CardBack
+          {...props}
+          flipHandler={() => toggleFlipped(!flipped)}
+          contentUpdateHandler={() =>
+            dispatch(
+              refreshCardData({
+                title,
+                type,
+                year,
+                ..._additionalData,
+              })
+            )
+          }
+          additionalData={_additionalData}
+        />
       </animated.div>
     </div>
   );
