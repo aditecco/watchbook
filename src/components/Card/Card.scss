@@ -134,6 +134,16 @@
     }
   }
 
+  &.added.toWatch {
+    .CardPosterCurtain {
+      padding-bottom: 80px;
+    }
+
+    .CardFooter {
+      z-index: 1;
+    }
+  }
+
   .CardFlipControls {
     position: absolute;
     z-index: 1;

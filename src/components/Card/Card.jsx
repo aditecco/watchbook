@@ -91,7 +91,11 @@ export default React.memo(function Card(props) {
           transform,
         }}
       >
-        <article className={`Card front${added ? " added" : ""}`}>
+        <article
+          className={`Card front${added ? " added" : ""}${
+            dataSet === SECONDARY_DATASET_KEY ? " toWatch" : ""
+          }`}
+        >
           <div className="CardFlipControls">
             <div
               className="CardFlipAreaButton"
