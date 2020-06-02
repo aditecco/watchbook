@@ -14,7 +14,7 @@ import {
 } from "../../constants";
 import { useSpring, animated, useTrail } from "react-spring";
 import { useSelector, useDispatch } from "react-redux";
-import { refreshCardData, setAuthState } from "../../redux/actions";
+import * as actions from "../../redux/actions";
 
 export default React.memo(function Card(props) {
   const {
@@ -42,9 +42,10 @@ export default React.memo(function Card(props) {
   const _additionalData = additionalData ? normalize(additionalData) : {};
 
   /**
-   * handlePrimaryAction
+   * handleAddWatched
    */
-  function handlePrimaryAction(e) {
+
+  function handleAddWatched(e) {
     e.preventDefault();
 
     onWatchedClick({
@@ -58,10 +59,10 @@ export default React.memo(function Card(props) {
   }
 
   /**
-   * handleSecondaryAction
+   * handleAddToWatch
    */
 
-  function handleSecondaryAction(e) {
+  function handleAddToWatch(e) {
     e.preventDefault();
 
     onToWatchClick({
@@ -72,6 +73,20 @@ export default React.memo(function Card(props) {
       year,
       ..._additionalData,
     });
+  }
+
+  /**
+   * handleDelete
+   */
+
+  function handleDelete() {
+    dispatch(
+      actions.deleteContent({
+        contentType: SECONDARY_DATASET_KEY,
+        key: _additionalData.key,
+        title,
+      })
+    );
   }
 
   useEffect(() => {
@@ -150,7 +165,7 @@ export default React.memo(function Card(props) {
                 <CardControls
                   labels={UI_LABELS.cardControlsLabels(dataSet)}
                   icons={["check_circle", "bookmark"]}
-                  handlers={[handlePrimaryAction, handleSecondaryAction]}
+                  handlers={[handleAddWatched, handleAddToWatch]}
                   type={dataSet}
                 />
               ) : dataSet === SECONDARY_DATASET_KEY ? (
@@ -160,7 +175,7 @@ export default React.memo(function Card(props) {
                 <CardControls
                   labels={UI_LABELS.cardControlsLabels(dataSet)}
                   icons={["check_circle", "remove_circle"]}
-                  handlers={[handlePrimaryAction, handleSecondaryAction]}
+                  handlers={[handleAddWatched, handleDelete]}
                   type={dataSet}
                 />
               ) : // other cards
@@ -184,7 +199,7 @@ export default React.memo(function Card(props) {
           flipHandler={() => toggleFlipped(!flipped)}
           contentUpdateHandler={() =>
             dispatch(
-              refreshCardData({
+              actions.refreshCardData({
                 title,
                 type,
                 year,

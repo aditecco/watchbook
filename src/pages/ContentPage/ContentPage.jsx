@@ -55,7 +55,8 @@ export default function ContentPage({
 
   // other
   const initialPageIndex = useRef(selectedIndex);
-  const content = sample;
+  // const content = sample;
+  const content = userData[uid][dataSet];
   const getType = type => content.filter(item => item.type === type).length;
 
   // didMount

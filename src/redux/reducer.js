@@ -11,7 +11,9 @@ import {
   createRemoteContentSuccess,
   createToWatch,
   createWatched,
-  deleteWatched,
+  deleteContentError,
+  deleteContentPending,
+  deleteContentSuccess,
   destroyUser,
   fetchQueryDataError,
   fetchQueryDataPending,
@@ -29,10 +31,10 @@ import {
   setInitialData,
   showNotif,
   toggleModal,
+  updateLocalContent,
+  updateRemoteContentError,
   updateRemoteContentPending,
   updateRemoteContentSuccess,
-  updateRemoteContentError,
-  updateLocalContent,
 } from "./actions";
 
 const userDataTemplate = {
@@ -178,10 +180,6 @@ const reducer = createReducer(initialState, {
         },
       },
     };
-  },
-
-  [deleteWatched](state, action) {
-    return state;
   },
 
   [filterWatched](state, action) {
@@ -404,6 +402,18 @@ const reducer = createReducer(initialState, {
   [updateRemoteContentError](state, action) {
     console.error(action.payload.error);
 
+    return state;
+  },
+
+  [deleteContentPending](state, action) {
+    return state;
+  },
+
+  [deleteContentError](state, action) {
+    return state;
+  },
+
+  [deleteContentSuccess](state, action) {
     return state;
   },
 
