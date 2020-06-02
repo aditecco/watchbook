@@ -4,6 +4,7 @@ createRemoteContent
 
 import React from "react";
 import { put, takeEvery, select } from "redux-saga/effects";
+import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 import {
   showNotif,
   toggleModal,
@@ -56,7 +57,7 @@ function* createRemoteContentSaga(action) {
 
     // TODO should we handle this outside the saga?
     yield put(
-      data.contentType === "watched"
+      data.contentType === PRIMARY_DATASET_KEY
         ? createWatched({ watchedItem: newItem, uid })
         : createToWatch({ toWatchItem: newItem, uid })
     );

@@ -165,7 +165,7 @@ function Home() {
         ======================== */}
 
       <DataProvider
-        dataSet="watched"
+        dataSet={PRIMARY_DATASET_KEY}
         render={data => (
           <ContentList
             content={data}

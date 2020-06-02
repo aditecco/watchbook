@@ -5,6 +5,7 @@ reducer
 import { createReducer } from "@reduxjs/toolkit";
 import { log } from "../utils";
 import initialState from "./initialState";
+import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 import {
   createRemoteContentError,
   createRemoteContentPending,
@@ -132,7 +133,7 @@ const reducer = createReducer(initialState, {
       userData: {
         [uid]: {
           ...state.userData[uid],
-          watched: [watchedItem, ...state.userData[uid]["watched"]],
+          watched: [watchedItem, ...state.userData[uid][PRIMARY_DATASET_KEY]],
         },
       },
     };
@@ -148,7 +149,7 @@ const reducer = createReducer(initialState, {
       userData: {
         [uid]: {
           ...state.userData[uid],
-          toWatch: [toWatchItem, ...state.userData[uid]["toWatch"]],
+          toWatch: [toWatchItem, ...state.userData[uid][SECONDARY_DATASET_KEY]],
         },
       },
     };
@@ -188,7 +189,7 @@ const reducer = createReducer(initialState, {
     } = action;
     const lowercased = item => item.toLowerCase();
     const _query = lowercased(query);
-    const result = state.userData[uid]["watched"].filter(item =>
+    const result = state.userData[uid][PRIMARY_DATASET_KEY].filter(item =>
       lowercased(item.title).includes(_query)
     );
 

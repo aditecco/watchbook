@@ -15,6 +15,7 @@ import {
 import { db } from "../index";
 import { log, normalize } from "../utils";
 import MaterialIcon from "../components/Misc/MaterialIcon";
+import { PRIMARY_DATASET_KEY } from "../constants";
 
 /**
  * updateRemoteContentSaga
@@ -52,7 +53,7 @@ function* updateRemoteContentSaga(action) {
     yield put(
       updateLocalContent({
         uid,
-        contentType: "watched", // TODO should be configurable!
+        contentType: PRIMARY_DATASET_KEY, // TODO should be configurable!
         updatedContent: mergedData,
       })
     );
