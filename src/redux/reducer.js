@@ -424,10 +424,6 @@ const reducer = createReducer(initialState, {
       payload: { uid, contentType, key },
     } = action;
 
-    const where = state.userData[uid][contentType].findIndex(
-      el => el.key === key
-    );
-
     return {
       ...state,
       userData: {
