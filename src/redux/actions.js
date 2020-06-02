@@ -15,6 +15,7 @@ export const deleteContent = createAction("DELETE_CONTENT");
 export const deleteContentError = createAction("DELETE_CONTENT_ERROR");
 export const deleteContentPending = createAction("DELETE_CONTENT_PENDING");
 export const deleteContentSuccess = createAction("DELETE_CONTENT_SUCCESS");
+export const deleteLocalContent = createAction('DELETE_LOCAL_CONTENT');
 export const destroyUser = createAction("DESTROY_USER");
 export const fetchAdditionalData = createAction("FETCH_ADDITIONAL_DATA");
 export const fetchQueryData = createAction("FETCH_QUERY_DATA");

@@ -15,6 +15,7 @@ import {
   deleteContentError,
   deleteContentPending,
   deleteContentSuccess,
+  deleteLocalContent,
   destroyUser,
   fetchQueryDataError,
   fetchQueryDataPending,
@@ -416,6 +417,30 @@ const reducer = createReducer(initialState, {
 
   [deleteContentSuccess](state, action) {
     return state;
+  },
+
+  [deleteLocalContent](state, action) {
+    const {
+      payload: { uid, contentType, key },
+    } = action;
+
+    const where = state.userData[uid][contentType].findIndex(
+      el => el.key === key
+    );
+
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+          // prettier-ignore
+          [contentType]: [
+            ...state.userData[uid][contentType].slice(0, where),
+            ...state.userData[uid][contentType].slice(where + 1),
+          ]
+        },
+      },
+    };
   },
 
   // end

@@ -9,6 +9,7 @@ import {
   deleteContentPending,
   deleteContentError,
   deleteContentSuccess,
+  deleteLocalContent,
   showNotif,
 } from "../redux/actions";
 import MaterialIcon from "../components/Misc/MaterialIcon";
@@ -32,9 +33,6 @@ function* deleteContentSaga(action) {
   yield put(deleteContentPending());
 
   try {
-    // TODO
-    log(contentType, key, title);
-    //
     const dbRef = db.ref();
     const updates = {
       [`/content/${key}`]: null,
@@ -43,11 +41,15 @@ function* deleteContentSaga(action) {
 
     yield dbRef.update(updates);
 
+    // TODO should we handle this outside the saga?
+    yield put(deleteLocalContent({ uid, contentType, key }));
+
     yield put(deleteContentSuccess());
 
     yield put(
       showNotif({
         message: `Removed: ${title}`,
+        // TODO create the modal w/ the MaterialIcon comp baked-in
         icon: <MaterialIcon icon="remove_circle" />,
         timeOut: 2000,
         theme: "light",

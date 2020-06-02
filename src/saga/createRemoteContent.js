@@ -49,21 +49,28 @@ function* createRemoteContentSaga(action) {
     const dbRef = db.ref();
     const contentRef = db.ref("content");
     const newItemRef = contentRef.push().key;
+    let key;
 
     const updates = {
       [`/content/${newItemRef}`]: newItem,
       [`/users/${uid}/${data.contentType}/${newItemRef}`]: true,
     };
 
-    // TODO should we handle this outside the saga?
-    yield put(
-      data.contentType === PRIMARY_DATASET_KEY
-        ? createWatched({ watchedItem: newItem, uid })
-        : createToWatch({ toWatchItem: newItem, uid })
-    );
+    // we observe the DB location for new items
+    contentRef.once("child_added", snapshot => {
+      key = snapshot.key;
+      console.log(key);
+    });
 
     // TODO use call
     yield dbRef.update(updates);
+
+    // TODO should we handle this outside the saga?
+    yield put(
+      data.contentType === PRIMARY_DATASET_KEY
+        ? createWatched({ watchedItem: { key, ...newItem }, uid })
+        : createToWatch({ toWatchItem: { key, ...newItem }, uid })
+    );
 
     yield put(createRemoteContentSuccess());
 

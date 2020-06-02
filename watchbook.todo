@@ -12,6 +12,10 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
+  - when both watched & toWatch are empty, I add a card to toWatch, then delete it, switch to home, the initializer is stuck in loading state
+  - watched cards show the same cards as to watch
+    watched is empty; select to watch, then select watched; `data` in FilterProvider is OK; `content` in ContentList is not updated; if I force re-rendering by performing a quick search, cards go back to normal
+  - modal & apiData state is not cleared after use
   - when network is slow, local content is created with a delay
   - show some kind of user feedback for the error response
   - handle not found in item search

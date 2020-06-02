@@ -82,7 +82,7 @@ export default React.memo(function Card(props) {
   function handleDelete() {
     dispatch(
       actions.deleteContent({
-        contentType: SECONDARY_DATASET_KEY,
+        contentType: SECONDARY_DATASET_KEY, // only toWatch content can be deleted, for now
         key: _additionalData.key,
         title,
       })
