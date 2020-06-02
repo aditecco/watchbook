@@ -433,11 +433,9 @@ const reducer = createReducer(initialState, {
       userData: {
         [uid]: {
           ...state.userData[uid],
-          // prettier-ignore
           [contentType]: [
-            ...state.userData[uid][contentType].slice(0, where),
-            ...state.userData[uid][contentType].slice(where + 1),
-          ]
+            ...state.userData[uid][contentType].filter(el => el.key !== key),
+          ],
         },
       },
     };
