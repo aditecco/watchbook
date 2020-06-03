@@ -13,14 +13,14 @@ export default function CardControls({
 }) {
   const [primaryActionLabel, secondaryActionLabel] = labels;
   const [primaryActionIcon, secondaryActionIcon] = icons;
-  const [primaryActionHanlder, secondaryActionHanlder] = handlers;
+  const [primaryActionHandler, secondaryActionHandler] = handlers;
 
   return [
     <button
       key={"btnSecondaryLeft"}
       className="CardControlsButton"
       type="button"
-      onClick={secondaryActionHanlder}
+      onClick={secondaryActionHandler}
     >
       {secondaryActionLabel}{" "}
       <i className="material-icons">{secondaryActionIcon}</i>
@@ -30,7 +30,7 @@ export default function CardControls({
       key={"btnPrimaryRight"}
       className="CardControlsButton"
       type="button"
-      onClick={primaryActionHanlder}
+      onClick={primaryActionHandler}
     >
       {primaryActionLabel} <i className="material-icons">{primaryActionIcon}</i>
     </button>,

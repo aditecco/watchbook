@@ -42,10 +42,10 @@ export default React.memo(function Card(props) {
   const _additionalData = additionalData ? normalize(additionalData) : {};
 
   /**
-   * handleAddWatched
+   * createWatched
    */
 
-  function handleAddWatched(e) {
+  function createWatched(e) {
     e.preventDefault();
 
     onWatchedClick({
@@ -59,10 +59,10 @@ export default React.memo(function Card(props) {
   }
 
   /**
-   * handleAddToWatch
+   * createToWatch
    */
 
-  function handleAddToWatch(e) {
+  function createToWatch(e) {
     e.preventDefault();
 
     onToWatchClick({
@@ -76,10 +76,10 @@ export default React.memo(function Card(props) {
   }
 
   /**
-   * handleDelete
+   * deleteToWatch
    */
 
-  function handleDelete() {
+  function deleteToWatch() {
     dispatch(
       actions.deleteContent({
         contentType: SECONDARY_DATASET_KEY, // only toWatch content can be deleted, for now
@@ -89,6 +89,26 @@ export default React.memo(function Card(props) {
     );
   }
 
+  /**
+   * createWatchedFromToWatch
+   *
+   * - remove toWatch status from user profile
+   * - add watched status to user profile
+   * - (leave content item untouched)
+   */
+
+  function createWatchedFromToWatch() {
+    dispatch(
+      actions.convertContent({
+        from: SECONDARY_DATASET_KEY,
+        to: PRIMARY_DATASET_KEY,
+        key: _additionalData.key,
+        title,
+      })
+    );
+  }
+
+  //
   useEffect(() => {
     cardData.updateSignal === additionalData.id && log("UPDATED ", title);
   }, [cardData]);
@@ -165,7 +185,7 @@ export default React.memo(function Card(props) {
                 <CardControls
                   labels={UI_LABELS.cardControlsLabels(dataSet)}
                   icons={["check_circle", "bookmark"]}
-                  handlers={[handleAddWatched, handleAddToWatch]}
+                  handlers={[createWatched, createToWatch]}
                   type={dataSet}
                 />
               ) : dataSet === SECONDARY_DATASET_KEY ? (
@@ -175,7 +195,7 @@ export default React.memo(function Card(props) {
                 <CardControls
                   labels={UI_LABELS.cardControlsLabels(dataSet)}
                   icons={["check_circle", "remove_circle"]}
-                  handlers={[handleAddWatched, handleDelete]}
+                  handlers={[createWatchedFromToWatch, deleteToWatch]}
                   type={dataSet}
                 />
               ) : // other cards

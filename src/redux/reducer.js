@@ -7,6 +7,9 @@ import { log } from "../utils";
 import initialState from "./initialState";
 import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 import {
+  convertContentError,
+  convertContentPending,
+  convertContentSuccess,
   createRemoteContentError,
   createRemoteContentPending,
   createRemoteContentSuccess,
@@ -435,6 +438,18 @@ const reducer = createReducer(initialState, {
         },
       },
     };
+  },
+
+  [convertContentPending](state, action) {
+    return state;
+  },
+
+  [convertContentError](state, action) {
+    return state;
+  },
+
+  [convertContentSuccess](state, action) {
+    return state;
   },
 
   // end

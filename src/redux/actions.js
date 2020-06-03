@@ -5,6 +5,10 @@ actions
 import { createAction } from "@reduxjs/toolkit";
 
 export const _test = createAction("TEST");
+export const convertContent = createAction('CONVERT_CONTENT')
+export const convertContentError = createAction('CONVERT_CONTENT_ERROR')
+export const convertContentPending = createAction('CONVERT_CONTENT_PENDING')
+export const convertContentSuccess = createAction('CONVERT_CONTENT_SUCCESS')
 export const createRemoteContent = createAction("CREATE_REMOTE_CONTENT");
 export const createRemoteContentError = createAction("CREATE_REMOTE_CONTENT_ERROR");
 export const createRemoteContentPending = createAction("CREATE_REMOTE_CONTENT_PENDING");
