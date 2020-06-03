@@ -449,7 +449,24 @@ const reducer = createReducer(initialState, {
   },
 
   [convertContentSuccess](state, action) {
-    return state;
+    const {
+      payload: { uid, from, to, key },
+    } = action;
+
+    const convertedItem = state.userData[uid][from].find(el => el.key === key);
+
+    return {
+      ...state,
+      userData: {
+        [uid]: {
+          ...state.userData[uid],
+
+          [from]: [...state.userData[uid][from].filter(el => el.key !== key)],
+
+          [to]: [convertedItem, ...state.userData[uid][to]],
+        },
+      },
+    };
   },
 
   // end

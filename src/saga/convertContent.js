@@ -41,9 +41,14 @@ function* convertContentSaga(action) {
 
     yield dbRef.update(updates);
 
-    // TODO local content?
-
-    yield put(convertContentSuccess());
+    yield put(
+      convertContentSuccess({
+        uid,
+        from,
+        to,
+        key,
+      })
+    );
 
     yield put(
       showNotif({
