@@ -61,7 +61,7 @@ function* updateRemoteContentSaga(action) {
     yield put(
       showNotif({
         message: `Updated: ${data.Title}`,
-        icon: <MaterialIcon icon="sync" />,
+        icon: "sync",
         timeOut: 2000,
         theme: "light",
       })

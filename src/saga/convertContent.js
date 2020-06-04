@@ -55,8 +55,7 @@ function* convertContentSaga(action) {
         message: `${
           from === SECONDARY_DATASET_KEY ? "Watched:" : "To Watch:"
         } ${title}`,
-        // TODO create the modal w/ the MaterialIcon comp baked-in
-        icon: <MaterialIcon icon="bookmark" />,
+        icon: "bookmark",
         timeOut: 2000,
         theme: "light",
       })

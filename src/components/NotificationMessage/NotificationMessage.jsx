@@ -5,6 +5,7 @@ NotificationMessage
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideNotif } from "../../redux/actions";
+import MaterialIcon from "../Misc/MaterialIcon";
 
 export default function NotificationMessage() {
   const dispatch = useDispatch();
@@ -25,7 +26,11 @@ export default function NotificationMessage() {
         theme === "light" ? "light" : ""
       }`}
     >
-      <div className="NotificationMessageVisual">{icon}</div>
+      {icon && (
+        <div className="NotificationMessageVisual">
+          <MaterialIcon icon={icon} />
+        </div>
+      )}
 
       <div className="NotificationMessageContent">{message}</div>
     </div>

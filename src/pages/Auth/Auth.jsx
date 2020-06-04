@@ -90,7 +90,6 @@ export default function Auth() {
       dispatch(
         showNotif({
           message: `Welcome!`,
-          icon: null,
           timeOut: 2000,
         })
       );
@@ -129,7 +128,6 @@ export default function Auth() {
         dispatch(
           showNotif({
             message: `${code}: ${message}`,
-            icon: null,
             timeOut: 4000,
           })
         );

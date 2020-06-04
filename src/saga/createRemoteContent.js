@@ -80,7 +80,7 @@ function* createRemoteContentSaga(action) {
       showNotif({
         // TODO
         message: `${data.contentType}: ${newItem.title}`,
-        icon: <MaterialIcon icon="bookmark" />,
+        icon: "bookmark",
         timeOut: 2000,
         theme: "light",
       })

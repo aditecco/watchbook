@@ -62,7 +62,6 @@ function* fetchAdditionalDataSaga(action) {
     yield put(
       showNotif({
         message: err.message,
-        icon: null,
         timeOut: 4000,
       })
     );

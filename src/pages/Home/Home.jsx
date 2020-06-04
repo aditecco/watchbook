@@ -56,7 +56,6 @@ function Home() {
       dispatch(
         showNotif({
           message: "Oops! You already added this item.",
-          icon: null,
           timeOut: 4000,
         })
       );
@@ -108,7 +107,6 @@ function Home() {
       dispatch(
         showNotif({
           message: "Please set an API key in settings.",
-          // icon: "error_outline",
           timeOut: 2000,
         })
       );

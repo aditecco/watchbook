@@ -57,7 +57,6 @@ function* fetchQueryDataSaga(action) {
       yield put(
         showNotif({
           message: `${status} Error: ${message}`,
-          icon: null,
           timeOut: 4000,
         })
       );
@@ -81,7 +80,6 @@ function* fetchQueryDataSaga(action) {
         yield put(
           showNotif({
             message: `Error: ${error.message}`,
-            icon: null,
             timeOut: 4000,
           })
         );

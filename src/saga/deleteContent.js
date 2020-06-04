@@ -49,8 +49,7 @@ function* deleteContentSaga(action) {
     yield put(
       showNotif({
         message: `Removed: ${title}`,
-        // TODO create the modal w/ the MaterialIcon comp baked-in
-        icon: <MaterialIcon icon="remove_circle" />,
+        icon: "remove_circle",
         timeOut: 2000,
         theme: "light",
       })
