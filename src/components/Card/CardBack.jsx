@@ -6,6 +6,7 @@ import React from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
 
 export default function CardBack({
+  addNoteHandler,
   flipHandler,
   contentUpdateHandler,
   additionalData,
@@ -33,12 +34,12 @@ export default function CardBack({
               // TODO
               // we don't manage these keys for now
               if ([
-                      'ratings',
-                      'id',
-                      'response',
-                      'dvd',
-                      'website',
-                      'key',
+                    'ratings',
+                    'id',
+                    'response',
+                    'dvd',
+                    'website',
+                    'key',
                     ].includes(key))
                   {
                     return;
@@ -72,12 +73,21 @@ export default function CardBack({
 
         <div className="CardBackControls">
           {added && (
-            <button
-              className="BaseButton button--outline"
-              onClick={contentUpdateHandler}
-            >
-              <MaterialIcon icon="sync" /> Update info
-            </button>
+            <>
+              <button
+                className="BaseButton button--outline"
+                onClick={contentUpdateHandler}
+              >
+                <MaterialIcon icon="sync" /> Update info
+              </button>
+
+              <button
+                className="BaseButton button--outline"
+                onClick={addNoteHandler}
+              >
+                <MaterialIcon icon="sync" /> Add note
+              </button>
+            </>
           )}
         </div>
       </div>

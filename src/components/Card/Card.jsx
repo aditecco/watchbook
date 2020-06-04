@@ -7,6 +7,7 @@ import { log, normalize } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 import CardControls from "./CardControls";
 import CardBack from "./CardBack";
+import Note from "../Note/Note";
 import {
   UI_LABELS,
   PRIMARY_DATASET_KEY,
@@ -216,6 +217,9 @@ export default React.memo(function Card(props) {
       >
         <CardBack
           {...props}
+          addNoteHandler={() =>
+            dispatch(actions.toggleModal({ content: <Note /> }))
+          }
           flipHandler={() => toggleFlipped(!flipped)}
           contentUpdateHandler={() =>
             dispatch(
