@@ -142,6 +142,24 @@
     .CardFooter {
       z-index: 1;
     }
+
+    .CardControlsButton {
+      background-color: $transparent;
+      border: 2px solid $strokeLight;
+      color: $strokeLight;
+
+      &:hover {
+        border-color: $transparent;
+      }
+
+      &:first-child {
+        &:hover {
+          // color: $accent;
+          border-color: $accent;
+          background-color: $accent;
+        }
+      }
+    }
   }
 
   .CardFlipControls {

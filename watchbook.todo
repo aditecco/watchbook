@@ -4,8 +4,6 @@ WatchBook.todo
 
 Inbox:
   https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
-  - move INIT_USER to auth?
-  - remove update info CTA for non-added cards
   - make filters additive
 
 Fixes:
@@ -28,16 +26,15 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - remove global components from store
   - merge FilterAndSortProvider into DataProvider (?)
   - refactor providers as class HOCs (?)
-  - image lazyloading
+  - implement image lazyloading
   - refactor routes w/o PrivateRoute
   - fine-tune sagas (esp. additional info)
   - better autosuggest loading state
   - handle long titles in notifs
-  - create className utility
   - API key should be editable
-  - infinite scroll loading indicator visible in filter view
   - refine item search skeleton loader
   - remove ranges from years filter @quick
   - enforce fixed order in item data sheet @quick 
@@ -60,7 +57,8 @@ Optims/refactor:
     - …
   - Complete DataProvider
     - …
-    - move user init to ~~other specialized component~~ saga
+    - move user init to ~~other specialized component~~ saga @focus
+    - make user init reusable @focus 
     - init settings in new users
     - make it modular (dataset…)
   - CSS
@@ -70,8 +68,6 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
-  - [TO-WATCH] to watch cards should have the ability to be converted to watched @focus
-  - card deletion @focus
   - re-fetch card info @focus 
     add info to cards that don't have it,
     or update card info
@@ -151,6 +147,11 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ card deletion @focus @done(20-06-05 00:00) @project(Features/stories)
+  ✔ infinite scroll loading indicator visible in filter view @done(20-06-04 23:55) @project(Optims/refactor)
+  ✔ [TO-WATCH] to watch cards should have the ability to be converted to watched @focus @done(20-06-05 00:00) @project(Features/stories)
+  ✔ remove update info CTA for non-added cards @done(20-06-04 23:41) @project(Inbox)
+  ✔ create className utility @done(20-06-04 23:52) @project(Optims/refactor)
   ✔ add reload button to watched & toWatch (re-fetches loads cards if @done(20-05-30 12:19) @project(Features/stories)
   ✔ !!! To Watch cards are the same as Watched cards until props updated @done(20-05-23 16:22) @project(Fixes)
   ✔ rename WatchedList as content-agnostic @quick @done(20-05-23 04:07) @project(Optims/refactor)
