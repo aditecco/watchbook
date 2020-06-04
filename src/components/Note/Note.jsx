@@ -20,7 +20,7 @@ export default function Note({}) {
       <CardControls
         handlers={[
           //
-          () => log("save"),
+          () => log(input),
           () => log("discard"),
         ]}
         labels={["Save note", "Discard"]}
