@@ -26,6 +26,7 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - redesign store state w/o UID
   - remove global components from store
   - merge FilterAndSortProvider into DataProvider (?)
   - refactor providers as class HOCs (?)
@@ -82,7 +83,7 @@ Features/stories:
   - manually add a title
   - create stats page
   - create persistent notifs
-  - add _notes_ feature
+  - add _notes_ feature @focus
   - move internal info (response, ID, etc) to hidden section @quick
   - create poster downloader to cache media
   - implement search with Algolia

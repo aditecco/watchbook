@@ -14,10 +14,6 @@ import { connect } from "react-redux";
 import { initUser, setAuthState } from "./redux/actions";
 import Routes from "./components/Routes";
 
-/* ========================
-function App
-======================== */
-
 function App({ auth, data, notification, modal, dispatch }) {
   /**
    * loading state
