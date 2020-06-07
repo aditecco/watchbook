@@ -59,7 +59,6 @@ function* createRemoteContentSaga(action) {
     // we observe the DB location for new items
     contentRef.once("child_added", snapshot => {
       key = snapshot.key;
-      console.log(key);
     });
 
     // TODO use call

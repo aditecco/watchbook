@@ -3,6 +3,7 @@ CardControls
 --------------------------------- */
 
 import React from "react";
+import MaterialIcon from "../Misc/MaterialIcon";
 
 export default function CardControls({
   handlers,
@@ -22,8 +23,7 @@ export default function CardControls({
       type="button"
       onClick={secondaryActionHandler}
     >
-      {secondaryActionLabel}{" "}
-      <i className="material-icons">{secondaryActionIcon}</i>
+      {secondaryActionLabel} <MaterialIcon icon={secondaryActionIcon} />
     </button>,
 
     <button
@@ -32,7 +32,8 @@ export default function CardControls({
       type="button"
       onClick={primaryActionHandler}
     >
-      {primaryActionLabel} <i className="material-icons">{primaryActionIcon}</i>
+      {primaryActionLabel}
+      <MaterialIcon icon={primaryActionIcon} />
     </button>,
   ];
 }

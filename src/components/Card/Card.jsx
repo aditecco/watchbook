@@ -218,7 +218,35 @@ export default React.memo(function Card(props) {
         <CardBack
           {...props}
           addNoteHandler={() =>
-            dispatch(actions.toggleModal({ content: <Note /> }))
+            dispatch(
+              actions.toggleModal({
+                content: (
+                  <Note
+                    cardId={_additionalData.key}
+                    actions={[
+                      {
+                        type: "create",
+                        label: "Save",
+                        handler: () => null,
+                        icon: "save",
+                      },
+                      {
+                        type: "delete",
+                        label: "Delete",
+                        handler: () => null,
+                        icon: "delete",
+                      },
+                      {
+                        type: "discard",
+                        label: "Discard",
+                        handler: null,
+                        icon: "clear",
+                      },
+                    ]}
+                  />
+                ),
+              })
+            )
           }
           flipHandler={() => toggleFlipped(!flipped)}
           contentUpdateHandler={() =>

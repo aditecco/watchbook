@@ -85,7 +85,7 @@ export default function CardBack({
                 className="BaseButton button--outline"
                 onClick={addNoteHandler}
               >
-                <MaterialIcon icon="sync" /> Add note
+                <MaterialIcon icon="note_add" /> Add note
               </button>
             </>
           )}
