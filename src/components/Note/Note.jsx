@@ -23,7 +23,7 @@ export default function Note({ actions }) {
           key={action.type}
           className="BaseButton button--outline"
           type="button"
-          onClick={action.handler || (() => setInput(""))} // the discard handler is managed internally
+          onClick={() => action.handler(input) || (() => setInput(""))} // the discard handler is managed internally
         >
           {action.label} <MaterialIcon icon={action.icon} />
         </button>

@@ -48,9 +48,7 @@ function* createNoteSaga(action) {
 
   try {
     const dbRef = db.ref();
-    const notesRef = db.ref("notes");
-    // const newItemRef = notesRef.push().key;
-    // let key;
+    // const notesRef = db.ref("notes");
 
     const updates = {
       [`/notes/${contentRef}`]: newNote,
