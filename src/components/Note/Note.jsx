@@ -25,8 +25,7 @@ export default function Note({ actions }) {
           type="button"
           onClick={action.handler || (() => setInput(""))} // the discard handler is managed internally
         >
-          {action.label}
-          <MaterialIcon icon={action.icon} />
+          {action.label} <MaterialIcon icon={action.icon} />
         </button>
       ))}
     </div>

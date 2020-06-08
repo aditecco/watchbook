@@ -109,6 +109,32 @@ export default React.memo(function Card(props) {
     );
   }
 
+  /**
+   * createNote
+   */
+
+  function createNote(note) {
+    dispatch(
+      actions.createNote({
+        note,
+        contentRef: _additionalData.key,
+        title,
+      })
+    );
+  }
+
+  /**
+   * deleteNote
+   */
+
+  function deleteNote() {}
+
+  /**
+   * editNote
+   */
+
+  function editNote() {}
+
   //
   useEffect(() => {
     cardData.updateSignal === additionalData.id && log("UPDATED ", title);
@@ -227,13 +253,13 @@ export default React.memo(function Card(props) {
                       {
                         type: "create",
                         label: "Save",
-                        handler: () => null,
+                        handler: createNote,
                         icon: "save",
                       },
                       {
                         type: "delete",
                         label: "Delete",
-                        handler: () => null,
+                        handler: deleteNote,
                         icon: "delete",
                       },
                       {

@@ -32,8 +32,7 @@ export default function CardControls({
       type="button"
       onClick={primaryActionHandler}
     >
-      {primaryActionLabel}
-      <MaterialIcon icon={primaryActionIcon} />
+      {primaryActionLabel} <MaterialIcon icon={primaryActionIcon} />
     </button>,
   ];
 }

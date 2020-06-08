@@ -10,6 +10,9 @@ import {
   convertContentError,
   convertContentPending,
   convertContentSuccess,
+  createNotePending,
+  createNoteSuccess,
+  createNoteError,
   createRemoteContentError,
   createRemoteContentPending,
   createRemoteContentSuccess,
@@ -467,6 +470,18 @@ const reducer = createReducer(initialState, {
         },
       },
     };
+  },
+
+  [createNotePending](state, action) {
+    return state;
+  },
+
+  [createNoteSuccess](state, action) {
+    return state;
+  },
+
+  [createNoteError](state, action) {
+    return state;
   },
 
   // end
