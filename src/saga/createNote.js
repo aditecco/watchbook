@@ -2,9 +2,7 @@
 createNote
 --------------------------------- */
 
-import React from "react";
 import { put, takeEvery, select } from "redux-saga/effects";
-import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 import {
   showNotif,
   toggleModal,
@@ -12,14 +10,9 @@ import {
   createNotePending,
   createNoteError,
   createNoteSuccess,
-  createWatched,
-  createToWatch,
-  resetQueryData,
 } from "../redux/actions";
 import uuidv4 from "uuid";
-import MaterialIcon from "../components/Misc/MaterialIcon";
 import { db } from "../index";
-import { filterKeys } from "../utils";
 
 /**
  * createNoteSaga
@@ -30,7 +23,6 @@ function* createNoteSaga(action) {
     payload: { note, contentRef, title },
   } = action;
 
-  const id = uuidv4();
   const authSelector = state => state.authentication;
 
   const {
@@ -38,25 +30,20 @@ function* createNoteSaga(action) {
   } = yield select(authSelector);
 
   const newNote = {
-    id,
+    id: uuidv4(),
     timestamp: Date.now(),
     content: note,
-    author: uid,
   };
 
   yield put(createNotePending());
 
   try {
     const dbRef = db.ref();
-    // const notesRef = db.ref("notes");
-
-    const updates = {
-      [`/notes/${contentRef}`]: newNote,
-      [`/users/${uid}/notes/${contentRef}`]: true,
-    };
 
     // TODO use call
-    yield dbRef.update(updates);
+    yield dbRef.update({
+      [`/notes/${uid}/${contentRef}`]: newNote,
+    });
 
     yield put(createNoteSuccess());
 

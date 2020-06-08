@@ -3,7 +3,6 @@ Note
 --------------------------------- */
 
 import React, { useState } from "react";
-import CardControls from "../Card/CardControls";
 import { log } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 
