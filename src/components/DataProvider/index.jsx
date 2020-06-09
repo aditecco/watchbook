@@ -47,12 +47,15 @@ export default function DataProvider({ render, dataSet }) {
       const contentRef = db.ref("content");
       const watchedRef = db.ref(`users/${uid}/watched`);
       const toWatchRef = db.ref(`users/${uid}/toWatch`);
+      const notesRef = db.ref(`notes/${uid}`);
       const content = await contentRef.once("value");
       const watched = await watchedRef.once("value");
       const toWatch = await toWatchRef.once("value");
+      const notes = await notesRef.once("value");
       const contentData = await content.val();
       const watchedData = await watched.val();
       const toWatchData = await toWatch.val();
+      const noteData = await notes.val();
 
       // prettier-ignore
       // NEW USER INITIALIZER
@@ -66,7 +69,8 @@ export default function DataProvider({ render, dataSet }) {
         db.ref().update(
           {
             [`/users/${uid}`]: { watched: 0, toWatch: 0 },
-            [`/settings/${uid}`]: { apiKey: 0 } // TODO is this the right place?
+            [`/settings/${uid}`]: { apiKey: 0 },
+            [`/notes/${uid}`]: 0
           },
 
           // completion cb
@@ -90,12 +94,14 @@ export default function DataProvider({ render, dataSet }) {
         const mappedData = {
           watched: Object.keys(watchedData).map(key => ({
             key,
-            ...contentData[key]
+            ...contentData[key],
+            notes: noteData && noteData[key] && noteData[key]['content'], // TODO
           })),
           // 0 => []
           toWatch: Object.keys(toWatchData).map(key => ({
             key,
-            ...contentData[key]
+            ...contentData[key],
+            notes: noteData && noteData[key] && noteData[key]['content'],
           }))
         };
 

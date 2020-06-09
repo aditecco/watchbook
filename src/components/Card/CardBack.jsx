@@ -4,6 +4,7 @@ CardBack
 
 import React from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
+import { log } from "../../utils";
 
 export default function CardBack({
   addNoteHandler,
@@ -59,6 +60,11 @@ export default function CardBack({
                       <span>link</span>
                     </a>
                     )
+                  }
+
+                  else if (key === 'notes')
+                  {
+                    if (!val) return;
                   }
 
               return (
