@@ -12,23 +12,26 @@ export default function Note({ actions, content }) {
   return (
     <div className="Note">
       <textarea
+        className="NoteContent"
         onChange={e => setInput(e.currentTarget.value)}
         value={input}
         //
       />
 
-      {actions.map(action => (
-        <button
-          key={action.type}
-          className="BaseButton button--outline"
-          type="button"
-          onClick={
-            action.handler ? () => action.handler(input) : () => setInput("")
-          } // the discard handler is managed internally
-        >
-          {action.label} <MaterialIcon icon={action.icon} />
-        </button>
-      ))}
+      <div className="NoteControls">
+        {actions.map(action => (
+          <button
+            key={action.type}
+            className="BaseButton button--outline"
+            // type="button"
+            onClick={
+              action.handler ? () => action.handler(input) : () => setInput("")
+            } // the discard handler is managed internally
+          >
+            <MaterialIcon icon={action.icon} /> {action.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

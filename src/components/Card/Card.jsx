@@ -252,12 +252,6 @@ export default React.memo(function Card(props) {
                     cardId={_additionalData.key}
                     actions={[
                       {
-                        type: "create",
-                        label: "Save",
-                        handler: createNote,
-                        icon: "save",
-                      },
-                      {
                         type: "delete",
                         label: "Delete",
                         handler: deleteNote,
@@ -268,6 +262,12 @@ export default React.memo(function Card(props) {
                         label: "Discard",
                         handler: null,
                         icon: "clear",
+                      },
+                      {
+                        type: "create",
+                        label: "Save",
+                        handler: createNote,
+                        icon: "save",
                       },
                     ]}
                   />
