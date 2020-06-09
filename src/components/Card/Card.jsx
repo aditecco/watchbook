@@ -243,7 +243,7 @@ export default React.memo(function Card(props) {
       >
         <CardBack
           {...props}
-          addNoteHandler={() =>
+          noteHandler={() =>
             dispatch(
               actions.toggleModal({
                 content: (

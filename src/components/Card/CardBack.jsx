@@ -7,13 +7,15 @@ import MaterialIcon from "../Misc/MaterialIcon";
 import { log } from "../../utils";
 
 export default function CardBack({
-  addNoteHandler,
+  noteHandler,
   flipHandler,
   contentUpdateHandler,
   additionalData,
   added,
   title,
 }) {
+  const hasNotes = additionalData.notes;
+
   return (
     <article className="Card back">
       <div className="CardFlipControls">
@@ -89,9 +91,10 @@ export default function CardBack({
 
               <button
                 className="BaseButton button--outline"
-                onClick={addNoteHandler}
+                onClick={noteHandler}
               >
-                <MaterialIcon icon="note_add" /> Add note
+                <MaterialIcon icon={hasNotes ? "notes" : "note_add"} />{" "}
+                {hasNotes ? "Edit note" : "Add note"}
               </button>
             </>
           )}

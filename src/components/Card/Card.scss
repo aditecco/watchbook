@@ -122,6 +122,11 @@
   .CardBackControls {
     border-top: $border;
     padding: $padding $padding 0;
+    @include flex(row wrap, space-around, flex-start);
+
+    > button {
+      margin-top: $margin / 2;
+    }
   }
 
   &.added {
