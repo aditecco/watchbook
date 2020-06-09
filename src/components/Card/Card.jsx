@@ -248,6 +248,7 @@ export default React.memo(function Card(props) {
               actions.toggleModal({
                 content: (
                   <Note
+                    content={_additionalData.notes}
                     cardId={_additionalData.key}
                     actions={[
                       {

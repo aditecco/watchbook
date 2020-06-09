@@ -6,8 +6,8 @@ import React, { useState } from "react";
 import { log } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 
-export default function Note({ actions }) {
-  const [input, setInput] = useState("");
+export default function Note({ actions, content }) {
+  const [input, setInput] = useState(content || "");
 
   return (
     <div className="Note">
@@ -22,7 +22,9 @@ export default function Note({ actions }) {
           key={action.type}
           className="BaseButton button--outline"
           type="button"
-          onClick={() => action.handler(input) || (() => setInput(""))} // the discard handler is managed internally
+          onClick={
+            action.handler ? () => action.handler(input) : () => setInput("")
+          } // the discard handler is managed internally
         >
           {action.label} <MaterialIcon icon={action.icon} />
         </button>
