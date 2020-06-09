@@ -127,13 +127,9 @@ export default React.memo(function Card(props) {
    * deleteNote
    */
 
-  function deleteNote() {}
-
-  /**
-   * editNote
-   */
-
-  function editNote() {}
+  function deleteNote() {
+    createNote(null);
+  }
 
   //
   useEffect(() => {

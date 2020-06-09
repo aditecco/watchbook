@@ -29,11 +29,13 @@ function* createNoteSaga(action) {
     user: { uid },
   } = yield select(authSelector);
 
-  const newNote = {
-    id: uuidv4(),
-    timestamp: Date.now(),
-    content: note,
-  };
+  const newNote = note
+    ? {
+        id: uuidv4(),
+        timestamp: Date.now(),
+        content: note,
+      }
+    : null;
 
   yield put(createNotePending());
 
@@ -52,8 +54,8 @@ function* createNoteSaga(action) {
     yield put(
       showNotif({
         // TODO
-        message: `Created note for: ${title}`,
-        icon: "bookmark",
+        message: `${note ? "Created" : "Deleted"} note for: ${title}`,
+        icon: "notes",
         timeOut: 2000,
         theme: "light",
       })
