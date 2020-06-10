@@ -244,8 +244,9 @@ export default React.memo(function Card(props) {
               actions.toggleModal({
                 content: (
                   <Note
-                    content={_additionalData.notes}
                     cardId={_additionalData.key}
+                    content={_additionalData.notes}
+                    itemTitle={title}
                     actions={[
                       {
                         type: "delete",

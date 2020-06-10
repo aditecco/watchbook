@@ -6,8 +6,15 @@ import React, { useState } from "react";
 import { log } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 
-export default function Note({ actions, content }) {
-  const [input, setInput] = useState(content || "");
+export default function Note({
+  actions,
+  content,
+  itemTitle,
+  //
+}) {
+  const [input, setInput] = useState(
+    content || `Create a note for ${itemTitle}…`
+  );
 
   return (
     <div className="Note">
