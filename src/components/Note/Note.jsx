@@ -22,17 +22,23 @@ export default function Note({
         className="NoteContent"
         onChange={e => setInput(e.currentTarget.value)}
         value={input}
+        onClick={!content ? () => setInput("") : null}
         //
       />
 
       <div className="NoteControls">
-        {actions.map(action => (
+        {actions.map((action, i) => (
           <button
             key={action.type}
-            className="BaseButton button--outline"
-            // type="button"
+            className={`BaseButton${i === 0 ? " button--outline" : ""}`}
+            type="button"
             onClick={
-              action.handler ? () => action.handler(input) : () => setInput("")
+              action.type !== "discard"
+                ? () => action.handler(input)
+                : () => {
+                    setInput("");
+                    action.handler();
+                  }
             } // the discard handler is managed internally
           >
             <MaterialIcon icon={action.icon} /> {action.label}

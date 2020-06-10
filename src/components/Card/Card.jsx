@@ -247,26 +247,41 @@ export default React.memo(function Card(props) {
                     cardId={_additionalData.key}
                     content={_additionalData.notes}
                     itemTitle={title}
-                    actions={[
-                      {
-                        type: "delete",
-                        label: "Delete",
-                        handler: deleteNote,
-                        icon: "delete",
-                      },
-                      {
-                        type: "discard",
-                        label: "Discard",
-                        handler: null,
-                        icon: "clear",
-                      },
-                      {
-                        type: "create",
-                        label: "Save",
-                        handler: createNote,
-                        icon: "save",
-                      },
-                    ]}
+                    actions={
+                      _additionalData.notes
+                        ? [
+                            // note exists, edit mode
+                            {
+                              type: "delete",
+                              label: "Delete",
+                              handler: deleteNote,
+                              icon: "delete",
+                            },
+                            {
+                              type: "create",
+                              label: "Save",
+                              handler: createNote,
+                              icon: "save",
+                            },
+                          ]
+                        : [
+                            // no note, create mode
+                            {
+                              type: "discard",
+                              label: "Discard",
+                              handler: () => {
+                                dispatch(actions.toggleModal());
+                              },
+                              icon: "clear",
+                            },
+                            {
+                              type: "create",
+                              label: "Save",
+                              handler: createNote,
+                              icon: "save",
+                            },
+                          ]
+                    }
                   />
                 ),
               })

@@ -68,7 +68,7 @@ body {
   cursor: pointer;
   transition: all 500ms ease;
   // browser styles overrides
-  border: none;
+  border: 2px solid transparent;
   &:focus {
     // TODO find a better way for accessibility
     outline: none;
