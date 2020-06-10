@@ -122,7 +122,7 @@
   .CardBackControls {
     border-top: $border;
     padding: $padding $padding 0;
-    @include flex(row wrap, space-around, flex-start);
+    @include flex(row wrap, space-evenly, flex-start);
 
     > button {
       margin-top: $margin / 2;
