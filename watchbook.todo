@@ -26,6 +26,8 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - create flexible, media-query-based way to manage different card sizes based on viewport
+    we currently optimize for bigger mobile screens. current sizing is inflexible
   - redesign store state w/o UID
   - remove global components from store
   - merge FilterAndSortProvider into DataProvider (?)
@@ -83,7 +85,7 @@ Features/stories:
   - manually add a title
   - create stats page
   - create persistent notifs
-  - add _notes_ feature @focus
+  ✔ add _notes_ feature @focus @done(20-06-11 02:00)
   - move internal info (response, ID, etc) to hidden section @quick
   - create poster downloader to cache media
   - implement search with Algolia
