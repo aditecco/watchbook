@@ -40,7 +40,6 @@ Optims/refactor:
   - API key should be editable
   - refine item search skeleton loader
   - remove ranges from years filter @quick
-  - enforce fixed order in item data sheet @quick 
   - rewrite reducer logic w/ immer-like syntax @focus
   - move async logic to saga @focus
       √ content search
@@ -85,7 +84,6 @@ Features/stories:
   - manually add a title
   - create stats page
   - create persistent notifs
-  ✔ add _notes_ feature @focus @done(20-06-11 02:00)
   - move internal info (response, ID, etc) to hidden section @quick
   - create poster downloader to cache media
   - implement search with Algolia
@@ -150,6 +148,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ enforce fixed order in item data sheet @quick @done(20-06-13 17:01) @project(Optims/refactor)
+  ✔ add _notes_ feature @focus @done(20-06-11 02:00) @project(Features/stories)
   ✔ card deletion @focus @done(20-06-05 00:00) @project(Features/stories)
   ✔ infinite scroll loading indicator visible in filter view @done(20-06-04 23:55) @project(Optims/refactor)
   ✔ [TO-WATCH] to watch cards should have the ability to be converted to watched @focus @done(20-06-05 00:00) @project(Features/stories)

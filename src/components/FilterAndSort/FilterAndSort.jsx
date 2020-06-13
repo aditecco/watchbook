@@ -22,7 +22,7 @@ export default function FilterAndSort({
           <form className="FilterAndSortForm">
             {Object.entries(options).map(([sortKey, optionsArray], i) => (
               <div className="formGroup" key={`formGroup-${i}`}>
-                <label htmlFor={sortKey}>Filter by {sortKey}</label>
+                <label htmlFor={sortKey}>{sortKey}</label>
 
                 <select
                   onChange={e => sortHandler(e.target.id, e.target.value)}

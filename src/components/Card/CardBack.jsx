@@ -15,6 +15,20 @@ export default function CardBack({
   title,
 }) {
   const hasNotes = additionalData.notes;
+  const orderedKeys = {
+    director: "",
+    plot: "",
+    actors: "",
+    writer: "",
+    genre: "",
+    runtime: "",
+    year: "",
+    released: "",
+    language: "",
+    country: "",
+    awards: "",
+    boxoffice: "",
+  };
 
   return (
     <article className="Card back">
@@ -31,7 +45,12 @@ export default function CardBack({
 
         <ul className="CardBackDataList">
           {Object.keys(additionalData).length &&
-            Object.entries(additionalData).map(([key, val], i) => {
+            Object.entries(
+              Object.entries(additionalData).reduce((acc, [k, val]) => {
+                acc[k] = val;
+                return acc;
+              }, orderedKeys)
+            ).map(([key, val], i) => {
               // prettier-ignore
 
               // TODO
