@@ -62,6 +62,9 @@ export default function CardBack({
                     'dvd',
                     'website',
                     'key',
+                    'imdbrating',
+                    'imdbvotes',
+                    'metascore'
                     ].includes(key))
                   {
                     return;
