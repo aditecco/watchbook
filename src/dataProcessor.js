@@ -96,7 +96,9 @@ export default class dataProcessor {
    */
 
   year(data, sortKey) {
-    return this.applyGenericProcessing(data, sortKey);
+    return this.applyGenericProcessing(data, sortKey).filter(
+      year => !year[0].includes("–")
+    );
   }
 
   /**

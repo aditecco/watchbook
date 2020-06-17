@@ -39,7 +39,6 @@ Optims/refactor:
   - handle long titles in notifs
   - API key should be editable
   - refine item search skeleton loader
-  - remove ranges from years filter @quick
   - rewrite reducer logic w/ immer-like syntax @focus
   - move async logic to saga @focus
       √ content search
@@ -84,7 +83,6 @@ Features/stories:
   - manually add a title
   - create stats page
   - create persistent notifs
-  - move internal info (response, ID, etc) to hidden section @quick
   - create poster downloader to cache media
   - implement search with Algolia
   - create dark theme @focus 
@@ -148,6 +146,9 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ remove ranges from years filter @quick @done(20-06-18 01:46) @project(Optims/refactor)
+  ✔ clip long names from card info @quick @done(20-06-18 01:34) @project(Fixes)
+  ✔ move internal info (response, ID, etc) to hidden section @quick @done(20-06-18 01:13) @project(Features/stories)
   ✔ enforce fixed order in item data sheet @quick @done(20-06-13 17:01) @project(Optims/refactor)
   ✔ add _notes_ feature @focus @done(20-06-11 02:00) @project(Features/stories)
   ✔ card deletion @focus @done(20-06-05 00:00) @project(Features/stories)
