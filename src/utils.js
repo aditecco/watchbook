@@ -112,3 +112,13 @@ export function addClasses(classes) {
 export function removeDuplicates(data) {
   return [...new Set(data)];
 }
+
+/**
+ * Truncates text at given limit
+ */
+
+export function clipText(t, maxLength = 15) {
+  if (t.length < maxLength) return t;
+
+  return t.substring(0, maxLength) + "…";
+}
