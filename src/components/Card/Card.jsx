@@ -3,7 +3,7 @@ Card
 --------------------------------- */
 
 import React, { useState, useEffect } from "react";
-import { log, normalize } from "../../utils";
+import { log, normalize, clipText } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 import CardControls from "./CardControls";
 import CardBack from "./CardBack";
@@ -177,17 +177,17 @@ export default React.memo(function Card(props) {
                 <li className="CardMetaItem">
                   <h6 className="CardMetaItemTitle">Country</h6>
 
-                  {_additionalData.country
-                    ? _additionalData.country.length > 15
-                      ? _additionalData.country.substring(0, 10) + "…"
-                      : _additionalData.country
-                    : "N/A"}
+                  {(_additionalData.country &&
+                    clipText(_additionalData.country)) ||
+                    "N/A"}
                 </li>
 
                 <li className="CardMetaItem">
                   <h6 className="CardMetaItemTitle">Director</h6>
 
-                  {_additionalData.director || "N/A"}
+                  {(_additionalData.director &&
+                    clipText(_additionalData.director)) ||
+                    "N/A"}
                 </li>
               </ul>
             </div>
