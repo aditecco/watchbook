@@ -19,6 +19,8 @@ export default function FilterAndSort({
 
       <div className="FilterAndSortContainer">
         <div className="wrapper">
+          <h3 className="FilterAndSortHeading">Filters</h3>
+
           <form className="FilterAndSortForm">
             {Object.entries(options).map(([sortKey, optionsArray], i) => (
               <div className="formGroup" key={`formGroup-${i}`}>

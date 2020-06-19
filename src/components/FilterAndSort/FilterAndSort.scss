@@ -36,7 +36,17 @@
     }
   }
 
-  .FilterAndSortForm {
+  &Heading {
+    @include smallHeading();
+    padding: 1.6rem 1.6rem 0;
+    font-size: 14px;
+
+    + .FilterAndSortForm {
+      padding-top: 0;
+    }
+  }
+
+  &Form {
     @include flex(row wrap, center, center);
     padding: 1.6rem;
 
