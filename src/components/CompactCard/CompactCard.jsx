@@ -3,7 +3,7 @@ CompactCardAnchor
 --------------------------------- */
 
 import React from "react";
-import { log } from "../../utils";
+import { log, clipText } from "../../utils";
 
 export default React.memo(function CompactCard({
   image,
@@ -29,7 +29,7 @@ export default React.memo(function CompactCard({
             <h4 className="CompactCardHeading">{title}</h4>
           </header>
           <span className="CompactCardContent">
-            {year + ", " + additionalData.director}
+            {year + ", " + clipText(additionalData.director, 22)}
           </span>
         </section>
       </article>
