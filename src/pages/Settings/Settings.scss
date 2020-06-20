@@ -5,6 +5,14 @@ Settings
 .Settings {
   main > .wrapper {
     padding: $padding;
+    height: calc(
+      100vh - (#{$navbarHeight} + #{$pageHeaderHeight} + #{$navbarHeight})
+    );
+    @include flex(column nowrap, space-between, center);
+  }
+
+  &Content {
+    height: 100%;
   }
 
   .SettingsForm {
