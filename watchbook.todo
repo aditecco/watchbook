@@ -10,6 +10,7 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
+  - add note modal doesn't opens & immediately closes (due to toggle behavior) in CompactCard converted to Card
   - when both watched & toWatch are empty, I add a card to toWatch, then delete it, switch to home, the initializer is stuck in loading state
   - watched cards show the same cards as to watch
     watched is empty; select to watch, then select watched; `data` in FilterProvider is OK; `content` in ContentList is not updated; if I force re-rendering by performing a quick search, cards go back to normal

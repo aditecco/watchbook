@@ -8,6 +8,7 @@
   border-radius: 6px;
   box-shadow: 0 2px 30px 4px rgba(black, 0.1);
   background-color: white;
+  @include zoomOnHover();
 
   > * {
     padding: ($padding / 2);
