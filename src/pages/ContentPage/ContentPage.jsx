@@ -32,7 +32,7 @@ export default function ContentPage({
   // local state
   const initialState = {
     showFilters: false,
-    compactView: false,
+    compactView: true,
     activeQuery: "",
     resetFilters: false,
   };

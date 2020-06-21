@@ -27,6 +27,7 @@ export default function ContentList({
               <h3 className="ContentListHeaderTitle">{title}</h3>
             </div>
           </header>
+
           <div className="wrapper">
             <ul className="ContentListCards ContentListGrid">
               {content.slice(0, limit).map((item, i) => {
