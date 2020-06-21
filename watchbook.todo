@@ -69,6 +69,7 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
+  - implement rating functionality @focus
   - re-fetch card info @focus 
     add info to cards that don't have it,
     or update card info
@@ -107,6 +108,7 @@ Features/stories:
   - add user config options to profile page
     - theme
     - default to compact cards
+    - create switch component for config options
   - Add signout notif
   - allow multiple data sources (APIs)
   - sync local data to DB when performing CRUD operations
@@ -146,6 +148,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ make ContentPage cards compact by default @done(20-06-21 16:16) @project(Features/stories)
+  ✔ make CompactCards expandable to Cards on click @done(20-06-21 16:16) @project(Features/stories)
   ✔ remove ranges from years filter @quick @done(20-06-18 01:46) @project(Optims/refactor)
   ✔ clip long names from card info @quick @done(20-06-18 01:34) @project(Fixes)
   ✔ move internal info (response, ID, etc) to hidden section @quick @done(20-06-18 01:13) @project(Features/stories)
