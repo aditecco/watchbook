@@ -238,8 +238,9 @@ const reducer = createReducer(initialState, {
     return {
       ...state,
       modal: {
-        open: !state.modal.open,
-        content: action.payload ? action.payload.content : null,
+        forceOpen: (action.payload && action.payload.forceOpen) || false,
+        open: state.modal.forceOpen ? true : !state.modal.open,
+        content: (action.payload && action.payload.content) || null,
       },
     };
   },

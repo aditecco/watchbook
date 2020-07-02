@@ -44,6 +44,7 @@ export default {
   },
   modal: {
     open: false,
-    content: undefined,
+    content: null,
+    forceOpen: false,
   },
 };

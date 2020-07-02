@@ -23,6 +23,7 @@ export default React.memo(function CompactCard({
   function convertToFullSizeCard() {
     dispatch(
       actions.toggleModal({
+        forceOpen: true,
         content: (
           <Card
             added
