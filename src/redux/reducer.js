@@ -3,7 +3,7 @@ reducer
 --------------------------------- */
 
 import { createReducer } from "@reduxjs/toolkit";
-import { log } from "../utils";
+import { log, clipText } from "../utils";
 import initialState from "./initialState";
 import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 import {
@@ -217,7 +217,7 @@ const reducer = createReducer(initialState, {
       ...state,
       notificationMessage: {
         isVisible: true,
-        message,
+        message: clipText(message, 25),
         icon,
         timeOut,
         theme,
