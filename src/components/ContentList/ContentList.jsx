@@ -48,6 +48,7 @@ export default function ContentList({
                 ) : (
                   <li key={i} data-index={i} className="cardListItem">
                     <CompactCard
+                      dataSet={dataSet}
                       image={image}
                       title={title}
                       type={type}

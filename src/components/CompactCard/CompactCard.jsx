@@ -9,14 +9,14 @@ import * as actions from "../../redux/actions";
 import Card from "../Card/Card";
 
 export default React.memo(function CompactCard({
+  additionalData,
+  dataSet,
   image,
+  onToWatchClick,
+  onWatchedClick,
   title,
   type,
   year,
-  onToWatchClick,
-  onWatchedClick,
-  additionalData,
-  ...other
 }) {
   const dispatch = useDispatch();
 
@@ -27,6 +27,7 @@ export default React.memo(function CompactCard({
         content: (
           <Card
             added
+            dataSet={dataSet}
             image={image}
             title={title}
             type={type}
