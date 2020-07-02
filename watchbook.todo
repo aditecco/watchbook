@@ -10,7 +10,6 @@ Fixes:
   Things that don't work properly
   *******************************
   - …
-  - add note modal doesn't opens & immediately closes (due to toggle behavior) in CompactCard converted to Card
   - when both watched & toWatch are empty, I add a card to toWatch, then delete it, switch to home, the initializer is stuck in loading state
   - watched cards show the same cards as to watch
     watched is empty; select to watch, then select watched; `data` in FilterProvider is OK; `content` in ContentList is not updated; if I force re-rendering by performing a quick search, cards go back to normal
@@ -37,7 +36,6 @@ Optims/refactor:
   - refactor routes w/o PrivateRoute
   - fine-tune sagas (esp. additional info)
   - better autosuggest loading state
-  - handle long titles in notifs
   - API key should be editable
   - refine item search skeleton loader
   - rewrite reducer logic w/ immer-like syntax @focus
@@ -54,7 +52,7 @@ Optims/refactor:
     background: radial-gradient(at bottom center, transparent 60%, rgba(0, 0, 0, 0.9));
   - (re)organize SCSS vars, map all colors, sizes
   - redesign card w/ background-image
-  - actually implement Typescript
+  - implement Typescript
   - refactor to extract components where due
     - …
   - Complete DataProvider
@@ -81,7 +79,7 @@ Features/stories:
     updates local copy of content item
     - update local copy of content item
     - add loading states
-  - create advanced search by IMDB ID
+  - create advanced search by IMDB ID @focus
   - manually add a title
   - create stats page
   - create persistent notifs
@@ -106,7 +104,7 @@ Features/stories:
   - save API key to DB
   - create validators for input fields
   - add user name to login notif
-  - add user config options to profile page
+  - add user config options to profile page @focus 
     - theme
     - default to compact cards
     - create switch component for config options
@@ -119,7 +117,7 @@ Features/stories:
 UX:
   Things that can make the user experience better
   ***********************************************
-  - create placeholder image for movie cards
+  - create placeholder image for movie cards (w/ SVG) @focus 
   - create blank slates w/ illustrations
   - animate FilterAndSortContainer
 
@@ -131,7 +129,7 @@ Platform:
 Tests:
   - …
   - try Jest
-  - try visual testing w/ StoryBook
+  - try visual testing w/ StoryBook @focus 
   - write e2e tests
 
 Other:
@@ -149,6 +147,10 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ add note modal doesn't open & immediately closes (due to toggle behavior) in CompactCard converted to Card @focus @done(20-07-02 17:05) @project(Fixes)
+  ✔ handle long titles in notifs @focus @done(20-07-02 15:54) @project(Optims/refactor)
+  ✔ Notification appears under full card modal @focus @done(20-07-02 15:53) @project(Fixes)
+  ✔ In ToWatch expanded CompactCard, action buttons should be visible @focus @done(20-07-02 16:20) @project(Fixes)
   ✔ make ContentPage cards compact by default @done(20-06-21 16:16) @project(Features/stories)
   ✔ make CompactCards expandable to Cards on click @done(20-06-21 16:16) @project(Features/stories)
   ✔ remove ranges from years filter @quick @done(20-06-18 01:46) @project(Optims/refactor)
