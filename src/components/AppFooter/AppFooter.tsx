@@ -2,9 +2,9 @@
 AppFooter
 --------------------------------- */
 
-import React from "react";
+import React, { ReactElement } from "react";
 
-export default function AppFooter() {
+export default function AppFooter(): ReactElement {
   return (
     <footer className="AppFooter">
       <span>
