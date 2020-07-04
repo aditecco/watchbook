@@ -2,10 +2,19 @@
 Layout
 --------------------------------- */
 
-import React from "react";
+import React, { ReactChildren, ReactNode } from "react";
 import Navbar from "../Navbar/Navbar";
 import AppHeader from "../AppHeader/AppHeader";
 import AppFooter from "../AppFooter/AppFooter";
+
+interface OwnProps {
+  children: ReactChildren;
+  rootClass: string;
+  selected?: number | null;
+  hasNav?: boolean;
+  hasHeader?: boolean;
+  hasFooter?: boolean;
+}
 
 export default function Layout({
   children,
@@ -14,7 +23,7 @@ export default function Layout({
   hasNav = true,
   hasHeader = true,
   hasFooter = false,
-}) {
+}: OwnProps): ReactNode {
   return (
     <>
       {hasHeader && <AppHeader />}
@@ -34,15 +43,3 @@ export default function Layout({
     </>
   );
 }
-
-// export default function Layout({ children, rootClass }) {
-//   return (
-//     <Context.Consumer>
-//       {([store, dispatch]) => (
-//         <main className={rootClass} store={store} dispatch={dispatch}>
-//           {children}
-//         </main>
-//       )}
-//     </Context.Consumer>
-//   );
-// }
