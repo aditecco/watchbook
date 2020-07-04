@@ -2,17 +2,21 @@
 Navbar
 --------------------------------- */
 
-import React from "react";
+import React, { ReactNode, ReactElement } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Navbar({ selected }) {
-  const [selectedNavItem, setSelectedNavItem] = useState({ selected });
+interface OwnProps {
+  selected: number | undefined;
+}
+
+export default function Navbar({ selected }: OwnProps): ReactElement {
+  const [selectedNavItem, setSelectedNavItem] = useState(selected);
 
   function handleNavItemClick(e) {
     const { currentTarget: _this } = e;
 
-    setSelectedNavItem({ selected: _this.id });
+    setSelectedNavItem(Number(_this.id));
   }
 
   return (
@@ -24,9 +28,7 @@ export default function Navbar({ selected }) {
               to="/home"
               onClick={handleNavItemClick}
               className={
-                selected === 1 || selectedNavItem.selected === "1"
-                  ? "selected"
-                  : null
+                selected === 1 || selectedNavItem === 1 ? "selected" : null
               }
               id="1"
             >
@@ -40,9 +42,7 @@ export default function Navbar({ selected }) {
               to="/watched"
               onClick={handleNavItemClick}
               className={
-                selected === 2 || selectedNavItem.selected === "2"
-                  ? "selected"
-                  : null
+                selected === 2 || selectedNavItem === 2 ? "selected" : null
               }
               id="2"
             >
@@ -56,9 +56,7 @@ export default function Navbar({ selected }) {
               to="/to-watch"
               onClick={handleNavItemClick}
               className={
-                selected === 3 || selectedNavItem.selected === "3"
-                  ? "selected"
-                  : null
+                selected === 3 || selectedNavItem === 3 ? "selected" : null
               }
               id="3"
             >

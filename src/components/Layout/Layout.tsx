@@ -10,7 +10,7 @@ import AppFooter from "../AppFooter/AppFooter";
 interface OwnProps {
   children: ReactChildren;
   rootClass: string;
-  selected?: number | null;
+  selected?: number | undefined;
   hasNav?: boolean;
   hasHeader?: boolean;
   hasFooter?: boolean;
@@ -19,7 +19,7 @@ interface OwnProps {
 export default function Layout({
   children,
   rootClass,
-  selected = null,
+  selected,
   hasNav = true,
   hasHeader = true,
   hasFooter = false,
