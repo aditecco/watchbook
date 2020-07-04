@@ -4,10 +4,10 @@ Utils
 
 import { OMDB_API_URL } from "./constants";
 
-// shorter console.log
+// concise console.log
 export const log = window.console.log.bind(window.console);
 
-// shorter querySelector
+// concise querySelector
 export const $ = window.document.querySelector.bind(window.document);
 
 // requestUrl
@@ -20,7 +20,7 @@ export const buildQuery = params =>
     .map(([param, query]) => `&${param}=${query}`)
     .join("");
 
-// shorter localStorage, w/ JSON manipulation included
+// concise localStorage, w/ JSON manipulation included
 export const storage = (() => {
   const boundFn = fn => fn.bind(window.localStorage);
 
