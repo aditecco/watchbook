@@ -27,6 +27,7 @@ Optims/refactor:
   *************************************
   - …
   - Resolve al TS TODOs & ts-ignore @focus 
+  - Enable TS strictNullChecks & noImplicitAny @focus 
   - create flexible, media-query-based way to manage different card sizes based on viewport
     we currently optimize for bigger mobile screens. current sizing is inflexible
   - redesign store state w/o UID
@@ -53,7 +54,6 @@ Optims/refactor:
     background: radial-gradient(at bottom center, transparent 60%, rgba(0, 0, 0, 0.9));
   - (re)organize SCSS vars, map all colors, sizes
   - redesign card w/ background-image
-  ✔ implement Typescript @done(20-07-06 00:15)
   - refactor to extract components where due
     - …
   - Complete DataProvider
@@ -80,6 +80,7 @@ Features/stories:
     updates local copy of content item
     - update local copy of content item
     - add loading states
+    - add notif for loading in progress @focus 
   - create advanced search by IMDB ID @focus
   - manually add a title
   - create stats page
@@ -129,7 +130,6 @@ Platform:
 
 Tests:
   - …
-  - try Jest
   - try visual testing w/ StoryBook @focus 
   - write e2e tests
 
@@ -148,6 +148,9 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ try Jest @done(20-07-06 00:36) @project(Tests)
+  ✔ try React Testing Library @done(20-07-06 00:37) @project(Tests)
+  ✔ implement Typescript @done(20-07-06 00:15) @project(Optims/refactor)
   ✔ add note modal doesn't open & immediately closes (due to toggle behavior) in CompactCard converted to Card @focus @done(20-07-02 17:05) @project(Fixes)
   ✔ handle long titles in notifs @focus @done(20-07-02 15:54) @project(Optims/refactor)
   ✔ Notification appears under full card modal @focus @done(20-07-02 15:53) @project(Fixes)

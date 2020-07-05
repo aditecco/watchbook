@@ -36,12 +36,6 @@ export default function AppHeader() {
                   <MaterialIcon icon="settings" />
                 </Link>
               </li>
-
-              {/* <li>
-            <Link to="/test">
-              <MaterialIcon icon="build" />
-            </Link>
-          </li> */}
             </ul>
           </nav>
         )}
