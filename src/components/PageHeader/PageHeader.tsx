@@ -3,6 +3,7 @@ PageHeader
 --------------------------------- */
 
 import React, { ReactElement } from "react";
+import MaterialIcon from "../Misc/MaterialIcon";
 // import "./PageHeader.scss";
 
 interface OwnProps {
@@ -19,7 +20,7 @@ export default function PageHeader({
   return (
     <header className="PageHeader">
       <div className="container">
-        <i className="material-icons">{icon || null}</i>
+        {icon && <MaterialIcon icon={icon} />}
         <h1 className="PageHeading">{title}</h1>
       </div>
 
