@@ -63,7 +63,7 @@ export const rand = () => {
 };
 
 // capitalize
-export function capitalize(word) {
+export function capitalize(word: string) {
   const capitalizer = w => w.charAt(0).toUpperCase() + w.slice(1);
 
   if (!word) return undefined;
@@ -101,25 +101,25 @@ export function normalize(data) {
   }, {});
 }
 
-// handles additional classes
-// usage: className={"SomeClass" + addClasses(className)}
-export function addClasses(classes) {
+/**
+ * handles additional classes
+ * @usage: className={"SomeClass" + addClasses(className)}
+ */
+export function addClasses(classes: string) {
   return classes ? " " + classes : "";
 }
 
 /**
  * Removes dupes from a dataset
  */
-
 export function removeDuplicates(data) {
   return [...new Set(data)];
 }
 
 /**
- * Truncates text at given limit
+ * Truncates text at given length
  */
-
-export function clipText(t, maxLength = 15) {
+export function clipText(t: string, maxLength: number = 15) {
   if (t.length < maxLength) return t;
 
   return t.substring(0, maxLength) + "…";

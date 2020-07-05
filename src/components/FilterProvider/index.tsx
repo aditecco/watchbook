@@ -3,7 +3,7 @@ FilterProvider
 --------------------------------- */
 
 import React, { useState, useEffect } from "react";
-import dataProcessor from "../../dataProcessor";
+import DataProcessor from "../../DataProcessor";
 
 export default function FilterProvider({
   children,
@@ -20,7 +20,7 @@ export default function FilterProvider({
 
   //
   const { type, UI, config } = FilterUI;
-  const processor = new dataProcessor();
+  const processor = new DataProcessor();
 
   const options =
     config.sortKeys &&

@@ -26,6 +26,7 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - Resolve al TS TODOs & ts-ignore @focus 
   - create flexible, media-query-based way to manage different card sizes based on viewport
     we currently optimize for bigger mobile screens. current sizing is inflexible
   - redesign store state w/o UID
@@ -52,7 +53,7 @@ Optims/refactor:
     background: radial-gradient(at bottom center, transparent 60%, rgba(0, 0, 0, 0.9));
   - (re)organize SCSS vars, map all colors, sizes
   - redesign card w/ background-image
-  - implement Typescript
+  ✔ implement Typescript @done(20-07-06 00:15)
   - refactor to extract components where due
     - …
   - Complete DataProvider

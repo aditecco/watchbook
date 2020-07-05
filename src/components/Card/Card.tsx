@@ -272,10 +272,16 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
               actions.toggleModal({
                 content: (
                   <Note
+                    // TODO
+                    // @ts-ignore
                     cardId={_additionalData.key}
+                    // TODO
+                    // @ts-ignore
                     content={_additionalData.notes}
                     itemTitle={title}
                     actions={
+                      // TODO
+                      // @ts-ignore
                       _additionalData.notes
                         ? [
                             // note exists, edit mode

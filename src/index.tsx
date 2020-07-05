@@ -11,6 +11,8 @@ import "firebase/auth";
 import "./styles/index.scss";
 
 // global utils
+// TODO
+// @ts-ignore
 window.storage = storage;
 
 // firebase initializers

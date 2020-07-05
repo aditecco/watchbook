@@ -21,6 +21,7 @@
     "jsx": "react",
     "strictNullChecks": false,
     "noImplicitAny": false,
+    "downlevelIteration": true
   },
   "include": [
     "src"

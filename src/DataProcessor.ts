@@ -4,13 +4,15 @@ dataProcessor
 
 import { removeDuplicates } from "./utils";
 
-export default class dataProcessor {
+export default class DataProcessor {
+  // https://stackoverflow.com/questions/48657481/in-javascript-is-constructor-mandatory-in-a-class
+
   /**
    * Primes data by performing
    * common operations
    */
 
-  primeData(data, sortFn) {
+  primeData(data, sortFn = undefined) {
     return removeDuplicates(data).sort(sortFn);
   }
 
