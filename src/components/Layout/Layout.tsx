@@ -2,13 +2,13 @@
 Layout
 --------------------------------- */
 
-import React, { ReactChildren, ReactNode } from "react";
+import React, { ReactFragment, ReactElement } from "react";
 import Navbar from "../Navbar/Navbar";
 import AppHeader from "../AppHeader/AppHeader";
 import AppFooter from "../AppFooter/AppFooter";
 
 interface OwnProps {
-  children: ReactChildren;
+  children: ReactElement | any; // TODO
   rootClass: string;
   selected?: number | undefined;
   hasNav?: boolean;
@@ -23,7 +23,7 @@ export default function Layout({
   hasNav = true,
   hasHeader = true,
   hasFooter = false,
-}: OwnProps): ReactNode {
+}: OwnProps): ReactFragment {
   return (
     <>
       {hasHeader && <AppHeader />}

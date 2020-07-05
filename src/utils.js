@@ -93,6 +93,8 @@ export function filterKeys(obj, filtered) {
 
 // normalize
 export function normalize(data) {
+  if (!data) return {};
+
   return Object.entries(data).reduce((acc, [key, val]) => {
     acc[key.toLowerCase()] = val;
     return acc;
