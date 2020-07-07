@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/actions";
 import Spinner from "../Spinner/Spinner";
 import { RootState } from "../../store";
+import RatingControls from "../RatingControls/RatingControls";
 
 // TODO
 interface OwnProps {
@@ -178,6 +179,7 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
             dataSet === SECONDARY_DATASET_KEY ? " toWatch" : ""
           }`}
         >
+          <RatingControls />
           <div className="CardFlipControls">
             <div
               className="CardFlipAreaButton"
