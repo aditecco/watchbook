@@ -21,7 +21,7 @@ export default function RatingControls({
    */
   function handleRating(e: React.MouseEvent<HTMLButtonElement>) {
     const { id } = e.currentTarget;
-    onRate && onRate(id);
+    onRate && onRate(id); // TODO think about what to use it for
 
     // TODO enforce order
     setStarred(prevStarred => ({ ...prevStarred, [id]: !prevStarred[id] }));
@@ -36,12 +36,11 @@ export default function RatingControls({
             key={i}
             id={String(i)}
             onClick={handleRating}
-            data-starred={starred[String(i)}
+            data-starred={starred[String(i)]}
           >
             <MaterialIcon icon={starred[String(i)] ? "star" : "star_outline"} />
           </button>
         ))}
-      <span>{`${starred}`}</span>
     </div>
   );
 }
