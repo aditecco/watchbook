@@ -28,6 +28,15 @@ function* updateRemoteContentSaga(action) {
 
   const authSelector = state => state.authentication;
 
+  yield put(
+    showNotif({
+      message: `Updating: ${data.Title}`,
+      icon: "sync",
+      timeOut: 2000,
+      theme: "light",
+    })
+  );
+
   yield put(updateRemoteContentPending());
 
   const {
@@ -60,7 +69,7 @@ function* updateRemoteContentSaga(action) {
 
     yield put(
       showNotif({
-        message: `Updated: ${data.Title}`,
+        message: `Updated! ${data.Title}`,
         icon: "sync",
         timeOut: 2000,
         theme: "light",

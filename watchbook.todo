@@ -80,7 +80,7 @@ Features/stories:
     updates local copy of content item
     - update local copy of content item
     - add loading states
-    - add notif for loading in progress @focus 
+    ✔ add notif for loading in progress @focus @done(20-07-08 00:26)
   - create advanced search by IMDB ID @focus
   - manually add a title
   - create stats page
@@ -106,10 +106,10 @@ Features/stories:
   - save API key to DB
   - create validators for input fields
   - add user name to login notif
-  - add user config options to profile page @focus 
+  - add user config options to settings page @focus 
     - theme
     - default to compact cards
-    - create switch component for config options
+    - create switch component for config options @focus 
   - Add signout notif
   - allow multiple data sources (APIs)
   - sync local data to DB when performing CRUD operations
