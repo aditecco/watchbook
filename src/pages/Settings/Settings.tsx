@@ -10,6 +10,7 @@ import { log, storage } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
 import { setApiKey } from "../../redux/actions";
 import { RootState } from "../../store";
+import RatingControls from "../../components/RatingControls/RatingControls";
 
 export default function Settings() {
   const [input, setInput] = useState("");
@@ -83,6 +84,8 @@ export default function Settings() {
             </button>
           </form>
         )}
+
+        <RatingControls />
 
         <footer className="SettingsFooter">
           <small>

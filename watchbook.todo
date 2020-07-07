@@ -80,7 +80,6 @@ Features/stories:
     updates local copy of content item
     - update local copy of content item
     - add loading states
-    ✔ add notif for loading in progress @focus @done(20-07-08 00:26)
   - create advanced search by IMDB ID @focus
   - manually add a title
   - create stats page
@@ -148,6 +147,7 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ add notif for loading in progress @focus @done(20-07-08 00:26) @project(Features/stories)
   ✔ try Jest @done(20-07-06 00:36) @project(Tests)
   ✔ try React Testing Library @done(20-07-06 00:37) @project(Tests)
   ✔ implement Typescript @done(20-07-06 00:15) @project(Optims/refactor)
