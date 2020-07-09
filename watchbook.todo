@@ -26,6 +26,7 @@ Optims/refactor:
   Things that work, but can be improved
   *************************************
   - …
+  - Lock scroll under modal
   - Resolve al TS TODOs & ts-ignore @focus 
   - Enable TS strictNullChecks & noImplicitAny @focus 
   - create flexible, media-query-based way to manage different card sizes based on viewport
@@ -70,6 +71,11 @@ Features/stories:
   ********************************
   - …
   - implement rating functionality @focus
+    ✔ enforce order @done(20-07-10 01:08)
+    - persist in DB
+    - create saga
+    - download with other data
+    - UI animations
   - re-fetch card info @focus 
     add info to cards that don't have it,
     or update card info

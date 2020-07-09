@@ -23,8 +23,16 @@ export default function RatingControls({
     const { id } = e.currentTarget;
     onRate && onRate(id); // TODO think about what to use it for
 
-    // TODO enforce order
-    setStarred(prevStarred => ({ ...prevStarred, [id]: !prevStarred[id] }));
+    // @ts-ignore
+    setStarred(prevStarred => {
+      if (id === "0") return { [id]: !prevStarred[id] };
+
+      if (prevStarred[Number(id) - 1] && !prevStarred[Number(id) + 1]) {
+        return { ...prevStarred, [id]: !prevStarred[id] };
+      }
+
+      return prevStarred;
+    });
   }
 
   return (
@@ -33,6 +41,7 @@ export default function RatingControls({
         .fill("")
         .map((_, i) => (
           <button
+            className="RatingControlsButton"
             key={i}
             id={String(i)}
             onClick={handleRating}
