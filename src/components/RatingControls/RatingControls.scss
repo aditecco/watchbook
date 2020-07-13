@@ -12,6 +12,7 @@ RatingControls
   background-color: rgba(black, 0.7);
 
   &Button {
+    @extend %resetButtons;
     @include zoomOnHover(1.25);
   }
 
