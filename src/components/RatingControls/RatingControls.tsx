@@ -21,14 +21,16 @@ export default function RatingControls({
    */
   function handleRating(e: React.MouseEvent<HTMLButtonElement>) {
     const { id } = e.currentTarget;
-    onRate && onRate(id); // TODO think about what to use it for
+    const nid = Number(id);
+
+    onRate && onRate(nid); // TODO think about what to use it for
 
     // @ts-ignore
     setStarred(prevStarred => {
-      if (id === "0") return { [id]: !prevStarred[id] };
+      if (nid === 0) return { [nid]: !prevStarred[nid] };
 
-      if (prevStarred[Number(id) - 1] && !prevStarred[Number(id) + 1]) {
-        return { ...prevStarred, [id]: !prevStarred[id] };
+      if (prevStarred[nid - 1] && !prevStarred[nid + 1]) {
+        return { ...prevStarred, [nid]: !prevStarred[nid] };
       }
 
       return prevStarred;
