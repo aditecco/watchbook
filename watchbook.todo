@@ -71,9 +71,7 @@ Features/stories:
   ********************************
   - …
   - implement rating functionality @focus
-    ✔ enforce order @done(20-07-10 01:08)
-    - persist in DB
-    - create saga
+    - auto-star previous stars (i.e. I click the 3rd and 1, 2 are also starred)
     - download with other data
     - UI animations
   - re-fetch card info @focus 
@@ -153,6 +151,9 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ persist in DB @done(20-07-14 14:57) @project(Features/stories)
+  ✔ create saga @done(20-07-14 14:57) @project(Features/stories)
+  ✔ enforce order @done(20-07-10 01:08) @project(Features/stories)
   ✔ add notif for loading in progress @focus @done(20-07-08 00:26) @project(Features/stories)
   ✔ try Jest @done(20-07-06 00:36) @project(Tests)
   ✔ try React Testing Library @done(20-07-06 00:37) @project(Tests)
