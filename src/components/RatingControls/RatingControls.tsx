@@ -14,7 +14,7 @@ export default function RatingControls({
   maxRating = 5,
   onRate,
 }: OwnProps): ReactElement {
-  const [starred, setStarred] = useState([]);
+  const [starred, setStarred] = useState({});
 
   /**
    * handleRating
