@@ -22,20 +22,26 @@ export default function RatingControls({
    */
   function handleRating(e: React.MouseEvent<HTMLButtonElement>) {
     const { id } = e.currentTarget;
-    const nid = Number(id);
+    const currentStar = Number(id);
 
-    if (nid === 0) {
-      setStarred({ [nid]: !starred[nid] });
-      onRate && onRate(nid + 1);
+    if (!starred[currentStar + 1]) {
+      let stars = {};
 
-      return;
-    }
+      for (let i = 0; i <= currentStar; i++) {
+        if (!starred[currentStar]) {
+          stars[i] = true;
+        }
 
-    if (starred[nid - 1] && !starred[nid + 1]) {
-      setStarred({ ...starred, [nid]: !starred[nid] });
-      onRate && onRate(nid + 1);
+        //
+        else {
+          stars[i] = false;
+        }
+      }
 
-      return;
+      setStarred(stars);
+
+      onRate &&
+        onRate(Object.values(stars).every(star => !star) ? 0 : currentStar + 1);
     }
   }
 
