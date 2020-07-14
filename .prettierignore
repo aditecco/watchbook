@@ -1,4 +1,4 @@
 
 # .prettierignore
 
-src/redux/actions.js
+src/redux/actions.*
