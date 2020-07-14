@@ -35,6 +35,7 @@ export default function DataProvider({ render, dataSet }) {
   const userData = useSelector((state: RootState) => state.userData);
   const [loading, setLoading] = useState(true);
   const data = userData[uid][dataSet];
+  const initialSettings = { apiKey: 0 };
 
   /**
    * Checks if any initial data exists in the remote DB
@@ -49,14 +50,17 @@ export default function DataProvider({ render, dataSet }) {
       const watchedRef = db.ref(`users/${uid}/watched`);
       const toWatchRef = db.ref(`users/${uid}/toWatch`);
       const notesRef = db.ref(`notes/${uid}`);
+      const ratingsRef = db.ref(`ratings/${uid}`);
       const content = await contentRef.once("value");
       const watched = await watchedRef.once("value");
       const toWatch = await toWatchRef.once("value");
       const notes = await notesRef.once("value");
+      const ratings = await ratingsRef.once("value");
       const contentData = await content.val();
       const watchedData = await watched.val();
       const toWatchData = await toWatch.val();
       const noteData = await notes.val();
+      const ratingData = await ratings.val();
 
       // prettier-ignore
       // NEW USER INITIALIZER
@@ -70,8 +74,9 @@ export default function DataProvider({ render, dataSet }) {
         db.ref().update(
           {
             [`/users/${uid}`]: { watched: 0, toWatch: 0 },
-            [`/settings/${uid}`]: { apiKey: 0 },
-            [`/notes/${uid}`]: 0
+            [`/settings/${uid}`]: initialSettings,
+            [`/notes/${uid}`]: 0,
+            [`/ratings/${uid}`]: 0
           },
 
           // completion cb
@@ -96,7 +101,8 @@ export default function DataProvider({ render, dataSet }) {
           watched: Object.keys(watchedData).map(key => ({
             key,
             ...contentData[key],
-            notes: noteData && noteData[key] && noteData[key]['content'], // TODO
+            notes: noteData && noteData[key] && noteData[key]['content'],
+            ratings: ratingData && ratingData[key] && ratingData[key]['rating'],
           })),
           // 0 => []
           toWatch: Object.keys(toWatchData).map(key => ({

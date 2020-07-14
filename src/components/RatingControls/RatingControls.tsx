@@ -7,15 +7,40 @@ import MaterialIcon from "../Misc/MaterialIcon";
 import { log } from "../../utils";
 
 interface OwnProps {
-  maxRating?: number;
+  initialRating?: number | undefined;
+  maxRating?: number | undefined;
   onRate?: (arg0) => void;
 }
 
 export default function RatingControls({
+  initialRating,
   maxRating = 5,
   onRate,
 }: OwnProps): ReactElement {
-  const [starred, setStarred] = useState({});
+  const [starred, setStarred] = useState(initRating(initialRating) || {});
+
+  /**
+   * initRating
+   */
+
+  function initRating(rating) {
+    if (!rating) return undefined;
+
+    let r = {};
+
+    for (let i = 0; i <= maxRating; i++) {
+      if (i <= rating - 1) {
+        r[i] = true;
+      }
+
+      //
+      else {
+        r[i] = false;
+      }
+    }
+
+    return r;
+  }
 
   /**
    * handleRating
