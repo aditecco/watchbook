@@ -154,6 +154,22 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
     createNote(null);
   }
 
+  /**
+   * createRating
+   */
+
+  function createRating(rating) {
+    dispatch(
+      actions.createRating({
+        rating,
+        title,
+        // TODO
+        // @ts-ignore
+        contentRef: _additionalData.key,
+      })
+    );
+  }
+
   //
   useEffect(() => {
     cardData.updateSignal === additionalData.id && log("UPDATED ", title);
@@ -179,7 +195,8 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
             dataSet === SECONDARY_DATASET_KEY ? " toWatch" : ""
           }`}
         >
-          <RatingControls />
+          <RatingControls onRate={createRating} />
+
           <div className="CardFlipControls">
             <div
               className="CardFlipAreaButton"

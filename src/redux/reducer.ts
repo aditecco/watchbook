@@ -13,6 +13,9 @@ import {
   createNotePending,
   createNoteSuccess,
   createNoteError,
+  createRatingPending,
+  createRatingSuccess,
+  createRatingError,
   createRemoteContentError,
   createRemoteContentPending,
   createRemoteContentSuccess,
@@ -518,6 +521,21 @@ const reducer = createReducer(initialState, {
 
   // @ts-ignore
   [createNoteError](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [createRatingPending](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [createRatingSuccess](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [createRatingError](state, action) {
     return state;
   },
 

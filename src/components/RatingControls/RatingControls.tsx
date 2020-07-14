@@ -4,6 +4,7 @@ RatingControls
 
 import React, { ReactElement, useState } from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
+import { log } from "../../utils";
 
 interface OwnProps {
   maxRating?: number;
@@ -23,18 +24,19 @@ export default function RatingControls({
     const { id } = e.currentTarget;
     const nid = Number(id);
 
-    onRate && onRate(nid); // TODO think about what to use it for
+    if (nid === 0) {
+      setStarred({ [nid]: !starred[nid] });
+      onRate && onRate(nid + 1);
 
-    // @ts-ignore
-    setStarred(prevStarred => {
-      if (nid === 0) return { [nid]: !prevStarred[nid] };
+      return;
+    }
 
-      if (prevStarred[nid - 1] && !prevStarred[nid + 1]) {
-        return { ...prevStarred, [nid]: !prevStarred[nid] };
-      }
+    if (starred[nid - 1] && !starred[nid + 1]) {
+      setStarred({ ...starred, [nid]: !starred[nid] });
+      onRate && onRate(nid + 1);
 
-      return prevStarred;
-    });
+      return;
+    }
   }
 
   return (

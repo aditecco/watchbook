@@ -11,12 +11,14 @@ import updateRemoteContentWatcher from "./updateRemoteContent";
 import deleteContentWatcher from "./deleteContent";
 import convertContentWatcher from "./convertContent";
 import createNoteWatcher from "./createNote";
+import createRatingWatcher from "./createRating";
 
 export default function* rootSaga() {
   yield all([
     //
     convertContentWatcher(),
     createNoteWatcher(),
+    createRatingWatcher(),
     createRemoteContentWatcher(),
     deleteContentWatcher(),
     fetchAdditionalDataWatcher(),
