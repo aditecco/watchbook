@@ -51,12 +51,12 @@ export default React.memo(function CompactCard({
   return (
     <div className="CompactCardContainer">
       <article className="CompactCard" onClick={convertToFullSizeCard}>
-        {additionalData.ratings && (
+        {additionalData.ratings ? (
           <RatingControls
             // @ts-ignore
             initialRating={additionalData.ratings}
           />
-        )}
+        ) : null}
         <section className="CompactCardMedia" style={{ padding: 0 }}>
           <img src={image} alt={title} className="CompactCardPoster" />
         </section>
