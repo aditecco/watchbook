@@ -39,7 +39,16 @@
     }
 
     .RatingControlsButton {
+      // in CompactCards,
+      // RatingControls are read-only
+      pointer-events: none;
+      touch-action: none;
       padding: 0;
+      transition: none;
+
+      &:hover {
+        transform: none;
+      }
 
       + .RatingControlsButton {
         margin-left: 6px;
