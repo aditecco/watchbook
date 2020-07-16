@@ -198,7 +198,7 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
           {added && (
             <RatingControls
               // @ts-ignore
-              initialRating={_additionalData.ratings}
+              initialRating={_additionalData.rating}
               onRate={createRating}
             />
           )}

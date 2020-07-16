@@ -102,7 +102,7 @@ export default function DataProvider({ render, dataSet }) {
             key,
             ...contentData[key],
             notes: noteData && noteData[key] && noteData[key]['content'],
-            ratings: ratingData && ratingData[key] && ratingData[key]['rating'],
+            rating: ratingData && ratingData[key] && ratingData[key]['rating'],
           })),
           // 0 => []
           toWatch: Object.keys(toWatchData).map(key => ({

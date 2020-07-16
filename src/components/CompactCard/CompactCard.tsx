@@ -51,10 +51,10 @@ export default React.memo(function CompactCard({
   return (
     <div className="CompactCardContainer">
       <article className="CompactCard" onClick={convertToFullSizeCard}>
-        {additionalData.ratings ? (
+        {additionalData.rating ? (
           <RatingControls
             // @ts-ignore
-            initialRating={additionalData.ratings}
+            initialRating={additionalData.rating}
           />
         ) : null}
         <section className="CompactCardMedia" style={{ padding: 0 }}>
