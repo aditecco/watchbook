@@ -195,11 +195,13 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
             dataSet === SECONDARY_DATASET_KEY ? " toWatch" : ""
           }`}
         >
-          <RatingControls
-            // @ts-ignore
-            initialRating={_additionalData.ratings}
-            onRate={createRating}
-          />
+          {added && (
+            <RatingControls
+              // @ts-ignore
+              initialRating={_additionalData.ratings}
+              onRate={createRating}
+            />
+          )}
 
           <div className="CardFlipControls">
             <div

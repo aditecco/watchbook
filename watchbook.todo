@@ -70,10 +70,9 @@ Features/stories:
   Things that could be implemented
   ********************************
   - …
-  - implement rating functionality @focus
-    - auto-star previous stars (i.e. I click the 3rd and 1, 2 are also starred)
-    - download with other data
-    - UI animations
+  - create filter by rating @focus 
+  - Add rating UI to Compact Card
+  - Remove rating UI from new item card
   - re-fetch card info @focus 
     add info to cards that don't have it,
     or update card info
@@ -151,6 +150,10 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ implement rating functionality @focus @done(20-07-16 15:33) @project(Features/stories)
+  ✔ auto-star previous stars (i.e. I click the 3rd and 1, 2 are also starred) @done(20-07-16 15:33) @project(Features/stories)
+  ✔ download with other data @done(20-07-16 15:33) @project(Features/stories)
+  ✔ UI animations @done(20-07-16 15:33) @project(Features/stories)
   ✔ persist in DB @done(20-07-14 14:57) @project(Features/stories)
   ✔ create saga @done(20-07-14 14:57) @project(Features/stories)
   ✔ enforce order @done(20-07-10 01:08) @project(Features/stories)
