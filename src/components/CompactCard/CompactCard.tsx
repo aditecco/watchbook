@@ -7,6 +7,7 @@ import { clipText } from "../../utils";
 import { useDispatch } from "react-redux";
 import * as actions from "../../redux/actions";
 import Card from "../Card/Card";
+import RatingControls from "../RatingControls/RatingControls";
 
 // TODO
 interface OwnProps {
@@ -50,6 +51,12 @@ export default React.memo(function CompactCard({
   return (
     <div className="CompactCardContainer">
       <article className="CompactCard" onClick={convertToFullSizeCard}>
+        {additionalData.ratings && (
+          <RatingControls
+            // @ts-ignore
+            initialRating={additionalData.ratings}
+          />
+        )}
         <section className="CompactCardMedia" style={{ padding: 0 }}>
           <img src={image} alt={title} className="CompactCardPoster" />
         </section>
