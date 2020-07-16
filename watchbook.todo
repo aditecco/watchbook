@@ -71,8 +71,6 @@ Features/stories:
   ********************************
   - …
   - create filter by rating @focus 
-  - Add rating UI to Compact Card
-  - Remove rating UI from new item card
   - re-fetch card info @focus 
     add info to cards that don't have it,
     or update card info
@@ -150,6 +148,8 @@ Feature ideas:
   - content collections
 
 Archive:
+  ✔ Add rating UI to Compact Card @done(20-07-16 16:47) @project(Features/stories)
+  ✔ Remove rating UI from new item card @done(20-07-16 16:47) @project(Features/stories)
   ✔ implement rating functionality @focus @done(20-07-16 15:33) @project(Features/stories)
   ✔ auto-star previous stars (i.e. I click the 3rd and 1, 2 are also starred) @done(20-07-16 15:33) @project(Features/stories)
   ✔ download with other data @done(20-07-16 15:33) @project(Features/stories)
