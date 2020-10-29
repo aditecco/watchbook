@@ -1,3 +1,3 @@
 # WatchBook
 
-![](./assets/vid-01.gif)
+![](./assets/watchbook-2810.gif)
