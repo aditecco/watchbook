@@ -7,7 +7,7 @@ import Card from "../Card/Card";
 import CompactCard from "../CompactCard/CompactCard";
 import Spinner from "../Spinner/Spinner";
 import { UI_LABELS } from "../../constants";
-import { Dataset } from "../../types/types";
+import { Dataset } from "../../types";
 
 // TODO
 interface OwnProps {

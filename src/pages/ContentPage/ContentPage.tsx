@@ -23,7 +23,7 @@ import QuickSearch from "../../components/QuickSearch/QuickSearch";
 import { UI_LABELS } from "../../constants";
 import sample from "../../sampleData";
 import { RootState } from "../../store";
-import { Dataset } from "../../types/types";
+import { Dataset } from "../../types";
 
 interface OwnProps {
   dataSet: Dataset;

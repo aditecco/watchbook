@@ -7,7 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { OMDB_ID_response } from "../../types/IOMDB_ID_response";
 
-type APIdata = OMDB_ID_response[]; // TODO
+type APIdata = OMDB_ID_response | OMDB_ID_response[];
 
 interface OwnProps {
   content: APIdata;
