@@ -2,9 +2,8 @@
 createRemoteContent
 --------------------------------- */
 
-import React from "react";
 import { put, takeEvery, select } from "redux-saga/effects";
-import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
+import { PRIMARY_DATASET_KEY } from "../constants";
 import {
   showNotif,
   toggleModal,
@@ -17,7 +16,6 @@ import {
   resetQueryData,
 } from "../redux/actions";
 import uuidv4 from "uuid";
-import MaterialIcon from "../components/Misc/MaterialIcon";
 import { db } from "../index";
 import { filterKeys } from "../utils";
 

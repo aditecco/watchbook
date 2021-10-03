@@ -2,7 +2,6 @@
 deleteContent
 --------------------------------- */
 
-import React from "react";
 import { put, takeEvery, select } from "redux-saga/effects";
 import {
   deleteContent,
@@ -12,9 +11,7 @@ import {
   deleteLocalContent,
   showNotif,
 } from "../redux/actions";
-import MaterialIcon from "../components/Misc/MaterialIcon";
 import { db } from "../index";
-import { log } from "../utils";
 
 /**
  * deleteContentSaga

@@ -2,7 +2,6 @@
 updateRemoteContent
 --------------------------------- */
 
-import React from "react";
 import { put, takeEvery, select } from "redux-saga/effects";
 import {
   showNotif,
@@ -14,7 +13,6 @@ import {
 } from "../redux/actions";
 import { db } from "../index";
 import { log, normalize } from "../utils";
-import MaterialIcon from "../components/Misc/MaterialIcon";
 import { PRIMARY_DATASET_KEY } from "../constants";
 
 /**
