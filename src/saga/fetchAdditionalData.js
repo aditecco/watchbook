@@ -42,10 +42,10 @@ function* fetchAdditionalDataSaga(action) {
       toggleModal({
         content: (
           <Card
-            image={which.Poster}
-            title={which.Title}
-            type={which.Type}
-            year={which.Year}
+            image={which["Poster"]}
+            title={which["Title"]}
+            type={which["Type"]}
+            year={which["Year"]}
             additionalData={request.data}
             // TODO avoid using dispatch
             onWatchedClick={data =>
