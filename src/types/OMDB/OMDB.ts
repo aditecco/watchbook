@@ -1,3 +1,6 @@
+// TODO phase-out these types in favor of those in the OMDB folder
+// https://github.com/thblt-thlgn/omdb
+
 export interface RatingItem {
   Source: string;
   Value: string;
