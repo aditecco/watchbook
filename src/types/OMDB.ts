@@ -3,7 +3,7 @@ export interface RatingItem {
   Value: string;
 }
 
-export interface OMDB_ID_response {
+export interface OMDBitem {
   Title: string;
   Year: string;
   Rated: string;
@@ -30,3 +30,9 @@ export interface OMDB_ID_response {
   Website: string;
   Response: string;
 }
+
+export type OMDBsearchResults = {
+  Search: OMDBitem[];
+};
+
+export type OMDBresponse = OMDBsearchResults | OMDBitem;

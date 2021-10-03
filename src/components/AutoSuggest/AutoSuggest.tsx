@@ -5,12 +5,10 @@ AutoSuggest
 import React, { useState, useEffect, ReactElement } from "react";
 import Skeleton from "react-loading-skeleton";
 import MaterialIcon from "../Misc/MaterialIcon";
-import { OMDB_ID_response } from "../../types/IOMDB_ID_response";
-
-type APIdata = OMDB_ID_response | OMDB_ID_response[];
+import { OMDBitem, OMDBresponse } from "../../types";
 
 interface OwnProps {
-  content: APIdata;
+  content: OMDBresponse;
   limit: number;
   onItemClick: (arg: string) => void;
 }
@@ -21,6 +19,25 @@ export default function AutoSuggest({
   onItemClick,
 }: OwnProps): ReactElement {
   const [itemsToShow, setItemsToShow] = useState(limit);
+  const _content = content?.["Search"] ?? content;
+  const l = _content?.length ?? [_content].length;
+
+  const contentMapper = (searchItem: OMDBitem, i) => (
+    <li className="AutoSuggestItem wrapper" key={i}>
+      <div
+        className="AutoSuggestItemLinkTarget"
+        onClick={() => onItemClick(searchItem.imdbID)}
+      >
+        <h4 className="AutoSuggestItemTitle">{searchItem.Title}</h4>
+
+        <p className="AutoSuggestItemDesc">
+          <span className="ItemType">{searchItem.Type}</span>
+          {", "}
+          <span className="ItemYear">{searchItem.Year}</span>
+        </p>
+      </div>
+    </li>
+  );
 
   useEffect(() => {
     // TODO w/ ref
@@ -30,7 +47,7 @@ export default function AutoSuggest({
     return () => (app.style.overflow = "visible");
   }, []);
 
-  return !content ? (
+  return !_content ? (
     <div className="AutoSuggest">
       <ul className="AutoSuggestContent">
         {Array(5).fill(loadingPlaceholder)}
@@ -39,30 +56,15 @@ export default function AutoSuggest({
   ) : (
     <div className="AutoSuggest">
       <ul className="AutoSuggestContent">
-        {content
-          .slice(0, itemsToShow)
-          .map((searchItem: OMDB_ID_response, i) => (
-            <li className="AutoSuggestItem wrapper" key={i}>
-              <div
-                className="AutoSuggestItemLinkTarget"
-                onClick={() => onItemClick(searchItem.imdbID)}
-              >
-                <h4 className="AutoSuggestItemTitle">{searchItem.Title}</h4>
+        {Array.isArray(_content)
+          ? _content.slice(0, itemsToShow).map(contentMapper)
+          : [_content].map(contentMapper)}
 
-                <p className="AutoSuggestItemDesc">
-                  <span className="ItemType">{searchItem.Type}</span>
-                  {", "}
-                  <span className="ItemYear">{searchItem.Year}</span>
-                </p>
-              </div>
-            </li>
-          ))}
-
-        {itemsToShow < content.length && (
+        {itemsToShow < l && (
           <button
             type="button"
             className="AutoSuggestShowMoreButton"
-            onClick={() => setItemsToShow(content.length)}
+            onClick={() => setItemsToShow(l)}
           >
             <MaterialIcon icon="arrow_forward" /> Show more…
           </button>
