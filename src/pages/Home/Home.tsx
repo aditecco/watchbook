@@ -2,20 +2,20 @@
 Home
 --------------------------------- */
 
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import ContentList from "../../components/ContentList/ContentList";
 import Layout from "../../components/Layout/Layout";
 import SearchField from "../../components/SearchField/SearchField";
 import AutoSuggest from "../../components/AutoSuggest/AutoSuggest";
 import { useApiKey } from "../../hooks";
 import DataProvider from "../../components/DataProvider";
-import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../../constants";
-import { useSelector, useDispatch } from "react-redux";
+import { PRIMARY_DATASET_KEY } from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  showNotif,
-  fetchQueryData,
   fetchAdditionalData,
+  fetchQueryData,
   resetQueryData,
+  showNotif,
 } from "../../redux/actions";
 import { RootState } from "../../store";
 
@@ -46,10 +46,12 @@ function Home() {
    * already exists in local data
    */
 
+  // TODO move out of component
   function detectDuplicates({ query, queryParam }, callback) {
     const dataSet = [...watched, ...toWatch];
     const compareFn = item =>
       item.title && item.title.toLowerCase() === query.toLowerCase();
+    // TODO add comparison by ID
 
     if (dataSet.some(compareFn)) {
       setState({ hasError: true, error: "duplicateContent" });
@@ -70,10 +72,11 @@ function Home() {
    * Handles search queries from the
    * main input field
    */
-
-  function handleSearch(e) {
+  function handleSearch(
+    e: React.ChangeEvent<HTMLInputElement>,
+    queryParam: string // TODO map to actual params, maybe options object
+  ) {
     const { value: searchQuery } = e.currentTarget;
-    const queryParam = "s"; // TODO make parametric
 
     if (searchQuery.length > 2) {
       detectDuplicates(
