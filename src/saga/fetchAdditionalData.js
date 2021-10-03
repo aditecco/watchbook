@@ -36,7 +36,11 @@ function* fetchAdditionalDataSaga(action) {
       requestUrl(apiKey, buildQuery({ i: id }))
     );
 
-    const which = apiData.data.Search.find(item => item.imdbID === id);
+    const dataRoot = apiData.data["Search"];
+
+    const which = dataRoot
+      ? dataRoot.find(item => item.imdbID === id)
+      : apiData.data;
 
     yield put(
       toggleModal({
