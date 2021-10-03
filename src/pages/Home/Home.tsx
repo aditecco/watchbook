@@ -46,7 +46,7 @@ function Home() {
    * already exists in local data
    */
 
-  function detectDuplicates(query, callback) {
+  function detectDuplicates({ query, queryParam }, callback) {
     const dataSet = [...watched, ...toWatch];
     const compareFn = item =>
       item.title && item.title.toLowerCase() === query.toLowerCase();
@@ -62,7 +62,7 @@ function Home() {
       );
     } else {
       setState({ hasError: false, error: "" });
-      callback(query);
+      callback(query, queryParam);
     }
   }
 
@@ -73,11 +73,15 @@ function Home() {
 
   function handleSearch(e) {
     const { value: searchQuery } = e.currentTarget;
+    const queryParam = "s"; // TODO make parametric
 
     if (searchQuery.length > 2) {
-      detectDuplicates(searchQuery, query => {
-        dispatch(fetchQueryData({ query }));
-      });
+      detectDuplicates(
+        { query: searchQuery, queryParam },
+        (query, queryParam) => {
+          dispatch(fetchQueryData({ query, queryParam }));
+        }
+      );
     }
 
     setState({ searchQuery });

@@ -21,7 +21,7 @@ import axios from "axios";
 function* fetchQueryDataSaga(action) {
   const apiKey = storage.pull(API_KEY_ID);
   const {
-    payload: { query },
+    payload: { query, queryParam },
   } = action;
 
   yield delay(1000);
@@ -30,7 +30,7 @@ function* fetchQueryDataSaga(action) {
   try {
     const request = yield call(
       axios.get,
-      requestUrl(apiKey, buildQuery({ s: query }))
+      requestUrl(apiKey, buildQuery({ [queryParam]: query }))
     );
 
     const { data: response } = request;
