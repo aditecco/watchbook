@@ -152,9 +152,9 @@ function Home() {
           error={state.error}
         />
 
-        {(apiData.data || apiData.fetching) && (
+        {(apiData?.data || apiData?.fetching) && (
           <AutoSuggest
-            content={(apiData.data && apiData.data.Search) || null}
+            content={apiData.data}
             onItemClick={handleAutoSuggestClick}
             limit={5}
           />
