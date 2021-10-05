@@ -52,28 +52,36 @@ export default function SearchField({
           value={searchQuery}
         />
 
-        {/*{isFocused && "advancedSearch"}*/}
+        {searchQuery.length ? (
+          <button type="button" className="searchCancel" onClick={resetHandler}>
+            <MaterialIcon icon="close" />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="searchOptions"
+            onClick={() => setSearchByID(t => !t)}
+          >
+            <MaterialIcon
+              icon="tune"
+              style={{
+                color: searchByID ? "#1ABC9C" : "inherit",
+              }}
+            />
+          </button>
+        )}
 
-        <>
-          <label htmlFor="searchByID">search by IMDB ID</label>
-          <input
-            type="checkbox"
-            name={"searchByID"}
-            value={String(searchByID)}
-            onChange={() => setSearchByID(enabled => !enabled)}
-          />
-        </>
-
-        <button
-          type="button"
-          className="searchCancel"
-          style={{
-            display: `${!searchQuery.length ? "none" : "inline-block"}`,
-          }}
-          onClick={resetHandler}
-        >
-          <MaterialIcon icon="close" />
-        </button>
+        {/*{false && (*/}
+        {/*  <>*/}
+        {/*    <label htmlFor="searchByID">search by IMDB ID</label>*/}
+        {/*    <input*/}
+        {/*      type="checkbox"*/}
+        {/*      name={"searchByID"}*/}
+        {/*      value={String(searchByID)}*/}
+        {/*      onChange={() => setSearchByID(enabled => !enabled)}*/}
+        {/*    />*/}
+        {/*  </>*/}
+        {/*)}*/}
 
         {children}
       </div>
