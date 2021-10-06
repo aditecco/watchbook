@@ -3,14 +3,12 @@ ContentPage
 --------------------------------- */
 
 import React, {
-  useState,
-  useReducer,
-  useEffect,
-  useRef,
-  ReactComponentElement,
   ReactElement,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
 } from "react";
-import { log } from "../../utils";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import FilterAndSort from "../../components/FilterAndSort/FilterAndSort";
@@ -21,7 +19,6 @@ import ViewOptions from "../../components/ViewOptions/ViewOptions";
 import ContentList from "../../components/ContentList/ContentList";
 import QuickSearch from "../../components/QuickSearch/QuickSearch";
 import { UI_LABELS } from "../../constants";
-import sample from "../../sampleData";
 import { RootState } from "../../store";
 import { Dataset } from "../../types";
 
@@ -197,6 +194,7 @@ export default function ContentPage({
                     "country",
                     "genre",
                     "type",
+                    "runtime",
                     //
                   ], // TODO expose as prop
                 },

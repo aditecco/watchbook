@@ -126,4 +126,12 @@ export default class DataProcessor {
   type(data, sortKey) {
     return this.applyGenericProcessing(data, sortKey);
   }
+
+  /**
+   * handles the 'runtime' type
+   */
+
+  runtime(data, sortKey) {
+    return this.applyGenericProcessing(data, sortKey);
+  }
 }
