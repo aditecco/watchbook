@@ -2,8 +2,10 @@
 FilterProvider
 --------------------------------- */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataProcessor from "../../DataProcessor";
+
+const processor = new DataProcessor();
 
 export default function FilterProvider({
   children,
@@ -14,13 +16,11 @@ export default function FilterProvider({
   ...rest
 }) {
   // local state
-  const [sortQuery, setSortQuery] = useState(null);
-  const [filterQuery, setFilterQuery] = useState("");
+  const [filterQuery, setFilterQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [output, setOutput] = useState([]);
 
-  //
   const { type, UI, config } = FilterUI;
-  const processor = new DataProcessor();
 
   const options =
     config.sortKeys &&
@@ -43,23 +43,21 @@ export default function FilterProvider({
   }
 
   /**
-   * Filter handler
+   * Search handler
    */
 
-  function handleFilter(data, query) {
+  function handleSearch(data, query) {
     // TODO throttle/debounce
-    return data.filter(
-      item =>
-        item.title && item.title.toLowerCase().includes(query.toLowerCase())
+    return data.filter(item =>
+      item?.title?.toLowerCase?.()?.includes?.(query.toLowerCase())
     );
   }
 
   /**
-   * Sort handler
+   * Filter handler
    */
 
-  // TODO rename: it's not a sort!
-  function handleSort(data, sortKey, query) {
+  function handleFilter(data, sortKey, query) {
     return data.filter(item => item[sortKey] === query);
   }
 
@@ -68,15 +66,15 @@ export default function FilterProvider({
    * a sorted/filtered version
    */
 
-  function sortOrFilter(data) {
-    if (sortQuery) {
-      const [sortKey, query] = sortQuery;
+  function searchOrFilter(data) {
+    if (filterQuery) {
+      const [sortKey, query] = filterQuery;
 
-      return handleSort(data, sortKey, query);
+      return handleFilter(data, sortKey, query);
     }
 
-    if (filterQuery) {
-      return handleFilter(data, filterQuery);
+    if (searchQuery) {
+      return handleSearch(data, searchQuery);
     }
 
     // the unaltered initial data
@@ -88,14 +86,14 @@ export default function FilterProvider({
   }, [initialData]);
 
   useEffect(() => {
-    console.count(`Processing ${filterQuery || sortQuery}…`);
+    console.count(`Processing ${searchQuery || filterQuery}…`);
 
-    setOutput(sortOrFilter(initialData));
-  }, [filterQuery, sortQuery]);
+    setOutput(searchOrFilter(initialData));
+  }, [searchQuery, filterQuery]);
 
   useEffect(() => {
     if (remoteReset) {
-      setFilterQuery("");
+      setSearchQuery("");
       setOutput(initialData);
     }
   }, [remoteReset]);
@@ -108,7 +106,7 @@ export default function FilterProvider({
          */
 
         resetHandler={() => {
-          setFilterQuery("");
+          setSearchQuery("");
           setOutput(initialData);
         }}
         /**
@@ -119,15 +117,15 @@ export default function FilterProvider({
           ? // combo type
             {
               sortHandler: (id, value) => {
-                setSortQuery([id, value]);
+                setFilterQuery([id, value]);
                 queryCallback(value);
               },
               sortOptions: options,
             }
           : // simple type
             {
-              filterHandler: e => setFilterQuery(e.target.value),
-              inputValue: filterQuery,
+              filterHandler: e => setSearchQuery(e.target.value),
+              inputValue: searchQuery,
             })}
         /**
          * config props
