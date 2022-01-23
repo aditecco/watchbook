@@ -14,7 +14,7 @@ export default function FilterAndSort({
   return (
     <div className="FilterAndSort">
       <button className="closeButton" onClick={toggleCallback}>
-        <MaterialIcon icon="close"></MaterialIcon>
+        <MaterialIcon icon="close" />
       </button>
 
       <div className="FilterAndSortContainer">
