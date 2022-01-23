@@ -3,6 +3,7 @@ dataProcessor
 --------------------------------- */
 
 import { removeDuplicates } from "./utils";
+import { RuntimeFilterLabels } from "./types";
 
 export default class DataProcessor {
   // https://stackoverflow.com/questions/48657481/in-javascript-is-constructor-mandatory-in-a-class
@@ -132,11 +133,23 @@ export default class DataProcessor {
    */
 
   runtime(data, sortKey) {
-    function sortByNumberAsc(a, b) {
-      let parsedNumberA = parseInt(a.split(" ").shift());
-      let parsedNumberB = parseInt(b.split(" ").shift());
+    data = [
+      RuntimeFilterLabels.UP_TO_30,
+      RuntimeFilterLabels.UP_TO_60,
+      RuntimeFilterLabels.UP_TO_90,
+      RuntimeFilterLabels.UP_TO_100,
+      RuntimeFilterLabels.UP_TO_120,
+      RuntimeFilterLabels.UP_TO_180,
+      RuntimeFilterLabels.UP_TO_200,
+      RuntimeFilterLabels.UP_TO_300,
+      RuntimeFilterLabels.MORE_THAN_300,
+    ];
 
-      return parsedNumberA - parsedNumberB;
+    function sortByNumberAsc(a, b) {
+      const _a = parseInt(a.match(/[\d]+/)[0]);
+      const _b = parseInt(b.match(/[\d]+/)[0]);
+
+      return _a - _b;
     }
 
     return this.finalizeData(

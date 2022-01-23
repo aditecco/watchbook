@@ -2,8 +2,11 @@
 FilterProvider
 --------------------------------- */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataProcessor from "../../DataProcessor";
+import { RuntimeFilterLabels } from "../../types";
+
+const processor = new DataProcessor();
 
 export default function FilterProvider({
   children,
@@ -14,13 +17,11 @@ export default function FilterProvider({
   ...rest
 }) {
   // local state
-  const [sortQuery, setSortQuery] = useState(null);
-  const [filterQuery, setFilterQuery] = useState("");
+  const [filterQuery, setFilterQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [output, setOutput] = useState([]);
 
-  //
   const { type, UI, config } = FilterUI;
-  const processor = new DataProcessor();
 
   const options =
     config.sortKeys &&
@@ -43,24 +44,75 @@ export default function FilterProvider({
   }
 
   /**
-   * Filter handler
+   * Search handler
    */
 
-  function handleFilter(data, query) {
+  function handleSearch(data, query) {
     // TODO throttle/debounce
-    return data.filter(
-      item =>
-        item.title && item.title.toLowerCase().includes(query.toLowerCase())
+    return data.filter(item =>
+      item?.title?.toLowerCase?.()?.includes?.(query.toLowerCase())
     );
   }
 
   /**
-   * Sort handler
+   * Filter handler
    */
 
-  // TODO rename: it's not a sort!
-  function handleSort(data, sortKey, query) {
-    return data.filter(item => item[sortKey] === query);
+  function handleFilter(
+    data,
+    filterKey,
+    query,
+    filterCallback = query => item => item[filterKey] === query
+  ) {
+    return data.filter(filterCallback(query));
+  }
+
+  function runtimeCustomFilter(query) {
+    return function (item) {
+      function convertToNumber(value) {
+        return parseInt(value.split(" ").shift());
+      }
+
+      if (!item.runtime) return false;
+
+      switch (query) {
+        case RuntimeFilterLabels.UP_TO_30: {
+          return convertToNumber(item.runtime) <= 30;
+        }
+
+        case RuntimeFilterLabels.UP_TO_60: {
+          return convertToNumber(item.runtime) <= 60;
+        }
+
+        case RuntimeFilterLabels.UP_TO_90: {
+          return convertToNumber(item.runtime) <= 90;
+        }
+
+        case RuntimeFilterLabels.UP_TO_100: {
+          return convertToNumber(item.runtime) <= 100;
+        }
+
+        case RuntimeFilterLabels.UP_TO_120: {
+          return convertToNumber(item.runtime) <= 120;
+        }
+
+        case RuntimeFilterLabels.UP_TO_180: {
+          return convertToNumber(item.runtime) <= 180;
+        }
+
+        case RuntimeFilterLabels.UP_TO_200: {
+          return convertToNumber(item.runtime) <= 200;
+        }
+
+        case RuntimeFilterLabels.UP_TO_300: {
+          return convertToNumber(item.runtime) <= 300;
+        }
+
+        case RuntimeFilterLabels.MORE_THAN_300: {
+          return convertToNumber(item.runtime) > 300;
+        }
+      }
+    };
   }
 
   /**
@@ -68,15 +120,20 @@ export default function FilterProvider({
    * a sorted/filtered version
    */
 
-  function sortOrFilter(data) {
-    if (sortQuery) {
-      const [sortKey, query] = sortQuery;
+  function searchOrFilter(data) {
+    if (filterQuery) {
+      const [filterKey, query] = filterQuery;
 
-      return handleSort(data, sortKey, query);
+      return handleFilter(
+        data,
+        filterKey,
+        query,
+        filterKey === "runtime" ? runtimeCustomFilter : undefined
+      );
     }
 
-    if (filterQuery) {
-      return handleFilter(data, filterQuery);
+    if (searchQuery) {
+      return handleSearch(data, searchQuery);
     }
 
     // the unaltered initial data
@@ -88,14 +145,14 @@ export default function FilterProvider({
   }, [initialData]);
 
   useEffect(() => {
-    console.count(`Processing ${filterQuery || sortQuery}…`);
+    console.count(`Processing ${searchQuery || filterQuery}…`);
 
-    setOutput(sortOrFilter(initialData));
-  }, [filterQuery, sortQuery]);
+    setOutput(searchOrFilter(initialData));
+  }, [searchQuery, filterQuery]);
 
   useEffect(() => {
     if (remoteReset) {
-      setFilterQuery("");
+      setSearchQuery("");
       setOutput(initialData);
     }
   }, [remoteReset]);
@@ -108,7 +165,7 @@ export default function FilterProvider({
          */
 
         resetHandler={() => {
-          setFilterQuery("");
+          setSearchQuery("");
           setOutput(initialData);
         }}
         /**
@@ -119,15 +176,15 @@ export default function FilterProvider({
           ? // combo type
             {
               sortHandler: (id, value) => {
-                setSortQuery([id, value]);
+                setFilterQuery([id, value]);
                 queryCallback(value);
               },
               sortOptions: options,
             }
           : // simple type
             {
-              filterHandler: e => setFilterQuery(e.target.value),
-              inputValue: filterQuery,
+              filterHandler: e => setSearchQuery(e.target.value),
+              inputValue: searchQuery,
             })}
         /**
          * config props

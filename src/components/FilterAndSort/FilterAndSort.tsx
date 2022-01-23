@@ -5,6 +5,7 @@ FilterAndSort
 import React from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
 
+// TODO rename 'sortHandler' and the like
 export default function FilterAndSort({
   sortHandler,
   resetHandler,
