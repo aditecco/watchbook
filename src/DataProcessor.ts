@@ -132,6 +132,16 @@ export default class DataProcessor {
    */
 
   runtime(data, sortKey) {
-    return this.applyGenericProcessing(data, sortKey);
+    function sortByNumberAsc(a, b) {
+      let parsedNumberA = parseInt(a.split(" ").shift());
+      let parsedNumberB = parseInt(b.split(" ").shift());
+
+      return parsedNumberA - parsedNumberB;
+    }
+
+    return this.finalizeData(
+      this.primeData(data, sortByNumberAsc).map(el => [el]),
+      sortKey
+    );
   }
 }
