@@ -4,6 +4,7 @@ FilterProvider
 
 import React, { useEffect, useState } from "react";
 import DataProcessor from "../../DataProcessor";
+import { RuntimeFilterLabels } from "../../types";
 
 const processor = new DataProcessor();
 
@@ -57,8 +58,61 @@ export default function FilterProvider({
    * Filter handler
    */
 
-  function handleFilter(data, sortKey, query) {
-    return data.filter(item => item[sortKey] === query);
+  function handleFilter(
+    data,
+    filterKey,
+    query,
+    filterCallback = query => item => item[filterKey] === query
+  ) {
+    return data.filter(filterCallback(query));
+  }
+
+  function runtimeCustomFilter(query) {
+    return function (item) {
+      function convertToNumber(value) {
+        return parseInt(value.split(" ").shift());
+      }
+
+      if (!item.runtime) return false;
+
+      switch (query) {
+        case RuntimeFilterLabels.UP_TO_30: {
+          return convertToNumber(item.runtime) <= 30;
+        }
+
+        case RuntimeFilterLabels.UP_TO_60: {
+          return convertToNumber(item.runtime) <= 60;
+        }
+
+        case RuntimeFilterLabels.UP_TO_90: {
+          return convertToNumber(item.runtime) <= 90;
+        }
+
+        case RuntimeFilterLabels.UP_TO_100: {
+          return convertToNumber(item.runtime) <= 100;
+        }
+
+        case RuntimeFilterLabels.UP_TO_120: {
+          return convertToNumber(item.runtime) <= 120;
+        }
+
+        case RuntimeFilterLabels.UP_TO_180: {
+          return convertToNumber(item.runtime) <= 180;
+        }
+
+        case RuntimeFilterLabels.UP_TO_200: {
+          return convertToNumber(item.runtime) <= 200;
+        }
+
+        case RuntimeFilterLabels.UP_TO_300: {
+          return convertToNumber(item.runtime) <= 300;
+        }
+
+        case RuntimeFilterLabels.MORE_THAN_300: {
+          return convertToNumber(item.runtime) > 300;
+        }
+      }
+    };
   }
 
   /**
@@ -68,9 +122,14 @@ export default function FilterProvider({
 
   function searchOrFilter(data) {
     if (filterQuery) {
-      const [sortKey, query] = filterQuery;
+      const [filterKey, query] = filterQuery;
 
-      return handleFilter(data, sortKey, query);
+      return handleFilter(
+        data,
+        filterKey,
+        query,
+        filterKey === "runtime" ? runtimeCustomFilter : undefined
+      );
     }
 
     if (searchQuery) {
