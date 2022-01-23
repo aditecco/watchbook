@@ -69,10 +69,7 @@ export function capitalize(word: string) {
   if (!word) return undefined;
 
   if (word.includes(" ")) {
-    return word
-      .split(" ")
-      .map(capitalizer)
-      .join(" ");
+    return word.split(" ").map(capitalizer).join(" ");
   }
 
   return capitalizer(word);
