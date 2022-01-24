@@ -95,4 +95,21 @@
       color: $flat-gray-4;
     }
   }
+
+  .CompactCardTags {
+    position: absolute;
+    bottom: -8px;
+    right: -6px;
+    padding: 0;
+
+    .CompactCardTag {
+      display: inline-block;
+      font-size: 11px;
+      color: whitesmoke;
+      padding: 4px 12px;
+      background-color: rebeccapurple;
+      border-radius: 16px;
+      text-transform: uppercase;
+    }
+  }
 }
