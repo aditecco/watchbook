@@ -57,6 +57,7 @@ export default React.memo(function CompactCard({
             initialRating={additionalData.rating}
           />
         ) : null}
+
         <section className="CompactCardMedia" style={{ padding: 0 }}>
           <img src={image} alt={title} className="CompactCardPoster" />
         </section>
@@ -69,6 +70,16 @@ export default React.memo(function CompactCard({
             {year + ", " + clipText(additionalData.director, 22)}
           </span>
         </section>
+
+        {additionalData?.tags && (
+          <section className="CompactCardTags">
+            {additionalData.tags.map?.((tag, i) => (
+              <span key={i} className={"CompactCardTags"}>
+                {tag}
+              </span>
+            ))}
+          </section>
+        )}
       </article>
     </div>
   );
