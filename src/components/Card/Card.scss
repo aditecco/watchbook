@@ -127,6 +127,11 @@
     > button {
       margin-top: $margin / 2;
     }
+
+    .LinkButton {
+      color: $accent;
+      margin-top: 1.5rem;
+    }
   }
 
   &.added {
