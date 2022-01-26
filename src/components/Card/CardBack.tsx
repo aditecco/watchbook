@@ -4,7 +4,6 @@ CardBack
 
 import React, { ReactElement } from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
-import { log } from "../../utils";
 
 interface OwnProps {
   noteHandler;
@@ -38,6 +37,10 @@ export default function CardBack({
     awards: "",
     boxoffice: "",
   };
+
+  function tagHandler() {
+    //
+  }
 
   return (
     <article className="Card back">
@@ -118,18 +121,22 @@ export default function CardBack({
             <>
               <button
                 className="BaseButton button--outline"
-                onClick={contentUpdateHandler}
-              >
-                <MaterialIcon icon="sync" /> Update info
-              </button>
-
-              <button
-                className="BaseButton button--outline"
                 onClick={noteHandler}
               >
                 <MaterialIcon icon={hasNotes ? "notes" : "note_add"} />{" "}
                 {hasNotes ? "Edit note" : "Add note"}
               </button>
+
+              <button
+                className="BaseButton button--outline"
+                onClick={tagHandler}
+              >
+                <MaterialIcon icon={"local_offer"} /> Add tag
+              </button>
+
+              <a className={"LinkButton"} onClick={contentUpdateHandler}>
+                <MaterialIcon icon="sync" /> Update info
+              </a>
             </>
           )}
         </div>
