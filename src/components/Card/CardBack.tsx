@@ -7,6 +7,7 @@ import MaterialIcon from "../Misc/MaterialIcon";
 
 interface OwnProps {
   noteHandler;
+  tagHandler;
   flipHandler;
   contentUpdateHandler;
   additionalData;
@@ -16,6 +17,7 @@ interface OwnProps {
 
 export default function CardBack({
   noteHandler,
+  tagHandler,
   flipHandler,
   contentUpdateHandler,
   additionalData,
@@ -37,10 +39,6 @@ export default function CardBack({
     awards: "",
     boxoffice: "",
   };
-
-  function tagHandler() {
-    //
-  }
 
   return (
     <article className="Card back">
