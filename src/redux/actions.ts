@@ -19,6 +19,12 @@ export const createNotePending = createAction<Action>("CREATE_NOTE_PENDING");
 export const createNoteSuccess = createAction<Action>("CREATE_NOTE_SUCCESS");
 export const createNoteError = createAction<Action>("CREATE_NOTE_ERROR");
 
+// createTag
+export const createTag = createAction<Action>("CREATE_TAG");
+export const createTagPending = createAction<Action>("CREATE_TAG_PENDING");
+export const createTagSuccess = createAction<Action>("CREATE_TAG_SUCCESS");
+export const createTagError = createAction<Action>("CREATE_TAG_ERROR");
+
 
 // createRating
 export const createRating = createAction<Action>("CREATE_RATING");
