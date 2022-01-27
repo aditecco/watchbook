@@ -2,11 +2,11 @@
 DataProvider
 --------------------------------- */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../../index";
 import { log } from "../../utils";
 import { setInitialData } from "../../redux/actions";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../Spinner/Spinner";
 import { RootState } from "../../store";
 
@@ -50,16 +50,19 @@ export default function DataProvider({ render, dataSet }) {
       const watchedRef = db.ref(`users/${uid}/watched`);
       const toWatchRef = db.ref(`users/${uid}/toWatch`);
       const notesRef = db.ref(`notes/${uid}`);
+      const tagsRef = db.ref(`tags/${uid}`);
       const ratingsRef = db.ref(`ratings/${uid}`);
       const content = await contentRef.once("value");
       const watched = await watchedRef.once("value");
       const toWatch = await toWatchRef.once("value");
       const notes = await notesRef.once("value");
+      const tags = await tagsRef.once("value");
       const ratings = await ratingsRef.once("value");
       const contentData = await content.val();
       const watchedData = await watched.val();
       const toWatchData = await toWatch.val();
       const noteData = await notes.val();
+      const tagData = await tags.val();
       const ratingData = await ratings.val();
 
       // prettier-ignore
@@ -76,6 +79,7 @@ export default function DataProvider({ render, dataSet }) {
             [`/users/${uid}`]: { watched: 0, toWatch: 0 },
             [`/settings/${uid}`]: initialSettings,
             [`/notes/${uid}`]: 0,
+            [`/tags/${uid}`]: 0,
             [`/ratings/${uid}`]: 0
           },
 
@@ -102,6 +106,7 @@ export default function DataProvider({ render, dataSet }) {
             key,
             ...contentData[key],
             notes: noteData && noteData[key] && noteData[key]['content'],
+            tags: tagData?.[key]?.['value'], // TODO tags are multiple
             rating: ratingData && ratingData[key] && ratingData[key]['rating'],
           })),
           // 0 => []
