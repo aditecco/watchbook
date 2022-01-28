@@ -35,6 +35,7 @@ function* createTagSaga(action) {
         timestamp: Date.now(),
         type: "",
         value: tag,
+        // assignedTo: { [contentRef]: true },
         // NOTE add relationships?
       }
     : null;
@@ -46,7 +47,10 @@ function* createTagSaga(action) {
 
     // TODO use call
     yield dbRef.update({
-      [`/tags/${uid}/${contentRef}`]: newTag,
+      [`/tags/${uid}/${contentRef}`]: {
+        // TODO spread prev contents
+        [newTag.id]: newTag,
+      },
     });
 
     yield put(createTagSuccess());
