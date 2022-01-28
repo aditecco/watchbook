@@ -102,19 +102,20 @@ export default function DataProvider({ render, dataSet }) {
       else
       {
         const mappedData = {
-          watched: Object.keys(watchedData).map(key => ({
-            key,
-            ...contentData[key],
-            notes: noteData && noteData[key] && noteData[key]['content'],
-            tags: tagData?.[key]?.['value'], // TODO tags are multiple
-            rating: ratingData && ratingData[key] && ratingData[key]['rating'],
+          watched: Object.keys(watchedData).map(id => ({
+            key: id,
+            ...contentData[id],
+            notes: noteData?.[id]?.["content"],
+            tags: Object.values(tagData?.[id] ?? {}), // TODO tags are multiple
+            rating: ratingData?.[id]?.["rating"],
           })),
+
           // 0 => []
           toWatch: Object.keys(toWatchData).map(key => ({
             key,
             ...contentData[key],
-            notes: noteData && noteData[key] && noteData[key]['content'],
-          }))
+            notes: noteData && noteData[key] && noteData[key]["content"],
+          })),
         };
 
         dispatch(setInitialData({ uid, mappedData }))
