@@ -43,14 +43,14 @@ function* createTagSaga(action) {
   yield put(createTagPending());
 
   try {
+    const path = `/tags/${uid}/${contentRef}`;
     const dbRef = db.ref();
-    const prevRef = db.ref(`/tags/${uid}/${contentRef}`);
-    console.log(prevRef);
+    const pathRef = db.ref(path);
+    const k = pathRef.push().key;
     let prevData = {};
 
-    yield prevRef.once("value").then(data => {
-      const v = data.val();
-      console.log(v);
+    yield pathRef.once("value").then(snapshot => {
+      const v = snapshot.val();
       if (v) {
         prevData = v;
       }
@@ -58,9 +58,9 @@ function* createTagSaga(action) {
 
     // TODO use call
     yield dbRef.update({
-      [`/tags/${uid}/${contentRef}`]: {
+      [path]: {
         ...prevData,
-        [newTag.id]: newTag,
+        [k]: newTag,
       },
     });
 
