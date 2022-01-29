@@ -16,11 +16,10 @@ import {
 import { animated, useSpring } from "react-spring";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions";
-import { createTag } from "../../redux/actions";
 import Spinner from "../Spinner/Spinner";
 import { RootState } from "../../store";
 import RatingControls from "../RatingControls/RatingControls";
-import { Tag } from "../../types";
+import TagForm from "../TagForm/TagForm";
 
 // TODO
 interface OwnProps {
@@ -355,42 +354,12 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
           tagHandler={_ => {
             dispatch(
               actions.toggleModal({
-                // TODO change this horrible implementation
+                // TODO change this horrible implementation (non serializable...)
                 content: (
-                  <>
-                    <form
-                      action="#"
-                      onSubmit={e => {
-                        e.preventDefault();
-
-                        dispatch(
-                          createTag({
-                            tag: "test_tag",
-                            // @ts-ignore
-                            contentRef: _additionalData.key,
-                            title,
-                          })
-                        );
-                      }}
-                    >
-                      {/* TODO... */}
-                      {(_additionalData as { tags: Tag[] })?.tags?.length ? (
-                        <select name="tags" id="">
-                          {(_additionalData as { tags: Tag[] }).tags.map(
-                            (tag, i) => (
-                              <option key={i} value={tag.value}>
-                                {tag.value}
-                              </option>
-                            )
-                          )}
-                        </select>
-                      ) : null}
-
-                      <input type="text" />
-
-                      <button type={"submit"}>Create tag</button>
-                    </form>
-                  </>
+                  <TagForm
+                    contentTitle={title}
+                    contentRef={(_additionalData as { key: string })?.key}
+                  />
                 ),
               })
             );
