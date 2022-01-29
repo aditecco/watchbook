@@ -4,6 +4,7 @@ CardBack
 
 import React, { ReactElement } from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
+import { Tag } from "../../types";
 
 interface OwnProps {
   noteHandler;
@@ -61,7 +62,7 @@ export default function CardBack({
                 acc[k] = val;
                 return acc;
               }, orderedKeys)
-            ).map(([key, val], i) => {
+            ).map(([key, val]: readonly [any, any], i) => {
               // prettier-ignore
 
               // TODO
@@ -102,6 +103,16 @@ export default function CardBack({
                   else if (key === 'notes')
                   {
                     if (!val) return;
+                  }
+
+                  else if (key === "tags") {
+                    val = (
+                      <>
+                        {((val as unknown) as Tag[])
+                          .map((v: Tag) => v.value)
+                          .join()}
+                      </>
+                    );
                   }
 
               return (
