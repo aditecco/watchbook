@@ -44,11 +44,22 @@ function* createTagSaga(action) {
 
   try {
     const dbRef = db.ref();
+    const prevRef = db.ref(`/tags/${uid}/${contentRef}`);
+    console.log(prevRef);
+    let prevData = {};
+
+    yield prevRef.once("value").then(data => {
+      const v = data.val();
+      console.log(v);
+      if (v) {
+        prevData = v;
+      }
+    });
 
     // TODO use call
     yield dbRef.update({
       [`/tags/${uid}/${contentRef}`]: {
-        // TODO spread prev contents
+        ...prevData,
         [newTag.id]: newTag,
       },
     });
