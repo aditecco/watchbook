@@ -73,8 +73,9 @@ export default function TagForm({
       <form onSubmit={handleSubmit}>
         {allTags.length ? (
           <select name={"tag_select"} onChange={handleSelectChange}>
-            {allTags.map((tag, i) => (
+            {[{ value: "Select a tag" }].concat(allTags).map((tag, i) => (
               <option key={i} value={tag.value}>
+                {/* TODO needs a label/key */}
                 {tag.value}
               </option>
             ))}
