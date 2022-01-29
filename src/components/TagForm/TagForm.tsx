@@ -43,7 +43,7 @@ export default function TagForm({
       createTag({
         tag: _tag,
         contentRef,
-        contentTitle,
+        title: contentTitle,
       })
     );
   }
