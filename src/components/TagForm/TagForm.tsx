@@ -38,6 +38,10 @@ export default function TagForm({
     return (await tagsRef.once("value"))?.val();
   }
 
+  function checkExistence() {
+    return allTags.some((tag: Tag) => tag.value === tagInput);
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -53,7 +57,7 @@ export default function TagForm({
       return;
     }
 
-    if (allTags.some((tag: Tag) => tag.value === tagInput)) {
+    if (checkExistence()) {
       dispatch(
         showNotif({
           message: ERROR_PRE_EXISTING_CONTENT,
