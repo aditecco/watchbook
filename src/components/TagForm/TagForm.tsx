@@ -4,10 +4,15 @@ TagForm
 
 import * as React from "react";
 import { PropsWithChildren, ReactElement, useEffect, useState } from "react";
-import { createTag } from "../../redux/actions";
+import { createTag, showNotif } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../../index";
 import { RootState } from "../../store";
+import { Tag } from "../../types";
+import {
+  ERROR_PRE_EXISTING_CONTENT,
+  WARNING_VALUE_NEEDED,
+} from "../../constants";
 
 type OwnProps = {
   contentRef: string;
@@ -22,9 +27,10 @@ export default function TagForm({
   const {
     user: { uid },
   } = useSelector((state: RootState) => state.authentication);
-  const [tag, setTag] = useState("");
+  const [tagInput, setTagInput] = useState("");
   const [existingTag, setExistingTag] = useState("");
   const [allTags, setAllTags] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   async function fetchTags() {
     const tagsRef = db.ref(`/tags/${uid}`);
@@ -35,13 +41,36 @@ export default function TagForm({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const _tag = tag || existingTag;
+    if (!tagInput) {
+      dispatch(
+        showNotif({
+          message: WARNING_VALUE_NEEDED("tag"),
+          timeOut: 2000,
+          theme: "light",
+        })
+      );
 
-    if (!_tag) return;
+      return;
+    }
+
+    if (allTags.some((tag: Tag) => tag.value === tagInput)) {
+      dispatch(
+        showNotif({
+          message: ERROR_PRE_EXISTING_CONTENT,
+          timeOut: 2000,
+          theme: "light",
+        })
+      );
+
+      setTagInput("");
+      setExistingTag("");
+
+      return;
+    }
 
     dispatch(
       createTag({
-        tag: _tag,
+        tag: tagInput,
         contentRef,
         title: contentTitle,
       })
@@ -49,7 +78,7 @@ export default function TagForm({
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTag(e.target.value);
+    setTagInput(e.target.value);
   }
 
   function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -59,32 +88,45 @@ export default function TagForm({
   useEffect(() => {
     fetchTags().then(v => {
       if (v) {
-        setAllTags(
-          Object.values(v)
-            .map(o => Object.values(o))
-            .flat()
-        );
+        setAllTags(Object.values(v as Record<string, Tag>));
+        setLoading(false);
       }
     });
   }, []);
 
+  useEffect(() => {
+    if (existingTag) {
+      setTagInput(existingTag);
+    }
+  }, [existingTag]);
+
   return (
     <div className={"tag-form"}>
       <form onSubmit={handleSubmit}>
-        {allTags.length ? (
-          <select name={"tag_select"} onChange={handleSelectChange}>
-            {[{ value: "Select a tag" }].concat(allTags).map((tag, i) => (
-              <option key={i} value={tag.value}>
-                {/* TODO needs a label/key */}
-                {tag.value}
-              </option>
-            ))}
+        {loading ? (
+          "Loading tags..."
+        ) : allTags.length ? (
+          <select
+            name={"tag_select"}
+            onChange={handleSelectChange}
+            value={existingTag}
+          >
+            {[{ value: "", label: "Select a tag" } as Tag]
+              .concat(allTags)
+              .map((tag: Tag, i) => (
+                <option key={tag.id || i} value={tag.value}>
+                  {tag.label}
+                </option>
+              ))}
           </select>
-        ) : (
-          "loading tags..."
-        )}
+        ) : null}
 
-        <input name={"tag_input"} type="text" onChange={handleInputChange} />
+        <input
+          name={"tag_input"}
+          type="text"
+          onChange={handleInputChange}
+          value={tagInput}
+        />
 
         <button type={"submit"}>Add tag</button>
       </form>
