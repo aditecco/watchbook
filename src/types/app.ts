@@ -38,5 +38,6 @@ export type Tag = {
   timestamp: number;
   type: TagType;
   value: TagProvider & TagStatus;
+  label: string;
   assignedTo: Record<string, boolean>;
 };
