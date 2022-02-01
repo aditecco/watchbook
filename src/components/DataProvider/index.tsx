@@ -107,7 +107,9 @@ export default function DataProvider({ render, dataSet }) {
             key: id,
             ...contentData[id],
             notes: noteData?.[id]?.["content"],
-            tags: Object.values(tagData as Record<string, TagType>)?.filter?.((t: TagType ) => t.assignedTo[id]) ?? [], // TODO tags are multiple
+            tags: Object.values(
+              (tagData as Record<string, TagType>) ?? {}
+            )?.filter?.((t: TagType) => t.assignedTo[id]), // TODO tags are multiple
             rating: ratingData?.[id]?.["rating"],
           })),
 
