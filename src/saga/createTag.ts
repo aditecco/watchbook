@@ -13,6 +13,7 @@ import {
 } from "../redux/actions";
 import uuidv4 from "uuid";
 import { db } from "../index";
+import { TagType } from "../types";
 
 /**
  * createTagSaga
@@ -29,11 +30,10 @@ function* createTagSaga(action) {
     user: { uid },
   } = yield select(authSelector);
 
-  const newTag = tag
+  const newTag: TagType | Record<string, unknown> = tag
     ? {
         id: uuidv4(),
         timestamp: Date.now(),
-        type: "",
         value: tag,
         label: tag,
         assignedTo: { [contentRef]: true },
@@ -59,7 +59,7 @@ function* createTagSaga(action) {
 
     //
     if (assignMultiple) {
-      const [where] = Object.entries(prevData).find(
+      const [where] = Object.entries(prevData as Record<string, TagType>).find(
         ([_, t]) => tag === t.value
       );
 
