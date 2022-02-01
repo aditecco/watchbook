@@ -98,8 +98,8 @@
 
   .CompactCardTags {
     position: absolute;
-    bottom: -8px;
-    right: -6px;
+    bottom: -4px;
+    right: -4px;
     padding: 0;
 
     .CompactCardTag {
@@ -110,6 +110,10 @@
       background-color: rebeccapurple;
       border-radius: 16px;
       text-transform: uppercase;
+
+      + .CompactCardTag {
+        margin-left: 4px;
+      }
     }
   }
 }
