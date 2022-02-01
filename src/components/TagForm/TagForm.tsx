@@ -9,10 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { db } from "../../index";
 import { RootState } from "../../store";
 import { Tag } from "../../types";
-import {
-  ERROR_PRE_EXISTING_CONTENT,
-  WARNING_VALUE_NEEDED,
-} from "../../constants";
+import { WARNING_VALUE_NEEDED } from "../../constants";
 
 type OwnProps = {
   contentRef: string;
@@ -57,26 +54,27 @@ export default function TagForm({
       return;
     }
 
-    if (checkExistence()) {
-      dispatch(
-        showNotif({
-          message: ERROR_PRE_EXISTING_CONTENT,
-          timeOut: 2000,
-          theme: "light",
-        })
-      );
-
-      setTagInput("");
-      setExistingTag("");
-
-      return;
-    }
+    // if (checkExistence()) {
+    //   dispatch(
+    //     showNotif({
+    //       message: ERROR_PRE_EXISTING_CONTENT,
+    //       timeOut: 2000,
+    //       theme: "light",
+    //     })
+    //   );
+    //
+    //   setTagInput("");
+    //   setExistingTag("");
+    //
+    //   return;
+    // }
 
     dispatch(
       createTag({
         tag: tagInput,
         contentRef,
         title: contentTitle,
+        assignMultiple: checkExistence() ? { to: contentRef } : false,
       })
     );
   }
@@ -93,8 +91,9 @@ export default function TagForm({
     fetchTags().then(v => {
       if (v) {
         setAllTags(Object.values(v as Record<string, Tag>));
-        setLoading(false);
       }
+
+      setLoading(false);
     });
   }, []);
 
