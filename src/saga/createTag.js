@@ -20,7 +20,7 @@ import { db } from "../index";
 
 function* createTagSaga(action) {
   const {
-    payload: { tag, contentRef, title },
+    payload: { tag, contentRef, title, assignMultiple },
   } = action;
 
   const authSelector = state => state.authentication;
@@ -35,15 +35,15 @@ function* createTagSaga(action) {
         timestamp: Date.now(),
         type: "",
         value: tag,
-        // assignedTo: { [contentRef]: true },
-        // NOTE add relationships?
+        label: tag,
+        assignedTo: { [contentRef]: true },
       }
-    : null;
+    : {};
 
   yield put(createTagPending());
 
   try {
-    const path = `/tags/${uid}/${contentRef}`;
+    const path = `/tags/${uid}`;
     const dbRef = db.ref();
     const pathRef = db.ref(path);
     const k = pathRef.push().key;
@@ -51,18 +51,40 @@ function* createTagSaga(action) {
 
     yield pathRef.once("value").then(snapshot => {
       const v = snapshot.val();
+
       if (v) {
         prevData = v;
       }
     });
 
+    //
+    if (assignMultiple) {
+      const [where] = Object.entries(prevData).find(
+        ([_, t]) => tag === t.value
+      );
+
+      yield dbRef.update({
+        [`${path}/${where}`]: {
+          ...prevData[where],
+          assignedTo: {
+            ...prevData[where].assignedTo,
+            [contentRef]: true,
+          },
+        },
+      });
+    }
+
+    //
+    else {
+      yield dbRef.update({
+        [path]: {
+          ...prevData,
+          [k]: newTag,
+        },
+      });
+    }
+
     // TODO use call
-    yield dbRef.update({
-      [path]: {
-        ...prevData,
-        [k]: newTag,
-      },
-    });
 
     yield put(createTagSuccess());
 
