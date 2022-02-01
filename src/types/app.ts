@@ -15,6 +15,7 @@ export interface WatchedItem {
   year: string;
 }
 
+// Runtime
 export enum RuntimeFilterLabels {
   UP_TO_30 = "Up to 30 minutes",
   UP_TO_60 = "Up to 60 minutes",
@@ -27,17 +28,19 @@ export enum RuntimeFilterLabels {
   MORE_THAN_300 = "Over 300 minutes",
 }
 
-type TagType = "provider" | "status";
+// Tags
+type TagLabel = "provider" | "status";
 
 type TagProvider = "Netflix" | "Mubi" | "NowTV" | "Amazon Prime Video" | "DVD";
 
 type TagStatus = "dropped" | "completed";
 
-export type Tag = {
+type TagValue = TagProvider | TagStatus | "";
+
+export type TagType = {
   id: string;
   timestamp: number;
-  type: TagType;
-  value: TagProvider & TagStatus;
-  label: string;
+  value: TagValue;
+  label: TagLabel;
   assignedTo: Record<string, boolean>;
 };
