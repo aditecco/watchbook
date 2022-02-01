@@ -43,43 +43,78 @@ function* createTagSaga(action) {
   yield put(createTagPending());
 
   try {
-    const path = `/tags/${uid}`;
+    const tagsPath = `/tags/${uid}`;
+    const contentItemPath = `content/${contentRef}`;
     const dbRef = db.ref();
-    const pathRef = db.ref(path);
-    const k = pathRef.push().key;
-    let prevData = {};
+    const tagsPathRef = db.ref(tagsPath);
+    const taggedContentRef = db.ref(contentItemPath);
+    const newTagKey = tagsPathRef.push().key;
 
-    yield pathRef.once("value").then(snapshot => {
+    let prevTags: Record<string, TagType>;
+    let taggedContentItem; // TODO type
+
+    // Get the content item to which the tag will be assigned
+    yield taggedContentRef.once("value").then(snapshot => {
       const v = snapshot.val();
 
       if (v) {
-        prevData = v;
+        taggedContentItem = v;
       }
     });
 
-    //
-    if (assignMultiple) {
-      const [where] = Object.entries(prevData as Record<string, TagType>).find(
+    // Get the previously existing tags
+    yield tagsPathRef.once("value").then(snapshot => {
+      const v = snapshot.val();
+
+      if (v) {
+        prevTags = v;
+      }
+    });
+
+    // The tag's value is already present in the tag pool:
+    // the tag should not be created, but just assigned to the content.
+    if (assignMultiple && prevTags) {
+      const [existingTagDBkey] = Object.entries(prevTags).find(
         ([_, t]) => tag === t.value
       );
 
       yield dbRef.update({
-        [`${path}/${where}`]: {
-          ...prevData[where],
+        // tag
+        [`${tagsPath}/${existingTagDBkey}`]: {
+          ...prevTags[existingTagDBkey],
           assignedTo: {
-            ...prevData[where].assignedTo,
+            ...prevTags[existingTagDBkey].assignedTo,
             [contentRef]: true,
+          },
+        },
+
+        // content
+        [contentItemPath]: {
+          ...taggedContentItem,
+          tags: {
+            ...(taggedContentItem.tags ?? {}),
+            [newTagKey]: true,
           },
         },
       });
     }
 
-    //
+    // The tag's value is new: the tag should be created.
     else {
       yield dbRef.update({
-        [path]: {
-          ...prevData,
-          [k]: newTag,
+        // tag
+        [tagsPath]: {
+          ...prevTags,
+          [newTagKey]: newTag,
+        },
+
+        // content
+        [contentItemPath]: {
+          ...taggedContentItem,
+          tags: {
+            ...(taggedContentItem.tags ?? {}),
+            [newTagKey]: true,
+          },
         },
       });
     }
