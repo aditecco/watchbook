@@ -8,7 +8,7 @@ import { createTag, showNotif } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../../index";
 import { RootState } from "../../store";
-import { Tag } from "../../types";
+import { TagType } from "../../types";
 import { WARNING_VALUE_NEEDED } from "../../constants";
 
 type OwnProps = {
@@ -36,7 +36,7 @@ export default function TagForm({
   }
 
   function checkExistence() {
-    return allTags.some((tag: Tag) => tag.value === tagInput);
+    return allTags.some((tag: TagType) => tag.value === tagInput);
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -90,7 +90,7 @@ export default function TagForm({
   useEffect(() => {
     fetchTags().then(v => {
       if (v) {
-        setAllTags(Object.values(v as Record<string, Tag>));
+        setAllTags(Object.values(v as Record<string, TagType>));
       }
 
       setLoading(false);
@@ -114,9 +114,9 @@ export default function TagForm({
             onChange={handleSelectChange}
             value={existingTag}
           >
-            {[{ value: "", label: "Select a tag" } as Tag]
+            {[({ value: "", label: "Select a tag" } as unknown) as TagType]
               .concat(allTags)
-              .map((tag: Tag, i) => (
+              .map((tag: TagType, i) => (
                 <option key={tag.id || i} value={tag.value}>
                   {tag.label}
                 </option>

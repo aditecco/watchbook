@@ -4,7 +4,7 @@ CardBack
 
 import React, { ReactElement } from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
-import { Tag } from "../../types";
+import { TagType } from "../../types";
 
 interface OwnProps {
   noteHandler;
@@ -108,8 +108,8 @@ export default function CardBack({
                   else if (key === "tags") {
                     val = (
                       <>
-                        {((val as unknown) as Tag[])
-                          .map((v: Tag) => v.value)
+                        {((val as unknown) as TagType[])
+                          .map((v: TagType) => v.value)
                           .join()}
                       </>
                     );

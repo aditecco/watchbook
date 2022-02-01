@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import * as actions from "../../redux/actions";
 import Card from "../Card/Card";
 import RatingControls from "../RatingControls/RatingControls";
-import { Tag } from "../../types";
+import { TagType } from "../../types";
 
 // TODO
 interface OwnProps {
@@ -74,7 +74,7 @@ export default React.memo(function CompactCard({
 
         {additionalData?.tags && (
           <section className="CompactCardTags">
-            {additionalData.tags.map?.((tag: Tag, i) => (
+            {additionalData.tags.map?.((tag: TagType, i) => (
               <span key={i} className={"CompactCardTag"}>
                 {tag.value}
               </span>
