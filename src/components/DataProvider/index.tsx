@@ -9,6 +9,7 @@ import { setInitialData } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../Spinner/Spinner";
 import { RootState } from "../../store";
+import { Tag } from "../../types";
 
 export default function DataProvider({ render, dataSet }) {
   /**
@@ -106,7 +107,7 @@ export default function DataProvider({ render, dataSet }) {
             key: id,
             ...contentData[id],
             notes: noteData?.[id]?.["content"],
-            tags: Object.values(tagData?.[id] ?? {}), // TODO tags are multiple
+            tags: Object.values(tagData as Record<string, Tag>)?.filter?.((t: Tag ) => t.assignedTo[id]) ?? [], // TODO tags are multiple
             rating: ratingData?.[id]?.["rating"],
           })),
 
