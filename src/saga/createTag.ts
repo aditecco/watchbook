@@ -21,7 +21,7 @@ import { TagType } from "../types";
 
 function* createTagSaga(action) {
   const {
-    payload: { tag, contentRef, title, assignMultiple },
+    payload: { tag, contentRef, title, preExisting },
   } = action;
 
   const authSelector = state => state.authentication;
@@ -73,7 +73,7 @@ function* createTagSaga(action) {
 
     // The tag's value is already present in the tag pool:
     // the tag should not be created, but just assigned to the content.
-    if (assignMultiple && prevTags) {
+    if (preExisting && prevTags) {
       const [existingTagDBkey] = Object.entries(prevTags).find(
         ([_, t]) => tag === t.value
       );

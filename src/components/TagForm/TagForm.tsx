@@ -74,7 +74,7 @@ export default function TagForm({
         tag: tagInput,
         contentRef,
         title: contentTitle,
-        assignMultiple: checkExistence(),
+        preExisting: checkExistence(),
       })
     );
   }
