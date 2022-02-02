@@ -2,23 +2,24 @@
 Card
 --------------------------------- */
 
-import React, { useState, useEffect, ReactElement } from "react";
-import { log, normalize, clipText } from "../../utils";
+import React, { ReactElement, useEffect, useState } from "react";
+import { clipText, log, normalize } from "../../utils";
 import MaterialIcon from "../Misc/MaterialIcon";
 import CardControls from "./CardControls";
 import CardBack from "./CardBack";
 import Note from "../Note/Note";
 import {
-  UI_LABELS,
   PRIMARY_DATASET_KEY,
   SECONDARY_DATASET_KEY,
+  UI_LABELS,
 } from "../../constants";
-import { useSpring, animated, useTrail } from "react-spring";
-import { useSelector, useDispatch } from "react-redux";
+import { animated, useSpring } from "react-spring";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions";
 import Spinner from "../Spinner/Spinner";
 import { RootState } from "../../store";
 import RatingControls from "../RatingControls/RatingControls";
+import TagForm from "../TagForm/TagForm";
 
 // TODO
 interface OwnProps {
@@ -226,21 +227,25 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
                 <li className="CardMetaItem">
                   <h6 className="CardMetaItemTitle">Country</h6>
 
-                  {// TODO
-                  // @ts-ignore
-                  // prettier-ignore
-                  (_additionalData.country && clipText(_additionalData.country)) ||
-                    "N/A"}
+                  {
+                    // TODO
+                    // @ts-ignore
+                    // prettier-ignore
+                    (_additionalData.country && clipText(_additionalData.country)) ||
+                    "N/A"
+                  }
                 </li>
 
                 <li className="CardMetaItem">
                   <h6 className="CardMetaItemTitle">Director</h6>
 
-                  {// TODO
-                  // @ts-ignore
-                  // prettier-ignore
-                  (_additionalData.director && clipText(_additionalData.director)) ||
-                    "N/A"}
+                  {
+                    // TODO
+                    // @ts-ignore
+                    // prettier-ignore
+                    (_additionalData.director && clipText(_additionalData.director)) ||
+                    "N/A"
+                  }
                 </li>
               </ul>
             </div>
@@ -346,6 +351,19 @@ export default React.memo(function Card(props: OwnProps): ReactElement {
               })
             )
           }
+          tagHandler={_ => {
+            dispatch(
+              actions.toggleModal({
+                // TODO change this horrible implementation (non serializable...)
+                content: (
+                  <TagForm
+                    contentTitle={title}
+                    contentRef={(_additionalData as { key: string })?.key}
+                  />
+                ),
+              })
+            );
+          }}
           flipHandler={() => toggleFlipped(!flipped)}
           contentUpdateHandler={() =>
             dispatch(

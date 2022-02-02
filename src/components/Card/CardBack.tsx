@@ -4,10 +4,11 @@ CardBack
 
 import React, { ReactElement } from "react";
 import MaterialIcon from "../Misc/MaterialIcon";
-import { log } from "../../utils";
+import { TagType } from "../../types";
 
 interface OwnProps {
   noteHandler;
+  tagHandler;
   flipHandler;
   contentUpdateHandler;
   additionalData;
@@ -17,6 +18,7 @@ interface OwnProps {
 
 export default function CardBack({
   noteHandler,
+  tagHandler,
   flipHandler,
   contentUpdateHandler,
   additionalData,
@@ -60,7 +62,7 @@ export default function CardBack({
                 acc[k] = val;
                 return acc;
               }, orderedKeys)
-            ).map(([key, val], i) => {
+            ).map(([key, val]: readonly [any, any], i) => {
               // prettier-ignore
 
               // TODO
@@ -103,6 +105,16 @@ export default function CardBack({
                     if (!val) return;
                   }
 
+                  else if (key === "tags") {
+                    val = (
+                      <>
+                        {((val as unknown) as TagType[])
+                          .map((v: TagType) => v.value)
+                          .join()}
+                      </>
+                    );
+                  }
+
               return (
                 <li key={i} className="CardBackDataListItem">
                   <span className="DataKey">{key}</span>
@@ -118,18 +130,22 @@ export default function CardBack({
             <>
               <button
                 className="BaseButton button--outline"
-                onClick={contentUpdateHandler}
-              >
-                <MaterialIcon icon="sync" /> Update info
-              </button>
-
-              <button
-                className="BaseButton button--outline"
                 onClick={noteHandler}
               >
                 <MaterialIcon icon={hasNotes ? "notes" : "note_add"} />{" "}
                 {hasNotes ? "Edit note" : "Add note"}
               </button>
+
+              <button
+                className="BaseButton button--outline"
+                onClick={tagHandler}
+              >
+                <MaterialIcon icon={"local_offer"} /> Add tag
+              </button>
+
+              <a className={"LinkButton"} onClick={contentUpdateHandler}>
+                <MaterialIcon icon="sync" /> Update info
+              </a>
             </>
           )}
         </div>

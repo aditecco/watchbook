@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import * as actions from "../../redux/actions";
 import Card from "../Card/Card";
 import RatingControls from "../RatingControls/RatingControls";
+import { TagType } from "../../types";
 
 // TODO
 interface OwnProps {
@@ -57,6 +58,7 @@ export default React.memo(function CompactCard({
             initialRating={additionalData.rating}
           />
         ) : null}
+
         <section className="CompactCardMedia" style={{ padding: 0 }}>
           <img src={image} alt={title} className="CompactCardPoster" />
         </section>
@@ -69,6 +71,16 @@ export default React.memo(function CompactCard({
             {year + ", " + clipText(additionalData.director, 22)}
           </span>
         </section>
+
+        {additionalData?.tags && (
+          <section className="CompactCardTags">
+            {additionalData.tags.map?.((tag: TagType, i) => (
+              <span key={i} className={"CompactCardTag"}>
+                {tag.value}
+              </span>
+            ))}
+          </section>
+        )}
       </article>
     </div>
   );

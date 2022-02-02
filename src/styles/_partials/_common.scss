@@ -107,3 +107,14 @@ body {
   color: $accent;
   background-color: $transparent;
 }
+
+.LinkButton {
+  @extend %resetAnchors;
+  padding: 4px 12px;
+  transition: filter 500ms ease;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

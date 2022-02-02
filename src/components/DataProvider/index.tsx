@@ -2,13 +2,14 @@
 DataProvider
 --------------------------------- */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../../index";
 import { log } from "../../utils";
 import { setInitialData } from "../../redux/actions";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../Spinner/Spinner";
 import { RootState } from "../../store";
+import { TagType } from "../../types";
 
 export default function DataProvider({ render, dataSet }) {
   /**
@@ -50,16 +51,19 @@ export default function DataProvider({ render, dataSet }) {
       const watchedRef = db.ref(`users/${uid}/watched`);
       const toWatchRef = db.ref(`users/${uid}/toWatch`);
       const notesRef = db.ref(`notes/${uid}`);
+      const tagsRef = db.ref(`tags/${uid}`);
       const ratingsRef = db.ref(`ratings/${uid}`);
       const content = await contentRef.once("value");
       const watched = await watchedRef.once("value");
       const toWatch = await toWatchRef.once("value");
       const notes = await notesRef.once("value");
+      const tags = await tagsRef.once("value");
       const ratings = await ratingsRef.once("value");
       const contentData = await content.val();
       const watchedData = await watched.val();
       const toWatchData = await toWatch.val();
       const noteData = await notes.val();
+      const tagData = await tags.val();
       const ratingData = await ratings.val();
 
       // prettier-ignore
@@ -76,6 +80,7 @@ export default function DataProvider({ render, dataSet }) {
             [`/users/${uid}`]: { watched: 0, toWatch: 0 },
             [`/settings/${uid}`]: initialSettings,
             [`/notes/${uid}`]: 0,
+            [`/tags/${uid}`]: 0,
             [`/ratings/${uid}`]: 0
           },
 
@@ -98,18 +103,22 @@ export default function DataProvider({ render, dataSet }) {
       else
       {
         const mappedData = {
-          watched: Object.keys(watchedData).map(key => ({
-            key,
-            ...contentData[key],
-            notes: noteData && noteData[key] && noteData[key]['content'],
-            rating: ratingData && ratingData[key] && ratingData[key]['rating'],
+          watched: Object.keys(watchedData).map(id => ({
+            key: id,
+            ...contentData[id],
+            notes: noteData?.[id]?.["content"],
+            tags: Object.values(
+              (tagData as Record<string, TagType>) ?? {}
+            )?.filter?.((t: TagType) => t.assignedTo[id]), // TODO tags are multiple
+            rating: ratingData?.[id]?.["rating"],
           })),
+
           // 0 => []
           toWatch: Object.keys(toWatchData).map(key => ({
             key,
             ...contentData[key],
-            notes: noteData && noteData[key] && noteData[key]['content'],
-          }))
+            notes: noteData && noteData[key] && noteData[key]["content"],
+          })),
         };
 
         dispatch(setInitialData({ uid, mappedData }))

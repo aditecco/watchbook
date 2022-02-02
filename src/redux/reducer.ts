@@ -3,22 +3,25 @@ reducer
 --------------------------------- */
 
 import { createReducer } from "@reduxjs/toolkit";
-import { log, clipText } from "../utils";
+import { clipText, log } from "../utils";
 import initialState from "./initialState";
 import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 import {
   convertContentError,
   convertContentPending,
   convertContentSuccess,
+  createNoteError,
   createNotePending,
   createNoteSuccess,
-  createNoteError,
+  createRatingError,
   createRatingPending,
   createRatingSuccess,
-  createRatingError,
   createRemoteContentError,
   createRemoteContentPending,
   createRemoteContentSuccess,
+  createTagError,
+  createTagPending,
+  createTagSuccess,
   createToWatch,
   createWatched,
   deleteContentError,
@@ -196,7 +199,7 @@ const reducer = createReducer(initialState, {
               ...updatedContent,
             },
             ...state.userData[uid][contentType].slice(where + 1),
-          ]
+          ],
         },
       },
     };
@@ -521,6 +524,21 @@ const reducer = createReducer(initialState, {
 
   // @ts-ignore
   [createNoteError](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [createTagPending](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [createTagSuccess](state, action) {
+    return state;
+  },
+
+  // @ts-ignore
+  [createTagError](state, action) {
     return state;
   },
 

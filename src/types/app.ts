@@ -1,3 +1,7 @@
+/* ---------------------------------
+Types
+--------------------------------- */
+
 import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 
 export type Dataset = typeof PRIMARY_DATASET_KEY | typeof SECONDARY_DATASET_KEY;
@@ -11,6 +15,7 @@ export interface WatchedItem {
   year: string;
 }
 
+// Runtime
 export enum RuntimeFilterLabels {
   UP_TO_30 = "Up to 30 minutes",
   UP_TO_60 = "Up to 60 minutes",
@@ -22,3 +27,20 @@ export enum RuntimeFilterLabels {
   UP_TO_300 = "Up to 300 minutes",
   MORE_THAN_300 = "Over 300 minutes",
 }
+
+// Tags
+type TagLabel = "provider" | "status";
+
+type TagProvider = "Netflix" | "Mubi" | "NowTV" | "Amazon Prime Video" | "DVD";
+
+type TagStatus = "dropped" | "completed";
+
+type TagValue = TagProvider | TagStatus | "";
+
+export type TagType = {
+  id: string;
+  timestamp: number;
+  value: TagValue;
+  label: TagLabel;
+  assignedTo: Record<string, boolean>;
+};
