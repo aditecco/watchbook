@@ -8,8 +8,12 @@ import { createTag, showNotif } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../../index";
 import { RootState } from "../../store";
-import { TagType } from "../../types";
-import { WARNING_VALUE_NEEDED } from "../../constants";
+import { ContentItem, TagCollectionType, TagType } from "../../types";
+import {
+  ERROR_GENERIC_ERROR,
+  ERROR_PRE_EXISTING_TAG,
+  WARNING_VALUE_NEEDED,
+} from "../../constants";
 
 type OwnProps = {
   contentRef: string;
@@ -24,19 +28,27 @@ export default function TagForm({
   const {
     user: { uid },
   } = useSelector((state: RootState) => state.authentication);
+
   const [tagInput, setTagInput] = useState("");
   const [existingTag, setExistingTag] = useState("");
-  const [allTags, setAllTags] = useState([]);
+  const [allTags, setAllTags] = useState<TagType[]>([]);
+  const [itemTags, setItemTags] = useState<TagType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  async function fetchTags() {
-    const tagsRef = db.ref(`/tags/${uid}`);
+  const TAG_PATH = `/tags/${uid}`;
+  const CONTENT_PATH = `/content/${contentRef}`;
 
-    return (await tagsRef.once("value"))?.val();
+  async function fetchData(
+    path: string
+  ): Promise<TagCollectionType | ContentItem> {
+    const ref = db.ref(path);
+
+    return (await ref.once("value"))?.val();
   }
 
-  function checkExistence() {
-    return allTags.some((tag: TagType) => tag.value === tagInput);
+  function checkExistence(existingTags: TagType[] = allTags): boolean {
+    return Boolean(existingTags.find(tag => tag.value === tagInput));
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -54,20 +66,20 @@ export default function TagForm({
       return;
     }
 
-    // if (checkExistence()) {
-    //   dispatch(
-    //     showNotif({
-    //       message: ERROR_PRE_EXISTING_CONTENT,
-    //       timeOut: 2000,
-    //       theme: "light",
-    //     })
-    //   );
-    //
-    //   setTagInput("");
-    //   setExistingTag("");
-    //
-    //   return;
-    // }
+    if (checkExistence(itemTags)) {
+      dispatch(
+        showNotif({
+          message: ERROR_PRE_EXISTING_TAG,
+          timeOut: 2000,
+          theme: "light",
+        })
+      );
+
+      setTagInput("");
+      setExistingTag("");
+
+      return;
+    }
 
     dispatch(
       createTag({
@@ -88,13 +100,37 @@ export default function TagForm({
   }
 
   useEffect(() => {
-    fetchTags().then(v => {
-      if (v) {
-        setAllTags(Object.values(v as Record<string, TagType>));
-      }
+    Promise.all([fetchData(TAG_PATH), fetchData(CONTENT_PATH)])
+      .then(([tags, item]) => {
+        const _tags = Object.values(tags ?? {});
 
-      setLoading(false);
-    });
+        // Get all existing tags in TAG_PATH
+        // and store them in state.
+        // TODO store in global state
+        if (_tags?.length) {
+          setAllTags(_tags);
+        }
+
+        // Get the item's tags and
+        // store them in state.
+        if (item?.tags) {
+          const hydratedTags = [];
+
+          for (const k of Object.keys(item.tags)) {
+            hydratedTags.push(tags[k]);
+          }
+
+          setItemTags(hydratedTags);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -103,8 +139,28 @@ export default function TagForm({
     }
   }, [existingTag]);
 
+  if (error) {
+    // TODO UI, retry, etc
+
+    return <span>{ERROR_GENERIC_ERROR}</span>;
+  }
+
   return (
     <div className={"tag-form"}>
+      {loading ? (
+        "Loading tags..."
+      ) : itemTags.length ? (
+        <>
+          <h6>This item's tags:</h6>
+
+          <ul>
+            {itemTags.map((t, i) => {
+              return <li key={i}>{t?.value}</li>;
+            })}
+          </ul>
+        </>
+      ) : null}
+
       <form onSubmit={handleSubmit}>
         {loading ? (
           "Loading tags..."
