@@ -93,7 +93,7 @@ function* createTagSaga(action) {
           ...taggedContentItem,
           tags: {
             ...(taggedContentItem.tags ?? {}),
-            [newTagKey]: true,
+            [existingTagDBkey]: true,
           },
         },
       });
