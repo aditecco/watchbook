@@ -76,7 +76,7 @@ export default React.memo(function CompactCard({
           <section className="CompactCardTags">
             {additionalData.tags.map?.((tag: TagType, i) => (
               <span key={i} className={"CompactCardTag"}>
-                {tag.value}
+                {tag.label}
               </span>
             ))}
           </section>
