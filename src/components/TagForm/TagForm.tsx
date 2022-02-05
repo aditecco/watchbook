@@ -37,7 +37,7 @@ export default function TagForm({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const TAG_PATH = `/tags/${uid}`;
+  const TAGS_PATH = `/tags/${uid}`;
   const CONTENT_PATH = `/content/${contentRef}`;
 
   async function fetchData(
@@ -101,9 +101,9 @@ export default function TagForm({
   }
 
   useEffect(() => {
-    Promise.all([fetchData(TAG_PATH), fetchData(CONTENT_PATH)])
+    Promise.all([fetchData(TAGS_PATH), fetchData(CONTENT_PATH)])
       .then(([allTags, item]) => {
-        const _allTags = Object.values(allTags ?? {});
+        const _allTags: TagType[] = Object.values(allTags ?? {});
 
         // Get all existing tags in TAG_PATH
         // and store them in state.
