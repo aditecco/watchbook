@@ -14,6 +14,7 @@ import {
   ERROR_PRE_EXISTING_TAG,
   WARNING_VALUE_NEEDED,
 } from "../../constants";
+import Spinner from "../Spinner/Spinner";
 
 type OwnProps = {
   contentRef: string;
@@ -101,23 +102,23 @@ export default function TagForm({
 
   useEffect(() => {
     Promise.all([fetchData(TAG_PATH), fetchData(CONTENT_PATH)])
-      .then(([tags, item]) => {
-        const _tags = Object.values(tags ?? {});
+      .then(([allTags, item]) => {
+        const _allTags = Object.values(allTags ?? {});
 
         // Get all existing tags in TAG_PATH
         // and store them in state.
         // TODO store in global state
-        if (_tags?.length) {
-          setAllTags(_tags);
+        if (_allTags?.length) {
+          setAllTags(_allTags);
         }
 
         // Get the item's tags and
         // store them in state.
-        if (item?.tags) {
+        if (allTags && item?.tags) {
           const hydratedTags = [];
 
           for (const k of Object.keys(item.tags)) {
-            hydratedTags.push(tags[k]);
+            hydratedTags.push(allTags[k]);
           }
 
           setItemTags(hydratedTags);
@@ -139,6 +140,14 @@ export default function TagForm({
     }
   }, [existingTag]);
 
+  if (loading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+
   if (error) {
     // TODO UI, retry, etc
 
@@ -147,9 +156,7 @@ export default function TagForm({
 
   return (
     <div className={"tag-form"}>
-      {loading ? (
-        "Loading tags..."
-      ) : itemTags.length ? (
+      {itemTags.length ? (
         <>
           <h6>This item's tags:</h6>
 
@@ -162,9 +169,7 @@ export default function TagForm({
       ) : null}
 
       <form onSubmit={handleSubmit}>
-        {loading ? (
-          "Loading tags..."
-        ) : allTags.length ? (
+        {allTags.length ? (
           <select
             name={"tag_select"}
             onChange={handleSelectChange}
