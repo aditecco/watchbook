@@ -49,7 +49,7 @@ export default function TagForm({
   }
 
   function checkExistence(existingTags: TagType[] = allTags): boolean {
-    return Boolean(existingTags.find(tag => tag.value === tagInput));
+    return Boolean(existingTags.find(tag => tag?.value === tagInput));
   }
 
   function handleSubmit(e: React.FormEvent) {
