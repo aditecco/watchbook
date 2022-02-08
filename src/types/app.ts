@@ -6,14 +6,39 @@ import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "../constants";
 
 export type Dataset = typeof PRIMARY_DATASET_KEY | typeof SECONDARY_DATASET_KEY;
 
-export interface WatchedItem {
+// TODO complete type w/ TMDB types
+export type ContentItem = {
+  key: string;
+  actors: string;
+  awards: string;
+  boxoffice: string;
+  country: string;
+  director: string;
+  dvd: string;
+  genre: string;
   id: string;
-  image: string;
+  imdbid: string;
+  imdbrating: string;
+  imdbvotes: string;
+  language: string;
+  metascore: string;
+  plot: string;
+  poster: string;
+  production: string;
+  rated: string;
+  ratings: {
+    Source: string;
+    Value: string;
+  }[];
+  released: string;
+  response: string;
+  runtime: string;
   timestamp: number;
-  title: string;
-  type: string;
-  year: string;
-}
+  website: string;
+  writer: string;
+  rating: number;
+  tags: Record<string, boolean>;
+};
 
 // Runtime
 export enum RuntimeFilterLabels {
@@ -44,3 +69,5 @@ export type TagType = {
   label: TagLabel;
   assignedTo: Record<string, boolean>;
 };
+
+export type TagCollectionType = Record<string, TagType>;

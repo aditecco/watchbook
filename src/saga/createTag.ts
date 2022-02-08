@@ -14,6 +14,7 @@ import {
 import uuidv4 from "uuid";
 import { db } from "../index";
 import { TagType } from "../types";
+import { ERROR_GENERIC_ERROR } from "../constants";
 
 /**
  * createTagSaga
@@ -45,6 +46,7 @@ function* createTagSaga(action) {
   try {
     const tagsPath = `/tags/${uid}`;
     const contentItemPath = `content/${contentRef}`;
+
     const dbRef = db.ref();
     const tagsPathRef = db.ref(tagsPath);
     const taggedContentRef = db.ref(contentItemPath);
@@ -62,18 +64,32 @@ function* createTagSaga(action) {
       }
     });
 
+    // TODO remove and use `allTags` & `item` from src/components/TagForm/TagForm.tsx?
     // Get the previously existing tags
     yield tagsPathRef.once("value").then(snapshot => {
       const v = snapshot.val();
 
-      if (v) {
-        prevTags = v;
-      }
+      prevTags = v || {};
     });
+
+    // If we don't get our data, we abort.
+    if (!taggedContentItem) {
+      yield put(
+        showNotif({
+          // TODO
+          message: ERROR_GENERIC_ERROR,
+          icon: "local_offer",
+          timeOut: 2000,
+          theme: "light",
+        })
+      );
+
+      throw new Error(ERROR_GENERIC_ERROR);
+    }
 
     // The tag's value is already present in the tag pool:
     // the tag should not be created, but just assigned to the content.
-    if (preExisting && prevTags) {
+    if (preExisting) {
       const [existingTagDBkey] = Object.entries(prevTags).find(
         ([_, t]) => tag === t.value
       );
@@ -93,7 +109,7 @@ function* createTagSaga(action) {
           ...taggedContentItem,
           tags: {
             ...(taggedContentItem.tags ?? {}),
-            [newTagKey]: true,
+            [existingTagDBkey]: true,
           },
         },
       });
@@ -128,7 +144,7 @@ function* createTagSaga(action) {
     yield put(
       showNotif({
         // TODO
-        message: `${tag ? "Created" : "Deleted"} new tag for: ${title}`,
+        message: `Created new tag for: ${title}`,
         icon: "local_offer",
         timeOut: 2000,
         theme: "light",
