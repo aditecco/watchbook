@@ -69,13 +69,11 @@ function* createTagSaga(action) {
     yield tagsPathRef.once("value").then(snapshot => {
       const v = snapshot.val();
 
-      if (v) {
-        prevTags = v;
-      }
+      prevTags = v || {};
     });
 
     // If we don't get our data, we abort.
-    if (!prevTags || !taggedContentItem) {
+    if (!taggedContentItem) {
       yield put(
         showNotif({
           // TODO
