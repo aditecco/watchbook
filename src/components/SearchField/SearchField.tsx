@@ -7,11 +7,12 @@ import MaterialIcon from "../Misc/MaterialIcon";
 
 // TODO
 interface OwnProps {
-  error;
+  error: boolean;
   onFocus;
   onReset;
   onSearch;
-  searchQuery;
+  placeholder?: string;
+  searchQuery: string;
 }
 
 export default function SearchField({
@@ -20,6 +21,7 @@ export default function SearchField({
   onFocus,
   onReset,
   onSearch,
+  placeholder,
   searchQuery,
 }: PropsWithChildren<OwnProps>): ReactElement {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -35,7 +37,7 @@ export default function SearchField({
   }
 
   return (
-    <form className="itemSearch">
+    <div className="itemSearch">
       <div className="wrapper">
         <input
           className={`mainSearchField${error ? " hasError" : ""}`}
@@ -46,7 +48,9 @@ export default function SearchField({
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
             e.key === "Escape" && onReset()
           }
-          placeholder={!isFocused ? "Search for a movie or TV show…" : ""}
+          placeholder={
+            !isFocused ? placeholder || "Search for a movie or TV show…" : ""
+          }
           value={searchQuery}
         />
 
@@ -58,6 +62,6 @@ export default function SearchField({
 
         {children}
       </div>
-    </form>
+    </div>
   );
 }
