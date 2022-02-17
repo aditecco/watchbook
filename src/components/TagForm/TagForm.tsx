@@ -15,6 +15,8 @@ import {
   WARNING_VALUE_NEEDED,
 } from "../../constants";
 import Spinner from "../Spinner/Spinner";
+import SearchField from "../SearchField/SearchField";
+import AutoSuggest from "../AutoSuggest/AutoSuggest";
 
 type OwnProps = {
   contentRef: string;
@@ -156,44 +158,52 @@ export default function TagForm({
 
   return (
     <div className={"tag-form"}>
-      {itemTags.length ? (
-        <>
-          <h6>This item's tags:</h6>
+      <section className="search">
+        <form onSubmit={handleSubmit}>
+          <SearchField
+            error={error}
+            onFocus={undefined}
+            onReset={undefined}
+            onSearch={handleInputChange}
+            placeholder={"Add a tag"}
+            searchQuery={tagInput}
+          />
 
-          <ul>
-            {itemTags.map((t, i) => {
-              return <li key={i}>{t?.value}</li>;
-            })}
-          </ul>
-        </>
-      ) : null}
+          {tagInput ? (
+            <AutoSuggest
+              content={{
+                // @ts-ignore
+                Search: allTags
+                  .filter(tag => tag.value.startsWith(tagInput))
+                  // temporary adapter to accommodate the different data type
+                  .map(t => ({
+                    Title: t.value,
+                    Type: "",
+                    Year: t.timestamp,
+                  })),
+              }}
+              limit={5}
+              onItemClick={undefined}
+            />
+          ) : null}
 
-      <form onSubmit={handleSubmit}>
-        {allTags.length ? (
-          <select
-            name={"tag_select"}
-            onChange={handleSelectChange}
-            value={existingTag}
-          >
-            {[({ value: "", label: "Select a tag" } as unknown) as TagType]
-              .concat(allTags)
-              .map((tag: TagType, i) => (
-                <option key={tag.id || i} value={tag.value}>
-                  {tag.label}
-                </option>
-              ))}
-          </select>
+          <button type={"submit"}>Add tag</button>
+        </form>
+      </section>
+
+      <section>
+        {itemTags.length ? (
+          <>
+            <h6>This item's tags:</h6>
+
+            <ul>
+              {itemTags.map((t, i) => {
+                return <li key={i}>{t?.value}</li>;
+              })}
+            </ul>
+          </>
         ) : null}
-
-        <input
-          name={"tag_input"}
-          type="text"
-          onChange={handleInputChange}
-          value={tagInput}
-        />
-
-        <button type={"submit"}>Add tag</button>
-      </form>
+      </section>
     </div>
   );
 }
