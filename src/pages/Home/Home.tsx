@@ -163,7 +163,7 @@ function Home() {
           onSearch={e => handleSearch(e, searchByID ? "i" : "s")}
           onFocus={handleFocus}
           onReset={handleSearchReset}
-          error={error}
+          error={Boolean(error)}
         >
           {!searchQuery.length ? (
             <button
