@@ -18,19 +18,25 @@ import {
   showNotif,
 } from "../../redux/actions";
 import { RootState } from "../../store";
+import MaterialIcon from "../../components/Misc/MaterialIcon";
+import { SearchFormInitialStateType } from "../../types";
 
 function Home() {
   const [state, setState] = useReducer(
-    (state, newState) => ({
-      ...state,
-      ...newState,
-    }),
+    (state, newState) =>
+      ({
+        ...state,
+        ...newState,
+      } as SearchFormInitialStateType),
     {
       searchQuery: "",
       hasError: false,
       error: "",
+      searchByID: false, // TODO make it a config object for advanced search, supporting all APISearchParams options
     }
   );
+
+  const { error, hasError, searchByID, searchQuery } = state;
 
   const dispatch = useDispatch();
   const {
@@ -100,6 +106,7 @@ function Home() {
       searchQuery: "",
       hasError: false,
       error: "",
+      searchByID: false,
     });
 
     dispatch(resetQueryData());
@@ -152,12 +159,27 @@ function Home() {
         ======================== */}
       <section className="search">
         <SearchField
-          searchQuery={state.searchQuery}
-          searchHandler={handleSearch}
-          focusHandler={handleFocus}
-          resetHandler={handleSearchReset}
-          error={state.error}
-        />
+          searchQuery={searchQuery}
+          onSearch={e => handleSearch(e, searchByID ? "i" : "s")}
+          onFocus={handleFocus}
+          onReset={handleSearchReset}
+          error={error}
+        >
+          {!searchQuery.length ? (
+            <button
+              type="button"
+              className="searchOptions"
+              onClick={() => setState({ searchByID: !searchByID })}
+            >
+              <MaterialIcon
+                icon="tune"
+                style={{
+                  color: searchByID ? "#1ABC9C" : "inherit",
+                }}
+              />
+            </button>
+          ) : null}
+        </SearchField>
 
         {(apiData?.data || apiData?.fetching) && (
           <AutoSuggest
