@@ -5,12 +5,12 @@ AutoSuggest
 import React, { ReactElement, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import MaterialIcon from "../Misc/MaterialIcon";
-import { OMDBitem, OMDBresponse } from "../../types";
+import { OMDBresponse } from "../../types";
 
 interface OwnProps {
   content: OMDBresponse;
   limit: number;
-  contentMapper: (searchItem: OMDBitem, i: number) => JSX.Element;
+  contentMapper: (item, i: number) => JSX.Element;
 }
 
 export default function AutoSuggest({
