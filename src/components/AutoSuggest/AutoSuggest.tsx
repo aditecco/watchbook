@@ -2,7 +2,7 @@
 AutoSuggest
 --------------------------------- */
 
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import MaterialIcon from "../Misc/MaterialIcon";
 import { OMDBitem, OMDBresponse } from "../../types";
@@ -10,34 +10,17 @@ import { OMDBitem, OMDBresponse } from "../../types";
 interface OwnProps {
   content: OMDBresponse;
   limit: number;
-  onItemClick: (arg: string) => void;
+  contentMapper: (searchItem: OMDBitem, i: number) => JSX.Element;
 }
 
 export default function AutoSuggest({
   content,
   limit,
-  onItemClick,
+  contentMapper,
 }: OwnProps): ReactElement {
   const [itemsToShow, setItemsToShow] = useState(limit);
   const _content = content?.["Search"] ?? content;
   const l = _content?.length ?? [_content].length;
-
-  const contentMapper = (searchItem: OMDBitem, i) => (
-    <li className="AutoSuggestItem wrapper" key={i}>
-      <div
-        className="AutoSuggestItemLinkTarget"
-        onClick={() => onItemClick(searchItem.imdbID)}
-      >
-        <h4 className="AutoSuggestItemTitle">{searchItem.Title}</h4>
-
-        <p className="AutoSuggestItemDesc">
-          <span className="ItemType">{searchItem.Type}</span>
-          {", "}
-          <span className="ItemYear">{searchItem.Year}</span>
-        </p>
-      </div>
-    </li>
-  );
 
   useEffect(() => {
     // TODO w/ ref
