@@ -20,6 +20,7 @@ import {
 import { RootState } from "../../store";
 import MaterialIcon from "../../components/Misc/MaterialIcon";
 import { SearchFormInitialStateType } from "../../types";
+import { OMDBcontentMapper } from "../../lib";
 
 function Home() {
   const [state, setState] = useReducer(
@@ -184,7 +185,7 @@ function Home() {
         {(apiData?.data || apiData?.fetching) && (
           <AutoSuggest
             content={apiData.data}
-            onItemClick={handleAutoSuggestClick}
+            contentMapper={OMDBcontentMapper(handleAutoSuggestClick)}
             limit={5}
           />
         )}

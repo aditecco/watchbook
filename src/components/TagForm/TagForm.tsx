@@ -17,6 +17,7 @@ import {
 import Spinner from "../Spinner/Spinner";
 import SearchField from "../SearchField/SearchField";
 import AutoSuggest from "../AutoSuggest/AutoSuggest";
+import { TagContentMapper } from "../../lib";
 
 type OwnProps = {
   contentRef: string;
@@ -173,17 +174,11 @@ export default function TagForm({
             <AutoSuggest
               content={{
                 // @ts-ignore
-                Search: allTags
-                  .filter(tag => tag.value.startsWith(tagInput))
-                  // temporary adapter to accommodate the different data type
-                  .map(t => ({
-                    Title: t.value,
-                    Type: "",
-                    Year: t.timestamp,
-                  })),
+                // TODO
+                Search: allTags.filter(tag => tag.value.startsWith(tagInput)),
               }}
               limit={5}
-              onItemClick={undefined}
+              contentMapper={TagContentMapper(arg => console.log(arg))}
             />
           ) : null}
 
