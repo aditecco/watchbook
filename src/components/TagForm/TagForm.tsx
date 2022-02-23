@@ -172,11 +172,7 @@ export default function TagForm({
 
           {tagInput ? (
             <AutoSuggest
-              content={{
-                // @ts-ignore
-                // TODO
-                Search: allTags.filter(tag => tag.value.startsWith(tagInput)),
-              }}
+              content={allTags.filter(tag => tag.value.startsWith(tagInput))}
               limit={5}
               contentMapper={TagContentMapper(arg => console.log(arg))}
             />

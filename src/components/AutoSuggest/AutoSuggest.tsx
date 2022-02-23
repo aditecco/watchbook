@@ -5,10 +5,11 @@ AutoSuggest
 import React, { ReactElement, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import MaterialIcon from "../Misc/MaterialIcon";
-import { OMDBresponse } from "../../types";
+
+// import { OMDBresponse } from "../../types";
 
 interface OwnProps {
-  content: OMDBresponse;
+  content: unknown;
   limit: number;
   contentMapper: (item, i: number) => JSX.Element;
 }
@@ -19,7 +20,7 @@ export default function AutoSuggest({
   contentMapper,
 }: OwnProps): ReactElement {
   const [itemsToShow, setItemsToShow] = useState(limit);
-  const _content = content?.["Search"] ?? content;
+  const _content = content?.["Search"] ?? content; // TODO
   const l = _content?.length ?? [_content].length;
 
   useEffect(() => {
