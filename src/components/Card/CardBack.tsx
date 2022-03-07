@@ -106,13 +106,13 @@ export default function CardBack({
                   }
 
                   else if (key === "tags") {
-                    val = (
+                    val = Array.isArray(val) ?(
                       <>
                         {((val as unknown) as TagType[])
                           .map((v: TagType) => v.value)
                           .join()}
                       </>
-                    );
+                    ) : null
                   }
 
               return (
