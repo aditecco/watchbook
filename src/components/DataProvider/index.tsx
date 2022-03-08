@@ -114,10 +114,13 @@ export default function DataProvider({ render, dataSet }) {
           })),
 
           // 0 => []
-          toWatch: Object.keys(toWatchData).map(key => ({
-            key,
-            ...contentData[key],
-            notes: noteData && noteData[key] && noteData[key]["content"],
+          toWatch: Object.keys(toWatchData).map(id => ({
+            key: id,
+            ...contentData[id],
+            notes: noteData?.[id]?.["content"],
+            tags: Object.values(
+              (tagData as Record<string, TagType>) ?? {}
+            )?.filter?.((t: TagType) => t.assignedTo[id]),
           })),
         };
 
