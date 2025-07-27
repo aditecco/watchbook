@@ -25,6 +25,7 @@
 .DS_Store
 *.pem
 /.cache
+/migration
 
 # debug
 *.log
