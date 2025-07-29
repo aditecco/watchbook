@@ -9,6 +9,12 @@ $margin: 20px;
 $spacer: 20px;
 $gutter: $spacer;
 
+// borders
+$border: 1px solid rgba(0, 0, 0, 0.1);
+
+// text effects
+$textShadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
 // breakpoints
 $XS: 320px;
 $SM: 414px;
@@ -19,6 +25,7 @@ $XXL: null;
 
 // UI
 $wrapper: 414px;
+$radius: 4px;
 $cardMinWidth: 280px;
 $cardMaxWidth: 370px;
 $cardInModalWidth: 370px;

@@ -1,0 +1,62 @@
+/* ---------------------------------
+Profile
+--------------------------------- */
+
+.Profile {
+  main > .wrapper {
+    padding: $padding;
+  }
+
+  .UserDataForm {
+    &Label {
+      @include smallHeading();
+    }
+
+    &Group {
+      // overrides
+      border: none;
+      padding: 0;
+    }
+
+    &FieldContainer {
+      @include flex(row nowrap, space-between, center);
+      position: relative;
+    }
+
+    &InputField {
+      width: auto;
+      flex-grow: 1;
+      box-shadow: none;
+      padding-right: 40px;
+      border: 2px solid rgba(#444, 0.2);
+
+      &:disabled {
+        background-color: $backgroundLight;
+        // border: {
+        //   top: 1px solid $transparent;
+        //   left: 1px solid $transparent;
+        //   right: 1px solid $transparent;
+        // }
+        // border-bottom: 1px solid #ecf0f1;
+        border: 2px solid $backgroundMain;
+      }
+    }
+
+    &EditButton {
+      position: absolute;
+      right: 8px;
+      // overrides
+      border: none;
+      background-color: transparent;
+
+      &:focus {
+        outline: none;
+      }
+
+      .material-icons {
+        font-size: 1.1rem;
+        color: #444;
+      }
+    }
+  }
+}

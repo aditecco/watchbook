@@ -1,3 +1,57 @@
+/* ========================
+common.scss
+======================== */
+
+/* ---------------------------------
+error styling
+--------------------------------- */
+
+.error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* ---------------------------------
+form validation
+--------------------------------- */
+
+.BaseInput.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.BaseInput.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 1px #dc2626;
+}
+
+.NoteContent.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.NoteContent.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 1px #dc2626;
+}
+
+.mainSearchField.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.mainSearchField.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 1px #dc2626;
+}
+
 /* ---------------------------------
 Common
 --------------------------------- */
@@ -69,6 +123,7 @@ body {
   transition: all 500ms ease;
   // browser styles overrides
   border: 2px solid transparent;
+
   &:focus {
     // TODO find a better way for accessibility
     outline: none;

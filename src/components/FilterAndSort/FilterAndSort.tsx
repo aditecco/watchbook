@@ -3,7 +3,7 @@ FilterAndSort
 --------------------------------- */
 
 import React from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
 // TODO rename 'sortHandler' and the like
 export default function FilterAndSort({
@@ -11,6 +11,7 @@ export default function FilterAndSort({
   resetHandler,
   sortOptions: options,
   toggleCallback,
+  activeFilters = {},
 }) {
   return (
     <div className="FilterAndSort">
@@ -25,13 +26,21 @@ export default function FilterAndSort({
           <form className="FilterAndSortForm">
             {Object.entries(options).map(([sortKey, optionsArray], i) => (
               <div className="formGroup" key={`formGroup-${i}`}>
-                <label htmlFor={sortKey}>{sortKey}</label>
+                <label htmlFor={sortKey}>
+                  {sortKey}
+                  {activeFilters[sortKey] && (
+                    <span style={{ color: "#1ABC9C", marginLeft: "4px" }}>
+                      ●
+                    </span>
+                  )}
+                </label>
 
                 <select
-                  onChange={e => sortHandler(e.target.id, e.target.value)}
+                  onChange={(e) => sortHandler(e.target.id, e.target.value)}
                   name={`select__${sortKey}`}
                   id={sortKey}
                   className="watchedSort"
+                  value={activeFilters[sortKey] || ""}
                 >
                   {/* TODO */}
                   {(optionsArray as any[]).map(([value, label], i) => (
@@ -46,6 +55,26 @@ export default function FilterAndSort({
                 </select>
               </div>
             ))}
+
+            {Object.keys(activeFilters).length > 0 && (
+              <div className="formGroup" style={{ marginTop: "16px" }}>
+                <button
+                  type="button"
+                  onClick={resetHandler}
+                  style={{
+                    background: "transparent",
+                    color: "#ff6b6b",
+                    border: "1px solid #ff6b6b",
+                    padding: "8px 16px",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                  }}
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            )}
           </form>
         </div>
       </div>

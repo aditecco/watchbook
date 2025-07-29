@@ -1,1 +1,7 @@
-export type GenreType = 'Animation' | 'Adventure' | 'Comedy' | 'Family' | 'Fantasy' | string;
+export type GenreType =
+  | "Animation"
+  | "Adventure"
+  | "Comedy"
+  | "Family"
+  | "Fantasy"
+  | string;

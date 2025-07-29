@@ -2,14 +2,13 @@
 RatingControls
 --------------------------------- */
 
-import React, { ReactElement, useState } from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
-import { log } from "../../utils";
+import React, { ReactElement, useEffect, useState } from "react";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
 interface OwnProps {
   initialRating?: number | undefined;
   maxRating?: number | undefined;
-  onRate?: (arg0) => void;
+  onRate?: (rating: number) => void;
 }
 
 export default function RatingControls({
@@ -17,57 +16,57 @@ export default function RatingControls({
   maxRating = 5,
   onRate,
 }: OwnProps): ReactElement {
-  const [starred, setStarred] = useState(initRating(initialRating) || {});
+  const [starred, setStarred] = useState<Record<number, boolean>>(
+    initRating(initialRating) || {},
+  );
+
+  // Update starred state when initialRating prop changes
+  useEffect(() => {
+    setStarred(initRating(initialRating) || {});
+  }, [initialRating, maxRating]);
 
   /**
    * initRating
    */
+  function initRating(rating: number | undefined): Record<number, boolean> {
+    if (!rating) return {};
 
-  function initRating(rating) {
-    if (!rating) return undefined;
+    const r: Record<number, boolean> = {};
 
-    let r = {};
-
-    for (let i = 0; i <= maxRating; i++) {
-      if (i <= rating - 1) {
-        r[i] = true;
-      }
-
-      //
-      else {
-        r[i] = false;
-      }
+    for (let i = 0; i < maxRating; i++) {
+      r[i] = i < rating;
     }
 
     return r;
   }
 
   /**
-   * handleRating
+   * handleRating - Fixed logic to properly handle star clicking
    */
   function handleRating(e: React.MouseEvent<HTMLButtonElement>) {
     const { id } = e.currentTarget;
     const currentStar = Number(id);
 
-    if (!starred[currentStar + 1]) {
-      let stars = {};
+    // Create new stars object
+    const stars: Record<number, boolean> = {};
+    let newRating = currentStar + 1;
 
-      for (let i = 0; i <= currentStar; i++) {
-        if (!starred[currentStar]) {
-          stars[i] = true;
-        }
-
-        //
-        else {
-          stars[i] = false;
-        }
+    // If clicking on the last filled star, clear the rating
+    if (starred[currentStar] && !starred[currentStar + 1]) {
+      // Clear all stars
+      for (let i = 0; i < maxRating; i++) {
+        stars[i] = false;
       }
-
-      setStarred(stars);
-
-      onRate &&
-        onRate(Object.values(stars).every(star => !star) ? 0 : currentStar + 1);
+      newRating = 0;
+    } else {
+      // Set stars up to the clicked star
+      for (let i = 0; i < maxRating; i++) {
+        stars[i] = i <= currentStar;
+      }
     }
+
+    setStarred(stars);
+    onRate && onRate(newRating);
   }
 
   return (
@@ -80,9 +79,9 @@ export default function RatingControls({
             key={i}
             id={String(i)}
             onClick={handleRating}
-            data-starred={starred[String(i)]}
+            data-starred={starred[i]}
           >
-            <MaterialIcon icon={starred[String(i)] ? "star" : "star_outline"} />
+            <MaterialIcon icon={starred[i] ? "star" : "star_outline"} />
           </button>
         ))}
     </div>

@@ -2,7 +2,7 @@
 Spinner
 --------------------------------- */
 
-import React, { ReactNode, ReactElement } from "react";
+import React, { ReactElement } from "react";
 
 interface OwnProps {
   inline?: boolean;
@@ -30,7 +30,7 @@ export default function Spinner({
       <div
         className="Spinner"
         style={
-          [color, duration, shadow, styles].some(prop => prop !== undefined)
+          [color, duration, shadow, styles].some((prop) => prop !== undefined)
             ? {
                 borderTopColor: color,
                 animationDuration: duration,

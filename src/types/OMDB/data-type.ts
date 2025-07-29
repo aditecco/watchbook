@@ -1,1 +1,1 @@
-export type DataType = 'movie' | 'series' | 'episode';
+export type DataType = "movie" | "series" | "episode";

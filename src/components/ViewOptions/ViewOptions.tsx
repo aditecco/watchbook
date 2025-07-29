@@ -3,7 +3,7 @@ ViewOptions
 --------------------------------- */
 
 import React from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
 export default function ViewOptions({
   labels,

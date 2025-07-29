@@ -76,8 +76,8 @@ functions & mixins
 // add default font-size?
 @mixin typography(
   $size,
-  $family: $base-font,
-  $color: $font-color-dark,
+  $family: $firaSans,
+  $color: $font,
   $alignment: left,
   $weight: 400
 ) {

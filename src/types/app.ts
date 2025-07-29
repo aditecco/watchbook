@@ -71,3 +71,10 @@ export type TagType = {
 };
 
 export type TagCollectionType = Record<string, TagType>;
+
+export type SearchFormInitialStateType = {
+  searchQuery: string;
+  hasError: boolean;
+  error: string;
+  searchByID: boolean;
+};

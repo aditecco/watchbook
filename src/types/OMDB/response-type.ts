@@ -1,1 +1,1 @@
-export type ResponseType = 'xml' | 'json';
+export type ResponseType = "xml" | "json";

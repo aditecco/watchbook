@@ -3,17 +3,16 @@ CardBack
 --------------------------------- */
 
 import React, { ReactElement } from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
-import { TagType } from "../../types";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
 interface OwnProps {
-  noteHandler;
-  tagHandler;
-  flipHandler;
-  contentUpdateHandler;
-  additionalData;
-  added;
-  title;
+  noteHandler: any;
+  tagHandler: any;
+  flipHandler: any;
+  contentUpdateHandler: any;
+  additionalData: any;
+  added: boolean;
+  title: string;
 }
 
 export default function CardBack({
@@ -26,7 +25,8 @@ export default function CardBack({
   title,
 }: OwnProps): ReactElement {
   const hasNotes = additionalData.notes;
-  const orderedKeys = {
+  // Enforce legacy field order
+  const orderedKeys: { [key: string]: any } = {
     director: "",
     plot: "",
     actors: "",
@@ -57,68 +57,58 @@ export default function CardBack({
         <ul className="CardBackDataList">
           {Object.keys(additionalData).length &&
             Object.entries(
-              // we build an object with enforced key order
-              Object.entries(additionalData).reduce((acc, [k, val]) => {
-                acc[k] = val;
-                return acc;
-              }, orderedKeys)
+              Object.entries(additionalData).reduce(
+                (acc: Record<string, any>, [k, val]) => {
+                  acc[k] = val;
+                  return acc;
+                },
+                orderedKeys as Record<string, any>,
+              ) as Record<string, any>,
             ).map(([key, val]: readonly [any, any], i) => {
-              // prettier-ignore
-
-              // TODO
-              // we don't manage these keys for now
-              if ([
-                    'ratings',
-                    'id',
-                    'response',
-                    'dvd',
-                    'website',
-                    'key',
-                    'imdbrating',
-                    'imdbvotes',
-                    'metascore'
-                    ].includes(key))
-                  {
-                    return;
-                  }
-
-                  else if (key === "timestamp" || key === 'updatetimestamp')
-                  {
-                    key = key === "timestamp" ? "Date Added" : "Date Updated";
-                    val = new Date(val).toLocaleDateString()
-                  }
-
-                  else if (key === 'poster')
-                  {
-                    // TODO
-                    // @ts-ignore
-                    val = (
-                    <a href={val}>
-                      <span>&rarr;</span>
-                      <span>link</span>
-                    </a>
-                    )
-                  }
-
-                  else if (key === 'notes')
-                  {
-                    if (!val) return;
-                  }
-
-                  else if (key === "tags") {
-                    val = Array.isArray(val) ?(
-                      <>
-                        {((val as unknown) as TagType[])
-                          .map((v: TagType) => v.value)
-                          .join()}
-                      </>
-                    ) : null
-                  }
+              // skip unwanted keys
+              if (
+                [
+                  "ratings",
+                  "id",
+                  "response",
+                  "dvd",
+                  "website",
+                  "key",
+                  "imdbrating",
+                  "imdbvotes",
+                  "metascore",
+                ].includes(key)
+              ) {
+                return;
+              }
+              // handle timestamp fields
+              else if (key === "timestamp" || key === "updatetimestamp") {
+                key = key === "timestamp" ? "Date Added" : "Date Updated";
+                val = new Date(val).toLocaleDateString();
+              }
+              // handle poster field
+              else if (key === "poster") {
+                val = (
+                  <a href={val}>
+                    <span>&rarr;</span>
+                    <span>link</span>
+                  </a>
+                );
+              }
+              // skip notes if empty
+              else if (key === "notes") {
+                if (!val) return;
+              }
+              // handle tags
+              else if (key === "tags") {
+                val = Array.isArray(val) ? (
+                  <>{val.map((tag: any) => tag.name).join(", ")}</>
+                ) : null;
+              }
 
               return (
                 <li key={i} className="CardBackDataListItem">
                   <span className="DataKey">{key}</span>
-
                   {val}
                 </li>
               );

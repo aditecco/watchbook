@@ -1,1 +1,1 @@
-export type RatingType = 'PG' | 'TV-MA' | string;
+export type RatingType = "PG" | "TV-MA" | string;

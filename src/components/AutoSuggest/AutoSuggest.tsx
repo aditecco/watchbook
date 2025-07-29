@@ -2,59 +2,70 @@
 AutoSuggest
 --------------------------------- */
 
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { CSSProperties, ReactElement, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import MaterialIcon from "../Misc/MaterialIcon";
-import { OMDBitem, OMDBresponse } from "../../types";
+import "react-loading-skeleton/dist/skeleton.css";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
+
+// import { OMDBresponse } from "../../types";
 
 interface OwnProps {
-  content: OMDBresponse;
+  content: unknown;
   limit: number;
-  onItemClick: (arg: string) => void;
+  contentMapper: (item: any, i: number) => ReactElement;
+  style?: CSSProperties;
+  fetching?: boolean;
 }
 
 export default function AutoSuggest({
   content,
   limit,
-  onItemClick,
+  contentMapper,
+  style,
+  fetching = false,
 }: OwnProps): ReactElement {
   const [itemsToShow, setItemsToShow] = useState(limit);
-  const _content = content?.["Search"] ?? content;
+  const _content = (content as any)?.["Search"] ?? content; // TODO
   const l = _content?.length ?? [_content].length;
 
-  const contentMapper = (searchItem: OMDBitem, i) => (
-    <li className="AutoSuggestItem wrapper" key={i}>
-      <div
-        className="AutoSuggestItemLinkTarget"
-        onClick={() => onItemClick(searchItem.imdbID)}
-      >
-        <h4 className="AutoSuggestItemTitle">{searchItem.Title}</h4>
-
-        <p className="AutoSuggestItemDesc">
-          <span className="ItemType">{searchItem.Type}</span>
-          {", "}
-          <span className="ItemYear">{searchItem.Year}</span>
-        </p>
-      </div>
-    </li>
-  );
-
   useEffect(() => {
-    // TODO w/ ref
-    const app: HTMLDivElement | null = document.querySelector(".App");
-    app.style.overflow = "hidden";
+    // Prevent body scroll when AutoSuggest is visible
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
-    return () => (app.style.overflow = "visible");
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
   }, []);
 
-  return !_content ? (
-    <div className="AutoSuggest">
+  return fetching ? (
+    <div className="AutoSuggest" style={style ?? {}}>
       <ul className="AutoSuggestContent">
-        {Array(5).fill(loadingPlaceholder)}
+        {Array(5)
+          .fill(null)
+          .map((_, index) => (
+            <li key={`skeleton-${index}`} className="AutoSuggestItem wrapper">
+              <div className="AutoSuggestItemLinkTarget">
+                <h4 className="AutoSuggestItemTitle">
+                  <Skeleton height={20} />
+                </h4>
+
+                <p className="AutoSuggestItemDesc">
+                  <span className="ItemType">
+                    <Skeleton width={60} height={16} />
+                  </span>
+                  {", "}
+                  <span className="ItemYear">
+                    <Skeleton width={40} height={16} />
+                  </span>
+                </p>
+              </div>
+            </li>
+          ))}
       </ul>
     </div>
   ) : (
-    <div className="AutoSuggest">
+    <div className="AutoSuggest" style={style ?? {}}>
       <ul className="AutoSuggestContent">
         {Array.isArray(_content)
           ? _content.slice(0, itemsToShow).map(contentMapper)
@@ -73,23 +84,3 @@ export default function AutoSuggest({
     </div>
   );
 }
-
-const loadingPlaceholder = (
-  <li className="AutoSuggestItem wrapper">
-    <div className="AutoSuggestItemLinkTarget">
-      <h4 className="AutoSuggestItemTitle">
-        <Skeleton />
-      </h4>
-
-      <p className="AutoSuggestItemDesc">
-        <span className="ItemType">
-          <Skeleton />
-        </span>
-
-        <span className="ItemYear">
-          <Skeleton />
-        </span>
-      </p>
-    </div>
-  </li>
-);

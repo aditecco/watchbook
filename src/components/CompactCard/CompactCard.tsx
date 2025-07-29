@@ -1,23 +1,24 @@
-/* ---------------------------------
-CompactCardAnchor
---------------------------------- */
+"use client";
 
 import React, { ReactElement } from "react";
-import { clipText } from "../../utils";
-import { useDispatch } from "react-redux";
-import * as actions from "../../redux/actions";
+import { useAppStore } from "@/store";
 import Card from "../Card/Card";
 import RatingControls from "../RatingControls/RatingControls";
-import { TagType } from "../../types";
+// Simple utility function to avoid SSR issues
+const clipText = (t: string, maxLength: number = 15) => {
+  if (t.length < maxLength) return t;
+  return t.substring(0, maxLength) + "…";
+};
 
 // TODO
 interface OwnProps {
-  additionalData;
-  dataSet;
-  image;
-  title;
-  type;
-  year;
+  additionalData: any;
+  dataSet: string;
+  image: string;
+  title: string;
+  type: string;
+  year: string;
+  contentId?: string;
 }
 
 export default React.memo(function CompactCard({
@@ -27,36 +28,32 @@ export default React.memo(function CompactCard({
   title,
   type,
   year,
+  contentId,
 }: OwnProps): ReactElement {
-  const dispatch = useDispatch();
+  const { showModal } = useAppStore();
 
   function convertToFullSizeCard() {
-    dispatch(
-      actions.toggleModal({
-        forceOpen: true,
-        content: (
-          <Card
-            added
-            dataSet={dataSet}
-            image={image}
-            title={title}
-            type={type}
-            year={year}
-            additionalData={additionalData}
-          />
-        ),
-      })
+    showModal(
+      <Card
+        added
+        dataSet={dataSet}
+        image={image}
+        title={title}
+        type={type}
+        year={year}
+        contentId={contentId}
+        additionalData={additionalData}
+      />,
     );
   }
 
   return (
     <div className="CompactCardContainer">
       <article className="CompactCard" onClick={convertToFullSizeCard}>
-        {additionalData.rating ? (
-          <RatingControls
-            // @ts-ignore
-            initialRating={additionalData.rating}
-          />
+        {additionalData.rating &&
+        additionalData.rating > 0 &&
+        additionalData.status !== "to_watch" ? (
+          <RatingControls initialRating={additionalData.rating} />
         ) : null}
 
         <section className="CompactCardMedia" style={{ padding: 0 }}>
@@ -68,19 +65,29 @@ export default React.memo(function CompactCard({
             <h4 className="CompactCardHeading">{title}</h4>
           </header>
           <span className="CompactCardContent">
-            {year + ", " + clipText(additionalData.director, 22)}
+            {year +
+              ", " +
+              (additionalData.director
+                ? clipText(additionalData.director, 22)
+                : "Director Unknown")}
           </span>
         </section>
 
-        {additionalData?.tags && (
-          <section className="CompactCardTags">
-            {additionalData.tags.map?.((tag: TagType, i) => (
-              <span key={i} className={"CompactCardTag"}>
-                {tag.label}
-              </span>
-            ))}
-          </section>
-        )}
+        {additionalData?.tags &&
+          Array.isArray(additionalData.tags) &&
+          additionalData.tags.length > 0 && (
+            <section className="CompactCardTags">
+              {additionalData.tags.map((tag: any, i: number) => (
+                <span
+                  key={i}
+                  className={"CompactCardTag"}
+                  style={{ backgroundColor: tag.color || "#3B82F6" }}
+                >
+                  {tag.name}
+                </span>
+              ))}
+            </section>
+          )}
       </article>
     </div>
   );

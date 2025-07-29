@@ -23,6 +23,33 @@ NotificationMessage
     top: 20px;
   }
 
+  &.success {
+    background-color: #10b981;
+    color: white;
+
+    .NotificationMessageVisual i.material-icons {
+      color: white;
+    }
+  }
+
+  &.error {
+    background-color: #ef4444;
+    color: white;
+
+    .NotificationMessageVisual i.material-icons {
+      color: white;
+    }
+  }
+
+  &.info {
+    background-color: #3b82f6;
+    color: white;
+
+    .NotificationMessageVisual i.material-icons {
+      color: white;
+    }
+  }
+
   &.light {
     background-color: whitesmoke;
     color: $fontAlt;

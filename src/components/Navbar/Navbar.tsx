@@ -1,23 +1,31 @@
-/* ---------------------------------
-Navbar
---------------------------------- */
+"use client";
 
-import React, { ReactNode, ReactElement } from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { ReactElement, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface OwnProps {
   selected: number | undefined;
 }
 
 export default function Navbar({ selected }: OwnProps): ReactElement {
+  const pathname = usePathname();
   const [selectedNavItem, setSelectedNavItem] = useState(selected);
 
-  function handleNavItemClick(e) {
+  function handleNavItemClick(e: React.MouseEvent<HTMLAnchorElement>) {
     const { currentTarget: _this } = e;
-
     setSelectedNavItem(Number(_this.id));
   }
+
+  // Determine selected based on pathname
+  const getSelectedFromPath = () => {
+    if (pathname === "/home" || pathname === "/") return 1;
+    if (pathname === "/watched") return 2;
+    if (pathname === "/to-watch") return 3;
+    return selected;
+  };
+
+  const currentSelected = getSelectedFromPath();
 
   return (
     <nav className="Navbar">
@@ -25,10 +33,10 @@ export default function Navbar({ selected }: OwnProps): ReactElement {
         <ul className="linkList">
           <li className="linkContainer">
             <Link
-              to="/home"
+              href="/home"
               onClick={handleNavItemClick}
               className={
-                selected === 1 || selectedNavItem === 1 ? "selected" : null
+                currentSelected === 1 || selectedNavItem === 1 ? "selected" : ""
               }
               id="1"
             >
@@ -39,10 +47,10 @@ export default function Navbar({ selected }: OwnProps): ReactElement {
 
           <li className="linkContainer">
             <Link
-              to="/watched"
+              href="/watched"
               onClick={handleNavItemClick}
               className={
-                selected === 2 || selectedNavItem === 2 ? "selected" : null
+                currentSelected === 2 || selectedNavItem === 2 ? "selected" : ""
               }
               id="2"
             >
@@ -53,10 +61,10 @@ export default function Navbar({ selected }: OwnProps): ReactElement {
 
           <li className="linkContainer">
             <Link
-              to="/to-watch"
+              href="/to-watch"
               onClick={handleNavItemClick}
               className={
-                selected === 3 || selectedNavItem === 3 ? "selected" : null
+                currentSelected === 3 || selectedNavItem === 3 ? "selected" : ""
               }
               id="3"
             >

@@ -1,5 +1,5 @@
-import { DataType } from './data-type';
-import { ResponseType } from './response-type';
+import { DataType } from "./data-type";
+import { ResponseType } from "./response-type";
 
 export interface APISearchParams {
   s: string;
