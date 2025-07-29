@@ -28,7 +28,7 @@ export default function FilterProvider({
     config.sortKeys.reduce((acc, sortKey) => {
       acc[sortKey] = processor[sortKey].bind(processor)(
         extractOptions(initialData, sortKey),
-        sortKey
+        sortKey,
       );
 
       return acc;
@@ -40,7 +40,7 @@ export default function FilterProvider({
    */
 
   function extractOptions(data, key) {
-    return data.map(item => item[key] || "N/A");
+    return data.map((item) => item[key] || "N/A");
   }
 
   /**
@@ -49,8 +49,8 @@ export default function FilterProvider({
 
   function handleSearch(data, query) {
     // TODO throttle/debounce
-    return data.filter(item =>
-      item?.title?.toLowerCase?.()?.includes?.(query.toLowerCase())
+    return data.filter((item) =>
+      item?.title?.toLowerCase?.()?.includes?.(query.toLowerCase()),
     );
   }
 
@@ -62,7 +62,7 @@ export default function FilterProvider({
     data,
     filterKey,
     query,
-    filterCallback = query => item => item[filterKey] === query
+    filterCallback = (query) => (item) => item[filterKey] === query,
   ) {
     return data.filter(filterCallback(query));
   }
@@ -135,7 +135,7 @@ export default function FilterProvider({
           filteredData,
           filterKey,
           query,
-          filterKey === "runtime" ? runtimeCustomFilter : undefined
+          filterKey === "runtime" ? runtimeCustomFilter : undefined,
         );
       }
     });
@@ -148,8 +148,12 @@ export default function FilterProvider({
   }, [initialData]);
 
   useEffect(() => {
-    const hasActiveFilters = Object.values(activeFilters).some(value => value && value !== "");
-    console.count(`Processing search: "${searchQuery}", filters: ${hasActiveFilters ? JSON.stringify(activeFilters) : 'none'}…`);
+    const hasActiveFilters = Object.values(activeFilters).some(
+      (value) => value && value !== "",
+    );
+    console.count(
+      `Processing search: "${searchQuery}", filters: ${hasActiveFilters ? JSON.stringify(activeFilters) : "none"}…`,
+    );
 
     setOutput(searchOrFilter(initialData));
   }, [searchQuery, activeFilters]);
@@ -163,23 +167,23 @@ export default function FilterProvider({
   }, [remoteReset]);
 
   const handleFilterChange = (filterKey, value) => {
-    setActiveFilters(prev => {
+    setActiveFilters((prev) => {
       const newFilters = { ...prev };
-      
+
       if (value && value !== "") {
         newFilters[filterKey] = value;
       } else {
         delete newFilters[filterKey];
       }
-      
+
       // Call queryCallback with all active filters and search query
       if (queryCallback) {
         queryCallback({
           activeFilters: newFilters,
-          searchQuery: searchQuery
+          searchQuery: searchQuery,
         });
       }
-      
+
       return newFilters;
     });
   };
@@ -188,12 +192,12 @@ export default function FilterProvider({
     setSearchQuery("");
     setActiveFilters({});
     setOutput(initialData);
-    
+
     // Notify parent that all filters are cleared
     if (queryCallback) {
       queryCallback({
         activeFilters: {},
-        searchQuery: ""
+        searchQuery: "",
       });
     }
   };
@@ -219,14 +223,14 @@ export default function FilterProvider({
             }
           : // simple type
             {
-              filterHandler: e => {
+              filterHandler: (e) => {
                 const newQuery = e.target.value;
                 setSearchQuery(newQuery);
                 // Also notify parent of search query changes
                 if (queryCallback) {
                   queryCallback({
                     activeFilters: activeFilters,
-                    searchQuery: newQuery
+                    searchQuery: newQuery,
                   });
                 }
               },

@@ -7,13 +7,17 @@ import { InputValidator } from "../../lib/validation";
 
 // Simple capitalize function to avoid SSR issues
 const capitalize = (word: string) => {
-  if (!word) return '';
+  if (!word) return "";
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
 interface AuthFormProps {
   action: string;
-  actionHandler: (params: { action: string; email: string; password: string }) => void;
+  actionHandler: (params: {
+    action: string;
+    email: string;
+    password: string;
+  }) => void;
 }
 
 export const AuthForm = ({ action, actionHandler }: AuthFormProps) => {
@@ -25,7 +29,7 @@ export const AuthForm = ({ action, actionHandler }: AuthFormProps) => {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setEmail(value);
-    
+
     // Clear error when user starts typing
     if (emailError) setEmailError("");
   };
@@ -33,7 +37,7 @@ export const AuthForm = ({ action, actionHandler }: AuthFormProps) => {
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setPassword(value);
-    
+
     // Clear error when user starts typing
     if (passwordError) setPasswordError("");
   };
@@ -58,11 +62,11 @@ export const AuthForm = ({ action, actionHandler }: AuthFormProps) => {
     setPasswordError("");
 
     // Submit with sanitized values
-    actionHandler({ 
-      action, 
-      email: emailValidation.sanitized, 
-      // password: passwordValidation.sanitized 
-      password
+    actionHandler({
+      action,
+      email: emailValidation.sanitized,
+      // password: passwordValidation.sanitized
+      password,
     });
   };
 
@@ -73,7 +77,7 @@ export const AuthForm = ({ action, actionHandler }: AuthFormProps) => {
         id="emailField"
         name="emailField"
         type="email"
-        className={`BaseInput ${emailError ? 'error' : ''}`}
+        className={`BaseInput ${emailError ? "error" : ""}`}
         placeholder={`${action}.email@example.com`}
         value={email}
         onChange={handleEmailChange}
@@ -86,7 +90,7 @@ export const AuthForm = ({ action, actionHandler }: AuthFormProps) => {
         id="passwordField"
         name="passwordField"
         type="password"
-        className={`BaseInput ${passwordError ? 'error' : ''}`}
+        className={`BaseInput ${passwordError ? "error" : ""}`}
         placeholder="Enter your password"
         value={password}
         onChange={handlePasswordChange}
@@ -94,11 +98,7 @@ export const AuthForm = ({ action, actionHandler }: AuthFormProps) => {
       />
       {passwordError && <span className="error-message">{passwordError}</span>}
 
-      <button
-        type="button"
-        className="BaseButton"
-        onClick={handleSubmit}
-      >
+      <button type="button" className="BaseButton" onClick={handleSubmit}>
         {capitalize(action)}
       </button>
     </form>

@@ -26,4 +26,4 @@ export function OMDBcontentMapper(onItemClick: (arg: string) => void) {
       />
     );
   };
-} 
+}
