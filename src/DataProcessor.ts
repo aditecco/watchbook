@@ -29,13 +29,13 @@ export default class DataProcessor {
   }
 
   /**
-  * Handles the 'director' type
-  * 
-  * TODO
-    fine-tune to also handle
-    multiple directors &
-    multiple first names
-  */
+   * Handles the 'director' type
+   *
+   * TODO
+   fine-tune to also handle
+   multiple directors &
+   multiple first names
+   */
 
   director(data, sortKey) {
     function invertOrder(data) {

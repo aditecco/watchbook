@@ -1,4 +1,4 @@
 export interface APIError {
-  Response: 'True' | 'False';
+  Response: "True" | "False";
   Error: string;
 }

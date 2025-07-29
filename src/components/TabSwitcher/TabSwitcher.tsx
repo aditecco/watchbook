@@ -2,7 +2,7 @@
 Tabs
 --------------------------------- */
 
-import React, { useState, ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 
 // TODO
 export default function TabSwitcher({ tabs }: { tabs: any[] }): ReactElement {

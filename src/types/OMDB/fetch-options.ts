@@ -1,5 +1,5 @@
-import { PlotType } from './plot-type';
-import { DataType } from './data-type';
+import { PlotType } from "./plot-type";
+import { DataType } from "./data-type";
 
 export interface FetchOptions {
   type?: DataType;

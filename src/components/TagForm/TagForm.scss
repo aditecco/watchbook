@@ -33,7 +33,7 @@ TagForm
         align-items: center;
         gap: 0.5rem;
         padding: 0.75rem 1.5rem;
-        
+
         &:disabled {
           opacity: 0.6;
           cursor: not-allowed;
@@ -128,7 +128,7 @@ TagForm
 .AutoSuggest {
   .AutoSuggestItem {
     cursor: pointer;
-    
+
     &:hover {
       background-color: rgba($accent, 0.1);
     }
@@ -137,10 +137,10 @@ TagForm
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      
+
       .material-icons {
         font-size: 1rem;
       }
     }
   }
-} 
+}

@@ -1,1 +1,1 @@
-export type PlotType = 'short' | 'long';
+export type PlotType = "short" | "long";

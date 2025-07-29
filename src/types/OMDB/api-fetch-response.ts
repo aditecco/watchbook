@@ -1,6 +1,6 @@
-import { DataType } from './data-type';
-import { GenreType } from './genre-type';
-import { RatingType } from './rating-type';
+import { DataType } from "./data-type";
+import { GenreType } from "./genre-type";
+import { RatingType } from "./rating-type";
 
 interface Rating {
   Source: string;

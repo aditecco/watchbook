@@ -2,7 +2,7 @@
 Layout
 --------------------------------- */
 
-import React, { ReactFragment, ReactElement } from "react";
+import React, { ReactElement, ReactFragment } from "react";
 import Navbar from "../Navbar/Navbar";
 import AppHeader from "../AppHeader/AppHeader";
 import AppFooter from "../AppFooter/AppFooter";
