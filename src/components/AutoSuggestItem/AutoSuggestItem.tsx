@@ -6,7 +6,7 @@ import * as React from "react";
 import { PropsWithChildren, ReactElement } from "react";
 
 type OwnProps = {
-  clickHander;
+  clickHander: () => void;
   label: string;
   desc_1: string;
   desc_2: string;

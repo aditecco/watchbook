@@ -1,0 +1,146 @@
+/* ---------------------------------
+TagForm
+--------------------------------- */
+
+.TagForm {
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+
+  .TagFormTitle {
+    font-family: $workSans;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: $font;
+    text-align: center;
+  }
+
+  .TagFormSearch {
+    margin-bottom: 2rem;
+
+    .SearchField {
+      margin-bottom: 1rem;
+    }
+
+    .TagFormActions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+
+      .BaseButton {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .TagFormCurrentTags {
+    h4 {
+      font-family: $workSans;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: $fontAlt;
+    }
+
+    .TagList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+
+      .TagItem {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border: 2px solid;
+        border-radius: 20px;
+        background-color: rgba(white, 0.9);
+        font-size: 0.9rem;
+
+        .TagName {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          font-weight: 500;
+
+          .material-icons {
+            font-size: 1rem;
+          }
+        }
+
+        .TagRemoveButton {
+          @extend %resetButtons;
+          display: flex;
+          align-items: center;
+          padding: 0.125rem;
+          border-radius: 50%;
+          background-color: rgba(black, 0.1);
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: rgba(black, 0.2);
+          }
+
+          .material-icons {
+            font-size: 1rem;
+            color: rgba(black, 0.6);
+          }
+        }
+      }
+    }
+  }
+
+  .TagFormError {
+    text-align: center;
+    padding: 2rem;
+    color: $fontAlt;
+
+    .material-icons {
+      font-size: 3rem;
+      color: #ef4444;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+
+    .BaseButton {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+}
+
+// AutoSuggest styling for tag suggestions
+.AutoSuggest {
+  .AutoSuggestItem {
+    cursor: pointer;
+    
+    &:hover {
+      background-color: rgba($accent, 0.1);
+    }
+
+    .AutoSuggestItemTitle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .material-icons {
+        font-size: 1rem;
+      }
+    }
+  }
+} 

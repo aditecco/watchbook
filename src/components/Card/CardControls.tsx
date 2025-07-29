@@ -2,20 +2,14 @@
 CardControls
 --------------------------------- */
 
-import React, {
-  ReactElement,
-  ReactNodeArray,
-  ReactFragment,
-  ReactNode,
-} from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
+import React from "react";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
-// TODO
-interface OwnProps {
-  handlers;
-  icons;
-  labels;
-  type;
+interface CardControlsProps {
+  handlers: [() => void | Promise<void>, () => void | Promise<void>];
+  icons: [string, string];
+  labels: [string, string];
+  type: string;
 }
 
 export default function CardControls({
@@ -23,8 +17,7 @@ export default function CardControls({
   icons,
   labels,
   type,
-}: // TODO any
-OwnProps): any {
+}: CardControlsProps): React.ReactElement {
   const [primaryActionLabel, secondaryActionLabel] = labels;
   const [primaryActionIcon, secondaryActionIcon] = icons;
   const [primaryActionHandler, secondaryActionHandler] = handlers;

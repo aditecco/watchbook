@@ -3,14 +3,14 @@ SearchField
 --------------------------------- */
 
 import React, { PropsWithChildren, ReactElement, useState } from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
+import { InputValidator } from "@/lib/validation";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
-// TODO
 interface OwnProps {
   error: boolean;
-  onFocus;
-  onReset;
-  onSearch;
+  onFocus?: () => void;
+  onReset?: () => void;
+  onSearch?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   searchQuery: string;
 }
@@ -28,12 +28,21 @@ export default function SearchField({
 
   function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
     setIsFocused(true);
-
     onFocus && onFocus();
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    onSearch && onSearch(e);
+    const value = e.currentTarget.value;
+
+    // Validate search term
+    const searchValidation = InputValidator.validateSearchTerm(value);
+
+    // Only allow valid search terms or empty strings
+    if (searchValidation.isValid || value === "") {
+      onSearch && onSearch(e);
+    }
+    // If invalid, you could show a warning or truncate the input
+    // For now, we'll just prevent the invalid input
   }
 
   return (
@@ -46,12 +55,13 @@ export default function SearchField({
           onFocus={handleFocus}
           onBlur={() => setIsFocused(false)}
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
-            e.key === "Escape" && onReset()
+            e.key === "Escape" && onReset && onReset()
           }
           placeholder={
             !isFocused ? placeholder || "Search for a movie or TV show…" : ""
           }
           value={searchQuery}
+          maxLength={100} // Prevent extremely long search terms
         />
 
         {searchQuery.length ? (

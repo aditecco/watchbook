@@ -1,30 +1,33 @@
-/* ---------------------------------
-Modal
---------------------------------- */
+"use client";
 
-import React from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleModal } from "../../redux/actions";
-import { RootState } from "../../store";
+import React, { useEffect } from "react";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
+import { useAppStore } from "@/store";
 
 export default function Modal() {
-  const { open, content } = useSelector((state: RootState) => state.modal);
-  const dispatch = useDispatch();
+  const { modal, hideModal } = useAppStore();
 
-  return open ? (
+  useEffect(() => {
+    if (modal.visible) {
+      // Prevent body scroll when Modal is visible
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [modal.visible]);
+
+  return modal.visible ? (
     <section className="Modal">
       <div className="ModalControls">
-        <button
-          type="button"
-          className="ModalCloseButton"
-          onClick={() => dispatch(toggleModal())}
-        >
+        <button type="button" className="ModalCloseButton" onClick={hideModal}>
           <MaterialIcon icon="close" />
         </button>
       </div>
 
-      <div className="ModalContainer">{content}</div>
+      <div className="ModalContainer">{modal.content}</div>
     </section>
   ) : null;
 }

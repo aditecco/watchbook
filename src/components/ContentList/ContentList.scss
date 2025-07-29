@@ -31,4 +31,38 @@ ContentList
       place-content: center;
     }
   }
+
+  .blankSlate {
+    padding: 4rem 2rem;
+    text-align: center;
+
+    .blankSlateContent {
+      max-width: 400px;
+      margin: 0 auto;
+
+      .blankSlateIcon {
+        margin-bottom: 1.5rem;
+
+        i.material-icons {
+          font-size: 4rem;
+          color: #ccc;
+        }
+      }
+
+      .blankSlateTitle {
+        font-family: $workSans;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $fontAlt;
+        margin-bottom: 1rem;
+      }
+
+      .blankSlateDescription {
+        font-size: 1rem;
+        color: #999;
+        line-height: 1.5;
+        margin: 0;
+      }
+    }
+  }
 }

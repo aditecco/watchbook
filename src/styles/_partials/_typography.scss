@@ -8,22 +8,16 @@ typography.scss
 // - reduce to 2 (max 3) font families
 // - create shorthand font declaration
 
-
-@import url('https://fonts.googleapis.com/css?family=Archivo:400,700|Fira+Sans:400|Work+Sans:500|Montserrat:400');
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+// Material Icons loaded via HTML head link
 
 // typography vars
 
 // families
-$archivo: 'Archivo',
-sans-serif;
-$firaSans: 'Fira Sans',
-sans-serif; // no title
-$workSans: 'Work Sans',
-sans-serif;
-$montserrat: 'Montserrat',
-sans-serif;
-$material: 'Material Icons';
+$archivo: "Archivo", sans-serif;
+$firaSans: "Fira Sans", sans-serif; // no title
+$workSans: "Work Sans", sans-serif;
+$montserrat: "Montserrat", sans-serif;
+$material: "Material Icons";
 
 // styles
 $fontPrimary: null;
@@ -34,7 +28,6 @@ $body: 16px;
 $small: $body * 0.9;
 $xSmall: $small - 2;
 $title: $body * 1.2;
-
 
 // templates
 @mixin smallHeading {

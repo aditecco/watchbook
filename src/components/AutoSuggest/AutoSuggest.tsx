@@ -4,15 +4,17 @@ AutoSuggest
 
 import React, { CSSProperties, ReactElement, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import MaterialIcon from "../Misc/MaterialIcon";
+import "react-loading-skeleton/dist/skeleton.css";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
 // import { OMDBresponse } from "../../types";
 
 interface OwnProps {
   content: unknown;
   limit: number;
-  contentMapper: (item, i: number) => JSX.Element;
+  contentMapper: (item: any, i: number) => ReactElement;
   style?: CSSProperties;
+  fetching?: boolean;
 }
 
 export default function AutoSuggest({
@@ -20,23 +22,46 @@ export default function AutoSuggest({
   limit,
   contentMapper,
   style,
+  fetching = false,
 }: OwnProps): ReactElement {
   const [itemsToShow, setItemsToShow] = useState(limit);
-  const _content = content?.["Search"] ?? content; // TODO
+  const _content = (content as any)?.["Search"] ?? content; // TODO
   const l = _content?.length ?? [_content].length;
 
   useEffect(() => {
-    // TODO w/ ref
-    const app: HTMLDivElement | null = document.querySelector(".App");
-    app.style.overflow = "hidden";
+    // Prevent body scroll when AutoSuggest is visible
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
-    return () => (app.style.overflow = "visible");
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
   }, []);
 
-  return !_content ? (
+  return fetching ? (
     <div className="AutoSuggest" style={style ?? {}}>
       <ul className="AutoSuggestContent">
-        {Array(5).fill(loadingPlaceholder)}
+        {Array(5)
+          .fill(null)
+          .map((_, index) => (
+            <li key={`skeleton-${index}`} className="AutoSuggestItem wrapper">
+              <div className="AutoSuggestItemLinkTarget">
+                <h4 className="AutoSuggestItemTitle">
+                  <Skeleton height={20} />
+                </h4>
+
+                <p className="AutoSuggestItemDesc">
+                  <span className="ItemType">
+                    <Skeleton width={60} height={16} />
+                  </span>
+                  {", "}
+                  <span className="ItemYear">
+                    <Skeleton width={40} height={16} />
+                  </span>
+                </p>
+              </div>
+            </li>
+          ))}
       </ul>
     </div>
   ) : (
@@ -59,23 +84,3 @@ export default function AutoSuggest({
     </div>
   );
 }
-
-const loadingPlaceholder = (
-  <li className="AutoSuggestItem wrapper">
-    <div className="AutoSuggestItemLinkTarget">
-      <h4 className="AutoSuggestItemTitle">
-        <Skeleton />
-      </h4>
-
-      <p className="AutoSuggestItemDesc">
-        <span className="ItemType">
-          <Skeleton />
-        </span>
-
-        <span className="ItemYear">
-          <Skeleton />
-        </span>
-      </p>
-    </div>
-  </li>
-);

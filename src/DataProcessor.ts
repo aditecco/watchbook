@@ -23,8 +23,8 @@ export default class DataProcessor {
 
   applyGenericProcessing(data, sortKey) {
     return this.finalizeData(
-      this.primeData(data).map(el => [el]),
-      sortKey
+      this.primeData(data).map((el) => [el]),
+      sortKey,
     );
   }
 
@@ -53,7 +53,7 @@ export default class DataProcessor {
       this.primeData(data)
         .map(invertOrder)
         .sort() // by sorting with inverse order, we achieve ordering by last name
-        .map(lastFirst => {
+        .map((lastFirst) => {
           const split = lastFirst.split(" ");
 
           switch (split.length) {
@@ -86,7 +86,7 @@ export default class DataProcessor {
           }
         }),
       //
-      sortKey
+      sortKey,
     );
   }
 
@@ -100,7 +100,7 @@ export default class DataProcessor {
 
   year(data, sortKey) {
     return this.applyGenericProcessing(data, sortKey).filter(
-      year => !year[0].includes("–")
+      (year) => !year[0].includes("–"),
     );
   }
 
@@ -153,8 +153,8 @@ export default class DataProcessor {
     }
 
     return this.finalizeData(
-      this.primeData(data, sortByNumberAsc).map(el => [el]),
-      sortKey
+      this.primeData(data, sortByNumberAsc).map((el) => [el]),
+      sortKey,
     );
   }
 }

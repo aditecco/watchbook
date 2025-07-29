@@ -3,7 +3,7 @@ QuickSearch
 --------------------------------- */
 
 import React from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 import { addClasses } from "../../utils";
 
 export default function QuickSearch({

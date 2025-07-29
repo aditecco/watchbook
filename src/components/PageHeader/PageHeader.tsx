@@ -3,7 +3,8 @@ PageHeader
 --------------------------------- */
 
 import React, { ReactElement } from "react";
-import MaterialIcon from "../Misc/MaterialIcon";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
+
 // import "./PageHeader.scss";
 
 interface OwnProps {

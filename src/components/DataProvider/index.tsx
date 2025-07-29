@@ -1,141 +1,101 @@
-/* ---------------------------------
-DataProvider
---------------------------------- */
+"use client";
 
 import React, { useEffect, useState } from "react";
-import { db } from "../../index";
-import { log } from "../../utils";
-import { setInitialData } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppStore } from "@/store";
+import { useContentFull } from "@/lib/api";
 import Spinner from "../Spinner/Spinner";
-import { RootState } from "../../store";
-import { TagType } from "../../types";
+import { PRIMARY_DATASET_KEY, SECONDARY_DATASET_KEY } from "@/constants";
 
-export default function DataProvider({ render, dataSet }) {
-  /**
-   * gets data from API
-   * prepares data for use in the app
-   * exposes api for filtering & sorting data
-   *
-   * it should:
-   *  √ fetch remote data
-   *  √ set remote data to global state
-   *  √ feed data to consumer components
-   *  √ use data from a cache when data has already been downloaded
-   *  save new data
-   *  edit data
-   *  delete data
-   *  sync data to remote DB
-   *  filter, sort & manipulate data
-   */
+interface DataProviderProps {
+  render: (data: any[]) => React.ReactNode;
+  dataSet: string;
+}
 
-  const dispatch = useDispatch();
-  const {
-    user: { uid },
-  } = useSelector((state: RootState) => state.authentication);
-  const userData = useSelector((state: RootState) => state.userData);
+export default function DataProvider({ render, dataSet }: DataProviderProps) {
+  const { auth } = useAppStore();
   const [loading, setLoading] = useState(true);
-  const data = userData[uid][dataSet];
-  const initialSettings = { apiKey: 0 };
+  const [data, setData] = useState<any[]>([]);
 
-  /**
-   * Checks if any initial data exists in the remote DB
-   * and, if so, feeds it to the app's state
-   */
-
-  async function fetchDBdata() {
-    log("DataProvider: running fetchDBdata…");
-
-    try {
-      const contentRef = db.ref("content");
-      const watchedRef = db.ref(`users/${uid}/watched`);
-      const toWatchRef = db.ref(`users/${uid}/toWatch`);
-      const notesRef = db.ref(`notes/${uid}`);
-      const tagsRef = db.ref(`tags/${uid}`);
-      const ratingsRef = db.ref(`ratings/${uid}`);
-      const content = await contentRef.once("value");
-      const watched = await watchedRef.once("value");
-      const toWatch = await toWatchRef.once("value");
-      const notes = await notesRef.once("value");
-      const tags = await tagsRef.once("value");
-      const ratings = await ratingsRef.once("value");
-      const contentData = await content.val();
-      const watchedData = await watched.val();
-      const toWatchData = await toWatch.val();
-      const noteData = await notes.val();
-      const tagData = await tags.val();
-      const ratingData = await ratings.val();
-
-      // prettier-ignore
-      // NEW USER INITIALIZER
-      if (
-        [watchedData, toWatchData].every(
-          value => value === null || value === undefined
-        )
-      ) {
-        // write initialData to DB
-        // firebase won't accept empty values, so we use 0
-        db.ref().update(
-          {
-            [`/users/${uid}`]: { watched: 0, toWatch: 0 },
-            [`/settings/${uid}`]: initialSettings,
-            [`/notes/${uid}`]: 0,
-            [`/tags/${uid}`]: 0,
-            [`/ratings/${uid}`]: 0
-          },
-
-          // completion cb
-          err => {
-
-            // TODO also dispatch to notif
-            if (err) { console.error(err); }
-            
-            else
-            {
-              log("Successfully initialized DB. Now syncing data to app state...");
-
-              fetchDBdata();
-            }
-          }
-        );
-      }
-      
-      else
-      {
-        const mappedData = {
-          watched: Object.keys(watchedData).map(id => ({
-            key: id,
-            ...contentData[id],
-            notes: noteData?.[id]?.["content"],
-            tags: Object.values(
-              (tagData as Record<string, TagType>) ?? {}
-            )?.filter?.((t: TagType) => t.assignedTo[id]), // TODO tags are multiple
-            rating: ratingData?.[id]?.["rating"],
-          })),
-
-          // 0 => []
-          toWatch: Object.keys(toWatchData).map(id => ({
-            key: id,
-            ...contentData[id],
-            notes: noteData?.[id]?.["content"],
-            tags: Object.values(
-              (tagData as Record<string, TagType>) ?? {}
-            )?.filter?.((t: TagType) => t.assignedTo[id]),
-          })),
-        };
-
-        dispatch(setInitialData({ uid, mappedData }))
-        setLoading(false);
-      }
-    } catch (err) {
-      // TODO also dispatch to notif
-      console.error("@fetchDBData", err);
-    }
-  }
+  // Fetch content with full relationships using the new schema
+  const { data: contentData, isLoading: contentLoading } = useContentFull(
+    auth.user?.id || "",
+  );
 
   useEffect(() => {
-    data.length ? setLoading(false) : fetchDBdata();
-  }, []);
+    if (!auth.user?.id) {
+      setLoading(false);
+      return;
+    }
+
+    if (contentLoading) {
+      setLoading(true);
+      return;
+    }
+
+    if (!contentData) {
+      setData([]);
+      setLoading(false);
+      return;
+    }
+
+    // Transform data to match the Card component's expected format
+    const transformedData = contentData.map((item: any) => {
+      return {
+        // Card component expects these specific fields
+        id: item.id,
+        key: item.id, // Legacy compatibility
+        image:
+          item.poster || "https://via.placeholder.com/300x400?text=No+Image",
+        title: item.title,
+        type: item.type,
+        year: item.year?.toString() || "N/A",
+
+        // Additional data that goes into additionalData prop
+        // Make sure these match what CardBack expects
+        contentId: item.id, // CRITICAL: Add contentId for operations
+        actors: item.actors || null,
+        awards: item.awards || null,
+        boxoffice: item.box_office || null,
+        country: item.country || null,
+        director: item.director || null,
+        dvd: item.dvd || null,
+        genre: item.genre || null,
+        imdbid: item.imdb_id || "",
+        imdbrating: item.imdb_rating || null,
+        imdbvotes: item.imdb_votes || null,
+        language: item.language || null,
+        metascore: item.metascore || null,
+        plot: item.plot || null,
+        poster: item.poster || "",
+        production: item.production || null,
+        rated: item.rated || null,
+        ratings: item.ratings || [],
+        released: item.released || null,
+        response: item.response || "",
+        runtime: item.runtime || null,
+        timestamp: new Date(item.created_at).getTime(),
+        website: item.website || "",
+        writer: item.writer || null,
+        rating: item.user_rating || 0,
+        notes: item.note_content || "",
+        tags: item.tags || [],
+        status: item.status,
+      };
+    });
+
+    // Filter by dataset (watched vs to-watch)
+    const filteredData = transformedData.filter((item: any) => {
+      if (dataSet === PRIMARY_DATASET_KEY) {
+        return item.status === "watched";
+      } else if (dataSet === SECONDARY_DATASET_KEY) {
+        return item.status === "to_watch";
+      }
+      return true; // Return all if no specific dataset
+    });
+
+    setData(filteredData);
+    setLoading(false);
+  }, [auth.user?.id, contentData, contentLoading, dataSet]);
 
   return loading ? <Spinner shadow="none" /> : render(data);
 }

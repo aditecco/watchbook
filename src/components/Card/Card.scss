@@ -26,15 +26,19 @@
   position: relative;
 
   &.front {
+    .CardFlipControls {
+      pointer-events: auto; // Ensure flip controls are clickable on front
+    }
   }
 
   &.back {
     height: $cardHeight;
 
-    // overrides!
+    // overrides for back card flip controls
     .CardFlipControls {
       display: block;
       height: auto;
+      pointer-events: auto; // Re-enable pointer events for the button
       background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.3) -250%,
@@ -180,12 +184,14 @@
     height: 100%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent 30%);
     border-radius: 6px;
+    pointer-events: none; // Allow clicks to pass through to content
   }
 
   .CardFlipAreaButton {
     height: 100%;
     flex-basis: 30%;
     cursor: pointer;
+    pointer-events: auto; // Ensure button is clickable
 
     .material-icons {
       float: right;
@@ -293,7 +299,7 @@
     }
   }
 
-  i.material-icons {
+    i.material-icons {
     font-size: $body * 1.1;
     vertical-align: sub;
   }

@@ -105,11 +105,11 @@
     .CompactCardTag {
       display: inline-block;
       font-size: 11px;
-      color: whitesmoke;
+      color: white;
       padding: 4px 12px;
-      background-color: indianred;
       border-radius: 16px;
-      text-transform: uppercase;
+      text-transform: capitalize;
+      font-weight: 500;
 
       + .CompactCardTag {
         margin-left: 4px;

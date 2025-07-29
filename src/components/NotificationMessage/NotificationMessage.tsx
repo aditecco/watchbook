@@ -1,39 +1,45 @@
-/* ---------------------------------
-NotificationMessage
---------------------------------- */
+"use client";
 
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { hideNotif } from "../../redux/actions";
-import MaterialIcon from "../Misc/MaterialIcon";
-import { RootState } from "../../store";
+import { useAppStore } from "@/store";
+import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
 export default function NotificationMessage() {
-  const dispatch = useDispatch();
-  const { message, icon, isVisible, timeOut, theme } = useSelector(
-    (state: RootState) => state.notificationMessage
-  );
+  const { notification, hideNotification } = useAppStore();
 
   useEffect(() => {
-    isVisible &&
-      setTimeout(() => {
-        dispatch(hideNotif());
-      }, timeOut);
-  }, [isVisible]);
+    if (notification.visible) {
+      const timer = setTimeout(() => {
+        hideNotification();
+      }, 4000); // Default timeout
 
-  return isVisible ? (
+      return () => clearTimeout(timer);
+    }
+  }, [notification.visible, hideNotification]);
+
+  return notification.visible ? (
     <div
-      className={`NotificationMessage ${isVisible ? "isVisible" : ""} ${
-        theme === "light" ? "light" : ""
+      className={`NotificationMessage isVisible ${
+        notification.type === "success"
+          ? "success"
+          : notification.type === "error"
+            ? "error"
+            : "info"
       }`}
     >
-      {icon && (
-        <div className="NotificationMessageVisual">
-          <MaterialIcon icon={icon} />
-        </div>
-      )}
+      <div className="NotificationMessageVisual">
+        <MaterialIcon
+          icon={
+            notification.type === "success"
+              ? "check_circle"
+              : notification.type === "error"
+                ? "error"
+                : "info"
+          }
+        />
+      </div>
 
-      <div className="NotificationMessageContent">{message}</div>
+      <div className="NotificationMessageContent">{notification.message}</div>
     </div>
   ) : null;
 }
