@@ -21,11 +21,10 @@
 /build
 /dist
 
-# misc
+# system files
 .DS_Store
 *.pem
 /.cache
-/migration
 
 # debug
 *.log
@@ -49,3 +48,8 @@ next-env.d.ts
 
 # IDE
 .idea/
+
+# project
+/migration
+/legacy
+/backend
