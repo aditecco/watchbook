@@ -9,7 +9,7 @@ import {
   SECONDARY_DATASET_KEY,
   UI_LABELS,
 } from "@/constants";
-import { animated, useSpring } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 import { useAppStore } from "@/store";
 import { useAuth } from "@/hooks/use-auth";
 import { ContentService, NoteService } from "@/lib/services";
