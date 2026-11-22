@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "../../styles/abstracts" as *;
+
 /* ---------------------------------
 .Card
 --------------------------------- */
@@ -100,7 +103,7 @@
         @extend %resetAnchors;
 
         > span {
-          margin-right: $margin / 3;
+          margin-right: math.div($margin, 3);
 
           &:last-child {
             border-bottom: 1px dashed black;
@@ -116,7 +119,7 @@
         display: block;
         text-transform: uppercase;
         color: $fontAlt;
-        padding-right: $padding / 2;
+        padding-right: math.div($padding, 2);
         font-family: $archivo;
         font-size: 0.85rem;
       }
@@ -129,7 +132,7 @@
     @include flex(row wrap, space-evenly, flex-start);
 
     > button {
-      margin-top: $margin / 2;
+      margin-top: math.div($margin, 2);
     }
 
     .LinkButton {

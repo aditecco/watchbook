@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../../styles/abstracts" as *;
+
 /* ---------------------------------
 AppFooter
 --------------------------------- */
@@ -12,7 +15,7 @@ AppFooter
   font-family: $workSans;
   text-align: center;
   font-size: 0.8em;
-  background-color: darken($accent, 5%);
+  background-color: color.adjust($accent, $lightness: -5%);
   z-index: 2;
 
   /*

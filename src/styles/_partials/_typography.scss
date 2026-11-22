@@ -2,6 +2,10 @@
 typography.scss
 ======================== */
 
+@use "sass:math";
+@use "vars" as *;
+@use "colors" as *;
+
 // font definitions (tmp)
 // TODO
 // - convert remote > local
@@ -36,5 +40,5 @@ $title: $body * 1.2;
   font-size: $xSmall;
   color: $flat-gray-4;
   text-transform: uppercase;
-  margin: 0 0 $margin / 3;
+  margin: 0 0 math.div($margin, 3);
 }
