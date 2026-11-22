@@ -3,7 +3,9 @@ dataProcessor
 --------------------------------- */
 
 import { removeDuplicates } from "./utils";
-import { RuntimeFilterLabels } from "./types";
+import { FilterOption, RuntimeFilterLabels } from "./types";
+
+type SortFn = (a: string, b: string) => number;
 
 export default class DataProcessor {
   // https://stackoverflow.com/questions/48657481/in-javascript-is-constructor-mandatory-in-a-class
@@ -13,15 +15,15 @@ export default class DataProcessor {
    * common operations
    */
 
-  primeData(data, sortFn = undefined) {
+  primeData(data: string[], sortFn?: SortFn): string[] {
     return removeDuplicates(data).sort(sortFn);
   }
 
-  finalizeData(data, sortKey) {
+  finalizeData(data: FilterOption[], sortKey: string): FilterOption[] {
     return [["", `Select a ${sortKey}`]].concat(data);
   }
 
-  applyGenericProcessing(data, sortKey) {
+  applyGenericProcessing(data: string[], sortKey: string): FilterOption[] {
     return this.finalizeData(
       this.primeData(data).map((el) => [el]),
       sortKey,
@@ -37,16 +39,16 @@ export default class DataProcessor {
    multiple first names
    */
 
-  director(data, sortKey) {
-    function invertOrder(data) {
-      const split = data.split(" ");
+  director(data: string[], sortKey: string): FilterOption[] {
+    function invertOrder(name: string) {
+      const split = name.split(" ");
 
       if (split.length === 2) {
         // Woody Allen => Allen Woody
         return split.reverse().join(" ");
       }
 
-      return data;
+      return name;
     }
 
     return this.finalizeData(
@@ -98,7 +100,7 @@ export default class DataProcessor {
    * - remove ranges
    */
 
-  year(data, sortKey) {
+  year(data: string[], sortKey: string): FilterOption[] {
     return this.applyGenericProcessing(data, sortKey).filter(
       (year) => !year[0].includes("–"),
     );
@@ -108,7 +110,7 @@ export default class DataProcessor {
    * handles the 'country' type
    */
 
-  country(data, sortKey) {
+  country(data: string[], sortKey: string): FilterOption[] {
     return this.applyGenericProcessing(data, sortKey);
   }
 
@@ -116,7 +118,7 @@ export default class DataProcessor {
    * handles the 'genre' type
    */
 
-  genre(data, sortKey) {
+  genre(data: string[], sortKey: string): FilterOption[] {
     return this.applyGenericProcessing(data, sortKey);
   }
 
@@ -124,16 +126,16 @@ export default class DataProcessor {
    * handles the 'type' type
    */
 
-  type(data, sortKey) {
+  type(data: string[], sortKey: string): FilterOption[] {
     return this.applyGenericProcessing(data, sortKey);
   }
 
   /**
-   * handles the 'runtime' type
+   * handles the 'runtime' type (fixed buckets; the data is ignored)
    */
 
-  runtime(data, sortKey) {
-    data = [
+  runtime(_data: string[], sortKey: string): FilterOption[] {
+    const buckets = [
       RuntimeFilterLabels.UP_TO_30,
       RuntimeFilterLabels.UP_TO_60,
       RuntimeFilterLabels.UP_TO_90,
@@ -145,15 +147,16 @@ export default class DataProcessor {
       RuntimeFilterLabels.MORE_THAN_300,
     ];
 
-    function sortByNumberAsc(a, b) {
-      const _a = parseInt(a.match(/[\d]+/)[0]);
-      const _b = parseInt(b.match(/[\d]+/)[0]);
+    function firstNumber(label: string) {
+      return parseInt(label.match(/\d+/)?.[0] ?? "0");
+    }
 
-      return _a - _b;
+    function sortByNumberAsc(a: string, b: string) {
+      return firstNumber(a) - firstNumber(b);
     }
 
     return this.finalizeData(
-      this.primeData(data, sortByNumberAsc).map((el) => [el]),
+      this.primeData(buckets, sortByNumberAsc).map((el) => [el]),
       sortKey,
     );
   }

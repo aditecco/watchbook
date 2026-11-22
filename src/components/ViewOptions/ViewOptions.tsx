@@ -5,12 +5,19 @@ ViewOptions
 import React from "react";
 import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 
+type ViewOptionsProps = {
+  labels: { on: string; off: string };
+  icons: { on?: string; off?: string };
+  toggleCallback: () => void;
+  toggleStatus: boolean;
+};
+
 export default function ViewOptions({
   labels,
   icons,
   toggleCallback,
   toggleStatus,
-}) {
+}: ViewOptionsProps) {
   return (
     <div className="viewOptions">
       <button className="viewToggle" type="button" onClick={toggleCallback}>

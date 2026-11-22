@@ -10,14 +10,23 @@ import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 import { UI_LABELS } from "../../constants";
 import { Dataset } from "../../types";
 
-// TODO
+type ContentListItem = {
+  image: string;
+  title: string;
+  type: string;
+  year: string;
+  id?: string;
+  key?: string; // legacy data structure
+  [field: string]: unknown;
+};
+
 interface OwnProps {
-  compact?;
-  content;
+  compact?: boolean;
+  content: ContentListItem[];
   dataSet: Dataset;
-  infiniteScroll?;
+  infiniteScroll?: boolean;
   limit: number;
-  observerRef?;
+  observerRef?: (node?: Element | null) => void;
   title: string;
 }
 

@@ -18,7 +18,7 @@ import QuickSearch from "@/components/QuickSearch/QuickSearch";
 import DataProvider from "@/components/DataProvider";
 import { UI_LABELS } from "@/constants";
 import { useAppStore } from "@/store";
-import { Dataset } from "@/types";
+import { ActiveFilters, Dataset } from "@/types";
 
 interface OwnProps {
   dataSet: Dataset;
@@ -61,7 +61,7 @@ export default function ContentPage({
   const { showFilters, compactView, activeQuery, resetFilters } = state;
 
   // New state for handling multiple active filters
-  const [activeFilters, setActiveFilters] = useState({});
+  const [activeFilters, setActiveFilters] = useState<ActiveFilters>({});
   const [searchQuery, setSearchQuery] = useState("");
 
   const [renderedItemsLimit, setRenderedItemsLimit] = useState(10);

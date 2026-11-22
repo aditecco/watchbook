@@ -4,6 +4,15 @@ FilterAndSort
 
 import React from "react";
 import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
+import { ActiveFilters, FilterOptions } from "@/types";
+
+export type FilterAndSortProps = {
+  sortHandler: (filterKey: string, value: string) => void;
+  resetHandler: () => void;
+  sortOptions: FilterOptions;
+  toggleCallback: () => void;
+  activeFilters?: ActiveFilters;
+};
 
 // TODO rename 'sortHandler' and the like
 export default function FilterAndSort({
@@ -12,7 +21,7 @@ export default function FilterAndSort({
   sortOptions: options,
   toggleCallback,
   activeFilters = {},
-}) {
+}: FilterAndSortProps) {
   return (
     <div className="FilterAndSort">
       <button className="closeButton" onClick={toggleCallback}>
@@ -42,8 +51,7 @@ export default function FilterAndSort({
                   className="watchedSort"
                   value={activeFilters[sortKey] || ""}
                 >
-                  {/* TODO */}
-                  {(optionsArray as any[]).map(([value, label], i) => (
+                  {optionsArray.map(([value, label], i) => (
                     <option
                       value={i === 0 ? "" : value}
                       key={"option-" + i}
