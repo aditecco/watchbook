@@ -2,6 +2,8 @@
 fx.scss
 ======================== */
 
+@use "colors" as *;
+
 $border: 1px solid rgba($flat-gray-2, 0.5);
 $borderDark: 1px solid rgba($flat-gray-2, 0.8);
 $outline: null;

@@ -1,0 +1,7 @@
+// Shared variables, mixins, functions and placeholders. Use with:
+// @use "<path>/styles/abstracts" as *;
+@forward "./_partials/vars";
+@forward "./_partials/colors";
+@forward "./_partials/typography";
+@forward "./_partials/fx";
+@forward "./_partials/logic";

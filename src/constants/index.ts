@@ -18,7 +18,7 @@ export const WARNING_VALUE_NEEDED = (item: string) =>
 export const UI_LABELS = {
   allLoaded: "All content was loaded.",
   quickSearchPlaceholder: "Filter by title…",
-  cardControlsLabels(type) {
+  cardControlsLabels(type: string) {
     switch (type) {
       case SECONDARY_DATASET_KEY: {
         return ["Set Watched", "Delete"];

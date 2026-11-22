@@ -78,3 +78,25 @@ export type SearchFormInitialStateType = {
   error: string;
   searchByID: boolean;
 };
+
+// Filters (FilterProvider / FilterAndSort)
+export type FilterSortKey =
+  | "year"
+  | "director"
+  | "country"
+  | "genre"
+  | "type"
+  | "runtime";
+
+/** [value, label?]; the first entry of each list is the "Select a …" placeholder. */
+export type FilterOption = string[];
+export type FilterOptions = Record<string, FilterOption[]>;
+export type ActiveFilters = Record<string, string>;
+export type FilterQuery = { activeFilters: ActiveFilters; searchQuery: string };
+
+/** A content item as DataProvider hands it to the filters (string-valued fields). */
+export type FilterableItem = {
+  title?: string | null;
+  runtime?: string | null;
+  [key: string]: unknown;
+};

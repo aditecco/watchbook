@@ -2,7 +2,9 @@
 colors.scss
 ======================== */
 
-@import "flat-ui-colors-sass/_flat-colors";
+@use "sass:color";
+@use "flat-ui-colors-sass/flat-colors" as *;
+@forward "flat-ui-colors-sass/flat-colors";
 
 $accent: $flat-red-1;
 $accentDark: $flat-red-2;
@@ -10,7 +12,7 @@ $backgroundMain: $flat-gray-1;
 $backgroundLight: rgba($backgroundMain, 0.4);
 $backgroundDark: null;
 
-$font: lighten(black, 0.2);
+$font: color.adjust(black, $lightness: 0.2%);
 $fontAlt: #444;
 $fontLight: $flat-gray-4;
 

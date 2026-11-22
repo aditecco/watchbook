@@ -2,6 +2,10 @@
 logic.scss
 ======================== */
 
+@use "sass:math";
+@use "colors" as *;
+@use "typography" as *;
+
 /* ---------------------------------
 resets & placeholders
 --------------------------------- */
@@ -52,7 +56,7 @@ functions & mixins
 
 @function emCalc($target, $context: 10) {
   // ref: https://stackoverflow.com/questions/13905407/append-unit-type-to-the-result-of-a-calculation
-  @return ($target / $context) * 1em;
+  @return math.div($target, $context) * 1em;
 }
 
 // should replace prev, watch for broken includes

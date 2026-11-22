@@ -2,6 +2,10 @@
 common.scss
 ======================== */
 
+@use "sass:color";
+@use "sass:math";
+@use "../abstracts" as *;
+
 /* ---------------------------------
 error styling
 --------------------------------- */
@@ -111,7 +115,7 @@ body {
 .BaseButton {
   display: inline-block;
   min-width: 130px;
-  padding: $padding / 2;
+  padding: math.div($padding, 2);
   border-radius: $radius;
   text-decoration: none;
   background-color: $accent;
@@ -130,7 +134,7 @@ body {
   }
 
   &:hover {
-    background-color: mix($accent, black, 70%);
+    background-color: color.mix($accent, black, 70%);
   }
 
   &.button--naked {
@@ -156,7 +160,7 @@ body {
   padding: 4px 8px;
   border: 2px solid $accent;
   border-radius: $radius;
-  margin-bottom: $margin / 2;
+  margin-bottom: math.div($margin, 2);
   font-size: $small;
   text-align: center;
   color: $accent;

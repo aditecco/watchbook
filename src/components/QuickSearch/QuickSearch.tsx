@@ -6,13 +6,21 @@ import React from "react";
 import MaterialIcon from "@/components/MaterialIcon/MaterialIcon";
 import { addClasses } from "../../utils";
 
+export type QuickSearchProps = {
+  className?: string;
+  filterHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputValue: string;
+  resetHandler: () => void;
+  placeholder?: string;
+};
+
 export default function QuickSearch({
-  className,
+  className = "",
   filterHandler,
   inputValue: value,
   resetHandler,
   placeholder,
-}) {
+}: QuickSearchProps) {
   return (
     <div className={"QuickSearch" + addClasses(className)}>
       <div className="wrapper">
