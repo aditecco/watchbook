@@ -1,32 +1,35 @@
 import type { Metadata } from "next";
-import { Archivo, Fira_Sans, Montserrat, Work_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/index.scss";
 import Providers from "@/components/Providers";
 import AuthWrapper from "@/components/AuthWrapper";
 import NotificationMessage from "@/components/NotificationMessage/NotificationMessage";
 import Modal from "@/components/Modal/Modal";
 
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+// Self-hosted (latin subset from Google Fonts, SIL OFL) so builds never hit the network.
+const archivo = localFont({
+  src: [
+    { path: "./fonts/archivo-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/archivo-700.woff2", weight: "700", style: "normal" },
+  ],
   variable: "--font-archivo",
 });
 
-const firaSans = Fira_Sans({
-  subsets: ["latin"],
-  weight: ["400"],
+const firaSans = localFont({
+  src: "./fonts/fira-sans-400.woff2",
+  weight: "400",
   variable: "--font-fira-sans",
 });
 
-const workSans = Work_Sans({
-  subsets: ["latin"],
-  weight: ["500"],
+const workSans = localFont({
+  src: "./fonts/work-sans-500.woff2",
+  weight: "500",
   variable: "--font-work-sans",
 });
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400"],
+const montserrat = localFont({
+  src: "./fonts/montserrat-400.woff2",
+  weight: "400",
   variable: "--font-montserrat",
 });
 
